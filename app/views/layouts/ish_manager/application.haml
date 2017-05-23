@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %title Ish manager
+    = stylesheet_link_tag    "ish_manager/application", media: "all"
+    = javascript_include_tag "ish_manager/application"
+    = csrf_meta_tags
+  %body
+    = render :partial => 'main_header'
+    %p.notice= notice
+    %p.alert= alert
+    = yield
+    = render :partial => 'main_footer'

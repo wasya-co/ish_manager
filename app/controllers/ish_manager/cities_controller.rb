@@ -1,9 +1,9 @@
 class IshManager::CitiesController < IshManager::ApplicationController
-  before_filter :set_lists, :only => [ :new_newsitem, :create_newsitem ]
-  before_filter :sett_city, :only => [ :show, :edit ]
+  before_action :set_lists, :only => [ :new_newsitem, :create_newsitem ]
+  before_action :sett_city, :only => [ :show, :edit ]
 
   def index
-    authorize! :index, ManagerCity.new
+    authorize! :cities_index, Manager
     @cities = City.all
     @city = City.new
     @photo = Photo.new
