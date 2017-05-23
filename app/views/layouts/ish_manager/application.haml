@@ -6,8 +6,8 @@
     = javascript_include_tag "ish_manager/application"
     = csrf_meta_tags
   %body
-    = render :partial => 'main_header'
+    = render :partial => 'ish_manager/application/main_header'
     %p.notice= notice
     %p.alert= alert
     = yield
-    = render :partial => 'main_footer'
+    = render :partial => 'ish_manager/application/main_footer'

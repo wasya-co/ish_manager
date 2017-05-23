@@ -1,19 +1,21 @@
 
-.row
-  .large-12.columns
-    = render 'manager/cities/header'
-
-    %ul.large-block-grid-4
-      - @cities.each do |city|
-        %li
-          = link_to city.name, manager_city_path(city)
-          = link_to '[~]', edit_manager_city_path(city)
-
-          = render 'manager/cities/meta', :city => city
-          .small.gray= city.id
+.container
+  .row
+    .col-xs-12
+      = render 'header'
       
+    - @cities.each do |city|
+      .col-xs-3
+        .panel.panel-default
+          .panel-heading
+            = link_to city.name, city_path(city)
+            = link_to '[~]', edit_city_path(city)
+            .small.gray= city.id
+            .cities-meta= "(#{city.reports.length}) (#{city.galleries.length}) (#{city.current_users.length})"
+    
           - if city.profile_photo.blank?
             = image_missing
+            %div{ :style => "width: 100px; height: 100px; background: #cecece;" }
           - else
             = image_tag city.profile_photo.photo.url(:thumb)
 
