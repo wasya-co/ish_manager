@@ -1,5 +1,5 @@
 IshManager::Engine.routes.draw do
-  root :to => 'manager#home'
+  root :to => 'application#home'
 
   resources :cities
   resources :events
