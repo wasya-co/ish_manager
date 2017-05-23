@@ -9,14 +9,15 @@ Gem::Specification.new do |s|
   s.version     = IshManager::VERSION
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of IshManager."
-  s.description = "TODO: Description of IshManager."
+  s.homepage    = "http://wasya.co"
+  s.summary     = "Summary of IshManager."
+  s.description = "Description of IshManager."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency "rails", "~> 5.1.1"
+  s.add_dependency "activeadmin", "~> 1.0.0"
 
   s.add_development_dependency "sqlite3"
 end
