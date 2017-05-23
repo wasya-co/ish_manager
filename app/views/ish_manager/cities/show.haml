@@ -1,0 +1,58 @@
+
+- title "City #{@city.name}"
+
+.row
+  .large-12.columns
+
+    %h2
+      = @city.name
+      = link_to '[~]', edit_manager_city_path(@city)
+
+    - unless @city.profile_photo.blank?
+      = image_tag @city.profile_photo.photo.url(:thumb)
+
+    %hr
+    %ul.menu-secondary
+      %li
+        = link_to '[+]', new_manager_city_feature_path( @city )
+        Features (#{@city.features.length})
+      %li
+        = link_to '[+]', new_manager_city_newsitem_path( @city )
+        Newsitems (#{@city.newsitems.length})
+      %li New Report
+      %li New Gallery
+      %li New Video
+      %li New Venue
+      %li New Event
+      %li New Community
+    %hr
+
+    = render 'manager/features/index', :features => @city.features, :city => @city
+    = render 'manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
+    
+    %h3
+      = t('reports.list')
+      (#{@city.reports.length})
+    %ul
+      - @city.reports.each do |report|
+        %li
+          = link_to '[~]', edit_manager_report_path(report)
+          = report.name
+
+    .galleries-list
+      %h3
+        = t('galleries.list')
+        (#{@city.galleries.length})
+      = render '/manager/galleries/list_short', :galleries => @city.galleries
+
+    %h3
+      = t('users.list')
+      (#{@city.current_users.length})
+      
+    %h3 Events (#{@city.events.length})
+    %ul
+      - @city.events.each do |event|
+        %li= event.name
+        
+    %h3 Venues (#{@city.venues.length})
+    %h3 Videos (#{@city.videos.length})

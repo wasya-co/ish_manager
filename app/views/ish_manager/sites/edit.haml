@@ -1,0 +1,9 @@
+
+.row
+  .large-12.columns
+    Edit site http://#{@site.domain}/#{@site.lang}
+    %br
+    %br
+      
+= render 'manager/sites/form', :site => @site
+= render 'manager/newsitems/index', :newsitems => @site.newsitems.limit(10), :site => @site

@@ -1,0 +1,57 @@
+
+- url ||= manager_site_path(site)
+.manager-sites--form
+  = form_for site, :url => url do |f|
+    .row
+      .large-6.columns
+        = f.label :domain
+        = f.text_field :domain
+      .large-6.columns
+        = f.label :lang
+        = f.text_field :lang
+
+    .row
+      .large-6.columns
+        = f.label :title
+        = f.text_field :title
+      .large-6.columns
+        = f.label :subhead
+        = f.text_field :subhead
+        
+    .row
+      .large-6.columns
+        = f.label :homepage_layout
+        = f.text_field :homepage_layout
+      .large-6.columns
+        = f.label :layout
+        = f.text_field :layout
+
+    .row
+      .large-6.columns
+        = f.label :n_features
+        = f.text_field :n_features
+      .large-6.columns
+        = f.label :n_newsitems
+        = f.text_field :n_newsitems
+
+    .row
+      .small-4.columns
+        = f.label :is_trash
+        = f.check_box :is_trash
+      .small-4.columns
+        = f.label :is_private
+        = f.check_box :is_private
+      .small-4.columns
+        = f.label :is_ads_enabled
+        = f.check_box :is_ads_enabled
+        
+    .row
+      .large-12.columns
+        n features, n newsitems, n reports, n galleries.
+        %br
+        Is ads enabled? Are users enabled?
+
+    .row
+      .large-12.columns.actions
+        = f.submit
+        

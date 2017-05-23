@@ -1,0 +1,19 @@
+
+.row
+  .large-12.columns
+    = render 'manager/cities/header'
+
+    %ul.large-block-grid-4
+      - @cities.each do |city|
+        %li
+          = link_to city.name, manager_city_path(city)
+          = link_to '[~]', edit_manager_city_path(city)
+
+          = render 'manager/cities/meta', :city => city
+          .small.gray= city.id
+      
+          - if city.profile_photo.blank?
+            = image_missing
+          - else
+            = image_tag city.profile_photo.photo.url(:thumb)
+

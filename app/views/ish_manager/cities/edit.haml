@@ -1,0 +1,11 @@
+
+%h1.center= @city.name
+= render 'form', :url => manager_city_path
+%hr
+
+.row
+  .small-12.columns
+    = render 'manager/features/index', :features => @city.features, :city => @city
+%hr
+= render 'manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
+

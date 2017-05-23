@@ -1,0 +1,27 @@
+
+.manager-sites-index
+  .row
+    .large-12.columns
+      %h3 Sites
+      %ul.large-block-grid-2
+        - @sites.each do |site|
+          %li
+            %h4
+              = link_to "http://#{site.domain}/#{site.lang}", site_path( site )
+              = link_to '[~]', edit_site_path( site )
+            .title Title: #{site.title}
+            .subhead Subhead: #{site.subhead}
+            .gray= site.id
+
+            %ul
+              %li
+                #{site.galleries.length} galleries
+              %li
+                #{site.newsitems.length} newsitems
+              %li
+                = link_to "#{site.n_reports} reports (#{site.n_private_reports} private)", site_reports_path( site.id )
+              %li
+                #{site.tags.length} tags
+              %li
+                #{site.videos.length} videos
+            

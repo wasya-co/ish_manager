@@ -1,0 +1,51 @@
+
+- url ||= manager_cities_path
+
+.manager-cities--form
+  = form_for @city, :url => url do |f|
+    .row
+      .small-6.columns
+        .field
+          %label= t('cities.name')
+          = f.text_field :name
+        .field
+          = image_flag 'en'
+          %label= t('cities.name_en')
+          = f.text_field :name_en
+        .field
+          = image_flag 'ru'
+          %label= t('cities.name')
+          = f.text_field :name_ru
+        .field
+          = image_flag 'pt'
+          %label= t('cities.name')
+          = f.text_field :name_pt
+        .field
+          %label CityName
+          = f.text_field :cityname
+      .small-6.columns
+        .field
+          %label Feature?
+          = f.check_box :is_feature
+        .field
+          = f.label :n_features
+          = f.number_field :n_features
+          
+        .field
+          %label Calendar
+          = f.text_area :calendar_frame
+        .field
+          %label coords
+          = f.text_field :x
+          = f.text_field :y
+                    
+        -# Only if editing 
+        - unless @city.updated_at.blank?  
+          .change-profile-pic
+            %h2 Change profile pic
+            - begin
+              = image_tag @city.profile_photo.photo.url(:thumb)
+            - rescue
+              
+        .actions
+          = f.submit
