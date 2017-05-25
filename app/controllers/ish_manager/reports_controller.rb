@@ -1,10 +1,11 @@
 
-class Manager::ReportsController < Manager::ManagerController
+class IshManager::ReportsController < IshManager::ApplicationController
 
-  before_action :authenticate_user!
-  before_filter :set_lists
+  # before_filter :authenticate_user!
+  # before_filter :set_lists
 
   def index
+    authorize! :index, Report
     @reports = Report.unscoped.where( :is_trash => false ).page( params[:reports_page] ).per( Report::PER_PAGE )
     if false === params[:site]
       @reports = @reports.where( :site_id => nil )
@@ -17,6 +18,7 @@ class Manager::ReportsController < Manager::ManagerController
 
   def show
     @report = Report.unscoped.where({ :is_trash => false }).find params[:id]
+    authorize! :show, @report
   end
 
   def edit
