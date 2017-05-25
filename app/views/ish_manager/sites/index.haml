@@ -1,11 +1,11 @@
 
-.manager-sites-index
+.sites-index
+  %h3 Sites
   .row
-    .large-12.columns
-      %h3 Sites
-      %ul.large-block-grid-2
-        - @sites.each do |site|
-          %li
+    - @sites.each do |site|
+      .col-xs-6
+        .panel.panel-primary
+          .panel-body
             %h4
               = link_to "http://#{site.domain}/#{site.lang}", site_path( site )
               = link_to '[~]', edit_site_path( site )
@@ -24,4 +24,4 @@
                 #{site.tags.length} tags
               %li
                 #{site.videos.length} videos
-            
+        

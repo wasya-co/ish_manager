@@ -5,5 +5,5 @@
     %br
     %br
       
-= render 'manager/sites/form', :site => @site
-= render 'manager/newsitems/index', :newsitems => @site.newsitems.limit(10), :site => @site
+= render 'form', :site => @site
+= render 'ish_manager/newsitems/index', :newsitems => @site.newsitems.limit(10), :site => @site

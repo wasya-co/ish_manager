@@ -1,6 +1,7 @@
 class IshManager::SitesController < IshManager::ApplicationController
   
   def index
+    authorize! :index, @site
     @sites = Site.all.order_by( :domainname => :desc, :lang => :desc )
   end
 
@@ -12,6 +13,7 @@ class IshManager::SitesController < IshManager::ApplicationController
 
   def show
     @site = Site.find params[:id]
+    authorize! :show, @site
     @galleries = @site.galleries.unscoped.where({ :is_trash => false }).page( params[:galleries_page] ).per( 10 )
     @reports = @site.reports.unscoped.where({ :is_trash => false }).page( params[:reports_page] ).per( 10 )
     @videos = @site.videos.page( params[:videos_page] ).per( 5 )
