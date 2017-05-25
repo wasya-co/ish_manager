@@ -1,0 +1,17 @@
+
+- if defined? site
+  - edit_url   = ->(n) { edit_manager_site_newsitem_path( site, n ) }
+  - delete_url = ->(n) { manager_site_newsitem_path( site, n ) }
+- if defined? city
+  - edit_url   = ->(n) { edit_manager_city_newsitem_path( city, n ) }
+  - delete_url = ->(n) { manager_city_newsitem_path( city, n ) }
+  
+.row
+  .small-12.columns
+    %h2 Newsitems (#{newsitems.count})
+    %ul
+      - newsitems.each do |n|
+        %li
+          = link_to '[~]', edit_url.call( n )
+          = link_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = n.name

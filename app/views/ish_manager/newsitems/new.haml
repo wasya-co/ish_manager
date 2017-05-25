@@ -1,0 +1,16 @@
+
+- if @city
+  - url = manager_city_newsitems_path( :city_id => @city.id )
+- if @site
+  - url = manager_site_newsitems_path( :site_id => @site.id )
+  
+.row
+  .small-12.columns
+    %h1
+      New Newsitem
+    - if @site
+      For Site #{@site.domain}
+    - if @city
+      For City #{@city.name}
+    = render 'form', :newsitem => @newsitem, :url => url
+  

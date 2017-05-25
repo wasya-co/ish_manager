@@ -1,0 +1,16 @@
+
+.row
+  .large-12.columns
+    %h1
+      Edit Feature
+    .meta
+      = "in city #{@feature.city.name}" unless @feature.city.blank?
+      = "in site http://#{@feature.site.domain}/#{@feature.site.lang}" unless @feature.site.blank?
+      = "in tag #{@feature.tag.name}" unless @feature.tag.blank?
+      
+- if @site
+  = render 'manager/features/form', :feature => @feature, :site => @site
+- elsif @city
+  = render 'manager/features/form', :feature => @feature, :city => @city
+- elsif @tag
+  = render 'manager/features/form', :feature => @feature, :tag => @tag

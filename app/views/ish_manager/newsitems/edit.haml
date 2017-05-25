@@ -1,0 +1,14 @@
+
+- if defined? @city
+  - url = manager_city_newsitem_path( @city, @newsitem ) if @city
+- if defined? @site
+  - url = manager_site_newsitem_path( @site, @newsitem ) if @site
+
+.row
+  .small-12.columns
+    %h1 Edit this newsitem
+    For site: #{@sity} <br />
+    city: #{@city} <br />
+    id: #{@newsitem.id}
+    
+    = render 'form', :newsitem => @newsitem, :url => url

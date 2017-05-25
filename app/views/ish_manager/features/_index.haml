@@ -1,0 +1,23 @@
+
+- if defined? city
+  - edit_url   = -> (feature ) { edit_city_feature_path( city.id, feature.id ) }
+  - delete_url = -> (feature ) { city_feature_path(      city.id, feature.id ) }
+  - new_path   = new_city_feature_path( city.id )
+- if defined? site
+  - edit_url   = -> (feature) { edit_manager_site_feature_path( site.id, feature.id ) }
+  - delete_url = -> (feature) { manager_site_feature_path(      site.id, feature.id ) }
+  - new_path   = new_manager_site_feature_path( site.id )
+  
+.manager-features--index
+  %h2
+    Features (#{features.length})
+    = link_to '[+]', new_path
+    
+  -# = paginate features, :param_name => 'features_page'
+  %ul.large-block-grid-4
+    - features.each_with_index do |feature, idx|
+      %li
+        = link_to '[~]', edit_url.call( feature )
+        = link_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        .item= render 'manager/features/item', :feature => feature
+         

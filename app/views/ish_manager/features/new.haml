@@ -1,0 +1,11 @@
+
+.row
+  .large-12.columns
+    %h3 New Feature
+
+- if @city
+  = render 'form', :feature => @feature, :city => @city
+- if @site
+  = render 'form', :feature => @feature, :site => @site
+- if @tag
+  = render 'form', :feature => @feature, :tag => @tag

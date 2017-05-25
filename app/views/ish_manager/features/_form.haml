@@ -1,0 +1,61 @@
+
+-# manager/features/_form
+  
+- if @site
+  - if 'new' == params[:action]
+    - url = manager_site_features_path site.id 
+  - if 'edit' == params[:action]
+    - url = manager_site_feature_path site.id, feature.id 
+- elsif @city
+  - if 'new' == params[:action]
+    - url = manager_city_features_path city.id
+  - if 'edit' == params[:action]
+    - url = manager_city_feature_path city.id, feature.id 
+- elsif @tag
+  - if 'new' == params[:action]
+    - url = manager_tag_features_path tag.id
+  - if 'edit' == params[:action]
+    - url = manager_tag_feature_path tag.id, feature.id 
+
+= form_for feature, :url => url do |f|
+  .row
+    .large-6.columns
+      = f.label :name
+      = f.text_field :name
+      %br
+      = f.label :subhead
+      = f.text_field :subhead
+      %br
+      = f.label :image_path
+      = f.text_field :image_path
+      %br
+      = f.label :link_path
+      = f.text_field :link_path
+      %br
+      = f.label :photo
+      = f.file_field :photo
+    .large-6.columns
+      = f.label :report
+      = select :feature, :report_id, @reports_list
+      %br
+      = f.label :gallery
+      = select :feature, :gallery_id, @galleries_list
+      %br
+      = f.label :video
+      = select :feature, :video_id, @videos_list
+      
+  .row
+    %hr
+    .large-6.columns 
+      %br
+      = f.label :weight
+      = f.text_field :weight
+      %br
+      = f.label :partial_name
+      = f.text_field :partial_name
+    .large-6.columns
+      .field
+        = f.label :inner_html
+        = f.text_area :inner_html
+      .actions
+        = f.submit

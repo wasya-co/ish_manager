@@ -1,0 +1,53 @@
+
+- n ||= newsitem
+
+- if !n.photo.blank?
+  .Nphoto.panel
+    .the-photo
+      - if n.photo.gallery.blank?
+        = link_to image_tag( n.photo.photo.url(:small) ), n.photo.photo.url(:large), :rel => 'lightbox[newsitem]'
+      - else
+        = link_to image_tag( n.photo.photo.url(:small) ), gallery_path( n.photo.gallery.galleryname, n.photo.gallery.photos.index(n.photo) ) 
+    .meta= render 'photos/meta', :photo => n.photo
+      
+- if !n.report.blank?
+  .Nreport
+    %h3= link_to n.report.name, report_path(n.report.name_seo)
+    .meta
+      New Report on #{pretty_date n.report.created_at} by #{n.report.username}
+    - unless n.report.photo.blank?
+      .thumb= link_to image_tag(n.report.photo.photo.url(:thumb), :alt => ''), report_path( n.report.name_seo )
+    .subhead= n.report.subhead
+    .c
+      
+- if !n.gallery.blank?
+  .Ngallery
+    %h3= link_to n.gallery.name, gallery_path(n.gallery.galleryname, 0)
+    .meta 
+      #{t('newsitems.new_gallery', :username => n.gallery.username, :date => pretty_date(n.gallery.created_at))}
+      - unless n.gallery.city.blank?
+        = t('cities.in')
+        = link_to n.gallery.city.name, city_path(n.gallery.city.cityname, :lang => :en)
+      - unless n.gallery.tag.blank?
+        = t('tags.in')
+        = link_to n.gallery.tag.name, tag_path(n.gallery.tag.name_seo)
+    - unless 0 == n.gallery.photos.length
+      - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|
+        = link_to image_tag( photo.photo.url(:thumb), :alt => photo.name ), photo.photo.url(:small), :rel => "lightbox[#{n.gallery.galleryname}]"
+    -# .subhead= n.descr
+    .c
+      
+- if !n.video.blank?
+  .Nvideo
+    %h3
+      = link_to (n.video.name.blank? ? t('videos.no_title') : n.video.name), video_path(n.video.youtube_id)
+    = render 'application/meta', :item => n.video
+    = render 'videos/embed_half', :video => n.video
+    .c
+      
+- if !n.descr.blank? && n.gallery.blank? && n.report.blank?
+  .Ndescr.panel
+    .meta= pretty_date n.created_at
+    .subhead= simple_format n.descr
+    .c
+      

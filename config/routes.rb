@@ -1,7 +1,9 @@
 IshManager::Engine.routes.draw do
   root :to => 'application#home'
 
-  resources :cities
+  resources :cities do
+    resources :features
+  end
   resources :events
   resources :galleries
   resources :newsitems

@@ -1,0 +1,25 @@
+
+.row
+  .large-12.columns
+    %h5 Features in <b>#{@resource.class.name}</b> #{@resource.name}/
+
+    %ul
+      - @resource.features.each do |feature|
+        %li
+          .gray= feature.id
+          
+          = link_to '[~]', edit_manager_city_feature_path( @resource, feature ) if 'City' == @resource.class.name
+          = link_to '[~]', edit_manager_tag_feature_path( @resource, feature ) if 'Tag' == @resource.class.name
+          = link_to '[~]', edit_manager_site_feature_path( @resource, feature ) if 'Site' == @resource.class.name
+          = link_to '[~]', edit_manager_venue_feature_path( @resource, feature ) if 'Venue' == @resource.class.name
+          
+          = link_to( '[x]', manager_city_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'City' == @resource.class.name
+          = link_to( '[x]', manager_tag_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Tag' == @resource.class.name
+          = link_to( '[x]', manager_site_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Site' == @resource.class.name
+          = link_to( '[x]', manager_venue_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Venue' == @resource.class.name
+          
+          %ul
+            %li Name #{feature.name}
+            %li Subhead: #{feature.subhead}
+            %li Report: #{feature.report}
+            %li Gallery: #{feature.gallery}

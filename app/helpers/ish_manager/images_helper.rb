@@ -30,7 +30,8 @@ module IshManager::ImagesHelper
   end
 
   def image_flag locale
-    image_tag "flags/#{locale.to_s}.png"
+    # image_tag "flags/#{locale.to_s}.png"
+    "[#{locale.to_s}]"
   end
 
   def image_city cityname
