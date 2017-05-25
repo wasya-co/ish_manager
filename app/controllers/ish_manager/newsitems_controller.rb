@@ -1,8 +1,7 @@
 
-class Manager::NewsitemsController < Manager::ManagerController
+class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def new
-    authorize! :new, ManagerNewsitem.new
     @newsitem = Newsitem.new
     if params[:city_id]
       @city = City.find params[:city_id]
@@ -15,8 +14,6 @@ class Manager::NewsitemsController < Manager::ManagerController
   end
 
   def create
-    authorize! :create, ManagerNewsitem.new
-
     n = Newsitem.new params[:newsitem].permit!
     n.report  = Report.find  params[:newsitem][:report_id]  unless params[:newsitem][:report_id].blank?
     n.gallery = Gallery.find params[:newsitem][:gallery_id] unless params[:newsitem][:gallery_id].blank?

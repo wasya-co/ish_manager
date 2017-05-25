@@ -1,5 +1,5 @@
 
-class Manager::PhotosController < Manager::ManagerController
+class IshManager::PhotosController < IshManager::ApplicationController
 
   # @TODO: this is bad? _vp_ 20170513
   skip_authorization_check :only => [ :j_create ]
