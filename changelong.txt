@@ -2,3 +2,4 @@
 0.1.1 - rollback to no so many controllers, for api compatibility
 0.1.2 - putting all the controllers back in.
 0.1.3 - manager_controller and such cannot be
+        no heavy images in assets
