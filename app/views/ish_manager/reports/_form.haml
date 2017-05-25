@@ -1,0 +1,42 @@
+
+- url ||= manager_reports_path
+= form_for @report, :url => url, :html => { :multipart => true } do |f|
+
+  - if @report.errors.any?
+    #error_explanation
+      %h3= t('e.there_are_errors')
+
+      %ul
+        - @report.errors.full_messages.each do |msg|
+          %li= msg
+
+  .name= f.text_field :name
+  .subhead= f.text_area :subhead
+  .descr= f.text_area :descr, :class => 'tinymce'
+
+  .row
+    .large-6.columns
+      = f.label :city_id
+      = select :report, :city_id, @cities_list
+
+      = f.label :coords
+      = f.text_field :x
+      = f.text_field :y
+
+      = f.label :site
+      = select :report, :site_id, @sites_list
+      
+    .large-6.columns
+      = f.label :tag_id
+      = select :report, :tag_id, @tags_list
+      
+      .check
+        = f.label :is_public
+        = f.check_box :is_public
+
+      = f.file_field :photo
+
+      = recaptcha_tags
+
+      = f.submit
+      

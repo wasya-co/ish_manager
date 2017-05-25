@@ -1,0 +1,34 @@
+
+.row
+  .col-xs-12
+    .center
+      Gallery
+      %h2
+        #{@gallery.name} (#{@photos.length})
+        = link_to '[~]', edit_gallery_path( @gallery )
+        [x]
+      = @gallery.galleryname
+      = render 'meta', :gallery => @gallery
+
+.row
+  %ul
+    - @photos.each do |photo|
+      %li.col-xs-1= image_tag photo.photo.url( :mini ), :alt => ''
+
+.spacer{ :style => 'height: 500px' }
+
+.row
+  %ul
+    - @photos.each do |photo|
+      %li.col-xs-2
+        = link_to '[x]', photo_path( :id => photo.id ), :method => :delete, :confirm => 'Are you sure?'
+        %br
+        = image_tag photo.photo.url( :thumb ), :alt => ''
+        
+.spacer{ :style => 'height: 500px' }
+        
+.center
+  %ol
+    - @photos.each do |photo|
+      %li.item
+        = image_tag photo.photo.url( :large ), :alt => ''

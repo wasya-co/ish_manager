@@ -1,0 +1,30 @@
+
+.row
+  .large-12.columns
+    %h3
+      Manager Reports Index
+      - if @site
+        In #{@site.domain}/#{@site.lang}
+
+    .meta
+      n reports: #{@reports.length}
+
+    = paginate @reports, :param_name => :reports_page
+    
+    %ol
+      - @reports.each do |report|
+        %li
+          = link_to '[~]', edit_manager_report_path( report )
+          = link_to '[x]', manager_report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - if report.is_public
+            [public&nbsp;]
+          - else
+            [private]
+          = link_to report.name, manager_report_path( report )
+          %br
+          .gray
+            - if report.site
+              Site #{report.site.domain}/#{report.site.lang}
+
+    = paginate @reports, :param_name => :reports_page
+    

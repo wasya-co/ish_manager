@@ -21,9 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "haml", [ '~> 5.0' ]
   s.add_dependency "cancancan", [ "~> 2.0" ]
   s.add_dependency "devise", [ "~> 4.3" ]
-
-  ## such garbage!
-  # s.add_dependency "bootstrap", [ "~> 4.0.0.alpha6" ]
-  # s.add_dependency "jquery-rails", "> 0"
+  s.add_dependency "kaminari-mongoid", [ "~> 1.0" ]
+  s.add_dependency "kaminari-actionview", [ "~> 1.0" ]
 
 end

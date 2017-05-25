@@ -1,0 +1,18 @@
+
+.manager-reports-show
+  .row
+    .large-12.columns
+      %h1= @report.name
+
+      .meta
+        By #{link_to @report.user.username, manager_user_path( @report.user )}
+        On #{@report.created_at.to_s.slice(0, 10)}
+        In #{link_to "http://#{@report.site.domain}/#{@report.site.lang}", manager_site_path( @report.site )}
+        - if @report.tag
+          Tagged #{link_to @report.tag.name, manager_tag_path( @report.tag )}
+        - if @report.city
+          In #{link_to @report.city.name, manager_city_path( @report.city )}
+
+      - if @report.subhead.length > 3
+        .subhead= @report.subhead
+      .descr= raw @report.descr

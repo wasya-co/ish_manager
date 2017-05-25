@@ -1,0 +1,12 @@
+
+.manager-videos--index
+  .row
+    .large-12.columns
+      %h2 Videos (#{videos.length})
+
+      = paginate videos, :param_name => :videos_page
+      %ol
+        - videos.each do |video|
+          %li= video.name
+      = paginate videos, :param_name => :videos_page
+

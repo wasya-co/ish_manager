@@ -1,0 +1,12 @@
+
+- #
+- # manager / galleries / _thumbs
+- #
+
+%hr
+.manager-galleries--thumbs
+  .row
+    .large-12.columns
+      - gallery.photos.each do |photo|
+        = image_tag photo.photo.url( :thumb )
+%hr

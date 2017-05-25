@@ -1,0 +1,46 @@
+
+- url ||= manager_galleries_path
+
+= form_for gallery, :url => url do |f|
+  .row
+    .large-12.columns
+      = f.label :name
+      = f.text_field :name
+      = gallery.galleryname
+      %br
+      %br
+      
+  .row
+    .large-4.columns
+      = f.label :site
+      = select :gallery, :site_id, @sites_list
+    .large-4.columns
+      = f.label :city
+      = select :gallery, :city_id, @cities_list
+    .large-4.columns
+      = f.label :tag
+      = select :gallery, :tag_id, @tags_list
+    .large-4.columns
+      = f.label :user
+      = select :gallery, :user_id, @users_list
+    .large-4.columns.end
+      = f.label :venue
+      = select :gallery, :venue_id, @venues_list
+
+  .row
+    .large-3.columns
+      = f.label :is_public
+      = f.check_box :is_public
+    .large-3.columns
+      = f.label :is_done
+      = f.check_box :is_done
+    .large-3.columns
+      = f.label :is_trash
+      = f.check_box :is_trash
+    .large-3.columns
+      = f.label :is_feature
+      = f.check_box :is_feature    
+  
+  .row
+    .large-3.columns.end
+      = f.submit

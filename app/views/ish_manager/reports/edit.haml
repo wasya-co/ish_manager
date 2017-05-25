@@ -1,0 +1,6 @@
+
+.row
+  .large-12.columns
+    %h1= t 'reports.edit'
+
+    = render 'form', :url => manager_report_path(@report.id)

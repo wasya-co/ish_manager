@@ -1,0 +1,15 @@
+
+.row
+  .large-12.columns
+    %h1 Titled Galleries
+
+    %ul
+      - @galleries.each do |gallery|
+        %li
+          %h4= link_to gallery.name, manager_gallery_path(gallery)
+          %span
+            = link_to '[~]', edit_manager_gallery_path( gallery )
+            = link_to '[x]', manager_gallery_path( gallery ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            = is_public_image_tag( gallery )
+            <i>#{gallery.created_at.to_s.slice(0, 10)}</i>
+    

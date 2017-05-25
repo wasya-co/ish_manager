@@ -1,0 +1,16 @@
+
+.galleries--meta
+  .row
+    .large-12.columns
+      - if gallery.site
+        Site #{link_to "http://#{gallery.site.domain}/#{gallery.site.lang}", site_path(gallery.site)}
+      - if gallery.user
+        User #{link_to gallery.user.username, user_path(gallery.user)}
+      - if gallery.tag
+        Tag #{link_to gallery.tag.name, tag_path(gallery.tag)}
+      - if gallery.city
+        City #{link_to gallery.city.name, city_path(gallery.city)}
+      - if gallery.venue
+        Venue #{link_to gallery.venue.name, venue_path(gallery.venue)}
+      - if gallery.is_trash
+        = trash_image_tag

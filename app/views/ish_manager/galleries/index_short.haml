@@ -1,0 +1,19 @@
+
+
+%h2
+  = link_to 'Galleries', manager_galleries_path
+  = link_to '[+]', new_manager_gallery_path
+
+.as
+  - @galleries.each do |g|
+    .clear
+    .a
+      = link_to '[~]', edit_manager_gallery_path(g)
+      = link_to g.name, manager_gallery_path(g.id)
+      = link_to '[+]', new_photo_path( :galleryname => g.galleryname )
+      = link_to '[++]', add_photos_path(g.id)
+      .float-right= button_to '[x]', manager_gallery_path(g), :method => :delete
+
+.clear
+= paginate @galleries, :param_name => :galleries_page
+

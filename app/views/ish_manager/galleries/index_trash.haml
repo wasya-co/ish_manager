@@ -1,0 +1,20 @@
+
+%ol.galleries-index
+  - @galleries.each do |g|
+    %li
+      = link_to '[~]', edit_manager_gallery_path( g )
+      = link_to g.name, manager_gallery_path( g.galleryname )
+      = link_to '[+]', new_photo_path( :galleryname => g.galleryname )
+      = link_to '[++]', add_photos_path( g.id )
+      .delete= button_to '[x]', manager_gallery_path( g.galleryname ), :method => :delete
+      .site= g.site.domain unless g.site.blank?
+      .tag= g.tag.name unless g.tag.blank?
+        
+      %br
+      - g.photos.fresh.each_with_index do |ph, idx|
+        - break if idx == Photo.n_per_manager_gallery - 1
+        = link_to image_tag( ph.photo.url( :mini ), :alt => '' ), ph.photo.url(:large), :rel => "lightbox[#{g.galleryname}]"
+
+.c
+- unless params[:fullindex]
+  = paginate @galleries, :param_name => :galleries_page

@@ -1,0 +1,16 @@
+
+.row
+  .large-12.columns
+    %h1 Manager Galleries List
+
+    = paginate @galleries, :param_name => :galleries_page
+    %ul
+      - @galleries.each do |gallery|
+        %li
+          = link_to '[~]', edit_manager_gallery_path( gallery )
+          = link_to gallery.name, manager_gallery_path( gallery )
+          %br
+          - gallery.photos.each_with_index do |photo, idx|
+            - if idx < 8
+              = image_tag photo.photo.url :thumb
+    = paginate @galleries, :param_name => :galleries_page

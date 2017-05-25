@@ -1,0 +1,17 @@
+
+.title
+  %h5
+    .btn-group
+      %a{ 'data-toggle' => 'dropdown', :class => 'btn dropdown-toggle' }
+        = t('galleries.list')
+        %span.caret
+      %ul.dropdown-menu
+        %li= link_to 'Add New', new_manager_gallery_path
+        %li= link_to 'Public', :action => :index, :public => '1'
+        %li= link_to 'Nonpublic', :action => :index, :public => '0'
+        %li= link_to 'Done', :action => :index, :done => '1'
+        %li= link_to 'Nondone', :action => :index, :done => '0'
+        %li= link_to 'Trash', :action => :index, :is_trash => '1'
+        %li= link_to 'Fullindex', manager_galleries_fullindex_path
+        %li= link_to 'Paginated', manager_galleries_path
+        %li= link_to 'Short List', :action => :index, :short_list => true

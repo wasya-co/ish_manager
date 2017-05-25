@@ -1,8 +1,8 @@
 module IshManager
   class ApplicationController < ActionController::Base
     protect_from_forgery :with => :exception
-
     before_action :set_current_ability
+    check_authorization
 
     def home
       authorize! :home, Manager

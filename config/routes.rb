@@ -8,6 +8,7 @@ IshManager::Engine.routes.draw do
   resources :galleries
   resources :newsitems
   resources :reports
+  resources :photos
   resources :sites do
     resources :galleries
     resources :reports

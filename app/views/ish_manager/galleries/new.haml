@@ -1,0 +1,7 @@
+
+.row
+  .large-12.columns
+    %h3 New Gallery
+    = flash[:error]
+    
+= render 'manager/galleries/form', :gallery => @gallery

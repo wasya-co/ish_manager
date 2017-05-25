@@ -9,5 +9,6 @@
     = render :partial => 'ish_manager/application/main_header'
     %p.notice= notice
     %p.alert= alert
-    = yield
+    .container
+      = yield
     = render :partial => 'ish_manager/application/main_footer'

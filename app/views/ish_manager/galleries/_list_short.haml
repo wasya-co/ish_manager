@@ -1,0 +1,9 @@
+
+%ul
+  - galleries.each do |gallery|
+    %li
+      = link_to '[~]', edit_manager_gallery_path( gallery )
+      = link_to gallery.name, manager_gallery_path( gallery )
+      %br
+      \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      N photos: #{gallery.photos.length}
