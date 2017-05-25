@@ -1,7 +1,7 @@
 
-class Manager::FeaturesController < Manager::ManagerController
+class IshManager::FeaturesController < IshManager::ApplicationController
 
-  before_filter :set_lists
+  before_action :set_lists
   
   def new
     authorize! :new, ManagerFeature.new
