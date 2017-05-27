@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -ex
+
+./scripts/version_bump
+
+bundle
+
+gem build ish_manager.gemspec
+gem push ish_manager-`cat VERSION`.gem
+
+git add .
+git commit -m 'autobuild `date "+%Y%m%d"`'
+git push
+
+echo "ish_manager build ok"
+

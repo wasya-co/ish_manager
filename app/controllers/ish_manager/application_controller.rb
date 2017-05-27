@@ -22,6 +22,7 @@ module IshManager
       @reports_list = Report.all.list
       @galleries_list = Gallery.all.list
       @videos_list = Video.all.list
+      @user_profiles_list = UserProfile.all.list
     end
 
   end

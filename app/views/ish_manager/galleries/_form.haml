@@ -19,7 +19,10 @@
     .col-sm-4
       = f.label :venue
       = select :gallery, :venue_id, @venues_list
-
+    .col-sm-4
+      = f.label :user_proifle
+      = select :user_profile, :user_profile_id, @user_profiles_list
+      
   .row
     .col-sm-3
       = f.label :is_public

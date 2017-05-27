@@ -21,14 +21,15 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def new
     @gallery = Gallery.new
+    authorize! :new, @gallery
     @cities_list = City.list
     @tags_list = Tag.list
   end
 
   def create
     @gallery = Gallery.new params[:gallery].permit!
-    @gallery.user = current_user
     authorize! :create, @gallery
+    # @gallery.username = current_user.profile.username
 
     if @gallery.save
       flash[:notice] = 'Success'

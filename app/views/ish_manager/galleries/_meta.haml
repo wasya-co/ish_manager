@@ -4,8 +4,7 @@
     .large-12.columns
       - if gallery.site
         Site #{link_to "http://#{gallery.site.domain}/#{gallery.site.lang}", site_path(gallery.site)}
-      - if gallery.user
-        User #{link_to gallery.user.username, user_path(gallery.user)}
+        User :: #{gallery.username ? gallery.username.inspect : '<no-user>' }
       - if gallery.city
         City #{link_to gallery.city.name, city_path(gallery.city)}
       - if gallery.venue

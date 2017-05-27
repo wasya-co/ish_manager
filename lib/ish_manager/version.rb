@@ -1,3 +1,3 @@
 module IshManager
-  VERSION = '0.1.5'
+  VERSION = File.read("VERSION")
 end
