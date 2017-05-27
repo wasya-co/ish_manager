@@ -1,17 +1,17 @@
 
-%hr
-%ul
-  %li ~__^
-  - if current_user
-    %li
-      >[ #{current_user.email} ]<
-      %div{ :style => 'float: left' }= button_to '[x]', main_app.destroy_user_session_path, :method => :delete
-  - else
-    %li
-      Please log in
-      = link_to '[+]', main_app.new_user_session_path
+.container
+  %br
+  .row
+    .col-sm-6
+      - if current_user
+        >[ #{current_user.email} ]<
+        = button_to '[x]', main_app.destroy_user_session_path, :method => :delete
+      - else
+        Please log in
+        = link_to '[+]', main_app.new_user_session_path
 
-
-%br
-%br
-%br
+    .col-sm-6
+      %br
+      \~__^
+      %br
+      %br

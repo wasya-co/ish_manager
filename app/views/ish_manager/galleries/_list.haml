@@ -6,7 +6,7 @@
     - galleries.each do |g|
       .item
         %h3
-          = link_to '[~]', edit_gallery_path( g.galleryname )
+          = link_to '[~]', edit_gallery_path( g )
           = link_to g.name, gallery_path(g.galleryname)
         -# = render 'meta', :item => g
         - if g.photos.length == 0

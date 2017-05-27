@@ -3,21 +3,5 @@
   .row
     .small-12.columns
       %h3.center Add Photos
-      %ul{ :id => 'photos', :class => 'thumbnails', 'data-json-url' => manager_j_gallery_path( gallery.id ) }
-      %input{ :id => 'fileupload', :type => 'file', :name => 'photo[photo]', 'data-url' => manager_photos_multiadd_path( gallery.galleryname ), :multiple => '' }
-      
-%script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"}
-%script{:src => "/js/jquery.ui.widget.js"}
-%script{:src => "/js/jquery.iframe-transport.js"}
-%script{:src => "/js/jquery.fileupload.js"}
-:javascript
-  $(function () {
-      $('#fileupload').fileupload({
-          dataType: 'json',
-          done: function (e, data) {
-              $.each(data.result.files, function (index, file) {
-                  $('<p/>').text(file.name).appendTo(document.body);
-              });
-          }
-      });
-  });
+      %ul{ :id => 'photos', :class => 'thumbnails' }
+      %input{ :id => 'fileupload', :type => 'file', :name => 'photo[photo]', 'data-url' => gallery_multiadd_path( gallery.galleryname ), :multiple => '' }

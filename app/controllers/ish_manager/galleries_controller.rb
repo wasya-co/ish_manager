@@ -1,14 +1,18 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
-  # before_action :set_lists
+  before_action :set_lists
   
   def index
     authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where( :is_trash => false ).order_by( :created_at => :desc ).page( params[:galleries_page] ).per( 10 )
+    @galleries = Gallery.unscoped.where( :is_trash => false
+                                       ).order_by( :created_at => :desc 
+                                                 ).page( params[:galleries_page] ).per( 10 )
   end
 
   def index_thumb
-    @galleries = Gallery.unscoped.where( :is_trash => false ).order_by( :created_at => :desc ).page( params[:galleries_page] ).per( 10 )
+    @galleries = Gallery.unscoped.where( :is_trash => false 
+                                       ).order_by( :created_at => :desc 
+                                                 ).page( params[:galleries_page] ).per( 10 )
   end
 
   def index_mini
@@ -28,7 +32,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
     if @gallery.save
       flash[:notice] = 'Success'
-      redirect_to manager_galleries_path
+      redirect_to galleries_path
     else
       flash[:error] = 'No Luck. ' + @gallery.errors.inspect
       @cities_list = City.list
@@ -39,13 +43,15 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def edit
     @gallery = Gallery.unscoped.find params[:id]
+    authorize! :edit, @gallery
   end
 
   def update
     @gallery = Gallery.unscoped.find params[:id]
+    authorize! :update, @gallery
     if @gallery.update_attributes( params[:gallery].permit! )
       flash[:notice] = 'Success.'
-      redirect_to manager_galleries_path
+      redirect_to galleries_path
     else
       flash[:error] = 'No Luck. ' + @gallery.errors
       render :action => :edit
@@ -63,7 +69,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @gallery.is_trash = true
     @gallery.save
     flash[:notice] = 'Logically deleted gallery.'
-    redirect_to manager_galleries_title_path
+    redirect_to galleries_path
   end
 
   def j_show

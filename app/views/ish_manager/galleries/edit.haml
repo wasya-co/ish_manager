@@ -1,11 +1,5 @@
 
-.row
-  .large-12.columns
-    %h1
-      = t('galleries.edit')
-      = link_to @gallery.name, manager_gallery_path( @gallery )
-      (#{@gallery.photos.count})
-    
-= render 'manager/galleries/form', :gallery => @gallery, :url => manager_gallery_path( @gallery )
-= render 'manager/galleries/thumbs', :gallery => @gallery
-= render 'manager/photos/multinew', :gallery => @gallery
+= render 'title', :gallery => @gallery    
+= render 'form', :gallery => @gallery, :url => gallery_path( @gallery )
+= render 'thumbs', :gallery => @gallery
+= render 'ish_manager/photos/multinew', :gallery => @gallery

@@ -1,5 +1,0 @@
-
-.manager-galleries--thumbs
-  %ul
-    - gallery.photos.each do |photo|
-      %li= image_tag photo.photo

@@ -5,7 +5,9 @@ IshManager::Engine.routes.draw do
     resources :features
   end
   resources :events
-  resources :galleries
+  resources :galleries do
+    post 'multiadd', :to => 'photos#j_create', :as => :multiadd
+  end
   resources :newsitems
   resources :reports
   resources :photos

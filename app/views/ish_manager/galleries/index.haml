@@ -7,12 +7,12 @@
 
 .container
   .row
-    .col-xs-6
+    .col-sm-6
       %h4
         = t('galleries.list')
         = link_to '[+]', new_gallery_path
-    .col-xs-6= render 'search'
+    .col-sm-6= render 'search'
   .row
-    .lcol-xs-12
+    .col-sm-12
       -# = render 'ish_manager/galleries/menu_secondary'
       = render 'ish_manager/galleries/list', :galleries => @galleries

@@ -11,6 +11,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
 
   def destroy
     @photo = Photo.unscoped.find params[:id]
+    authorize! :destroy, @photo
     @photo.is_trash = true
     @photo.save
     redirect_to request.referrer
@@ -29,13 +30,11 @@ class IshManager::PhotosController < IshManager::ApplicationController
       gallery = Gallery.unscoped.where( :galleryname => params[:galleryname] ).first
       @photo.gallery_id = gallery.id
     elsif params[:gallery_id]
-      gallery = Gallery.find( params[:gallery_id] )
+      gallery = Gallery.unscoped.where( :galleryname => params[:gallery_id] ).first
+      gallery ||= Gallery.find( params[:gallery_id] )
       @photo.gallery_id = gallery.id
     end
    
-    # @TODO this is badd
-    @photo.user = User.where( :username => 'piousbox' ).first
-
     if @photo.save
       j = { :name => @photo.photo.original_filename,
         :size => @photo.photo.size,

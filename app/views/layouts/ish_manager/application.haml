@@ -3,12 +3,16 @@
   %head
     %title Ish manager
     = stylesheet_link_tag    "ish_manager/application", media: "all"
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" }
     = javascript_include_tag "ish_manager/application"
     = csrf_meta_tags
   %body
-    = render :partial => 'ish_manager/application/main_header'
-    %p.notice= notice
-    %p.alert= alert
-    .container
-      = yield
+    .bg-white
+      = render :partial => 'ish_manager/application/main_header'
+      - if notice
+        %p.notice= notice
+      - if alert
+        %p.alert= alert
+      .container
+        = yield
     = render :partial => 'ish_manager/application/main_footer'

@@ -1,14 +1,5 @@
 
-.row
-  .col-xs-12
-    .center
-      Gallery
-      %h2
-        #{@gallery.name} (#{@photos.length})
-        = link_to '[~]', edit_gallery_path( @gallery )
-        [x]
-      = @gallery.galleryname
-      = render 'meta', :gallery => @gallery
+= render 'title', :gallery => @gallery
 
 .row
   %ul

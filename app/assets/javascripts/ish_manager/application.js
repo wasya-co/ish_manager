@@ -10,5 +10,28 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+//= require ish_manager/jquery-3.2.1.min
+//= require ish_manager/bootstrap.min
+//= require ish_manager/jquery.iframe-transport
+//= require ish_manager/jquery.ui.widget
+//= require ish_manager/jquery.fileupload
 //
+// require_tree .
+//
+
+$(function () {
+  $('#fileupload').fileupload({
+    dataType: 'json',
+    done: function (e, data) {
+      var photos = $('#photos');
+      var tempUrl = data.result[0].thumbnail_url;
+      $('<img/>').attr('src', tempUrl).appendTo(photos);
+    }
+  });  
+});
+
+$(document).ready(function () {
+  $('*[data-confirm]').click(function(){
+    return confirm($(this).attr('data-confirm'));
+  });
+});

@@ -15,5 +15,14 @@ module IshManager
       @current_ability ||= ::IshManager::Ability.new( current_user )
     end
 
+    def set_lists
+      @sites_list = Site.all.list
+      @cities_list = City.all.list
+      @venues_list = Venue.all.list
+      @reports_list = Report.all.list
+      @galleries_list = Gallery.all.list
+      @videos_list = Video.all.list
+    end
+
   end
 end

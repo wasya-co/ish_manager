@@ -1,12 +1,13 @@
 
 - #
-- # manager / galleries / _thumbs
+- # ish_manager / galleries / _thumbs
 - #
 
 %hr
-.manager-galleries--thumbs
-  .row
-    .large-12.columns
-      - gallery.photos.each do |photo|
-        = image_tag photo.photo.url( :thumb )
+.row
+  - gallery.photos.each do |photo|
+    .col-xs-6.col-sm-6.col-md-4.col-lg-2
+      %br
+      = button_to '[x]', photo_path( photo ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      .thumb= image_tag( photo.photo.url( :thumb ), :alt => '' )
 %hr
