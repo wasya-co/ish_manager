@@ -34,7 +34,11 @@ class IshManager::PhotosController < IshManager::ApplicationController
       gallery ||= Gallery.find( params[:gallery_id] )
       @photo.gallery_id = gallery.id
     end
-   
+
+    # cache
+    @photo.gallery.site.touch if @photo.gallery.site
+    @photo.gallery.city.touch if @photo.gallery.city
+
     if @photo.save
       j = { :name => @photo.photo.original_filename,
         :size => @photo.photo.size,

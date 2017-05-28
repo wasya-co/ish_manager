@@ -11,6 +11,7 @@ class IshManager::Ability
 
       if user.profile && user.profile.manager?
         can :manage, :all
+        can [ :home ], Manager
       end
 
       can [ :show ], Gallery do |gallery|
@@ -18,7 +19,7 @@ class IshManager::Ability
       end
       
     end
-    user ||= User.new
+    user ||= ::User.new
     
     can [ :read ], Gallery do |gallery|
       gallery.is_public
