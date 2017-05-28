@@ -31,13 +31,14 @@ class IshManager::PhotosController < IshManager::ApplicationController
       @photo.gallery_id = gallery.id
     elsif params[:gallery_id]
       gallery = Gallery.unscoped.where( :galleryname => params[:gallery_id] ).first
-      gallery ||= Gallery.find( params[:gallery_id] )
+      gallery ||= Gallery.unscoped.find( params[:gallery_id] )
       @photo.gallery_id = gallery.id
     end
 
     # cache
     @photo.gallery.site.touch if @photo.gallery.site
     @photo.gallery.city.touch if @photo.gallery.city
+    @photo.gallery.touch
 
     if @photo.save
       j = { :name => @photo.photo.original_filename,
