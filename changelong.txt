@@ -7,3 +7,4 @@
         photo upload to galleries
 0.1.5 - be able to create a gallery
         hella rspec setup
+        be able to delete photo in a gallery...

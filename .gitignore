@@ -9,5 +9,6 @@ test/dummy/tmp/
 test/dummy/vendor
 
 *~
+\#*
 *.trash
 ish_manager-*.gem
