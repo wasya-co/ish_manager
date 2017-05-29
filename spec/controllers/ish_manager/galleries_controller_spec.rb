@@ -1,14 +1,7 @@
 require 'spec_helper'
 
-# this is bad... dummy app should have devise installed, and class User
-IshManager::GalleriesController.class_eval do
-  def current_user
-    # yolo
-  end
-end
-
 describe IshManager::GalleriesController, :type => :controller do
-  render_views
+  # render_views # errors out due to current_user in view
   routes { IshManager::Engine.routes }
   before :each do
     ;

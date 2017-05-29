@@ -5,6 +5,8 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
+require_relative './initializers/00_s3.rb'
+
 Bundler.require(*Rails.groups)
 require "ish_manager"
 

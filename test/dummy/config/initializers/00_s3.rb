@@ -1,0 +1,2 @@
+
+::S3_CREDENTIALS ||= {}

@@ -2,4 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', "~> 5.1"
 gem 'devise'
-gem 'haml' # why?
+gem 'haml'
+
+gem 'mongoid'
+gem 'mongoid-paperclip'
+gem 'aws-sdk'
+gem 'kaminari'
+gem 'kaminari-mongoid'
+gem 'activeadmin'
+gem 'cancancan'
+gem 'ish_models'

@@ -11,21 +11,22 @@ class IshManager::Ability
 
       if user.profile && user.profile.manager?
         can :manage, :all
-        can [ :home ], Manager
+        can [ :home ], ::Manager
+        can :destroy, ::Photo
       end
 
-      can [ :show ], Gallery do |gallery|
+      can [ :show ], ::Gallery do |gallery|
         gallery.user == user
       end
       
     end
     user ||= ::User.new
     
-    can [ :read ], Gallery do |gallery|
+    can [ :read ], ::Gallery do |gallery|
       gallery.is_public
     end
 
-    can [ :read ], Report do |report|
+    can [ :read ], ::Report do |report|
       report.is_public
     end
     

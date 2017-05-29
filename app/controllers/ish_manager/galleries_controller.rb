@@ -67,6 +67,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def destroy
     @gallery = Gallery.unscoped.find params[:id]
+    authorize! :destroy, @gallery
     @gallery.is_trash = true
     @gallery.save
     flash[:notice] = 'Logically deleted gallery.'

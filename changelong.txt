@@ -6,3 +6,4 @@
 0.1.4 - assets should render
         photo upload to galleries
 0.1.5 - be able to create a gallery
+        hella rspec setup
