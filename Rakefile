@@ -33,7 +33,7 @@ end
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new( :spec ) do |task|
-  task.pattern = "spec/controllers/ish_manager/gallleries_controller_spec.rb"
+  task.pattern = "spec/controllers/ish_manager/galleries_controller_spec.rb"
 end
 
 task :default => :spec
