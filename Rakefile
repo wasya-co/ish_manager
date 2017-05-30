@@ -20,8 +20,6 @@ load 'rails/tasks/engine.rake'
 
 load 'rails/tasks/statistics.rake'
 
-
-
 require 'bundler/gem_tasks'
 
 require 'rake/testtask'
@@ -32,5 +30,10 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = false
 end
 
+require 'rspec/core/rake_task'
 
-task default: :test
+RSpec::Core::RakeTask.new( :spec ) do |task|
+  task.pattern = "spec/controllers/ish_manager/gallleries_controller_spec.rb"
+end
+
+task :default => :spec
