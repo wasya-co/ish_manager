@@ -2,25 +2,22 @@
 
 set -x
 
-branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
+echo "ish_manager is only on master. as compatibility with microsites3"
+git checkout master
+
+# branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
+version=`cat VERSION`
 
 ./scripts/version_bump
 
-bundle 
+bundle
 
 gem build ish_manager.gemspec
 gem push ish_manager-`cat VERSION`.gem
 
 git add .
 git commit -m 'autobuild `date "+%Y%m%d"`'
-git checkout master
-git merge "$branch"
-git add .
-git commit -m "autobuild `date +%Y%m%d`"
 git push origin master
-git checkout "$branch"
-git merge master
-git push origin "$branch"
 
 echo "ish_manager build ok"
 
