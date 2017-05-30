@@ -26,15 +26,16 @@ class IshManager::PhotosController < IshManager::ApplicationController
     authorize! :create, @photo
     @photo.is_public = true
    
+    # find this gallery
     if params[:galleryname]
       gallery = Gallery.unscoped.where( :galleryname => params[:galleryname] ).first
-      @photo.gallery_id = gallery.id
-    elsif params[:gallery_id]
-      gallery = Gallery.unscoped.where( :galleryname => params[:gallery_id] ).first
-      gallery ||= Gallery.unscoped.find( params[:gallery_id] )
-      @photo.gallery_id = gallery.id
+      gallery ||= Gallery.unscoped.find params[:galleryname]
+    elsif params[:gallery_id] # this one, let's normalize on id everywhere in manager.
+      gallery = Gallery.unscoped.find( params[:gallery_id] )
+      gallery ||= Gallery.unscoped.where( :galleryname => params[:gallery_id] ).first
     end
-
+    @photo.gallery = gallery
+    
     # cache
     @photo.gallery.site.touch if @photo.gallery.site
     @photo.gallery.city.touch if @photo.gallery.city

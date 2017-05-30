@@ -1,7 +1,11 @@
 PATH
   remote: .
   specs:
+<<<<<<< HEAD
     ish_manager (0.1.8.9)
+=======
+    ish_manager (0.1.8.11)
+>>>>>>> 0.1.5
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)

@@ -1,17 +1,26 @@
 #!/bin/bash
 
-set -ex
+set -x
+
+branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
 
 ./scripts/version_bump
 
-bundle
+bundle 
 
 gem build ish_manager.gemspec
 gem push ish_manager-`cat VERSION`.gem
 
 git add .
 git commit -m 'autobuild `date "+%Y%m%d"`'
-git push
+git checkout master
+git merge "$branch"
+git add .
+git commit -m "autobuild `date +%Y%m%d`"
+git push origin master
+git checkout "$branch"
+git merge master
+git push origin "$branch"
 
 echo "ish_manager build ok"
 
