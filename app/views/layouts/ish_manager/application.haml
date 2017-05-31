@@ -2,8 +2,11 @@
 %html
   %head
     %title Ish manager
-    = stylesheet_link_tag    "ish_manager/application", media: "all"
+    %meta{ :name => :viewport, :content => 'width=device-width, initial-scale=1.0' }
+    %meta{ :charset => 'UTF-8' }
+    %meta{ :description => 'some description' }
     %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" }
+    = stylesheet_link_tag    "ish_manager/application", media: "all"
     = javascript_include_tag "ish_manager/application"
     = csrf_meta_tags
   %body
