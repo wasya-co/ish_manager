@@ -38,3 +38,6 @@ hr {
   width: 100px;
   height: 100px;
 }  
+.large-photos img {
+  width: 100%;
+}

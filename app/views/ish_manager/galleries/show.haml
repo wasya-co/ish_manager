@@ -9,17 +9,18 @@
 .spacer{ :style => 'height: 500px' }
 
 .row
-  %ul
+  .a
     - @photos.each do |photo|
-      %li.col-xs-2
-        = link_to '[x]', photo_path( :id => photo.id ), :method => :delete, :confirm => 'Are you sure?'
+      .col-xs-4
+        = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :confirm => 'Are you sure?'
         %br
         = image_tag photo.photo.url( :thumb ), :alt => ''
         
-.spacer{ :style => 'height: 500px' }
+.spacer{ :style => 'height: 100px' }
         
-.center
-  %ol
-    - @photos.each do |photo|
-      %li.item
-        = image_tag photo.photo.url( :large ), :alt => ''
+.center.large-photos
+  - @photos.each do |photo|
+    .item
+      = image_tag photo.photo.url( :large ), :alt => ''
+      %br
+      %br
