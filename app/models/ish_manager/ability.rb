@@ -20,13 +20,16 @@ class IshManager::Ability
       end
       
     end
+    #
+    # anonymous user
+    #
     user ||= ::User.new
     
-    can [ :read ], ::Gallery do |gallery|
+    can [ :show ], ::Gallery do |gallery|
       gallery.is_public
     end
 
-    can [ :read ], ::Report do |report|
+    can [ :show ], ::Report do |report|
       report.is_public
     end
     
