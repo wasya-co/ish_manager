@@ -1,5 +1,5 @@
 
-- n_thumbs ||= 8
+- n_thumbs ||= 9
 
 - if galleries.length > 0
   .galleries--list
@@ -12,8 +12,7 @@
         - if g.photos.length == 0
           = image_missing
         - else
-          - g.photos.each_with_index do |photo, idx|
-            - break if n_thumbs == idx + 1
+          - g.photos.limit( n_thumbs ).each do |photo|
             = link_to image_tag(photo.photo.url(:thumb), :alt => g.name, :class => :thumb ), gallery_path(g.galleryname)
     .c
 
