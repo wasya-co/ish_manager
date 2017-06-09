@@ -5,7 +5,10 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Report
-    @reports = Report.unscoped.order_by( :created_at => :desc ).where( :is_trash => false ).page( params[:reports_page] ).per( Report::PER_PAGE )
+    @reports = Report.unscoped.order_by( :created_at => :desc 
+                                       ).where( :is_trash => false
+                                              ).page( params[:reports_page] 
+                                                    ).per( Report::PER_PAGE )
     if false === params[:site]
       @reports = @reports.where( :site_id => nil )
     end
@@ -118,7 +121,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
         if @report.is_public
           n = Newsitem.new
           n.report = @report
-          n.descr = @report.name + ' ' + @report.subhead
+          n.descr = @report.subhead
           # n.user = @report.user
           @site.newsitems << n
           @site.touch
