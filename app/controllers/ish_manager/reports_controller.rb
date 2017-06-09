@@ -121,8 +121,8 @@ class IshManager::ReportsController < IshManager::ApplicationController
           n.descr = @report.name + ' ' + @report.subhead
           # n.user = @report.user
           @site.newsitems << n
+          @site.touch
           if @site.save
-            @site.touch
           else
             flash[:error] = (flash[:error]||'') + 'City could not be saved (newsitem). '
           end
