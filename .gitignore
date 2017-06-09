@@ -12,3 +12,4 @@ test/dummy/vendor
 \#*
 *.trash
 ish_manager-*.gem
+.#*

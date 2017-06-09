@@ -1,18 +1,24 @@
 
-- url ||= manager_reports_path
-= form_for @report, :url => url, :html => { :multipart => true } do |f|
+- url ||= reports_path
+= form_for report, :url => url, :html => { :multipart => true } do |f|
 
-  - if @report.errors.any?
+  - if report.errors.any?
     #error_explanation
       %h3= t('e.there_are_errors')
 
       %ul
-        - @report.errors.full_messages.each do |msg|
+        - report.errors.full_messages.each do |msg|
           %li= msg
 
-  .name= f.text_field :name
-  .subhead= f.text_area :subhead
-  .descr= f.text_area :descr, :class => 'tinymce'
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :subhead
+    = f.text_area :subhead
+  .field
+    = f.label :descr
+    .descr= f.text_area :descr, :class => 'tinymce'
 
   .row
     .large-6.columns
@@ -36,7 +42,7 @@
 
       = f.file_field :photo
 
-      = recaptcha_tags
+      -# = recaptcha_tags
 
       = f.submit
       

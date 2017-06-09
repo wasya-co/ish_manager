@@ -1,12 +1,11 @@
 
 class IshManager::ReportsController < IshManager::ApplicationController
 
-  # before_filter :authenticate_user!
-  # before_filter :set_lists
+  before_action :set_lists
 
   def index
     authorize! :index, Report
-    @reports = Report.unscoped.where( :is_trash => false ).page( params[:reports_page] ).per( Report::PER_PAGE )
+    @reports = Report.unscoped.order_by( :created_at => :desc ).where( :is_trash => false ).page( params[:reports_page] ).per( Report::PER_PAGE )
     if false === params[:site]
       @reports = @reports.where( :site_id => nil )
     end
@@ -23,10 +22,12 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   def edit
     @report = Report.unscoped.find params[:id]
+    authorize! :edit, @report
   end
 
   def destroy
     @report = Report.unscoped.find params[:id]
+    authorize! :destroy, @report
     @report.is_trash = true
     @report.save
     redirect_to request.referrer
@@ -40,7 +41,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
     photo = Photo.new
     photo.photo = params[:report][:photo]
     photo.report_id = @report.id
-    photo.user = @report.user
+    # photo.user = @report.user
     photo.is_public = @report.is_public
     photo.is_trash = false
     photo.save
@@ -48,13 +49,97 @@ class IshManager::ReportsController < IshManager::ApplicationController
     params[:report][:photo] = nil
 
     respond_to do |format|
-      if @report.update_attributes(params[:report].permit( :name, :subhead, :descr, :venue, :city, :x, :y, :tag, :is_public, :photo, :site, :site_id ))
+      if @report.update_attributes(params[:report].permit!)
         format.html do
-          redirect_to manager_report_path(@report), :notice => 'Report was successfully updated.'
+          redirect_to report_path(@report), :notice => 'Report was successfully updated.'
         end
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
+        format.json { render :json => @report.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def new
+    @report = Report.new
+    authorize! :new, @report
+    @tags_list = Tag.all.where( :is_public => true ).list
+    @sites_list = Site.all.list
+    @cities_list = City.all.list
+    @venues_list = Venue.all.list
+
+    respond_to do |format|
+      format.html do
+        render
+      end
+      format.json { render :json => @report }
+    end
+  end
+
+  def create
+    @report = Report.new params[:report].permit!
+    authorize! :create, @report
+
+    @site = Site.where( :id => params[:report][:site_id] ).first
+    @site ||= Site.find_by :domain => 'piousbox.com', :lang => :en 
+
+    # @report.user = @current_user || User.where( :username => 'anon' ).first
+    # @report.username = @report.user.username
+    @report[:lang] = @locale
+    @report.name_seo ||= @report.id
+    @report.is_feature = false
+    @report.site = @site
+
+    saved = false
+    verified = true # verify_recaptcha( :model => @report, :message => 'There is a problem with recaptcha.' ) # @TODO: what this
+    if Rails.env.development?
+      verified = true
+    end
+
+    if verified
+      saved = @report.save
+    end
+
+    respond_to do |format|
+      if saved
+
+        # photo
+        photo = Photo.new 
+        photo.photo = params[:report][:photo]
+        # photo.user = @report.user
+        photo.is_public = @report.is_public
+        photo.is_trash = false
+        photo.report_id = @report.id
+        photo.save
+
+        # for homepage
+        if @report.is_public
+          n = Newsitem.new
+          n.report = @report
+          n.descr = @report.name + ' ' + @report.subhead
+          # n.user = @report.user
+          @site.newsitems << n
+          if @site.save
+            ;
+          else
+            flash[:error] = (flash[:error]||'') + 'City could not be saved (newsitem). '
+          end
+        end
+
+        format.html do
+          redirect_to reports_path, :notice => 'Report was successfully created (but newsitem, no information).' 
+        end
+        format.json { render :json => @report, :status => :created, :location => @report }
+      else
+        format.html do
+          flash[:error] = @report.errors.inspect
+          @tags_list = Tag.all.where( :is_public => true ).list
+          @sites_list = Site.all.list
+          @cities_list = City.all.list
+
+          render :action => "new"
+        end
         format.json { render :json => @report.errors, :status => :unprocessable_entity }
       end
     end

@@ -12,10 +12,13 @@
   %body
     .bg-white
       = render :partial => 'ish_manager/application/main_header'
-      - if notice
-        %p.notice= notice
-      - if alert
-        %p.alert= alert
+      .container
+        .row
+          .col-sm-12
+            - if notice
+              %p.notice= notice
+            - if alert
+              %p.alert= alert
       .container
         = yield
     = render :partial => 'ish_manager/application/main_footer'

@@ -1,6 +1,6 @@
 
 .row
   .large-12.columns
-    %h1= t 'reports.edit'
+    %h1 Edit Report #{@report.name}
 
-    = render 'form', :url => manager_report_path(@report.id)
+    = render 'form', :url => report_path(@report.id), :report => @report

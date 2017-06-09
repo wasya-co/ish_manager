@@ -2,7 +2,9 @@
 .manager-reports-show
   .row
     .large-12.columns
-      %h1= @report.name
+      %h1
+        = @report.name
+        = link_to '[~]', edit_report_path( @report )
 
       .meta
         -# By #{link_to @report.user_profile.username, user_path( @report.user )}

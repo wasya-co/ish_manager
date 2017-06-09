@@ -1,5 +1,5 @@
 
 .row
-  .large-12.columns
-    %h2= t('reports.new')
-    = render 'reports/form'
+  .col-sm-12
+    %h2.center New Report
+    = render 'ish_manager/reports/form', :report => @report

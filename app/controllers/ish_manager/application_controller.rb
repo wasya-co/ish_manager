@@ -23,6 +23,7 @@ module IshManager
       @galleries_list = Gallery.all.list
       @videos_list = Video.all.list
       @user_profiles_list = IshModels::UserProfile.all.list
+      @tags_list = Tag.all.list
     end
 
   end
