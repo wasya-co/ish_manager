@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.16)
+    ish_manager (0.1.8.18)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -182,6 +182,8 @@ GEM
     polyamorous (1.3.1)
       activerecord (>= 3.0)
     rack (2.0.3)
+    rack-mini-profiler (0.10.5)
+      rack (>= 1.2.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.1.1)
@@ -273,6 +275,7 @@ DEPENDENCIES
   ish_manager!
   ish_models
   mongoid-paperclip
+  rack-mini-profiler
   rspec-rails
   uglifier
 
