@@ -114,6 +114,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
         photo.save
 
         # for homepage
+        # @TODO: move this to the model
         if @report.is_public
           n = Newsitem.new
           n.report = @report
@@ -121,7 +122,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
           # n.user = @report.user
           @site.newsitems << n
           if @site.save
-            ;
+            @site.touch
           else
             flash[:error] = (flash[:error]||'') + 'City could not be saved (newsitem). '
           end
