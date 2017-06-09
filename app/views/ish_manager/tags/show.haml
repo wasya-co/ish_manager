@@ -1,0 +1,30 @@
+-## tags/show
+
+- content_for :title do
+  Topic #{@tag.name}
+  
+.row
+  .large-12.columns
+    %h1.center On the topic of #{@tag.name}
+    = render 'ads/leaderboard'
+    -# .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
+    = render 'features/list', :features => @tag.features[0, Tag.n_features]
+      
+.row
+  .large-6.columns  
+    %h4 Reports
+    = render 'reports/list', :reports => @reports, :n_ads => 0
+    %hr
+    
+  .large-6.columns
+    %h4 Galleries
+    = render 'galleries/list', :galleries => @galleries, :n_thumbs => 4
+    %hr
+    
+.row
+  .large-12.columns
+    %h4
+      = t('videos.list')
+      = link_to '[+]', new_video_path( :tag_id => @tag.id )
+    = render 'videos/list', :videos => @videos
+    

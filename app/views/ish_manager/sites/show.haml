@@ -4,34 +4,34 @@
     .large-12.columns
       %h1
         Site http://#{@site.domain}/#{@site.lang}
-        = link_to '[~]', edit_manager_site_path( @site.id )
+        = link_to '[~]', edit_site_path( @site.id )
       
   .row
     .large-6.columns
-      = render 'manager/galleries/index', :galleries => @galleries
+      = render 'ish_manager/galleries/index', :galleries => @galleries
     .large-6.columns
-      = render 'manager/reports/index', :reports => @reports
+      = render 'ish_manager/reports/index', :reports => @reports
 
   .row
     .large-6.columns
-      = render 'manager/videos/index', :videos => @videos
+      = render 'ish_manager/videos/index', :videos => @videos
     .large-6.columns
-      = render 'manager/tags/index', :tags => @tags
+      = render 'ish_manager/tags/index', :tags => @tags
             
   .row
     .large-12.columns
-      = render 'manager/features/index', :features => @features, :site => @site
+      = render 'ish_manager/features/index', :features => @features, :site => @site
 
   .row
     .large-12.columns
       %h4
         Newsitems (#{@newsitems.length})
-        = link_to "[+]", new_manager_site_newsitem_path( @site )
+        = link_to "[+]", new_site_newsitem_path( @site )
       
       %ol
         - @newsitems.each do |newsitem|
           %li
             %ul
-              %li= link_to '[Delete]', manager_sites_newsitem_path(@site.id, newsitem.id), :method => :delete, :data => { :confirm => 'Are you sure?' }
-            = render 'manager/newsitems/item', :newsitem => newsitem
+              %li= button_to '[x]', site_newsitem_path(@site.id, newsitem.id), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            = render 'ish_manager/newsitems/item', :newsitem => newsitem
       = paginate @newsitems, :param_name => 'newsitems_page'

@@ -8,9 +8,9 @@
       %ol
         - reports.each do |report|
           %li
-            = link_to '[~]', edit_manager_report_path( report )
-            = link_to '[x]', manager_report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-            = link_to report.name, manager_report_path( report )
+            = link_to '[~]', edit_report_path( report )
+            = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            = link_to report.name, report_path( report )
             - if report.subhead && report.subhead.length > 3
               .subhead= report.subhead
       = paginate reports, :param_name => :reports_page

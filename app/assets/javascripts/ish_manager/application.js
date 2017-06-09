@@ -31,7 +31,16 @@ $(function () {
 });
 
 $(document).ready(function () {
-  $('*[data-confirm]').click(function(){
-    return confirm($(this).attr('data-confirm'));
-  });
+    $('*[data-confirm]').click(function(){
+        return confirm($(this).attr('data-confirm'));
+    });
+
+    if ($(".tinymce").length > 0) {
+        tinymce.init({
+            mode: "specific_textareas",
+            editor_selector: 'tinymce',
+            plugins: 'link'
+        });
+    }
 });
+ 

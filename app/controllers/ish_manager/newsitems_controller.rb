@@ -25,7 +25,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @city.newsitems << n
       flag = @city.save
       if flag
-        url = edit_manager_city_path( @city.id )
+        url = edit_city_path( @city.id )
       else
         error = 'No Luck. ' + @city.errors.inspect
       end
@@ -36,7 +36,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @site.newsitems << n
       flag = @site.save
       if flag
-        url = edit_manager_site_path( @site.id )
+        url = edit_site_path( @site.id )
       else
         error = 'No Luck. ' + @site.errors.inspect
       end
@@ -58,14 +58,15 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def destroy
+    authorize! :destroy, Newsitem
     if params[:city_id]
       flag = City.find( params[:city_id] ).newsitems.find( params[:id] ).destroy
-      url = edit_manager_city_path( params[:city_id] )
+      url = edit_city_path( params[:city_id] )
     end
     if params[:site_id]
       site = Site.find( params[:site_id] )
       flag = site.newsitems.find( params[:id] ).destroy
-      url = edit_manager_site_path( params[:site_id] )
+      url = edit_site_path( params[:site_id] )
     end
 
     flash[:notice] = "Success? #{flag}"
@@ -77,12 +78,12 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @site = Site.find params[:site_id]
       @site.touch
       @newsitem = @site.newsitems.find params[:id]
-      url = edit_manager_site_path( @site )
+      url = edit_site_path( @site )
     end
     if params[:city_id]
       @city = City.find params[:city_id]
       @newsitem = @city.newsitems.find params[:id]
-      url = edit_manager_city_path( @city )
+      url = edit_city_path( @city )
     end
     flag = @newsitem.update_attributes params[:newsitem].permit!
     

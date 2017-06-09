@@ -1,0 +1,17 @@
+
+- content_for :title do
+  = t('tags.list')
+
+.row
+  .small-12.columns
+    .center
+      %h1= t('tags.list')
+  
+    %ul.large-block-grid-2
+      - @tags.each do |tag|
+        = render 'tags/item', :tag => tag
+      - if @tags.blank?
+        %li No Tags
+
+
+

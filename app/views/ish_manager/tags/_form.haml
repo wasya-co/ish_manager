@@ -1,0 +1,19 @@
+
+-#
+-# tags / _form
+-#
+  
+= form_for @tag, :url => create_tag_path do |f|
+  = f.label :name
+  = f.text_field :name
+
+  %br
+  = f.label :is_public
+  = f.check_box :is_public
+
+  %br
+  = f.label :is_trash
+  = f.check_box :is_trash
+
+  %br
+  = f.submit
