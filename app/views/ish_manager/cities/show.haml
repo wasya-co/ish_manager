@@ -53,6 +53,7 @@
     %ul
       - @city.events.each do |event|
         %li= event.name
+
+    = render :partial => 'ish_manager/venues/index', :locals => { :venues => @city.venues }
         
-    %h3 Venues (#{@city.venues.length})
     %h3 Videos (#{@city.videos.length})

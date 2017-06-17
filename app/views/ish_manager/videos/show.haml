@@ -1,0 +1,16 @@
+
+- content_for :title do
+  #{@video.name} | #{@site.title}
+
+.row
+  .large-12.columns
+
+    %h3
+      - if @video.name.blank?
+        = t('videos.no_title')
+      - else
+        = @video.name
+    = render 'application/meta', :item => @video
+    .text-center= render 'embed', :video => @video
+
+    = render 'disqus'

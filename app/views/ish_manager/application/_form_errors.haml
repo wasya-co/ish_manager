@@ -1,0 +1,7 @@
+
+- if item.errors.any?
+  .error-explanation
+    %h5= t('e.there_are_errors')
+    %ul
+      - item.errors.full_messages.each do |msg|
+        %li= msg

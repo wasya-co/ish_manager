@@ -1,0 +1,9 @@
+
+.list-small
+  %ul
+    - videos.each do |v|
+      %li
+        = image_tag( "http://img.youtube.com/vi/#{v.youtube_id}/1.jpg" )
+        = link_to '[~]', edit_video_path( v )
+        = link_to '[_]', video_path( v )
+  = paginate videos, :param_name => :videos_page, :views_prefix => 'templates'

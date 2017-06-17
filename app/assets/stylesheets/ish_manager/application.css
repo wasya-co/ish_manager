@@ -41,3 +41,13 @@ hr {
 .large-photos img {
   width: 100%;
 }
+
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.clearfix {
+  clear: both;
+}

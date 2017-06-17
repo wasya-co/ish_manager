@@ -1,16 +1,18 @@
 
 class IshManager::VideosController < IshManager::ApplicationController
+
+  before_action :set_lists
   
   def index
     authorize! :index, Video.new
-    @videos = Video.all.where( :site_id => @site.id )
+    @videos = Video.all # .where( :site_id => @site.id )
 
     if params[:city_id]
       city = City.find params[:city_id]
       @videos = @videos.where( :city => city )
     end
 
-    if params[:tag_it]
+    if params[:tag_id]
       tag = Tag.find params[:tag_id]
       @videos = @videos.where( :tag => tag )
     end
@@ -44,8 +46,8 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.new
     authorize! :new, @video
 
-    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    @cities_list = City.list
+    # @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
+    # @cities_list = City.list
   end
   
   def create
@@ -60,8 +62,7 @@ class IshManager::VideosController < IshManager::ApplicationController
     
     if @video.save
       flash[:notice] = 'Success'      
-      expire_page :controller => 'sites', :action => 'show', :domainname => @site.domain
-      redirect_to organizer_path
+      redirect_to videos_path
     else
       flash[:error] = 'No luck'
       @tags_list = Tag.list
