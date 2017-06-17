@@ -14,17 +14,19 @@ class IshManager::CitiesController < IshManager::ApplicationController
   end
   
   def new
-    authorize! :new, ManagerCity.new
     @city = City.new
+    authorize! :new, City
+
     @photo = Photo.new
   end
 
   def create
-    authorize! :create, ManagerCity.new
     @city = City.new params[:city].permit!
+    authorize! :create, @city
+
     if @city.save
       flash[:notice] = 'Success'
-      redirect_to manager_cities_path
+      redirect_to cities_path
     else
       flash[:error] = 'No Luck'
       render :action => :new
@@ -36,12 +38,12 @@ class IshManager::CitiesController < IshManager::ApplicationController
   end
   
   def update
-    authorize! :update, ManagerCity.new
     @city = City.find( params[:id] )
+    authorize! :update, @city
     @city.update_attributes params[:city].permit!
     if @city.save
       flash[:notice] = 'Success'
-      redirect_to edit_manager_city_path @city.id
+      redirect_to edit_city_path @city.id
     else
       flash[:error] = 'No Luck. ' + @city.errors.inspect
       @newsitems = @city.newsitems.all.page( params[:newsitems_page] )
@@ -52,7 +54,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
   end
 
   def change_profile_pic
-    authorize! :change_profile_pic, ManagerCity.new
+    authorize! :change_profile_pic, City
     @city = City.find params[:id]
     @photo = Photo.new params[:photo]
     @photo.user = @current_user
@@ -64,7 +66,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
     else
       flash[:error] = "No Luck. #{@photo.errors.inspect} #{@city.errors.inspect}"
     end
-    redirect_to manager_cities_path
+    redirect_to cities_path
   end
 
   private
