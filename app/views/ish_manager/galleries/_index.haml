@@ -1,15 +1,18 @@
 
-.manager-galleries--index
-  .a
-    %h2 Galleries (#{galleries.length})
+- galleries = galleries.page( params[:galleries_page] ).per( 10 )
 
-    = paginate galleries, :param_name => :galleries_page
-    %ol
-      - galleries.each do |gallery|
-        %li
-          - gallery.photos.unscoped.where({ :is_trash => false })[0...4].each do |photo|
-            .mini= image_tag photo.photo.url( :thumb ), :alt => ''
-          .clearfix
-          #{link_to gallery.name, gallery_path( gallery )} (#{gallery.photos.unscoped.where({ :is_trash => false }).length})
-    = paginate galleries, :param_name => :galleries_page
+.manager-galleries--index
+  .row
+    .col-sm-12
+      %h2 Galleries (#{galleries.length})
+
+      = paginate galleries, :param_name => :galleries_page
+      %ol
+        - galleries.each do |gallery|
+          %li
+            - gallery.photos.unscoped.where({ :is_trash => false })[0...4].each do |photo|
+              .mini= image_tag photo.photo.url( :thumb ), :alt => ''
+            .clearfix
+            #{link_to gallery.name, gallery_path( gallery )} (#{gallery.photos.unscoped.where({ :is_trash => false }).length})
+      = paginate galleries, :param_name => :galleries_page
   %hr

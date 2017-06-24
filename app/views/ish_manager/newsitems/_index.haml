@@ -6,6 +6,8 @@
   - edit_url   = ->(n) { edit_city_newsitem_path( city, n ) }
   - delete_url = ->(n) { city_newsitem_path( city, n ) }
 
+- newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
+
 .manager-newsitems--index
   .row
     .col-sm-12

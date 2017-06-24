@@ -1,74 +1,17 @@
 
--# - title "City #{@city.name}"
-
+-#
+-# ish_manager / cities / show
+-#
+  
+= render 'header', :city => @city
+= render 'ish_manager/features/index', :features => @city.features, :city => @city
+= render 'ish_manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
 .row
-  .large-12.columns
-
-    %h2
-      = @city.name
-      = link_to '[~]', edit_city_path(@city)
-      &lt;#{@city.x}, #{@city.y}&gt;
-    - unless @city.profile_photo.blank?
-      = image_tag @city.profile_photo.photo.url(:thumb)
-
-    %hr
-    %ul.menu-secondary
-      %li
-        = link_to '[+]', new_city_feature_path( @city )
-        Features (#{@city.features.length})
-      %li
-        = link_to '[+]', new_city_newsitem_path( @city )
-        Newsitems (#{@city.newsitems.length})
-      %li
-        = link_to '[+]', new_city_report_path( @city )
-        Reports (#{@city.reports.count})
-      %li
-        = link_to '[+]', new_city_gallery_path( @city )
-        Galleries (#{@city.galleries.count})
-      %li
-        = link_to '[+]', new_city_video_path( @city )
-        Videos (#{@city.videos.count})
-      %li
-        = link_to '[+]', new_city_venue_path( @city )
-        Venues (#{@city.venues.count})
-      %li
-        = link_to '[+]', new_city_event_path( @city )
-        Events (#{@city.events.count})
-    %hr
-
-    = render 'ish_manager/features/index', :features => @city.features, :city => @city
-    %hr
-    
-    = render 'ish_manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
-    %hr
-    
-    %h3 Reports (#{@city.reports.length})
-    %ul
-      - @city.reports.each do |report|
-        %li
-          = link_to '[~]', edit_report_path(report)
-          = report.name
-    %hr
-    
-    .galleries-list
-      %h3 Galleries (#{@city.galleries.length})
-      = render 'ish_manager/galleries/list_short', :galleries => @city.galleries
-    %hr
-    
-    %h3
-      People
-      (#{@city.current_users.length})
-    %hr
-    
-    %h3 Events (#{@city.events.length})
-    %ul
-      - @city.events.each do |event|
-        %li= event.name
-    %hr
-    
-    = render :partial => 'ish_manager/venues/index', :locals => { :venues => @city.venues }
-    %hr
-    
-    %h3 Videos (#{@videos.length})
-    = render 'ish_manager/videos/index', :videos => @videos
-    %hr
+  .col-sm-6= render 'ish_manager/reports/index', :reports => @city.reports
+  .col-sm-6= render 'ish_manager/galleries/index', :galleries => @city.galleries # @TODO: why not render index?
+.row
+  .col-sm-6= render 'ish_manager/videos/index', :videos => @city.videos
+  .col-sm-6
+    = render 'ish_manager/users/index', :users => @city.current_users
+    = render 'ish_manager/events/index', :events => @city.events    
+    = render 'ish_manager/venues/index', :venues => @city.venues

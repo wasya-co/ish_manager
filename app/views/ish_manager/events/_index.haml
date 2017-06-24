@@ -1,0 +1,6 @@
+.manager-events--index
+  %h2 Events (#{@city.events.length})
+  %ul
+    - @city.events.each do |event|
+      %li= event.name
+  %hr

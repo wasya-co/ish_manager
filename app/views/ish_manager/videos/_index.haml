@@ -1,7 +1,9 @@
 
+- videos = videos.page( params[:videos_page] ).per( 10 )
+
 .manager-videos--index
   .row
-    .large-12.columns
+    .col-sm-12
       %h2 Videos (#{videos.length})
 
       = paginate videos, :param_name => :videos_page
@@ -15,4 +17,5 @@
             -# = render 'embed', :video => video
             = image_tag "https://img.youtube.com/vi/#{video.youtube_id}/0.jpg"
       = paginate videos, :param_name => :videos_page
-%hr
+  %hr
+  

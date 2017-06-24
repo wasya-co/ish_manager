@@ -1,7 +1,9 @@
 
+- reports = reports.page( params[:reports_page] ).per( 10 )
+
 .manager-reports--index
   .row
-    .large-12.columns
+    .col-sm-12
       %h2 Reports (#{reports.length})
 
       = paginate reports, :param_name => :reports_page

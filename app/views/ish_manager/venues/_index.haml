@@ -1,14 +1,15 @@
-.a
-  .b
-    %h3
-      Venues (#{venues.length})
-      = link_to '[+]', new_venue_path
-    %ol
-      - venues.each do |venue|
-        %li
-          = link_to '[~]', edit_venue_path( venue )
-          .float-left= button_to '[x]', venue_path( venue ), :method => 'delete', :html => { :confirm => 'Are you sure?' }
-          = link_to venue.name, venue_path( venue )
-          %br
-          %br
-          .clearfix
+
+.manager-venues--index
+  %h2
+    Venues (#{venues.length})
+    = link_to '[+]', new_venue_path
+  %ol
+    - venues.each do |venue|
+      %li
+        = link_to '[~]', edit_venue_path( venue )
+        .float-left= button_to '[x]', venue_path( venue ), :method => 'delete', :html => { :confirm => 'Are you sure?' }
+        = link_to venue.name, venue_path( venue )
+        %br
+        %br
+        .clearfix
+  %hr
