@@ -15,7 +15,7 @@
  */
 
 .bg-white {
-  background: white;
+  background: url('/assets/bg/confectionary.png');
   padding-bottom: 1em;
 }
 
@@ -50,6 +50,10 @@ hr {
 }
 .clearfix {
   clear: both;
+}
+
+.manager--main-header {
+  background: url('/assets/bg/weather.png');
 }
 
 .manager-galleries--index .mini {

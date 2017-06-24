@@ -41,8 +41,8 @@
   .Nvideo
     %h3
       = link_to (n.video.name.blank? ? t('videos.no_title') : n.video.name), video_path(n.video.youtube_id)
-    = render 'application/meta', :item => n.video
-    = render 'videos/embed_half', :video => n.video
+    = render 'ish_manager/application/meta', :item => n.video
+    = render 'ish_manager/videos/embed_half', :video => n.video
     .c
       
 - if !n.descr.blank? && n.gallery.blank? && n.report.blank?

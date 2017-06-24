@@ -1,8 +1,8 @@
 
 .manager-sites-show
   = render 'title', :site => @site    
-  = render 'ish_manager/features/index', :features => @features, :site => @site
-  = render 'ish_manager/newsitems/index', :newsitems => @newsitems
+  = render 'ish_manager/features/index',  :features => @features, :site => @site
+  = render 'ish_manager/newsitems/index', :newsitems => @newsitems, :site => @site
       
   .row
     .col-sm-6

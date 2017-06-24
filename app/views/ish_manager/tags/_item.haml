@@ -11,7 +11,7 @@
     - if tag.children_tags.length > 0
       %ul
         - tag.children_tags.map do |tt|
-          = render 'item', :tag => tt, :is_panel => false
+          = render 'ish_manager/tags/item', :tag => tt, :is_panel => false
 
 
 
@@ -25,7 +25,7 @@
       - tag.reports[0..Tag.n_reports-1].each do |report|
         = render 'reports/item_mini', :report => report
       .item-mini.hide
-        %h5= link_to '[More Reports]', tag_path(tag.name_seo)
+        %h5= link_to '[More Reports]', tag_14path(tag.name_seo)
       
   - if tag.galleries.length > 0
     %h5 Galleries
