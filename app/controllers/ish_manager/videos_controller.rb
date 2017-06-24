@@ -72,7 +72,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   end
   
   def edit
-    @video = Video.unscoped.find params[:video_id]
+    @video = Video.unscoped.find params[:id]
     authorize! :edit, @video
     
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
@@ -80,17 +80,32 @@ class IshManager::VideosController < IshManager::ApplicationController
   end
 
   def update
-    @video = Video.unscoped.find params[:video_id]
+    @video = Video.unscoped.find params[:id]
     authorize! :update, @video
 
     @video.update params[:video].permit!
     if @video.save
       flash[:notice] = 'Success.'
-      redirect_to organizer_path
+      redirect_to videos_path
     else
       flash[:error] = "No luck: #{@video.errors}"
       render :edit
     end
+  end
+
+  def destroy
+    @video = Video.unscoped.find params[:id]
+    authorize! :destroy, @video
+    flag = @video.update_attributes( :is_trash => true )
+    @video.city.touch if @video.city
+    @video.site.touch if @video.site
+    @video.tag.touch if @video.tag
+    if flag
+      flash[:notice] = "deleted video"
+    else
+      flash[:alert] = "Cannot delete video: #{@video.errors.messages}"
+    end
+    redirect_to :action => 'index'
   end
   
 end

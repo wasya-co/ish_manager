@@ -14,6 +14,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
     authorize! :destroy, @photo
     @photo.is_trash = true
     @photo.save
+    @photo.gallery.touch
     redirect_to request.referrer || root_path
   end
 

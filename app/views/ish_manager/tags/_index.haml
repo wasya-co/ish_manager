@@ -1,17 +1,16 @@
 
 - content_for :title do
-  = t('tags.list')
+  Tags
 
-.row
-  .small-12.columns
-    .center
-      %h1= t('tags.list')
-  
-    %ul.large-block-grid-2
-      - @tags.each do |tag|
-        = render 'ish_manager/tags/item', :tag => tag
-      - if @tags.blank?
-        %li No Tags
+.manager-tags--index
+  .center
+    %h1 Tags (#{tags.count})
 
+  %ul.large-block-grid-2
+    - @tags.each do |tag|
+      = render 'ish_manager/tags/item', :tag => tag
+    - if @tags.blank?
+      %li No Tags
+  %hr
 
 

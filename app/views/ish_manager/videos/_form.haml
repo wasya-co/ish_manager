@@ -1,6 +1,5 @@
 
-- url = video.persisted? ? update_video_path( video ) : videos_path
-= form_for video, :url => url do |f|
+= form_for video do |f|
 
   = render 'form_errors', :item => @video
  

@@ -4,6 +4,12 @@ IshManager::Engine.routes.draw do
   resources :cities do
     resources :features
     resources :newsitems
+    resources :reports
+    resources :galleries
+    resources :users
+    resources :videos
+    resources :events
+    resources :venues
   end
   resources :events
   resources :galleries do

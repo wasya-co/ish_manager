@@ -1,6 +1,6 @@
 
 - content_for :title do
-  #{@video.name} | #{@site.title}
+  #{@video.name} | #{@site ? @site.title : ''}
 
 .row
   .large-12.columns
@@ -10,7 +10,7 @@
         = t('videos.no_title')
       - else
         = @video.name
-    = render 'application/meta', :item => @video
+    = render 'ish_manager/application/meta', :item => @video
     .text-center= render 'embed', :video => @video
 
-    = render 'disqus'
+    -# = render 'disqus'

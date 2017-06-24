@@ -5,12 +5,5 @@
       %h2
         Videos (#{Video.count})
         = link_to '[+]', new_video_path
-
-      = paginate @videos, :param_name => :videos_page
-      %ol
-        - @videos.each do |video|
-          %li
-            = video.name
-            = render :partial => 'embed', :locals => { :video => video }
-      = paginate @videos, :param_name => :videos_page
+      = render 'index', :videos => @videos
 

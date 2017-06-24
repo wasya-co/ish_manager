@@ -13,11 +13,11 @@
     Features (#{features.length})
     = link_to '[+]', new_path
     
-  -# = paginate features, :param_name => 'features_page'
-  %ul.large-block-grid-4
+  .row
     - features.each_with_index do |feature, idx|
-      %li
-        = link_to '[~]', edit_url.call( feature )
-        = link_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-        .item= render 'ish_manager/features/item', :feature => feature
-         
+      .col-sm-3
+        .panel.panel-default
+          = link_to '[~]', edit_url.call( feature )
+          = link_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = render 'ish_manager/features/item', :feature => feature
+  %hr

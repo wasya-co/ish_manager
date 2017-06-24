@@ -1,0 +1,5 @@
+
+.manager-sites--title
+  %h1
+    Site http://#{@site.domain}/#{@site.lang}
+    = link_to '[~]', edit_site_path( @site.id )

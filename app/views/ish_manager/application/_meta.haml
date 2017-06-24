@@ -1,0 +1,16 @@
+
+.meta
+  - if item.city
+    <b>City:</b> #{link_to item.city.name, city_path( item.city )}
+    %br
+  - if item.tag
+    <b>Tag:</b> #{link_to item.tag.name, tag_path( item.tag )}
+    %br
+  - if item.site
+    <b>Site:</b>
+    = link_to "#{item.site.domain}/#{item.site.lang}", site_path( item.site )
+    %br
+  - if item.user
+    <b>User:</b> #{item.user.email}
+    %br
+    
