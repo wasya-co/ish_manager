@@ -1,10 +1,16 @@
 
-= form_for [ :manager, newsitem ], :url => url do |f|
-  = f.label :name
-  = f.text_field :name
-
-  = f.label :descr
-  = f.text_area :descr, :class => :tinymce
-
-  = f.submit :submit
+= form_for newsitem do |f|
+  = hidden_field_tag :site_id, @site.id if @site
+  = hidden_field_tag :city_id, @city.id if @city
+  .a
+    = f.label :name
+    = f.text_field :name
+  .a
+    = f.label :descr
+    = f.text_area :descr, :class => :tinymce
+  .a
+    = f.label :video
+    = f.select :video_id, options_for_select( @videos_list )
+  .a
+    = f.submit :submit
   

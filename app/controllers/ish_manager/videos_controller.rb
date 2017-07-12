@@ -5,7 +5,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   
   def index
     authorize! :index, Video.new
-    @videos = Video.all # .where( :site_id => @site.id )
+    @videos = Video.unscoped.all
 
     if params[:city_id]
       city = City.find params[:city_id]
@@ -55,8 +55,10 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video.user = current_user
     if params[:video][:site_id]
       @video.site = Site.find params[:video][:site_id]
+      @video.site.touch
     else
       @video.site = @site
+      @site.touch
     end
     authorize! :create, @video
     
@@ -85,6 +87,7 @@ class IshManager::VideosController < IshManager::ApplicationController
 
     @video.update params[:video].permit!
     if @video.save
+      @video.site.touch if @video.site
       flash[:notice] = 'Success.'
       redirect_to videos_path
     else

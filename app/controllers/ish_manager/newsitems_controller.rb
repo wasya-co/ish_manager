@@ -1,6 +1,8 @@
 
 class IshManager::NewsitemsController < IshManager::ApplicationController
 
+  before_action :set_lists
+
   def new
     @newsitem = Newsitem.new
     if params[:city_id]
@@ -11,14 +13,12 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @site = Site.find params[:site_id]
       @newsitem.site = @site
     end
+    authorize! :new, @newsitem
   end
 
   def create
     n = Newsitem.new params[:newsitem].permit!
-    n.report  = Report.find  params[:newsitem][:report_id]  unless params[:newsitem][:report_id].blank?
-    n.gallery = Gallery.find params[:newsitem][:gallery_id] unless params[:newsitem][:gallery_id].blank?
-    n.photo   = Photo.find   params[:newsitem][:photo_id]   unless params[:newsitem][:photo_id].blank?
-    n.descr   = params[:newsitem][:descr]
+    authorize! :create, n
 
     if params[:city_id]
       @city = City.find params[:city_id]
@@ -51,12 +51,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     end
   end
   
-  def show
-  end
-
-  def index
-  end
-
   def destroy
     authorize! :destroy, Newsitem
     if params[:city_id]
@@ -85,6 +79,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem = @city.newsitems.find params[:id]
       url = edit_city_path( @city )
     end
+    authorize! :update, @newsitem
     flag = @newsitem.update_attributes params[:newsitem].permit!
     
     if flag
@@ -105,6 +100,13 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @city = City.find params[:city_id]
       @newsitem = @city.newsitems.find( params[:id] )
     end
+    authorize! :edit, @newsitem
+  end
+
+  private
+
+  def set_lists
+    @videos_list = Video.list
   end
 
 end
