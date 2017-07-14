@@ -106,7 +106,8 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   private
 
   def set_lists
-    @videos_list = Video.list
+    @videos_list    = Video.list
+    @galleries_list = Gallery.list
   end
 
 end

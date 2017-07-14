@@ -12,5 +12,8 @@
     = f.label :video
     = f.select :video_id, options_for_select( @videos_list )
   .a
+    = f.label :gallery
+    = f.select :gallery_id, options_for_select( @galleries_list )
+  .a
     = f.submit :submit
   

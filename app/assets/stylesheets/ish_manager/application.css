@@ -26,6 +26,14 @@ body {
 .center {
   text-align: center;
 }
+.notice {
+  border: 1px solid green;
+  padding: .8em;
+}
+.alert {
+  boroder: 1px solid yellow;
+  padding: .8em;
+}
 
 hr {
   background: red;
