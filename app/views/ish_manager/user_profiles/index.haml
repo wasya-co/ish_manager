@@ -1,0 +1,12 @@
+
+%h1 User Profiles (#{@user_profiles.count})
+ 
+%ul
+  - @user_profiles.each do |profile|
+    %li
+      &nbsp;
+      %ul
+        %li= profile.email
+        %li= profile.name
+        %li= profile.fb_access_token
+      %br
