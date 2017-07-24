@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe IshManager::CitiesController, :type => :controller do
-  # render_views
+  render_views
   routes { IshManager::Engine.routes }
   include Devise::Test::ControllerHelpers
 

@@ -3,7 +3,7 @@
   %br
   .row
     .col-sm-6
-      - if current_user
+      - if defined?( current_user ) && current_user
         >[ #{current_user.email} ]<
         = button_to '[x]', main_app.destroy_user_session_path, :method => :delete
       - else
