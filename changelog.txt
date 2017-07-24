@@ -10,3 +10,4 @@
         be able to delete photo in a gallery...
         be able to add photo to a non-pub g
         better responsive
+0.1.6 - specs pass in test/dummy
