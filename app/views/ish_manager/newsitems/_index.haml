@@ -1,17 +1,19 @@
 
 - if defined? site
-  - edit_url   = ->(n) { edit_site_newsitem_path( site, n ) }
-  - delete_url = ->(n) { site_newsitem_path( site, n ) }
+  - edit_url     = ->(n) { edit_site_newsitem_path( site, n ) }
+  - delete_url   = ->(n) { site_newsitem_path( site, n ) }
+  - new_newsitem = new_site_newsitem_path( site.id )
 - if defined? city
-  - edit_url   = ->(n) { edit_city_newsitem_path( city, n ) }
-  - delete_url = ->(n) { city_newsitem_path( city, n ) }
-
+  - edit_url     = ->(n) { edit_city_newsitem_path( city, n ) }
+  - delete_url   = ->(n) { city_newsitem_path( city, n ) }
+  - new_newsitem = new_city_newsitem_path( city.id )
+  
 - newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
 
 .manager-newsitems--index
   .row
     .col-sm-12
-      %h2 Newsitems (#{newsitems.count}) #{link_to '[+]', new_site_newsitem_path( site.id )}
+      %h2 Newsitems (#{newsitems.count}) #{link_to '[+]', new_newsitem }
       = paginate newsitems, :param_name => 'newsitems_page'
       %ol
         - newsitems.each do |n|

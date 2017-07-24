@@ -1,11 +1,14 @@
 require 'spec_helper'
 
-describe IshManager::CitiesController, :type => :controller do
+describe IshManager::SitesController, :type => :controller do
   render_views
   routes { IshManager::Engine.routes }
   include Devise::Test::ControllerHelpers
 
   before :each do
+    Site.all.destroy
+    @site = FactoryGirl.create :site
+
     City.all.destroy
     @city = FactoryGirl.create :city
 
@@ -25,7 +28,7 @@ describe IshManager::CitiesController, :type => :controller do
 
   describe 'edit' do
     it 'renders' do
-      get :edit, :params => { :id => @city.id }
+      get :edit, :params => { :id => @site.id }
       response.should be_success
     end
   end
