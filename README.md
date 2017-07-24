@@ -1,5 +1,4 @@
 
 # Test
 
- # be rspec spec doesn't work so do
- be rspec spec/controllers
+ cd test/dummy && be rspec spec/controllers

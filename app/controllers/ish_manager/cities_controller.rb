@@ -15,6 +15,8 @@ class IshManager::CitiesController < IshManager::ApplicationController
   end
   
   def new
+    puts! current_user, 'current_user'
+
     @city = City.new
     authorize! :new, City
 

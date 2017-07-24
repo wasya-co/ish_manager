@@ -12,3 +12,10 @@ gem 'kaminari-mongoid'
 gem 'activeadmin'
 gem 'cancancan'
 gem 'ish_models'
+
+group :test, :development do
+  gem 'byebug'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
