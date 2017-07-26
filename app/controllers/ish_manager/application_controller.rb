@@ -26,5 +26,11 @@ module IshManager
       @tags_list = Tag.all.list
     end
 
+    private
+
+    def pp_errors err
+      err
+    end
+
   end
 end

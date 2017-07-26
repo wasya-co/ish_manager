@@ -25,6 +25,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @city.newsitems << n
       flag = @city.save
       if flag
+        @city.touch
         url = edit_city_path( @city.id )
       else
         error = 'No Luck. ' + @city.errors.inspect
@@ -36,6 +37,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @site.newsitems << n
       flag = @site.save
       if flag
+        @site.touch
         url = edit_site_path( @site.id )
       else
         error = 'No Luck. ' + @site.errors.inspect
@@ -46,7 +48,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       flash[:notice] = 'Success'
       redirect_to url
     else
-      flash[:error] = error
+      flash[:alert] = error
       render :action => :new
     end
   end
@@ -108,6 +110,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   def set_lists
     @videos_list    = Video.list
     @galleries_list = Gallery.list
+    @reports_list   = Report.list
   end
 
 end

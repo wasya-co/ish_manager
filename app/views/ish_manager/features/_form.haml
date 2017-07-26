@@ -1,23 +1,17 @@
 
 -# manager/features/_form
   
-- if @site
-  - if 'new' == params[:action]
-    - url = manager_site_features_path site.id 
-  - if 'edit' == params[:action]
-    - url = manager_site_feature_path site.id, feature.id 
-- elsif @city
-  - if 'new' == params[:action]
-    - url = manager_city_features_path city.id
-  - if 'edit' == params[:action]
-    - url = manager_city_feature_path city.id, feature.id 
-- elsif @tag
-  - if 'new' == params[:action]
-    - url = manager_tag_features_path tag.id
-  - if 'edit' == params[:action]
-    - url = manager_tag_feature_path tag.id, feature.id 
-
-= form_for feature, :url => url do |f|
+= form_for @feature do |f|
+  - if @city
+    = hidden_field_tag :city_id, @city.id
+    City #{@city.name}
+  - if @site
+    = hidden_field_tag :site_id, @site.id
+    Site #{@site.domain}
+  - if @tag
+    = hidden_field_tag :tag_id,  @tag.id  if @tag
+    Tag #{@tag.name}
+    
   .row
     .large-6.columns
       = f.label :name
