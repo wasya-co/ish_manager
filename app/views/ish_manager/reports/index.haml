@@ -11,18 +11,19 @@
     
     - @reports.each do |report|
       .card
-        = link_to '[~]', edit_report_path( report )
-        = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-        - if report.is_public
-          [public&nbsp;]
-        - else
-          [private]
-        = link_to report.name, report_path( report )
-        %br
-        .gray
-          - if report.site
-            Site #{report.site.domain}/#{report.site.lang}
+        .card-content
+          = link_to '[~]', edit_report_path( report )
+          = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - if report.is_public
+            %i.material-icons visibility
+          - else
+            %i.material-icons visibility off
+          = link_to report.name, report_path( report )
           %br
-          = report.created_at
+          .gray
+            - if report.site
+              Site #{report.site.domain}/#{report.site.lang}
+            %br
+            = report.created_at
     = paginate @reports, :param_name => :reports_page
     

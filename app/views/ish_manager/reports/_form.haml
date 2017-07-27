@@ -25,24 +25,27 @@
       = f.label :city_id
       = select :report, :city_id, @cities_list
 
-      = f.label :coords
-      = f.text_field :x
-      = f.text_field :y
+    .card
+      .card-content
+        = f.label :coords
+        .row
+          .col-xs-6
+            = f.text_field :x
+          .col-xs-6
+            = f.text_field :y
 
-      = f.label :site
-      = select :report, :site_id, @sites_list
+    .card
+      .card-content    
+        = f.label :site
+        = select :report, :site_id, @sites_list
       
     .large-6.columns
       = f.label :tag_id
       = select :report, :tag_id, @tags_list
       
-      .check
-        = f.label :is_public
+      %p
         = f.check_box :is_public
-
+        = f.label :is_public
+        
       = f.file_field :photo
 
-      -# = recaptcha_tags
-
-      = f.submit
-      
