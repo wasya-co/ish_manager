@@ -10,7 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require ish_manager/bootstrap
+ *= require ish_manager/materialize
  *= require_self
  */
 
@@ -72,3 +73,14 @@ hr {
   padding: 1em .2em;
   background: url('/assets/bg/triangular.png');
 }
+
+/**
+ * pagination
+ */
+
+/* nav.pagination {
+  padding-left: 1em;
+  background: transparent;
+}
+nav.pagination
+*/

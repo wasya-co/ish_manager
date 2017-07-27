@@ -6,23 +6,23 @@
       - if @site
         In #{@site.domain}/#{@site.lang}
       = link_to '[+]', new_report_path
-    = paginate @reports, :param_name => :reports_page
+      
+    = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
     
-    %ol
-      - @reports.each do |report|
-        %li
-          = link_to '[~]', edit_report_path( report )
-          = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-          - if report.is_public
-            [public&nbsp;]
-          - else
-            [private]
-          = link_to report.name, report_path( report )
+    - @reports.each do |report|
+      .card
+        = link_to '[~]', edit_report_path( report )
+        = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if report.is_public
+          [public&nbsp;]
+        - else
+          [private]
+        = link_to report.name, report_path( report )
+        %br
+        .gray
+          - if report.site
+            Site #{report.site.domain}/#{report.site.lang}
           %br
-          .gray
-            - if report.site
-              Site #{report.site.domain}/#{report.site.lang}
-            %br
-            = report.created_at
+          = report.created_at
     = paginate @reports, :param_name => :reports_page
     

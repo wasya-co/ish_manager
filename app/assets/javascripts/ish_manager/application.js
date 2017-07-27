@@ -15,8 +15,7 @@
 //= require ish_manager/jquery.iframe-transport
 //= require ish_manager/jquery.ui.widget
 //= require ish_manager/jquery.fileupload
-//
-// require_tree .
+//= require ish_manager/materialize.js
 //
 
 $(function () {
