@@ -25,15 +25,16 @@
       
   .row
     .col-sm-3
-      = f.label :is_public
       = f.check_box :is_public
+      = f.label :is_public
     .col-sm-3
-      = f.label :is_done
       = f.check_box :is_done
+      = f.label :is_done
     .col-sm-3
-      = f.label :is_trash
       = f.check_box :is_trash
+      = f.label :is_trash
     .col-sm-3
-      = f.label :is_feature
       = f.check_box :is_feature    
-
+      = f.label :is_feature
+    .col-sm-3
+      = f.submit 'Submit'
