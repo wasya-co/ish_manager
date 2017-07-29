@@ -3,10 +3,12 @@
 
 = form_for gallery, :url => url do |f|
   .row
-    .col-sm-12
+    .col-sm-6
       = f.label :name
       = f.text_field :name
-      = gallery.galleryname
+    .col-sm-6
+      = f.label :galleryname
+      = f.text_field :galleryname
       = f.submit
       
   .row
