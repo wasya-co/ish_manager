@@ -54,7 +54,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       flash[:notice] = 'Success.'
       redirect_to galleries_path
     else
-      flash[:error] = 'No Luck. ' + @gallery.errors
+      flash[:error] = 'No Luck. ' + @gallery.errors.messages
       render :action => :edit
     end
   end                           
