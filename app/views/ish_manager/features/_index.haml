@@ -20,6 +20,6 @@
       .col-sm-3
         .panel.panel-default
           = link_to '[~]', edit_url.call( feature )
-          = link_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = button_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
           = render 'ish_manager/features/item', :feature => feature
   %hr

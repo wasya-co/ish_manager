@@ -129,6 +129,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     elsif params[:site_id]
       @resource = Site.find params[:site_id]
     end
+    authorize! :destroy_feature, @resource
     @feature = @resource.features.find params[:id]
     if @feature.destroy
       flash[:notice] = :'Success.' 
