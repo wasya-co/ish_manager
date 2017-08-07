@@ -1,11 +1,15 @@
 
 .manager-cities--form
-  = form_for @city do |f|
+  = form_for @city, :html => { :multipart => true } do |f|
     .row
-      .small-6.columns
+      .col-sm-6
         .field
           %label= t('cities.name')
           = f.text_field :name
+        .field
+          %label CityName
+          = f.text_field :cityname
+      .col-sm-6
         .field
           = image_flag 'en'
           %label= t('cities.name_en')
@@ -18,36 +22,30 @@
           = image_flag 'pt'
           %label= t('cities.name')
           = f.text_field :name_pt
+      .col-sm-6
         .field
-          %label CityName
-          = f.text_field :cityname
-      .small-6.columns
-        .field
-          %label Feature?
           = f.check_box :is_feature
+          = f.label :is_feature
         .field
           = f.label :n_features
           = f.number_field :n_features
-
+        .change-profile-pic
+          %label Change profile pic
+          = file_field_tag :photo
+          - begin
+            = image_tag @city.profile_photo.photo.url(:thumb)
+          - rescue
+      .col-sm-6
         .field
           = f.label :description
-          = f.text_area :description, :class => [ :tinymce ]
-          
-        .field
-          %label Calendar
-          = f.text_area :calendar_frame
+          = f.text_area :description, :class => [ :tinymce ]          
         .field
           %label coords
-          = f.text_field :x
-          = f.text_field :y
-                    
-        -# Only if editing 
-        - unless @city.updated_at.blank?  
-          .change-profile-pic
-            %h2 Change profile pic
-            - begin
-              = image_tag @city.profile_photo.photo.url(:thumb)
-            - rescue
-              
+          .row
+            .col-xs-6
+              = f.text_field :x
+            .col-xs-6
+              = f.text_field :y
+      .col-xs-12              
         .actions
           = f.submit

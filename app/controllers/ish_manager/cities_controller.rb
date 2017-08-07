@@ -42,7 +42,12 @@ class IshManager::CitiesController < IshManager::ApplicationController
     @city = City.find( params[:id] )
     authorize! :update, @city
     @city.update_attributes params[:city].permit!
+    if params[:photo]
+      photo = Photo.new :photo => params[:photo]
+      @city.profile_photo = photo
+    end
     if @city.save
+      ::IshModels::CacheKey.one.update_attributes( :cities => Time.now )
       flash[:notice] = 'Success'
       redirect_to edit_city_path @city.id
     else
