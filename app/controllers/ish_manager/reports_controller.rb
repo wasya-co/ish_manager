@@ -40,16 +40,11 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @report = Report.unscoped.find params[:id]
     authorize! :update, @report
 
-    # photo
-    photo = Photo.new
-    photo.photo = params[:report][:photo]
-    photo.report_id = @report.id
-    # photo.user = @report.user
-    photo.is_public = @report.is_public
-    photo.is_trash = false
-    photo.save
-    @report.photo = photo
-    params[:report][:photo] = nil
+    if params[:photo]
+      photo = Photo.new :photo => params[:photo]
+      @report.photo = photo
+      @report.save
+    end
 
     respond_to do |format|
       if @report.update_attributes(params[:report].permit!)

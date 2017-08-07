@@ -84,3 +84,14 @@ hr {
 }
 nav.pagination
 */
+
+/**
+ * reports
+ */
+.descr {
+  border: 1px solid yellow;
+  padding: 1em;
+}
+.descr .float-left {
+  padding-right: 1em;
+}

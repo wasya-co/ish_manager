@@ -46,7 +46,10 @@
       %p
         = f.check_box :is_public
         = f.label :is_public
+      
+      = file_field_tag :photo
+      - begin
+        = image_tag report.photo.photo.url(:thumb)
+      - rescue
         
-      = f.file_field :photo
-
       = f.submit 'Submit'

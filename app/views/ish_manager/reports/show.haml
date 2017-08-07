@@ -17,4 +17,10 @@
 
       - if @report.subhead.length > 3
         .subhead= @report.subhead
-      .descr= raw @report.descr
+        
+      .descr
+        - if @report.photo
+          .float-left= image_tag @report.photo.photo.url( :small )
+        = raw @report.descr
+
+      .clearfix
