@@ -1,0 +1,12 @@
+
+.a
+  = form_for @profile do |f|
+    .field
+      = f.label :email
+      = f.text_field :email, :disabled => true
+    .field
+      = f.label :role_name
+      = f.select :role_name, ::IshModels::UserProfile::ROLES
+    .action
+      = f.submit 'Submit', :class => %w(button)
+    

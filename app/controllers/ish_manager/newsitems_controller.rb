@@ -18,32 +18,19 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def create
     n = Newsitem.new params[:newsitem].permit!
-    authorize! :create, n
+    @resource = City.find params[:city_id] if params[:city_id]
+    @resource = Site.find params[:site_id] if params[:site_id]
+    authorize! :create_newsitem, @resource
 
-    if params[:city_id]
-      @city = City.find params[:city_id]
-      @city.newsitems << n
-      flag = @city.save
-      if flag
-        @city.touch
-        url = edit_city_path( @city.id )
-      else
-        error = 'No Luck. ' + @city.errors.inspect
-      end
+    @resource.newsitems << n
+    flag = @resource.save
+    if flag
+      @resource.touch
+    else
+      error = 'No Luck. ' + @resource.errors.inspect
     end
+    url = params[:city_id] ? edit_city_path( @resource.id ) : edit_site_path( @resource.id )
     
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @site.newsitems << n
-      flag = @site.save
-      if flag
-        @site.touch
-        url = edit_site_path( @site.id )
-      else
-        error = 'No Luck. ' + @site.errors.inspect
-      end
-    end
-
     if flag
       flash[:notice] = 'Success'
       redirect_to url

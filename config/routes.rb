@@ -36,6 +36,7 @@ IshManager::Engine.routes.draw do
   resources :tags
 
   resources :user_profiles
+  resources :user_profiles, :as => :ish_models_user_profiles
 
   resources :venues
   resources :videos

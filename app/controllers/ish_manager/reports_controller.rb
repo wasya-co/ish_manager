@@ -82,6 +82,13 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @site = Site.where( :id => params[:report][:site_id] ).first
     @site ||= Site.find_by :domain => 'piousbox.com', :lang => :en 
 
+    if @site
+      redirect_path = site_reports_path( @site.id )
+    end
+    if params[:report][:city_id]
+      redirect_path = city_path( params[:report][:city_id] )
+    end
+
     # @report.user = @current_user || User.where( :username => 'anon' ).first
     # @report.username = @report.user.username
     @report[:lang] = @locale
@@ -127,7 +134,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
         end
 
         format.html do
-          redirect_to reports_path, :notice => 'Report was successfully created (but newsitem, no information).' 
+          redirect_to redirect_path, :notice => 'Report was successfully created (but newsitem, no information).' 
         end
         format.json { render :json => @report, :status => :created, :location => @report }
       else

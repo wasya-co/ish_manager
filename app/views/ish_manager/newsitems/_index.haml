@@ -15,9 +15,9 @@
     .col-sm-12
       %h2 Newsitems (#{newsitems.count}) #{link_to '[+]', new_newsitem }
       = paginate newsitems, :param_name => 'newsitems_page'
-      %ol
-        - newsitems.each do |n|
-          %li
+      - newsitems.each do |n|
+        .panel
+          .panel-body
             %ul
               %li
                 = link_to '[~]', edit_url.call( n )

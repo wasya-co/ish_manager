@@ -4,7 +4,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    authorize! :index, Venue
+    authorize! :venues_index, ::Manager
     @venues = Venue.all
   end
 

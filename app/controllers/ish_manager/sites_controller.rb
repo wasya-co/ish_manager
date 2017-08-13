@@ -1,8 +1,8 @@
 class IshManager::SitesController < IshManager::ApplicationController
   
   def index
-    authorize! :index, @site
-    @sites = Site.all.order_by( :domainname => :desc, :lang => :desc )
+    authorize! :sites_index, ::Manager
+    @sites = Site.where( :is_trash => false ).order_by( :domainname => :desc, :lang => :desc )
   end
 
   # not trash
@@ -12,7 +12,7 @@ class IshManager::SitesController < IshManager::ApplicationController
   end
 
   def show
-    @site = Site.find params[:id]
+    @site = Site.unscoped.find params[:id]
     authorize! :show, @site
     @galleries = @site.galleries.unscoped.where({ :is_trash => false }).page( params[:galleries_page] ).per( 10 )
     @reports = @site.reports.unscoped.where({ :is_trash => false }).page( params[:reports_page] ).per( 10 )
@@ -40,11 +40,11 @@ class IshManager::SitesController < IshManager::ApplicationController
     else
       flash[:error] = 'No Luck. ' + @site.errors.inspect
     end
-    redirect_to manager_sites_path
+    redirect_to sites_path
   end
 
   def update
-    @site = Site.find params[:id]
+    @site = Site.unscoped.find params[:id]
     authorize! :update, @site
     
     if @site.update_attributes params[:site].permit!
@@ -52,7 +52,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     else
       flash[:error] = 'No Luck'
     end
-    redirect_to manager_sites_path
+    redirect_to sites_path
   end
 
   def newsitem_delete    
@@ -62,7 +62,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     n.delete
     @site.save
     flash[:notice] = 'Probably successfully deleted a newsitem.'
-    redirect_to manager_site_path( @site.id )
+    redirect_to site_path( @site.id )
   end
 
 end

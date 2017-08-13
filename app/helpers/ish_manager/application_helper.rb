@@ -5,5 +5,9 @@ module IshManager
       return input.strftime("%Y-%m-%d")
     end
 
+    def pp_errors errors
+      return errors
+    end
+
   end
 end

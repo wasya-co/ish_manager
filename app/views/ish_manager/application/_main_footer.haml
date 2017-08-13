@@ -2,15 +2,16 @@
 .container
   %br
   .row
-    .col-sm-6
+    .col-sm-5
       - if defined?( current_user ) && current_user
-        >[ #{current_user.email} ]<
-        = button_to '[x]', main_app.destroy_user_session_path, :method => :delete
+        %ul
+          %li >[ #{current_user.email} ]<
+          %li >[ #{current_user.profile.role_name} ]<
       - else
         Please log in
         = link_to '[+]', main_app.new_user_session_path
 
-    .col-sm-6
+    .col-sm-5
       %br
       \~__^
       %br
@@ -18,3 +19,5 @@
       %br
       %br
       %br
+    .col-sm.2
+      = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete

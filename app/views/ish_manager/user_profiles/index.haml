@@ -1,12 +1,14 @@
 
-%h1 User Profiles (#{@user_profiles.count})
+%h1
+  User Profiles (#{@user_profiles.count})
+  = link_to '[+]', new_user_profile_path
  
 %ul
   - @user_profiles.each do |profile|
-    %li
-      &nbsp;
+    .panel
       %ul
-        %li= profile.email
-        %li= profile.name
-        %li= profile.fb_access_token
+        %li= link_to '[edit]', edit_user_profile_path( profile )
+        %li Email: #{profile.email}
+        %li Name: #{profile.name}
+        %li Role: #{profile.role_name}
       %br
