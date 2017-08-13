@@ -132,6 +132,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     authorize! :destroy_feature, @resource
     @feature = @resource.features.find params[:id]
     if @feature.destroy
+      @resource.touch
       flash[:notice] = :'Success.' 
     else
       flash[:error] = :'No luck.'
