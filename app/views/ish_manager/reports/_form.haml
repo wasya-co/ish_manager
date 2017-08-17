@@ -12,12 +12,14 @@
   .row
     .col-md-6
       .field
-        = f.label :name
+        = f.label :"Name & Name SEO"
         = f.text_field :name, :class=> 'form-control', :placeholder => "name of report", :type => "text"
+        = f.text_field :name_seo, :class=> 'form-control', :placeholder => "name seo", :type => "text"
+
     .col-md-6
       .field
         = f.label :subhead
-        = f.text_area :subhead, :class => 'form-control', :rows => "3", :style=> "resize: vertical;"
+        = f.text_area :subhead, :class => 'form-control', :rows => "5", :style=> "resize: vertical;"
 
   .field
     = f.label :Description
@@ -41,13 +43,13 @@
           .panel-body
             .col-md-6
               .form-group
-                %label{} Latitude
-                = f.text_field :y, :placeholder => "Latitude", :type => "text", :class=>"form-control"
+                %label{} X-coordinate
+                = f.text_field :x, :placeholder => "x", :type => "text", :class=>"form-control"
 
             .col-md-6
               .form-group
-                %label{} Longitude
-                = f.text_field :x, :placeholder => "Longitude", :type => "text", :class=>"form-control"
+                %label{} Y-coordinate
+                = f.text_field :y, :placeholder => "y", :type => "text", :class=>"form-control"
 
 
 
@@ -67,9 +69,10 @@
     .panel-heading
       %h3.panel-title Upload File
     .panel-body
-      %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
+      .row
+        .col-md-6.col-md-offset-3
+          %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
       = file_field_tag :photo, :style => "display:none", :id=>"photo"
-      %br/
       .div.center
         %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}/
 
@@ -114,4 +117,4 @@
     %p.center
       = f.check_box :is_public
       = f.label :is_public
-    %button.btn.btn-success{:type => "submit"} Submit
+    %button.btn.btn-success{:type => "submit"} submit
