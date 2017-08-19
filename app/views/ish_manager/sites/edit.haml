@@ -6,4 +6,5 @@
     %br
       
 = render 'form', :site => @site
+= render 'ish_manager/features/index',  :features  => @site.features.limit(16),  :site => @site
 = render 'ish_manager/newsitems/index', :newsitems => @site.newsitems.limit(10), :site => @site

@@ -12,7 +12,9 @@ class IshManager::Ability
       # role manager
       if user.profile && user.profile.role_name == :manager
 
-        can [ :create_newsitem, :show ], ::City
+        can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
+
+        can [ :new ], ::Feature
 
         can [ :cities_index, :home, :sites_index, :venues_index ], ::Manager
 
@@ -20,9 +22,11 @@ class IshManager::Ability
 
         can [ :new, :create ], Report
 
-        can [ :show, :edit, :update, :create_newsitem ], ::Site do |site|
+        can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
+
+        # can [ :new_feature, :create_feature ], ::Tag
 
       end
 
