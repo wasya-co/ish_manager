@@ -2,17 +2,16 @@
 .sites-index
   %h3 Sites
   .row
-    - @sites.each do |site|
-      .col-xs-12.col-md-6.col-lg-4
+    - @sites.each_with_index do |site, index|
+      .col-xs-12.col-lg-4
         .panel.panel-primary
           .panel-body
             %h5
               = link_to "#{site.domain}/#{site.lang}", site_path( site )
               = link_to '[~]', edit_site_path( site )
             .title Title: #{site.title}
+            .language Language: #{site.lang}
             .subhead Subhead: #{site.subhead}
-            .gray= site.id
-
             %ul
               %li
                 #{site.galleries.length} galleries
@@ -24,4 +23,6 @@
                 #{site.tags.length} tags
               %li
                 #{site.videos.length} videos
+      - if (index + 1 ) % 3 == 0
+        .clearfix
         
