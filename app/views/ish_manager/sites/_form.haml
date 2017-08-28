@@ -34,6 +34,9 @@
         .col-lg-4
           = f.label :n_newsitems
           = f.text_field :n_newsitems
+          %br
+          = f.label :newsitems_per_page
+          = f.number_field :newsitems_per_page, :default => 10 
         .col-lg-4
           = f.check_box :is_trash
           = f.label :is_trash
