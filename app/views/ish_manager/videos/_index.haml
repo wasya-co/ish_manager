@@ -1,21 +1,17 @@
 
-- videos = videos.page( params[:videos_page] ).per( 10 )
+.row
+  .col-sm-12
 
-.manager-videos--index
-  .row
-    .col-sm-12
-      %h2 Videos (#{videos.length})
+    = paginate videos, :param_name => :videos_page
+    %ol
+      - videos.each do |video|
+        %li
+          = button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = link_to '[~]', edit_video_path( video )
+          = link_to video.name, video_path( video )
+          = render 'meta', :item => video
+          -# = render 'embed', :video => video
+          = image_tag "https://img.youtube.com/vi/#{video.youtube_id}/0.jpg"
+    = paginate videos, :param_name => :videos_page
+%hr
 
-      = paginate videos, :param_name => :videos_page
-      %ol
-        - videos.each do |video|
-          %li
-            = button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-            = link_to '[~]', edit_video_path( video )
-            = link_to video.name, video_path( video )
-            = render 'meta', :item => video
-            -# = render 'embed', :video => video
-            = image_tag "https://img.youtube.com/vi/#{video.youtube_id}/0.jpg"
-      = paginate videos, :param_name => :videos_page
-  %hr
-  

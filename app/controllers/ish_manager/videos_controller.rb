@@ -5,7 +5,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.all
+    @videos = Video.unscoped
 
     if params[:city_id]
       city = City.find params[:city_id]
