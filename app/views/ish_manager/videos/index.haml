@@ -1,9 +1,3 @@
 
-.a
-  .row
-    .large-12.columns
-      %h2
-        Videos (#{@videos.count})
-        = link_to '[+]', new_video_path
-      = render 'index', :videos => @videos
+= render 'index', :videos => @videos
 

@@ -21,7 +21,7 @@
             %ul
               %li
                 = link_to '[~]', edit_url.call( n )
-                = link_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+                = button_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
                 Name: #{n.name}
                 Desc: #{n.descr}
               %li Report id: #{n.report_id}

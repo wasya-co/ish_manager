@@ -1,6 +1,10 @@
 
+- videos = videos.page params[:videos_page]
 .row
   .col-sm-12
+    %h2
+      Videos (#{@videos.count})
+      = link_to '[+]', new_video_path
 
     = paginate videos, :param_name => :videos_page
     %ol
