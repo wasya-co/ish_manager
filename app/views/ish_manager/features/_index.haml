@@ -9,16 +9,16 @@
   - new_path   = new_site_feature_path( site.id )
   
 .manager-features--index
-  %h2
+  %h3
     Features (#{features.length})
     = link_to '[+]', new_path
     
   .row
     - features.each_with_index do |feature, idx|
-      - if idx%4==0
+      - if idx % 4 == 0
         .clearfix
       .col-sm-3
-        .panel.panel-default
+        .a
           = link_to '[~]', edit_url.call( feature )
           = button_to '[x]', delete_url.call( feature ), :method => :delete, :data => { :confirm => 'Are you sure?' }
           = render 'ish_manager/features/item', :feature => feature

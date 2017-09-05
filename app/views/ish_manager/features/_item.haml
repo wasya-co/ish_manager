@@ -1,7 +1,7 @@
 
 .panel
   - unless feature[:name].blank?
-    %h3= link_to feature[:name].titleize, feature[:link_path]
+    %h5= link_to feature[:name].titleize, feature[:link_path]
   - unless feature[:image_path].blank?
     = link_to image_tag( feature[:image_path] ), feature[:link_path]
   - unless feature[:subhead].blank?
