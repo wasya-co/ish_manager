@@ -15,6 +15,10 @@
  *= require_self
  */
 
+
+/**
+ * utils
+ */
 .bg-white {
   background: url('/assets/bg/confectionary.png');
   padding-bottom: 1em;
@@ -27,6 +31,11 @@ body {
 .center {
   text-align: center;
 }
+
+.inline {
+  display: inline-block;
+}
+
 .notice {
   border: 1px solid green;
   padding: .8em;
@@ -94,4 +103,11 @@ nav.pagination
 }
 .descr .float-left {
   padding-right: 1em;
+}
+
+/**
+ * tags
+ */
+ul.tags ul.tags {
+  margin-left: 2em;
 }

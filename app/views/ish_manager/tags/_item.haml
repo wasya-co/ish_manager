@@ -3,38 +3,16 @@
   - is_panel = true
 %li
   %div{ :class => is_panel ? 'panel' : '' }
-    = link_to tag.name, tag_path(tag.name_seo)
+    = link_to tag.name, tag_path(tag)
+    = link_to '[+]', new_tag_path( :for_tag => tag.id )
+    = link_to '[~]', edit_tag_path( tag )
+    .inline= button_to '[x]', tag_path( tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }
     (#{tag.reports.length}) (#{tag.galleries.length}) (#{tag.videos.length})
       
     -# .descr= tag.descr
   
     - if tag.children_tags.length > 0
-      %ul
+      %ul.tags
         - tag.children_tags.map do |tt|
           = render 'ish_manager/tags/item', :tag => tt, :is_panel => false
 
-
-
-
-        
--# hidden       
-- proc do # nothing        
-  - if tag.reports.length > 0
-    .tag-reports
-      %h5 Reports
-      - tag.reports[0..Tag.n_reports-1].each do |report|
-        = render 'reports/item_mini', :report => report
-      .item-mini.hide
-        %h5= link_to '[More Reports]', tag_14path(tag.name_seo)
-      
-  - if tag.galleries.length > 0
-    %h5 Galleries
-    %ul.tag-galleries
-      - tag.galleries[0..Tag.n_galleries].each do |gallery|
-        %li= link_to gallery.name, gallery_path(gallery.galleryname, 0)
-      
-  - if tag.videos.length > 0
-    %h5 Videos
-    %ul.tag-videos
-      - tag.videos[0..Tag.n_videos].each do |video|
-        %li= link_to video.name, video_path(video.youtube_id)

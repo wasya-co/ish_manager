@@ -5,11 +5,13 @@
 .row
   .small-12.columns
     .center
-      %h1= t('tags.list')
+      %h1
+        Tags (#{Tag.count})
+        = link_to '[+]', new_tag_path
   
-    %ul.large-block-grid-2
+    %ul.tags
       - @tags.each do |tag|
-        = render 'tags/item', :tag => tag
+        = render 'item', :tag => tag
       - if @tags.blank?
         %li No Tags
 

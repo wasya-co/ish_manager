@@ -2,18 +2,28 @@
 -#
 -# tags / _form
 -#
-  
-= form_for @tag, :url => create_tag_path do |f|
+
+-#= @tag.inspect
+
+= form_for @tag do |f|
   = f.label :name
   = f.text_field :name
+  %br
+
+  = f.label :name_seo
+  = f.text_field :name_seo
 
   %br
-  = f.label :is_public
+  = f.label "parent tag"
+  = f.select :parent_tag_id, options_for_select( @tags_list, :selected => ( params[:for_tag] || @tag.parent_tag_id ) )
+  
+  %br
   = f.check_box :is_public
+  = f.label :is_public
 
   %br
-  = f.label :is_trash
   = f.check_box :is_trash
+  = f.label :is_trash
 
   %br
   = f.submit

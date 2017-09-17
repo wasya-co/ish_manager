@@ -4,7 +4,7 @@ class IshManager::TagsController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    @tags = Tag.unscoped
+    @tags = Tag.unscoped.where( :parent_tag_id => nil ).order_by( :name => :asc )
     authorize! :index, Tag.new
   end
   
@@ -39,6 +39,9 @@ class IshManager::TagsController < IshManager::ApplicationController
   def update
     @tag = Tag.unscoped.find params[:id]
     authorize! :update, @tag
+    
+    # byebug
+
     if @tag.update_attributes params[:tag].permit!
       flash[:notice] = 'Success.'
       redirect_to tags_path
@@ -47,7 +50,18 @@ class IshManager::TagsController < IshManager::ApplicationController
       render :action => :new
     end
   end
-  
+
+  def destroy
+    @tag = Tag.unscoped.find params[:id]
+    authorize! :destroy, @tag
+    if @tag.destroy
+      flash[:notice] = 'Success'
+    else
+      flash[:alert] = "Cannot destroy tag: #{@tag.errors.messages}"
+    end
+    redirect_to :action => 'index'
+  end
+
 end
 
 
