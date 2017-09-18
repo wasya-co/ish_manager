@@ -25,7 +25,11 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
     else
       flash[:alert] = "Cannot update profile: #{pp_errors @profile.errors.messages}"
     end
-    redirect_to :action => :index
+    if params[:redirect_to]
+      redirect_to params[:redirect_to]
+    else
+      redirect_to :action => :index
+    end
   end
 
 end

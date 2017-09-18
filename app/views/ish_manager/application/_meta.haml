@@ -1,5 +1,7 @@
 
 .meta
+  On #{item.created_at.to_s[0...10]}
+  %br
   - if item.city
     <b>City:</b> #{link_to item.city.name, city_path( item.city )}
     %br

@@ -97,8 +97,9 @@ nav.pagination
 /**
  * reports
  */
-.descr {
-  border: 1px solid yellow;
+.descr,
+.description {
+  border: 1px solid red;
   padding: 1em;
 }
 .descr .float-left {

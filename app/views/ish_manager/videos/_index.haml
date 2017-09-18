@@ -8,16 +8,43 @@
       Videos (#{videos.count})
       = link_to '[+]', new_video_path
 
-    = paginate videos, :param_name => :videos_page
-    %ol
-      - videos.each do |video|
-        %li
-          = button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-          = link_to '[~]', edit_video_path( video )
-          = link_to video.name, video_path( video )
-          = render 'meta', :item => video
-          -# = render 'embed', :video => video
-          = image_tag "https://img.youtube.com/vi/#{video.youtube_id}/0.jpg"
-    = paginate videos, :param_name => :videos_page
+    - if @current_user.profile.videos_embed
+      Embed?
+      .inline
+        = form_tag user_profile_path( @current_user.profile ), :method => :patch do 
+          = hidden_field_tag 'ish_models_user_profile[videos_embed]', false
+          = hidden_field_tag 'redirect_to', videos_path
+          = submit_tag 'Preview?'
+    - else
+      .inline
+        = form_tag user_profile_path( @current_user.profile ), :method => :patch do
+          = hidden_field_tag 'ish_models_user_profile[videos_embed]', true
+          = hidden_field_tag 'redirect_to', videos_path
+          = submit_tag 'Embed?'
+      Preview?
+
+    %br
+    
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
+    
+    - videos.each do |video|
+      .panel
+        .panel-content
+          .row
+            .col-xs-12.col-sm-6
+              .center
+                = link_to video.name, video_path( video )
+                .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+                = link_to '[~]', edit_video_path( video )
+                = render 'meta', :item => video
+                .description= video.description
+            .col-xs-12.col-sm-6
+              .center
+                - if @current_user.profile.videos_embed
+                  = render 'embed', :video => video
+                - else
+                  = render 'preview', :video => video
+        
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
 %hr
 
