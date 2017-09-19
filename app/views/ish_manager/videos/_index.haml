@@ -41,9 +41,9 @@
             .col-xs-12.col-sm-6
               .center
                 - if @current_user.profile.videos_embed
-                  = render 'embed', :video => video
+                  = render 'ish_manager/videos/embed', :video => video
                 - else
-                  = render 'preview', :video => video
+                  = render 'ish_manager/videos/preview', :video => video
         
     = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
 %hr

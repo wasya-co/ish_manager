@@ -22,6 +22,11 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @resource = Site.find params[:site_id] if params[:site_id]
     authorize! :create_newsitem, @resource
 
+    if params[:photo]
+      photo = Photo.new :photo => params[:photo]
+      n.photo = photo
+    end
+
     @resource.newsitems << n
     flag = @resource.save
     if flag
@@ -67,6 +72,10 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @city = City.find params[:city_id]
       @newsitem = @city.newsitems.find params[:id]
       url = edit_city_path( @city )
+    end
+    if params[:photo]
+      photo = Photo.new :photo => params[:photo]
+      @newsitem.photo = photo
     end
     authorize! :update, @newsitem
     flag = @newsitem.update_attributes params[:newsitem].permit!

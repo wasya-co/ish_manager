@@ -1,5 +1,5 @@
 
-= form_for newsitem do |f|
+= form_for newsitem, :html => { :multipart => true } do |f|
   = hidden_field_tag :site_id, @site.id if @site
   = hidden_field_tag :city_id, @city.id if @city
   .a
@@ -17,6 +17,9 @@
   .a
     = f.label :report
     = f.select :report_id, options_for_select( @reports_list )
+  .a
+    = label_tag :photo
+    = file_field_tag :photo
   .a
     = f.submit :submit
   
