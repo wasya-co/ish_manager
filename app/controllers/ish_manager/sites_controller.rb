@@ -2,7 +2,19 @@ class IshManager::SitesController < IshManager::ApplicationController
   
   def index
     authorize! :sites_index, ::Manager
-    @sites = Site.where( :is_trash => false ).order_by( :domainname => :desc, :lang => :desc )
+    sites = Site.where( :is_trash => false ).order_by( :domainname => :desc, :lang => :desc )
+    @site_groups = []
+    site_group = nil
+    previous_domain = nil
+    sites.each do |site|
+      if previous_domain == site.domain
+        site_group.push site
+      else
+        previous_domain = site.domain
+        @site_groups.push( site_group ) if !site_group.blank?
+        site_group = [ site ]
+      end
+    end
   end
 
   # not trash

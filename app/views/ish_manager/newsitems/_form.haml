@@ -1,7 +1,16 @@
 
 = form_for newsitem, :html => { :multipart => true } do |f|
-  = hidden_field_tag :site_id, @site.id if @site
-  = hidden_field_tag :city_id, @city.id if @city
+  - if @site
+    = hidden_field_tag :site_id, @site.id
+  - elsif @city
+    = hidden_field_tag :city_id, @city.id
+  - else
+    = f.label :site
+    = f.select :site_id, options_for_select( @sites )
+    %br
+    = f.label :city
+    = f.select :city_id, options_for_select( @cities )
+  
   .a
     = f.label :name
     = f.text_field :name

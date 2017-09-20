@@ -9,5 +9,15 @@ module IshManager
       return errors
     end
 
+    def user_path user
+      if user.class == 'String'
+        "/users/#{user}"
+      elsif user.class == User
+        "/users/#{user.id}"
+      elsif user.class == NilClass
+        "/users"
+      end
+    end
+
   end
 end

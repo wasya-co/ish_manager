@@ -6,7 +6,7 @@
     .col-sm-12
       %h2 Galleries (#{galleries.length})
 
-      = paginate galleries, :param_name => :galleries_page
+      = paginate galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
       %ol
         - galleries.each do |gallery|
           %li
@@ -14,5 +14,5 @@
               .mini= image_tag photo.photo.url( :thumb ), :alt => ''
             .clearfix
             #{link_to gallery.name, gallery_path( gallery )} (#{gallery.photos.unscoped.where({ :is_trash => false }).length})
-      = paginate galleries, :param_name => :galleries_page
+      = paginate galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
   %hr

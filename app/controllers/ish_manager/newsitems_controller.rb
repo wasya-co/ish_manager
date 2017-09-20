@@ -5,6 +5,8 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def new
     @newsitem = Newsitem.new
+    @sites = Site.list
+    @cities = City.list
     if params[:city_id]
       @city = City.find params[:city_id]
       @newsitem.city = @city
@@ -17,22 +19,25 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def create
-    n = Newsitem.new params[:newsitem].permit!
+    @newsitem = Newsitem.new params[:newsitem].permit!
     @resource = City.find params[:city_id] if params[:city_id]
+    @resource = City.find params[:newsitem][:city_id] if !params[:newsitem][:city_id].blank?
     @resource = Site.find params[:site_id] if params[:site_id]
+    @resource = Site.find params[:newsitem][:site_id] if !params[:newsitem][:site_id].blank?
+    @resource.newsitems << @newsitem
+
     authorize! :create_newsitem, @resource
 
     if params[:photo]
-      photo = Photo.new :photo => params[:photo]
-      n.photo = photo
+      photo = Photo.create :photo => params[:photo], :user_profile => current_user.profile
+      @newsitem.photo = photo
     end
 
-    @resource.newsitems << n
-    flag = @resource.save
+    flag = @newsitem.save && @resource.save
     if flag
       @resource.touch
     else
-      error = 'No Luck. ' + @resource.errors.inspect
+      error = 'No Luck. ' + @newsitem.errors.messages.to_s 
     end
     url = params[:city_id] ? edit_city_path( @resource.id ) : edit_site_path( @resource.id )
     
@@ -41,6 +46,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       redirect_to url
     else
       flash[:alert] = error
+      @sites = Site.list
+      @cities = City.list
+
       render :action => :new
     end
   end
@@ -75,6 +83,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     end
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
+      photo.user_profile = current_user.profile
       @newsitem.photo = photo
     end
     authorize! :update, @newsitem
