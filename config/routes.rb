@@ -1,6 +1,10 @@
 IshManager::Engine.routes.draw do
   root :to => 'application#home'
 
+  scope :ally, :as => 'ally' do
+    root :to => 'ally#home'
+  end
+
   resources :cities do
     resources :features
     resources :newsitems

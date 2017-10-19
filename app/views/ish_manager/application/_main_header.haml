@@ -5,15 +5,15 @@
       .col-sm-12
         %br
         %ul.nav.nav-pills
-          %li= link_to 'Cities',    cities_path
-          %li= link_to 'Events',    events_path
-          %li= link_to 'Galleries', galleries_path
-          %li= link_to 'Profiles',  user_profiles_path
-          %li= link_to 'Reports',   reports_path
-          %li= link_to 'Sites',     sites_path
-          %li= link_to 'Tags',      tags_path
-          %li= link_to 'Venues',    venues_path
-          %li= link_to 'Videos',    videos_path
-          %li= link_to 'Users',     user_profiles_path
+          %li{ :class => params[:controller] == 'ish_manager/cities'        ? 'active' : '' }= link_to 'Cities',    cities_path
+          %li{ :class => params[:controller] == 'ish_manager/events'        ? 'active' : '' }= link_to 'Events',    events_path
+          %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }= link_to 'Galleries', galleries_path
+          %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Profiles',  user_profiles_path
+          %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }= link_to 'Reports',   reports_path
+          %li{ :class => params[:controller] == 'ish_manager/sites'         ? 'active' : '' }= link_to 'Sites',     sites_path
+          %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path
+          %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path
+          %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }= link_to 'Videos',    videos_path
+          %li{ :class => params[:controller] == 'ish_manager/ally'          ? 'active' : '' }= link_to 'Ally',      ally_root_path
   %hr
 

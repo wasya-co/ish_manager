@@ -12,3 +12,4 @@
         better responsive
 0.1.6 - specs pass in test/dummy
 0.1.7 - lets work on appearances a little. materialize.
+0.1.8 - I want devise to be able to email me forgotten password

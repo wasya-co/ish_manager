@@ -11,7 +11,6 @@
  * It is generally better to create a new file per style scope.
  *
  *= require ish_manager/bootstrap
- *= require ish_manager/materialize
  *= require_self
  */
 
@@ -69,6 +68,10 @@ hr {
 .clearfix {
   clear: both;
 }
+.blue {
+  background: #5bc0de;
+  color: white;
+}
 
 .manager--main-header {
   background: url('/assets/bg/weather.png');
@@ -111,4 +114,20 @@ nav.pagination
  */
 ul.tags ul.tags {
   margin-left: 2em;
+}
+
+/**
+ * ally
+ */
+.price {
+  /* margin-left: 1em; */
+}
+.descriptive {
+  line-height: 2em;
+}
+.price::before {
+  content: "$";
+  position: absolute;
+  top: 1em;
+  left: 0;
 }

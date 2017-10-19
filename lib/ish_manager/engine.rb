@@ -10,7 +10,8 @@ module IshManager
 =end
 
     initializer "ish_manager.assets.precompile" do |app|
-      app.config.assets.precompile += %w( ish_manager/application.js ish_manager/application.css )
+      app.config.assets.precompile << %w( ish_manager/application.js ish_manager/application.css )
+      app.config.assets.precompile << %w( ish_manager/materialize.js ish_manager/materialize.css )
     end
   end
 end
