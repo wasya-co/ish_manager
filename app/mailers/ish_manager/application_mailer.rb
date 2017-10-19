@@ -5,7 +5,12 @@ module IshManager
 
     def welcome
       @var = :value
-      mail( :to => 'piousbox@gmail.com', :subject => 'Abba, welcome!' )
+      mail( :to => 'piousbox@gmail.com', :subject => 'Abba, welcome!' ).deliver
+    end
+
+    def stock_alert stock
+      @stock = stock
+      mail( :to => 'piousbox@gmail.com', :subject => 'IshManager Stock Alert' ).deliver
     end
 
   end
