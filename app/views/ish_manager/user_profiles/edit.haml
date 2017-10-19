@@ -1,12 +1,19 @@
 
+%h5 Editing profile of user #{@profile.user.email}
 .a
   = form_for @profile do |f|
     .field
       = f.label :email
-      = f.text_field :email, :disabled => true
+      = f.text_field :email
     .field
       = f.label :role_name
       = f.select :role_name, ::IshModels::UserProfile::ROLES
+    .field
+      = f.label :fb_access_token
+      = f.text_field :fb_access_token
+    .field
+      = f.label :fb_long_access_token
+      = f.text_field :fb_long_access_token
     .action
       = f.submit 'Submit', :class => %w(button)
     
