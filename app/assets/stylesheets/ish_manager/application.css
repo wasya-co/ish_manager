@@ -117,7 +117,7 @@ ul.tags ul.tags {
 }
 
 /**
- * ally
+ * ally, stock watches
  */
 .price {
   /* margin-left: 1em; */
@@ -130,4 +130,11 @@ ul.tags ul.tags {
   position: absolute;
   top: 1em;
   left: 0;
+}
+table.stock_watches td {
+  border-right: 1px solid cyan;
+  padding: 15px;
+}
+table.stock_watches .trashy {
+  background: #cecece;
 }

@@ -1,3 +1,4 @@
+
 module IshManager
   class ApplicationMailer < ActionMailer::Base
     default from: 'from@example.com'
@@ -10,7 +11,7 @@ module IshManager
 
     def stock_alert stock
       @stock = stock
-      mail( :to => 'piousbox@gmail.com', :subject => 'IshManager Stock Alert' ).deliver
+      mail( :to => stock.profile.email, :subject => 'IshManager Stock Alert' ).deliver
     end
 
   end

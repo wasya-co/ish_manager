@@ -8,7 +8,8 @@
     .panel
       %ul
         %li= link_to '[edit]', edit_user_profile_path( profile )
-        %li Email: #{profile.email}
-        %li Name: #{profile.name}
-        %li Role: #{profile.role_name}
+        %li <b>Email:</b> #{profile.email}
+        %li <b>Name:</b> #{profile.name}
+        %li <b>Role:</b> #{profile.role_name}
+        %li <b>User.email:</b> #{profile.user.email}
       %br

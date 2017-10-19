@@ -2,7 +2,7 @@
 class IshManager::UserProfilesController < IshManager::ApplicationController
 
   def index
-    @user_profiles = IshModels::UserProfile.all
+    @user_profiles = IshModels::UserProfile.all.includes( :user )
     authorize! :index, IshModels::UserProfile
   end
 

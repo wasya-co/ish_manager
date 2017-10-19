@@ -10,7 +10,7 @@ class IshManager::Ability
     unless user.blank?
 
       # role manager
-      if user.profile && user.profile.role_name == :manager
+      if user.profile && [ :manager, :admin ].include?( user.profile.role_name )    
 
         can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
 
@@ -25,6 +25,7 @@ class IshManager::Ability
         can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
+        can [ :manage ], IshModels::StockWatch
 
         # can [ :new_feature, :create_feature ], ::Tag
 
