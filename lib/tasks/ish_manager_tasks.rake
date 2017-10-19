@@ -20,9 +20,9 @@ namespace :ish_manager do
 
   desc 'watch the stocks'
   task :watch_stocks => :environment do
-    stocks = IshModels::StockWatch.where( :notification_type => :EMAIL )
     while true
-      print '.'
+      stocks = IshModels::StockWatch.where( :notification_type => :EMAIL )
+      puts! stocks.map(&:ticker), "Watching these stocks on #{Time.now}"
       stocks.each do |stock|
         begin
           Timeout::timeout( 10 ) do
