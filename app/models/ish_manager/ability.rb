@@ -32,7 +32,9 @@ class IshManager::Ability
       end
 
       if user.profile && user.profile.sudoer?
-        can :manage, :all
+        can :manage, :all # HEREHERE
+        can [ :manage ], ::Gallery
+        can [ :manage ], ::Gallery2
         can [ :home ], ::Manager
         can :destroy, ::Photo
       end

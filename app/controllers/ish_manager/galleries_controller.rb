@@ -16,7 +16,9 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def index_mini
-    @galleries = Gallery.all
+    @galleries = Gallery.unscoped.where( :is_trash => false 
+                                       ).order_by( :created_at => :desc 
+                                                 ).page( params[:galleries_page] ).per( 10 )
   end
 
   def new
