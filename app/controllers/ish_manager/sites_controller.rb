@@ -31,7 +31,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     @videos = @site.videos.page( params[:videos_page] ).per( 5 )
     @tags = @site.tags.page( params[:tags_page] ).per( 100 )
     @features = @site.features.page( params[:features_page] ).per( 9 )
-    @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( 10 )
+    @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( @site.newsitems_per_page )
   end
 
   def edit
