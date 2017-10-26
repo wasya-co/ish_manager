@@ -138,3 +138,15 @@ table.stock_watches td {
 table.stock_watches .trashy {
   background: #cecece;
 }
+
+.stock-option {
+  /* border: 1px solid red; */
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px;
+  box-shadow: 2px 2px 5px grey;
+  margin: 5px;
+}
+.stock-option:hover {
+  box-shadow: 3px 3px 5px grey;
+}

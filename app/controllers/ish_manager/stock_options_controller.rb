@@ -11,10 +11,12 @@ class IshManager::StockOptionsController < IshManager::ApplicationController
 
   def create
     @stock_option = Ish::StockOption.new params[:ish_stock_option].permit!
-    @profile = current_user.profile
-    @stock_option.profile = @profile
+    @stock_option.profile = current_user.profile
     authorize! :create, @stock_option
     flag = @stock_option.save
+
+    byebug
+
     if flag
       flash[:notice] = 'Created stock option.'
     else

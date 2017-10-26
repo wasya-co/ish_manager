@@ -1,0 +1,11 @@
+
+%h4 Stock Actions
+
+%hr
+- @stock_actions.each do |stock_action|
+  = render 'form', :stock_action => stock_action
+        
+%hr
+%h5 New
+= render 'form', :stock_action => @stock_action
+

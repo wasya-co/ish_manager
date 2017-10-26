@@ -34,8 +34,9 @@ IshManager::Engine.routes.draw do
   end
   
   get 'ally', :to => 'ally#home', :as => :ally_root
-  resources :stock_watches
+  resources :stock_actions
   resources :stock_options
+  resources :stock_watches
 
   resources :tags
 

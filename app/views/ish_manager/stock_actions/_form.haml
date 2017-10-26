@@ -1,0 +1,24 @@
+
+-#
+-# ish_manager / stock_actions / _form
+-#
+  
+- url = stock_actions_path if !stock_action.persisted? 
+- url = stock_actions_path( stock_action ) if stock_action.persisted?
+
+- if stock_action.profile
+  Belongs to #{stock_action.profile.email}
+= form_for stock_action, :url => url, :html => { :class => 'form-inline well' } do |f|
+  - which_selected = stock_action.stock_watch ? stock_action.stock_watch.id : nil
+  .form-group
+    %label.control-label When
+    = f.select :stock_watch, options_for_select( @stock_watches_list, :selected => which_selected )
+  .form-group
+    %label.control-label Sell
+    - @stock_options_list.each do |item|
+      - checked = stock_action.stock_options.map(&:id).include?(item[1])
+      .stock-option
+        = f.check_box :stock_options, { :multiple => true, :checked => checked }, item[1], nil
+        = item[0]
+  .form-group
+    = f.submit ">", :class => %w(btn blue)

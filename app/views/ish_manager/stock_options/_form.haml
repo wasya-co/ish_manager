@@ -14,7 +14,7 @@
     = f.number_field :strike, :step => 0.01, :class => 'form-control', :placeholder => '0.01'
   .form-group
     %label.control-label CALL/PUT?
-    = f.select :action, options_for_select( Ish::StockOption::ACTIONS.map{|d|[d,d]}, :selected => stock_option.action )
+    = f.select :direction, options_for_select( Ish::StockOption::DIRECTIONS.map{|d|[d,d]}, :selected => stock_option.direction )
   .form-group
     %label.control-label quantity:
     = f.number_field :quantity, :placeholder => 0
