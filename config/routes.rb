@@ -33,10 +33,9 @@ IshManager::Engine.routes.draw do
     resources :reports
   end
   
+  get 'ally', :to => 'ally#home', :as => :ally_root
   resources :stock_watches
-  # scope :ally, :as => 'ally' do
-  #   root :to => 'ally#home'
-  # end
+  resources :stock_options
 
   resources :tags
 

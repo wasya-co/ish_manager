@@ -14,6 +14,9 @@
           %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path
           %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path
           %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }= link_to 'Videos',    videos_path
-          %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Ally',      stock_watches_path
+        %ul.nav.nav-pills
+          %li{ :class => params[:controller] == 'ish_manager/ally'          ? 'active' : '' }= link_to 'Ally',      ally_root_path
+          %li{ :class => params[:controller] == 'ish_manager/stock_options' ? 'active' : '' }= link_to 'Stock Options', stock_options_path
+          %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches', stock_watches_path
   %hr
 
