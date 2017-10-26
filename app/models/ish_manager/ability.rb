@@ -25,7 +25,7 @@ class IshManager::Ability
         can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
-        can [ :manage ], IshModels::StockWatch
+        can [ :manage ], Ish::StockWatch
 
         # can [ :new_feature, :create_feature ], ::Tag
 

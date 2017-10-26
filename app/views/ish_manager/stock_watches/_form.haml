@@ -4,7 +4,7 @@
 
 = form_for stock_watch, :url => url, :html => { :class => 'form-inline well' } do |f|
   .form-group
-    = f.select :action, options_for_select( IshModels::StockWatch::ACTIONS.map{|a|[a,a]}, :selected => stock_watch.action )
+    = f.select :action, options_for_select( Ish::StockWatch::ACTIONS.map{|a|[a,a]}, :selected => stock_watch.action )
   .form-group
     = f.select :profile, options_for_select( [[nil,nil]]+@profiles.map{|p|[p.email,p.id]}, :selected => stock_watch.profile ? stock_watch.profile.id : nil )
   .form-group
@@ -12,7 +12,7 @@
     = f.text_field :ticker, :class => 'form-control', :placeholder => 'ticker'
   .form-group
     %label.control-label Price
-    = f.select :direction, options_for_select( IshModels::StockWatch::DIRECTIONS.map{|d|[d,d]}, :selected => stock_watch.direction )
+    = f.select :direction, options_for_select( Ish::StockWatch::DIRECTIONS.map{|d|[d,d]}, :selected => stock_watch.direction )
   .form-group
     %label.control-label $
     = f.number_field :price, :step => 0.01, :placeholder => "0.01"

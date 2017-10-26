@@ -43,13 +43,13 @@ class IshManager::PhotosController < IshManager::ApplicationController
     @photo.gallery.touch
 
     if @photo.save
-      j = { :name => @photo.photo.original_filename,
+      j = {
+        :name => @photo.photo.original_filename,
         :size => @photo.photo.size,
         :url => @photo.photo.url( :large ),
         :thumbnail_url => @photo.photo.url( :thumb ),
         :delete_url => photo_path(@photo),
-        :delete_type => 'DELETE',
-        :name => @photo.name
+        :delete_type => 'DELETE'
       }
       render :json => [ j ]
     else

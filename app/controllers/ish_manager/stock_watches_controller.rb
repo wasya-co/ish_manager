@@ -2,15 +2,15 @@
 class IshManager::StockWatchesController < IshManager::ApplicationController
 
   def index
-    authorize! :index, IshModels::StockWatch
+    authorize! :index, Ish::StockWatch
     @profiles = IshModels::UserProfile.all
-    @stock_watches = IshModels::StockWatch.all.includes( :profile )
-    @stock_watch = IshModels::StockWatch.new
+    @stock_watches = Ish::StockWatch.all.includes( :profile )
+    @stock_watch = Ish::StockWatch.new
     render 'index', :layout => 'ish_manager/application_no_materialize'
   end
 
   def create
-    @stock_watch = IshModels::StockWatch.new params[:ish_models_stock_watch].permit!
+    @stock_watch = Ish::StockWatch.new params[:ish_stock_watch].permit!
     authorize! :create, @stock_watch
     flag = @stock_watch.save
     if flag
@@ -22,9 +22,9 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
   end
 
   def update
-    @stock_watch = IshModels::StockWatch.find params[:id]
+    @stock_watch = Ish::StockWatch.find params[:id]
     authorize! :update, @stock_watch
-    flag = @stock_watch.update_attributes params[:ish_models_stock_watch].permit!
+    flag = @stock_watch.update_attributes params[:ish_stock_watch].permit!
     if flag
       flash[:notice] = 'Updated stock watch.'
     else
