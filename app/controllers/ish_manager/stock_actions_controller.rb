@@ -1,6 +1,8 @@
 
 class IshManager::StockActionsController < IshManager::ApplicationController
 
+  PERMITTED_PARAMS = [ :stock_watch, :is_active ]
+
   def index
     authorize! :index, Ish::StockAction
     @profiles      = IshModels::UserProfile.all
@@ -12,7 +14,7 @@ class IshManager::StockActionsController < IshManager::ApplicationController
   end
 
   def create
-    @stock_action = Ish::StockAction.new :stock_watch => params[:ish_stock_action][:stock_watch]
+    @stock_action = Ish::StockAction.new params.require(:ish_stock_action).permit( PERMITTED_PARAMS )
     @stock_action.profile = current_user.profile
     authorize! :create, @stock_action
 
@@ -36,14 +38,13 @@ class IshManager::StockActionsController < IshManager::ApplicationController
     @stock_action = Ish::StockAction.find params[:id]
     authorize! :update, @stock_action
 
-    stock_options = Ish::StockOption.where( :stock_action_id => @stock_action.id ).update_all( :stock_action_id => nil )
     flag = true
     if params[:ish_stock_action][:stock_options]
       stock_options = Ish::StockOption.where( :id.in => params[:ish_stock_action][:stock_options] )
       flag = stock_options.update_all( :stock_action_id => @stock_action.id )
     end
     if flag
-      flag = @stock_action.update_attributes :stock_watch => params[:ish_stock_action][:stock_watch]
+      flag = @stock_action.update_attributes params.require(:ish_stock_action).permit( PERMITTED_PARAMS )
     end
     if flag
       flash[:notice] = 'Updated stock action.'

@@ -18,7 +18,7 @@ namespace :ish_manager do
     puts 'OK'
   end
 
-  desc 'watch the stocks'
+  desc 'watch the stocks, and trigger actions'
   task :watch_stocks => :environment do
     while true
       stocks = Ish::StockWatch.where( :notification_type => :EMAIL )
@@ -27,15 +27,23 @@ namespace :ish_manager do
         begin
           Timeout::timeout( 10 ) do
             r = HTTParty.get "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=#{stock.ticker}&interval=1min&apikey=X1C5GGH5MZSXMF3O"
-            r = JSON.parse( r.body )['Time Series (1min)']
-            r = r[r.keys.first]['4. close'].to_f
-            if stock.direction == :ABOVE &&  r >= stock.price ||
-               stock.direction == :BELOW && r <= stock.price
-              IshManager::ApplicationMailer.stock_alert( stock ).deliver
-            end
           end
         rescue Exception => e
           puts! e, 'e in :watch_stocks'
+        end
+        r = JSON.parse( r.body )['Time Series (1min)']
+        r = r[r.keys.first]['4. close'].to_f
+        if stock.direction == :ABOVE &&  r >= stock.price ||
+           stock.direction == :BELOW && r <= stock.price
+          IshManager::ApplicationMailer.stock_alert( stock ).deliver
+
+=begin
+          # actions
+          stock.stock_actions.where( :is_active => true ).each do |action|
+            # @TODO: actions
+          end
+=end
+          
         end
       end
       sleep 60
