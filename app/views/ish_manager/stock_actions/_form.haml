@@ -4,7 +4,7 @@
 -#
   
 - url = stock_actions_path if !stock_action.persisted? 
-- url = stock_actions_path( stock_action ) if stock_action.persisted?
+- url = stock_action_path( stock_action ) if stock_action.persisted?
 
 - if stock_action.profile
   Belongs to #{stock_action.profile.email}
