@@ -73,6 +73,14 @@ hr {
   color: white;
 }
 
+.panel-content {
+  padding: .5em;
+}
+
+/**
+ * manager... wut?
+ */
+
 .manager--main-header {
   background: url('/assets/bg/weather.png');
 }

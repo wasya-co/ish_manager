@@ -10,5 +10,10 @@
 
 %ul
   - @invoices.each do |i|
-    %li= i.inspect
+    %li
+      .panel
+        .panel-content
+          .a Number: #{i.number}
+          .a Email: #{i.profile.email}
+          .a Amount: #{i.amount}
     

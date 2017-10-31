@@ -43,5 +43,9 @@ $(document).ready(function () {
   
   $('select').material_select();
 
+  $(".caret").each(function(idx) {
+    $($(".caret")[idx]).html('');
+  });
+
 });
  
