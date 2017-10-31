@@ -1,0 +1,15 @@
+
+- url = invoice.persisted? ? invoice_path( invoice.id ) : invoices_path
+
+= form_for invoice, :as => :invoice, :url => url do |f|
+  %label profile/email
+  = text_field_tag :email
+  %br
+
+  %label amount
+  = f.number_field :amount, :step => 0.01
+
+  %label number
+  = f.number_field :number
+
+  = f.submit 'Save'

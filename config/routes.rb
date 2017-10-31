@@ -20,9 +20,14 @@ IshManager::Engine.routes.draw do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
   end
 
+  resources :invoices do
+    resources :payments
+  end
+
   resources :newsitems
 
   resources :photos
+  resources :payments
 
   resources :reports
 
@@ -33,7 +38,6 @@ IshManager::Engine.routes.draw do
     resources :reports
   end
   
-  get 'ally', :to => 'ally#home', :as => :ally_root
   resources :stock_actions
   resources :stock_options
   resources :stock_watches
@@ -41,7 +45,8 @@ IshManager::Engine.routes.draw do
   resources :tags
 
   resources :user_profiles
-  resources :user_profiles, :as => :ish_models_user_profiles
+  # resources :user_profiles, :as => :ish_models_user_profiles
+  resources :user_profiles, :as => :profiles
 
   resources :venues
   resources :videos
