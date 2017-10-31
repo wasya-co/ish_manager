@@ -23,5 +23,6 @@ Gem::Specification.new do |s|
   s.add_dependency "devise", [ "~> 4.3" ]
   s.add_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_dependency "kaminari-actionview", [ "~> 1.0" ]
+  s.add_dependency "mongoid-autoinc", [ "~> 6.0" ]
 
 end
