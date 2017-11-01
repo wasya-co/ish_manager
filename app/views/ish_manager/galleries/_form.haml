@@ -9,7 +9,6 @@
     .col-sm-6
       = f.label :galleryname
       = f.text_field :galleryname
-      = f.submit
       
   .row
     .col-sm-4
@@ -30,13 +29,7 @@
       = f.check_box :is_public
       = f.label :is_public
     .col-sm-3
-      = f.check_box :is_done
-      = f.label :is_done
-    .col-sm-3
       = f.check_box :is_trash
       = f.label :is_trash
-    .col-sm-3
-      = f.check_box :is_feature    
-      = f.label :is_feature
     .col-sm-3
       = f.submit 'Submit'

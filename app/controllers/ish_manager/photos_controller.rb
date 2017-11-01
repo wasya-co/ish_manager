@@ -20,6 +20,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
 
   def show
     @photo = Photo.unscoped.find params[:id]
+    authorize! :show, @photo
   end
 
   def j_create
