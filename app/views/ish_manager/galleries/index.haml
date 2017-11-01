@@ -9,7 +9,7 @@
   .row
     .col-sm-6
       %h4
-        Galleries (#{Gallery.count})
+        Galleries (#{@galleries.count})
         = link_to '[+]', new_gallery_path
     .col-sm-6= render 'search'
   .row
