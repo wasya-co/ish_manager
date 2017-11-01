@@ -16,4 +16,4 @@
           .a Number: #{i.number}
           .a Email: #{i.profile.email}
           .a Amount: #{i.amount}
-    
+          .a Payments: #{i.payments.map { |p| p.amount }.join(", ") }
