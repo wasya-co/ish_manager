@@ -37,7 +37,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     if flag
       @resource.touch
     else
-      error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages
+      error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages.to_s
     end
     url = params[:city_id] ? edit_city_path( @resource.id ) : edit_site_path( @resource.id )
     
