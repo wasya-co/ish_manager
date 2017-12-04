@@ -24,10 +24,6 @@ class IshManager::PhotosController < IshManager::ApplicationController
   end
 
   def j_create
-    @photo = Photo.new params[:photo].permit!
-    authorize! :create, @photo
-    @photo.is_public = true
-   
     # find this gallery
     if params[:galleryname]
       gallery = Gallery.unscoped.where( :galleryname => params[:galleryname] ).first
@@ -36,6 +32,10 @@ class IshManager::PhotosController < IshManager::ApplicationController
       gallery = Gallery.unscoped.find( params[:gallery_id] )
       gallery ||= Gallery.unscoped.where( :galleryname => params[:gallery_id] ).first
     end
+    authorize! :create_photo, gallery
+
+    @photo = Photo.new params[:photo].permit!
+    @photo.is_public = true   
     @photo.gallery = gallery
     
     # cache

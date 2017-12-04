@@ -9,13 +9,15 @@ class IshManager::Ability
     #
     unless user.blank?
 
-      can [ :index ], Gallery      
-      can [ :show ], ::Gallery do |gallery|
-        gallery.user == user
+      can [ :index, :new, :create ], ::Gallery
+      can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
+        gallery.user_profile == user.profile
       end
       
       can [ :home ], IshManager::Ability
       
+      can [ :friends_index, :friends_new ], IshModels::UserProfile
+
       #
       # role manager
       #

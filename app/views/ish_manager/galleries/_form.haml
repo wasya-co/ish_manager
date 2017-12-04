@@ -22,7 +22,7 @@
       = select :gallery, :venue_id, @venues_list
     .col-sm-4
       = f.label 'Shared with'
-      = f.select :shared_profiles, options_for_select( [[nil,nil]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
+      = f.select :shared_profiles, options_for_select( [[nil,nil,:disabled=>true]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
       
   .row
     .col-sm-3

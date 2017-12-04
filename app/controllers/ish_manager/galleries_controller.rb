@@ -30,9 +30,12 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def create
+    params[:gallery][:shared_profiles].delete('')
+    params[:gallery][:shared_profiles] = IshModels::UserProfile.find params[:gallery][:shared_profiles]
     @gallery = Gallery.new params[:gallery].permit!
+    @gallery.user_profile = current_user.profile
+    @gallery.username = current_user.profile.username
     authorize! :create, @gallery
-    # @gallery.username = current_user.profile.username
 
     if @gallery.save
       flash[:notice] = 'Success'
@@ -55,7 +58,6 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     authorize! :update, @gallery
     params[:gallery][:shared_profiles].delete('')
     params[:gallery][:shared_profiles] = IshModels::UserProfile.find params[:gallery][:shared_profiles]
-    puts! params[:gallery][:shared_profiles]
     if @gallery.update_attributes( params[:gallery].permit! )
       flash[:notice] = 'Success.'
       redirect_to galleries_path
