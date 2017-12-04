@@ -2,7 +2,7 @@ class IshManager::LeadsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Lead
-    @leads = Ish::Lead.all
+    @leads = Ish::Lead.where( :profile => current_user.profile )
   end
 
   def new
@@ -12,6 +12,7 @@ class IshManager::LeadsController < IshManager::ApplicationController
 
   def create
     @lead = Ish::Lead.new params[:lead].permit!
+    @lead.profile = current_user.profile
     authorize! :create, @lead
     if @lead.save
       flash[:notice] = "created lead"

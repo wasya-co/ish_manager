@@ -1,6 +1,18 @@
 
 .manager--leads-index
   %h5
-    Leads
+    Leads (#{@leads.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
   
+  %table
+    %tr
+      %th Company
+      %th Email
+      %th Job Url
+      %th Description
+    - @leads.each do |lead|
+      %tr
+        %td= lead.company
+        %td= lead.email
+        %td= link_to lead.job_url, lead.job_url, :target => '_blank'
+        %td= lead.description
