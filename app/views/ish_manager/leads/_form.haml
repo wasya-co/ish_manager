@@ -1,0 +1,19 @@
+
+- url = lead.persisted? ? lead_path( lead.id ) : leads_path
+
+= form_for lead, :as => :lead, :url => url do |f|
+  .input-field
+    = f.label :email
+    = f.text_field :email
+  .input-field
+    = f.label :job_url
+    = f.text_field :job_url
+  .input-field
+    = f.label :company
+    = f.text_field :company
+  .input-field
+    = f.label :description
+    = f.text_area :description
+  .actions
+    = f.submit
+  

@@ -68,5 +68,26 @@ $(document).ready(function () {
     $(".content", mainHeaderContext).css("display", 'none')
   }
 
+  var mainFooterContext = $(".manager--main-footer")
+  $(".manager--main-footer #collapseFooter").click(function (_e) {
+    if ($(this).hasClass('fa-compress')) {
+      $(this).addClass('fa-expand')
+      $(this).removeClass('fa-compress')
+      localStorage.setItem('mainFooterCollapsed', 'true')
+      $('.content', $(this).parent()).css('display', 'none')
+    } else {
+      $(this).removeClass('fa-expand')
+      $(this).addClass('fa-compress')
+      localStorage.setItem('mainFooterCollapsed', 'false')
+      $('.content', $(this).parent()).css('display', 'block')
+    }    
+  })
+  if (localStorage.getItem('mainFooterCollapsed') === 'true') {
+    console.log('here')
+    $("#collapseFooter").addClass('fa-expand')
+    $("#collapseFooter").removeClass('fa-compress')
+    $(".content", mainFooterContext).css("display", 'none')
+  }
+
 });
  

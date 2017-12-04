@@ -28,5 +28,5 @@
               %p.alert= alert
       .container
         = yield
-    = render :partial => 'ish_manager/application/main_footer'
-    = render 'analytics'
+    = render 'ish_manager/application/main_footer'
+    = render 'analytics' unless Rails.env.development?

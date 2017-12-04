@@ -1,24 +1,26 @@
 
-.container
-  %br
-  .row
-    .col-sm-5
-      - if defined?( current_user ) && current_user
-        %ul
-          %li >[ #{current_user.email} ]<
-          %li >[ #{current_user.profile.role_name} ]<
-      - else
-        Please log in
-        = link_to '[+]', main_app.new_user_session_path
+.manager--main-footer
+  .container
+    .row
+      %i.fa.fa-compress.collapse-expand#collapseFooter
+      .content
+        .col-sm-5
+          - if defined?( current_user ) && current_user
+            %ul
+              %li >[ #{current_user.email} ]<
+              %li >[ #{current_user.profile.role_name} ]<
+          - else
+            Please log in
+            = link_to '[+]', main_app.new_user_session_path
 
-    .col-sm-5
-      %br
-      \~__^
-      1.6
-      %br
-      %br
-      %br
-      %br
-      %br
-    .col-sm.2
-      = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
+        .col-sm-5
+          %br
+          \~__^
+          1.6
+          %br
+          %br
+          %br
+          %br
+          %br
+        .col-sm.2
+          = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
