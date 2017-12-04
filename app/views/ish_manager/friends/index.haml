@@ -1,0 +1,16 @@
+
+%h5 Friends
+
+.panel
+  .panel-body
+    = form_for @new_friend, :as => :friend, :url => friends_path do |f|
+      .row
+        .col-sm-6
+          = f.text_field :email, :placeholder => 'email'
+        .col-sm-6
+          = f.submit 'Add Friend'
+          
+- current_user.profile.friends.each do |friend|
+  .panel
+    .panel-body
+      = friend.email

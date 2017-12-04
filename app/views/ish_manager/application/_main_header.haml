@@ -9,6 +9,7 @@
           %li{ :class => params[:controller] == 'ish_manager/events'        ? 'active' : '' }= link_to 'Events',    events_path
           %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path
           %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Profiles',  user_profiles_path
+          %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path          
         %ul.nav.nav-pills          
           %li{ :class => params[:controller] == 'ish_manager/sites'         ? 'active' : '' }= link_to 'Sites',     sites_path
           %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }= link_to 'Galleries', galleries_path

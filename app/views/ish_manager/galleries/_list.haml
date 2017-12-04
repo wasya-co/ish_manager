@@ -1,5 +1,6 @@
 
-- n_thumbs ||= 9
+- n_thumbs   ||= 9
+- param_name ||= :galleries_page
 
 - if galleries.length > 0
   .galleries--list
@@ -16,7 +17,7 @@
             = link_to image_tag(photo.photo.url(:thumb), :alt => g.name, :class => :thumb ), gallery_path(g.galleryname)
     .c
 
-    = paginate galleries, :param_name => :galleries_page
+    = paginate galleries, :param_name => param_name
     
 - else
   %h5 No Galleries

@@ -14,7 +14,8 @@ IshManager::Engine.routes.draw do
 
   resources :events
 
-  resources :features
+  resources :feature
+  resources :friends
 
   resources :galleries do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd

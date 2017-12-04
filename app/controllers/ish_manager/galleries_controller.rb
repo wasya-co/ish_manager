@@ -7,7 +7,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
                                        ).order_by( :created_at => :desc 
                                                  ).page( params[:galleries_page] ).per( 10 )
-    @shared_galleries = current_user.profile.shared_galleries
+    @shared_galleries = current_user.profile.shared_galleries.page( params[:shared_galleries_page] ).per( 10 )
   end
 
   def index_thumb
@@ -53,6 +53,9 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   def update
     @gallery = Gallery.unscoped.find params[:id]
     authorize! :update, @gallery
+    params[:gallery][:shared_profiles].delete('')
+    params[:gallery][:shared_profiles] = IshModels::UserProfile.find params[:gallery][:shared_profiles]
+    puts! params[:gallery][:shared_profiles]
     if @gallery.update_attributes( params[:gallery].permit! )
       flash[:notice] = 'Success.'
       redirect_to galleries_path
