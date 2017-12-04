@@ -41,11 +41,32 @@ $(document).ready(function () {
     });
   }
   
-  $('select').material_select();
+  $('select').material_select()
 
   $(".caret").each(function(idx) {
-    $($(".caret")[idx]).html('');
-  });
+    $($(".caret")[idx]).html('')
+  })
+
+  var mainHeaderContext = $(".manager--main-header")
+  $(".manager--main-header #collapseHeader").click(function (_e) {
+    if ($(this).hasClass('fa-compress')) {
+      $(this).addClass('fa-expand')
+      $(this).removeClass('fa-compress')
+      localStorage.setItem('mainHeaderCollapsed', 'true')
+      $('.content', $(this).parent()).css('display', 'none')
+    } else {
+      $(this).removeClass('fa-expand')
+      $(this).addClass('fa-compress')
+      localStorage.setItem('mainHeaderCollapsed', 'false')
+      $('.content', $(this).parent()).css('display', 'block')
+    }    
+  })
+  if (localStorage.getItem('mainHeaderCollapsed') === 'true') {
+    console.log('here')
+    $("#collapseHeader").addClass('fa-expand')
+    $("#collapseHeader").removeClass('fa-compress')
+    $(".content", mainHeaderContext).css("display", 'none')
+  }
 
 });
  

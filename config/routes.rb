@@ -25,6 +25,8 @@ IshManager::Engine.routes.draw do
     resources :payments
   end
 
+  resources :leads
+
   resources :newsitems
 
   resources :photos

@@ -77,12 +77,19 @@ hr {
   padding: .5em;
 }
 
+.collapse-expand {
+  cursor: pointer;
+}
+
 /**
- * manager... wut?
+ * manager... 
  */
 
 .manager--main-header {
   background: url('/assets/bg/weather.png');
+}
+.manager--main-header hr {
+  margin-top: 0;
 }
 
 .manager-galleries--index .mini {
