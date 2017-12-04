@@ -5,7 +5,7 @@ module IshManager
     check_authorization
 
     def home
-      authorize! :home, Manager
+      authorize! :home, IshManager::Ability
       render 'home'
     end
 

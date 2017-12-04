@@ -9,7 +9,16 @@ class IshManager::Ability
     #
     unless user.blank?
 
+      can [ :index ], Gallery      
+      can [ :show ], ::Gallery do |gallery|
+        gallery.user == user
+      end
+      
+      can [ :home ], IshManager::Ability
+      
+      #
       # role manager
+      #
       if user.profile && [ :manager, :admin ].include?( user.profile.role_name )    
 
         can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
@@ -32,16 +41,13 @@ class IshManager::Ability
       end
 
       if user.profile && user.profile.sudoer?
-        can :manage, :all # HEREHERE
+        can :manage, :all # @TODO: this is important
         can [ :manage ], ::Gallery
         can [ :manage ], ::Gallery2
         can [ :home ], ::Manager
         can :destroy, ::Photo
       end
 
-      can [ :show ], ::Gallery do |gallery|
-        gallery.user == user
-      end
       
     end
     #

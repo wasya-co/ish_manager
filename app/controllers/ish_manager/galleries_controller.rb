@@ -4,9 +4,10 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   
   def index
     authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where( :is_trash => false
+    @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
                                        ).order_by( :created_at => :desc 
                                                  ).page( params[:galleries_page] ).per( 10 )
+    @shared_galleries = current_user.profile.shared_galleries
   end
 
   def index_thumb
