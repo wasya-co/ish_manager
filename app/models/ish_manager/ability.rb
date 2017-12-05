@@ -14,9 +14,9 @@ class IshManager::Ability
         gallery.user_profile == user.profile
       end
       
-      can [ :home ], IshManager::Ability
+      can [ :home ], ::IshManager::Ability
       
-      can [ :friends_index, :friends_new ], IshModels::UserProfile
+      can [ :friends_index, :friends_new ], ::IshModels::UserProfile
 
       #
       # role manager

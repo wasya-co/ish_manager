@@ -6,10 +6,12 @@ class IshManager::FriendsController < IshManager::ApplicationController
   end
 
   def create
-    @friend = IshModels::UserProfile.find_by :email => params[:friend][:email]
+    @friend = ::IshModels::UserProfile.find_by :email => params[:friend][:email]
     puts! @friend, 'friend!'
 
-    authorize! :friends_new, @friend
+    authorize! :home, ::IshManager::Ability
+    # authorize! :friends_new, @friend
+
     me = current_user.profile
     me.friends << @friend
     if me.save
