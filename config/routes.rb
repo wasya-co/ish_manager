@@ -12,6 +12,7 @@ IshManager::Engine.routes.draw do
     resources :venues
   end
 
+  resources :email_templates
   resources :events
 
   resources :feature

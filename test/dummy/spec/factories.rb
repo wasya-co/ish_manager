@@ -27,4 +27,12 @@ FactoryGirl.define do
     password '12345678'
   end
 
+  factory :user_profile, :class => IshModels::UserProfile do
+    email 'user@email.com'
+    after :build do |p|
+      u = User.find_or_create_by :email => p.email
+      p.user = u
+    end
+  end
+
 end

@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/piousbox/ish_models.git
+  revision: 5a58c2b0a4e1d9496282ad39e988e4afa63811d6
+  branch: master
+  specs:
+    ish_models (0.0.33.38)
+      devise (> 0)
+      mongoid (~> 6.1.0, >= 6.1.0)
+      mongoid-autoinc (~> 6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -113,9 +123,6 @@ GEM
       has_scope (~> 0.6)
       railties (>= 3.2, < 5.2.x)
       responders
-    ish_models (0.0.33.12)
-      devise (> 0)
-      mongoid (~> 6.1.0, >= 6.1.0)
     jmespath (1.3.1)
     jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
@@ -154,6 +161,8 @@ GEM
     mongoid (6.1.0)
       activemodel (~> 5.0)
       mongo (>= 2.4.1, < 3.0.0)
+    mongoid-autoinc (6.0.2)
+      mongoid (~> 6.0)
     mongoid-paperclip (0.0.11)
       mongoid
       paperclip (>= 2.3.6, != 4.3.0)
@@ -184,6 +193,10 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.1.1)
       sprockets-rails (>= 2.0.0)
+    rails-controller-testing (1.0.2)
+      actionpack (~> 5.x, >= 5.0.1)
+      actionview (~> 5.x, >= 5.0.1)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -263,14 +276,15 @@ DEPENDENCIES
   devise
   factory_girl_rails
   haml
-  ish_models
+  ish_models!
   kaminari
   kaminari-mongoid
   mongoid
   mongoid-paperclip
   rails (~> 5.1)
+  rails-controller-testing
   rspec
   rspec-rails
 
 BUNDLED WITH
-   1.14.6
+   1.15.4

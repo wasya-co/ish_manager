@@ -19,6 +19,7 @@ class UserStub
     @profile = OpenStruct.new
     if args[:manager]
       @profile[:manager?] = true
+      @profile[:sudoer?] = true
     end
   end
 
@@ -53,3 +54,17 @@ def puts! a, b=''
   puts "+++ +++ #{b}"
   puts a.inspect
 end
+
+def setup_users
+  User.all.destroy
+  @user = FactoryGirl.create :user
+  sign_in @user, :scope => :user
+end
+
+def setup_profiles
+  IshModels::UserProfile.all.destroy
+  @profile_1 = FactoryGirl.create :user_profile, :email => 'one@gmail.com'  
+  @profile_2 = FactoryGirl.create :user_profile, :email => 'two@gmail.com'
+  @profile_3 = FactoryGirl.create :user_profile, :email => 'three@gmail.com'
+end
+
