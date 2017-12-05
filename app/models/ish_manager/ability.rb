@@ -2,9 +2,7 @@
 class IshManager::Ability
   include ::CanCan::Ability
 
-  def initialize user 
-    can [ :home ], ::IshManager::Ability
-    can [ :friends_index, :friends_new ], ::IshModels::UserProfile
+  def initialize user
 
     #
     # signed in user

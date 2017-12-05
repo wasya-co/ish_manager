@@ -9,8 +9,7 @@ class IshManager::FriendsController < IshManager::ApplicationController
     @friend = ::IshModels::UserProfile.find_by :email => params[:friend][:email]
     puts! @friend, 'friend!'
 
-    authorize! :home, ::IshManager::Ability
-    # authorize! :friends_new, @friend
+    authorize! :friends_new, @friend
 
     me = current_user.profile
     me.friends << @friend
