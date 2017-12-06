@@ -6,13 +6,6 @@ class IshManager::FriendsController < IshManager::ApplicationController
 
     @friends = current_user.profile.friends
     friend_ids = @friends.map &:id
-=begin
-    @raw_shared_galleries = @friend.shared_galleries
-    @shared_galleries = {}
-    @friends.each do |f|
-      @shared_galleries[f.email] = 
-      f.shared_galleries
-=end
   end
 
   def create

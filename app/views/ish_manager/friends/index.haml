@@ -17,6 +17,4 @@
       .row
         .col-sm-6.description
           Galleries shared with them:
-          %ul
-            - friend.shared_galleries.each do |g|
-              %li= g[:name]
+          = render 'ish_manager/galleries/index_title', :galleries => friend.shared_galleries
