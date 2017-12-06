@@ -18,7 +18,7 @@
             %li <b>About:</b> #{profile.about}
         .col-sm-8
           Shared galleries:<br />
-          - profile.shared_galleries.each do |g|
+          - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
             &gt; #{link_to g.name, gallery_path(g.galleryname)} <br />
             = render 'meta', :item => g
           
