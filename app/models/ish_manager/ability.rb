@@ -53,6 +53,9 @@ class IshManager::Ability
         can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
           gallery.user_profile == user.profile
         end
+        can [ :show ], ::Gallery do |gallery|
+          gallery.shared_profiles.include? user.profile
+        end
 
         can [ :index ], ::Report
 

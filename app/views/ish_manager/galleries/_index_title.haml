@@ -5,10 +5,9 @@
 - if galleries.length > 0
   .galleries--list
     - galleries.each do |g|
-      .item
-        %h5
-          = link_to '[~]', edit_gallery_path( g )
-          = link_to g.name, gallery_path(g.galleryname)
+      %h5
+        = link_to '[~]', edit_gallery_path( g )
+        = link_to g.name, gallery_path(g.galleryname)
     .c
 
     - if galleries.respond_to? :total_pages

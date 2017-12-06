@@ -1,18 +1,16 @@
 
 .meta
-  On #{item.created_at.to_s[0...10]}
-  %br
+  <b>On</b> #{item.created_at.to_s[0...10]}
   - if item.city
-    <b>City:</b> #{link_to item.city.name, city_path( item.city )}
-    %br
+    <b>In City:</b> #{link_to item.city.name, city_path( item.city )}
   - if item.tag
     <b>Tag:</b> #{link_to item.tag.name, tag_path( item.tag )}
-    %br
   - if item.site
     <b>Site:</b>
     = link_to "#{item.site.domain}/#{item.site.lang}", site_path( item.site )
-    %br
-  - if item.user
-    <b>User:</b> #{item.user.email}
-    %br
+  - if item.venue
+    <b>Venue:</b>
+    = item.venue.inspect
+  - if item.user_profile
+    <b>By UserProfile:</b> #{item.user_profile.email}
     
