@@ -32,4 +32,10 @@ describe IshManager::GalleriesController, :type => :controller do
     end
   end
 
+  it 'create' do
+    n_galleries = Gallery.count
+    post :create, :params => { :gallery => { :name => "abba-#{rand(100)}" } }
+    Gallery.count.should eql n_galleries+1
+  end
+
 end
