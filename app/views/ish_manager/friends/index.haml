@@ -17,4 +17,4 @@
       .row
         .col-sm-6.description
           Galleries shared with them:
-          = render 'ish_manager/galleries/index_title', :galleries => friend.shared_galleries.where( :user_profile => current_user.profile )
+          = render 'ish_manager/galleries/index_title', :galleries => friend.shared_galleries.unscoped.where( :is_trash => false, :user_profile => current_user.profile )
