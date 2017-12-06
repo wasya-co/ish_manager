@@ -1,16 +1,24 @@
 
-%h1
+%h5
   User Profiles (#{@user_profiles.count})
   = link_to '[+]', new_user_profile_path
  
-%ul
-  - @user_profiles.each do |profile|
-    .panel
-      %ul
-        %li= link_to '[edit]', edit_user_profile_path( profile )
-        %li <b>Email:</b> #{profile.email}
-        %li <b>Name:</b> #{profile.name}
-        %li <b>Role:</b> #{profile.role_name}
-        %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
-        %li <b>About:</b> #{profile.about}
-      %br
+
+- @user_profiles.each do |profile|
+  .panel
+    .panel-body
+      .row
+        .col-sm-4
+          %ul
+            %li= link_to '[edit]', edit_user_profile_path( profile )
+            %li <b>Email:</b> #{profile.email}
+            %li <b>Name:</b> #{profile.name}
+            %li <b>Role:</b> #{profile.role_name}
+            %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
+            %li <b>About:</b> #{profile.about}
+        .col-sm-8
+          Shared galleries:<br />
+          - profile.shared_galleries.each do |g|
+            &gt; #{link_to g.name, gallery_path(g.galleryname)} <br />
+            = render 'meta', :item => g
+          

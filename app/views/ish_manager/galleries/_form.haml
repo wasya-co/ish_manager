@@ -20,9 +20,18 @@
     .col-sm-4
       = f.label :venue
       = select :gallery, :venue_id, @venues_list
-    .col-sm-4
-      = f.label 'Shared with'
-      = f.select :shared_profiles, options_for_select( [[nil,nil,:disabled=>true]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
+  .row
+    .panel
+      .panel-body
+        .col-sm-4
+          = f.label 'Shared with'
+          = f.select :shared_profiles, options_for_select( [[nil,nil,:disabled=>true]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
+        .col-sm-4
+          Shared with:<br />
+          - gallery.shared_profiles.each do |p|
+            &gt; #{p.email} <br />
+        .col-sm-4
+          "/
       
   .row
     .col-sm-3
