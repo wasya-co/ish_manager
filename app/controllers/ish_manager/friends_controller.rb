@@ -16,7 +16,7 @@ class IshManager::FriendsController < IshManager::ApplicationController
   end
 
   def create
-    @friend = ::IshModels::UserProfile.find_by( :email => params[:friend][:email] ).includes( :shared_galleries )
+    @friend = ::IshModels::UserProfile.find_by( :email => params[:friend][:email] ) # .includes( :shared_galleries )
 
     authorize! :friends_new, @friend
 

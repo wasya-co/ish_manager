@@ -12,8 +12,6 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   end
 
   def edit
-    puts! current_user, 'herehere'
-
     @profile = IshModels::UserProfile.find params[:id]
     authorize! :edit, @profile
   end

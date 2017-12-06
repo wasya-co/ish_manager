@@ -16,10 +16,11 @@ end
 
 class UserStub
   def initialize args = {}
-    @profile = OpenStruct.new
+    @profile = OpenStruct.new :role_name => :guy
     if args[:manager]
       @profile[:manager?] = true
       @profile[:sudoer?] = true
+      @profile[:role_name] = :admin
     end
   end
 
@@ -30,6 +31,11 @@ class UserStub
   def profile
     return @profile
   end
+
+  def email
+    return 'some@email.com'
+  end
+
 end
 
 # this is bad... dummy app should have devise installed, and class User
@@ -62,9 +68,13 @@ def setup_users
 end
 
 def setup_profiles
+  emails = %w( one@gmail.com two@gmail.com three@gmail.com )
+  @profiles = {}
   IshModels::UserProfile.all.destroy
-  @profile_1 = FactoryGirl.create :user_profile, :email => 'one@gmail.com'  
-  @profile_2 = FactoryGirl.create :user_profile, :email => 'two@gmail.com'
-  @profile_3 = FactoryGirl.create :user_profile, :email => 'three@gmail.com'
+  emails.each_with_index do |email, index|
+    u = FactoryGirl.create :user, :email => email
+    p = FactoryGirl.create :user_profile, :email => email, :user => u
+    @profiles[index] = p
+  end
 end
 

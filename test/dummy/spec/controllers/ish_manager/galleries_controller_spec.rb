@@ -23,12 +23,11 @@ describe IshManager::GalleriesController, :type => :controller do
   describe 'update' do
     it 'sends email to new shared profiles' do
       setup_profiles
-      @gallery.shared_profiles = [ @profile_1, @profile_2 ]
+      @gallery.shared_profiles = [ @profiles[0], @profiles[1] ]
       @gallery.save
 
-      post :update, :params => { :id => @gallery.id, :gallery => { :shared_profiles => [ @profile_2.id, @profile_3.id ] } }
-
-      GalleriesNotifier.should_have_been_called_with( @profile_3 )
+      expect( ::IshManager::ApplicationMailer ).to receive( :shared_galleries ).with( [ @profiles[2] ], @gallery ).and_return(OpenStruct.new)
+      post :update, :params => { :id => @gallery.id, :gallery => { :shared_profiles => [ @profiles[1].id, @profiles[2].id ] } }
     end
   end
 

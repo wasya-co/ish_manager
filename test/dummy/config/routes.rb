@@ -5,6 +5,4 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => [ :registrations ]
   
-  get 'status', :to => 'application#home', :as => :new_user_session
-
 end

@@ -6,7 +6,7 @@ gem 'haml'
 
 gem 'mongoid'
 gem 'mongoid-paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '~> 2'
 gem 'kaminari'
 gem 'kaminari-mongoid'
 gem 'activeadmin'
