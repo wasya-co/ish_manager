@@ -22,6 +22,9 @@ class UserStub
       @profile[:sudoer?] = true
       @profile[:role_name] = :admin
     end
+    if args[:sudoer]
+      @profile[:sudoer?] = true
+    end
   end
 
   def profile= profile
@@ -63,8 +66,11 @@ end
 
 def setup_users
   User.all.destroy
-  @user = FactoryGirl.create :user
+  @user   = FactoryGirl.create :user, :email => 'user@gmail.com'
+  @user_1 = FactoryGirl.create :user, :email => 'user-1@gmail.com'
+  @user_2 = FactoryGirl.create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user
+  allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end
 
 def setup_profiles

@@ -12,20 +12,24 @@ describe IshManager::PhotosController, :type => :controller do
     Photo.unscoped.destroy
     @photo = FactoryGirl.create :photo, :gallery => @gallery
 
-    User.all.destroy
-    @user = FactoryGirl.create :user
-    sign_in @user, :scope => :user
-
-    allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
+    setup_users
   end
 
-  it '#destroy - access denied' do
-    allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => false ))
-    n = Photo.count
-    expect {
+  context '#destroy' do
+    it '#destroy - access denied' do
+      allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => false))
+      n = Photo.count
       delete :destroy, :params => { :id => @photo.id }
-    }.to raise_exception CanCan::AccessDenied
-    Photo.count.should eql n
+      session[:flash]['flashes']['alert'].should_not eql nil
+      Photo.count.should eql n
+    end
+
+    it '#destroy - ok for sudoer' do
+      allow(controller).to receive(:current_user).and_return(UserStub.new(:sudoer => true))
+      n = Photo.count
+      delete :destroy, :params => { :id => @photo.id }
+      Photo.count.should eql n-1
+    end
   end
 
 end
