@@ -8,7 +8,7 @@
   - if item.site
     <b>Site:</b>
     = link_to "#{item.site.domain}/#{item.site.lang}", site_path( item.site )
-  - if item.venue
+  - if item.responds_to?( :venue ) && item.venue
     <b>Venue:</b>
     = item.venue.inspect
   - if item.user_profile
