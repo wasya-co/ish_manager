@@ -18,7 +18,8 @@
     = csrf_meta_tags
   %body
     .bg-white
-      = render :partial => 'ish_manager/application/main_header'
+      - role = current_user ? current_user.profile.role_name : ''
+      = render :partial => "ish_manager/application/main_header_#{role}"
       .container
         .row
           .col-sm-12
