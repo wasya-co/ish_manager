@@ -72,7 +72,10 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
     # puts! params[:gallery][:shared_profiles], 'shared profiles'
     if @gallery.update_attributes( params[:gallery].permit! )
-      new_shared_profiles = params[:gallery][:shared_profiles].select { |p| !old_shared_profile_ids.include?( p.id ) }
+      new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids] 
+                                                       ).select do |p|
+        !old_shared_profile_ids.include?( p.id )
+      end
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
       redirect_to galleries_path
@@ -84,7 +87,11 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end                           
 
   def show
-    @gallery = Gallery.unscoped.find_by :galleryname => params[:id]
+    begin
+      @gallery = Gallery.unscoped.find_by :galleryname => params[:id]
+    rescue
+      @gallery = Gallery.unscoped.find params[:id]
+    end
     authorize! :show, @gallery
     @photos = @gallery.photos.unscoped.where({ :is_trash => false })
   end
