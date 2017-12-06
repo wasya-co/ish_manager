@@ -5,7 +5,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.order_by( :created_at => :desc )
+    @videos = Video.unscoped.where( :user_profile => current_user.profile ).order_by( :created_at => :desc )
 
     if params[:city_id]
       city = City.find params[:city_id]

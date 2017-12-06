@@ -10,7 +10,13 @@
         .col-sm-6
           = f.submit 'Add Friend'
           
-- current_user.profile.friends.each do |friend|
+- @friends.each do |friend|
   .panel
     .panel-body
       = friend.email
+      .row
+        .col-sm-6.description
+          Galleries with them:
+          %ul
+            - friend.shared_galleries.each do |g|
+              %li= g[:name]

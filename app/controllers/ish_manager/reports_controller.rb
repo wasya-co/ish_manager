@@ -6,7 +6,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
   def index
     authorize! :index, Report
     @reports = Report.unscoped.order_by( :created_at => :desc 
-                                       ).where( :is_trash => false
+                                       ).where( :is_trash => false, :user_profile => current_user.profile
                                               ).page( params[:reports_page] 
                                                     ).per( Report::PER_PAGE )
     if false === params[:site]
