@@ -64,8 +64,12 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @gallery = Gallery.unscoped.find params[:id]
     old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
+
     params[:gallery][:shared_profiles].delete('')
-    params[:gallery][:shared_profiles] = IshModels::UserProfile.find( params[:gallery][:shared_profiles] ).to_a
+    # params[:gallery][:shared_profiles] = IshModels::UserProfile.find( params[:gallery][:shared_profiles] ).to_a
+    params[:gallery][:shared_profile_ids] = params[:gallery][:shared_profiles]
+    params[:gallery].delete :shared_profiles
+
     # puts! params[:gallery][:shared_profiles], 'shared profiles'
     if @gallery.update_attributes( params[:gallery].permit! )
       new_shared_profiles = params[:gallery][:shared_profiles].select { |p| !old_shared_profile_ids.include?( p.id ) }
