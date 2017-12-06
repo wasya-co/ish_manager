@@ -7,7 +7,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
                                        ).order_by( :created_at => :desc 
                                                  ).page( params[:galleries_page] ).per( 10 )
-    @shared_galleries = current_user.profile.shared_galleries.page( params[:shared_galleries_page] ).per( 10 )
+    @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
   end
 
   def index_thumb

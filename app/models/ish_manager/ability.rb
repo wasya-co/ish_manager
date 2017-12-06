@@ -8,11 +8,6 @@ class IshManager::Ability
     # signed in user
     #
     unless user.blank?
-
-      can [ :index, :new, :create ], ::Gallery
-      can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
-        gallery.user_profile == user.profile
-      end
       
       can [ :home ], ::IshManager::Ability
       
@@ -21,7 +16,7 @@ class IshManager::Ability
       #
       # role manager
       #
-      if user.profile && [ :manager, :admin ].include?( user.profile.role_name )    
+      if user.profile && [ :admin, :manager ].include?( user.profile.role_name )    
 
         can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
 
@@ -42,15 +37,29 @@ class IshManager::Ability
 
       end
 
+      #
+      # only sudoer... total power
+      #
       if user.profile && user.profile.sudoer?
-        can :manage, :all # @TODO: this is important
-        can [ :manage ], ::Gallery
-        can [ :manage ], ::Gallery2
-        can [ :home ], ::Manager
-        can :destroy, ::Photo
+        can :manage, :all
       end
 
-      
+      #
+      # role guy (and manager)
+      #
+      if user.profile && [ :manager, :guy ].include?( user.profile.role_name )
+
+        can [ :index, :new, :create ], ::Gallery
+        can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
+          gallery.user_profile == user.profile
+        end
+
+        can [ :index ], ::Report
+
+        can [ :index ], ::Video
+        
+      end
+
     end
     #
     # anonymous user
