@@ -55,10 +55,8 @@
 
   .row
     .col-md-6
-      / Single button
-      %label{} Sites
-      .btn-group{:style => "width:100%"}
-        = select :report, :site_id, @sites_list
+      = f.label :site
+      = f.select :site_id, options_for_select(@sites_list, :selected => report.site_id || params[:site_id] )
 
 
     .col-md-6

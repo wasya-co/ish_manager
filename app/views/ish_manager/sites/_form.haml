@@ -6,10 +6,10 @@
       .row
         .col-lg-6
           = f.label :domain
-          = f.text_field :domain, :disabled => true
+          = f.text_field :domain, :disabled => params[:action] == 'edit' ? true : false
         .col-lg-6
           = f.label :lang
-          = f.text_field :lang, :disabled => true
+          = f.text_field :lang, :disabled => params[:action] == 'edit' ? true : false
 
       .row
         .col-lg-6

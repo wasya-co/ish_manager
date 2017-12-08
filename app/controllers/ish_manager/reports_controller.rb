@@ -77,6 +77,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   def create
     @report = Report.new params[:report].permit!
+    @report.user_profile = current_user.profile
     authorize! :create, @report
 
     @site = Site.where( :id => params[:report][:site_id] ).first

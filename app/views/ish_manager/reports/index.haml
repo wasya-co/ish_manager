@@ -5,7 +5,7 @@
       Reports Index (#{@reports.length})
       - if @site
         In #{@site.domain}/#{@site.lang}
-      = link_to '[+]', new_report_path
+      = link_to image_new, new_report_path
       
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
     

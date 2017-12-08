@@ -1,10 +1,16 @@
 
 - reports = reports.page( params[:reports_page] ).per( 10 )
-
+- if site
+  - new_path = new_site_report_path( site.id )
+- else
+  - new_path = new_report_path
+  
 .manager-reports--index
   .row
     .col-sm-12
-      %h2 Reports (#{reports.length})
+      %h2
+        Reports (#{reports.length})
+        = link_to image_new, new_path
 
       = paginate reports, :param_name => :reports_page
       %ol

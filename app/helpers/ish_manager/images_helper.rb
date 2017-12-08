@@ -138,7 +138,8 @@ module IshManager::ImagesHelper
   end
   
   def image_new
-		image_tag 'icons/32x32/new.png', :alt => '[+]'
+    raw('<i class="fa fa-plus-square"></i>')
+		# image_tag 'icons/32x32/new.png', :alt => '[+]'
 	end
   
   # @deprecated, should use image_3s
@@ -238,4 +239,8 @@ module IshManager::ImagesHelper
     end
   end
   
+  def edit_img
+    raw('<i class="fa fa-pencil-square"></i>')
+  end
+
 end
