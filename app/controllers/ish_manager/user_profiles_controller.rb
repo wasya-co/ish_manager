@@ -1,6 +1,8 @@
 
 class IshManager::UserProfilesController < IshManager::ApplicationController
 
+  before_action :set_lists
+
   def index
     @user_profiles = IshModels::UserProfile.all.includes( :user )
     authorize! :index, IshModels::UserProfile

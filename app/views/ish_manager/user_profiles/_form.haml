@@ -8,11 +8,20 @@
   .input-field
     %label email
     = f.text_field :email
-  .a
-    %label role name
+    
+  .input-field
     = f.select :role_name, options_for_select( [[nil, nil]] + IshModels::UserProfile::ROLES.map { |r| [ r, r ] }, :selected => profile.role_name )
+    %label role name
+    
+  .input-field
+    = f.select :tag, options_for_select( [[nil, nil]] + IshModels::UserProfile::TAGS.map { |r| [ r, r ] }, :selected => profile.tag )
+    %label Tag
 
-  .a
+  .input-field
+    = f.select :current_city, options_for_select( @cities_list, :selected => profile.current_city_id )
+    %label City
+    
+  .input-field
     %label About
     = f.text_area :about, :rows => 10
     
