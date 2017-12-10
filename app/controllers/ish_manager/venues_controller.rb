@@ -43,6 +43,12 @@ class IshManager::VenuesController < IshManager::ApplicationController
     end
   end
 
+  def show
+    @venue = Venue.find params[:id]
+    authorize! :show, @venue
+    redirect_to :action => :edit, :id => @venue.id
+  end
+
 end
 
 
