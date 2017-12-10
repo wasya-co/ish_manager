@@ -12,8 +12,8 @@ class IshManager::TagsController < IshManager::ApplicationController
     @tag = Tag.unscoped.find params[:id]
     authorize! :show, @tag
 
-    @galleries = @tag.galleries.page( params[:galleries_page] ).per( 10 )
-    @videos = @tag.videos.page( params[:videos_page ]).per( 10 )
+    @galleries = @tag.galleries.unscoped.where( :is_trash => false ).page( params[:galleries_page] ).per( 10 )
+    @videos = @tag.videos.unscoped.where( :is_trash => false ).page( params[:videos_page ]).per( 10 )
   end
 
   def new
