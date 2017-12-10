@@ -7,7 +7,7 @@
     = link_to '[+]', new_tag_path( :for_tag => tag.id )
     = link_to '[~]', edit_tag_path( tag )
     .inline= button_to '[x]', tag_path( tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-    (#{tag.reports.length}) (#{tag.galleries.length}) (#{tag.videos.length})
+    (R #{tag.reports.length}) (G #{tag.galleries.length}) (V #{tag.videos.length})
       
     -# .descr= tag.descr
   

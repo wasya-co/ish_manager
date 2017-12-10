@@ -6,28 +6,24 @@
 .row
   .large-12.columns
     %h5.center
+      Tag
       = @tag.name
-      = link_to '[~]', edit_tag_path( @tag )
+      = link_to image_edit, edit_tag_path( @tag )
+      -# = link_to_delete( @tag )
       .inline= button_to 'X', tag_path( @tag ), :method => :delete, :data => { :confirm => 'Are you sure?' } 
     -# = render 'ads/leaderboard'
     -# .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
     = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features]
       
 .row
-  .large-6.columns  
-    %h4 Reports
+  .col-sm-6
     = render 'ish_manager/reports/index', :reports => @tag.reports, :n_ads => 0
-    %hr
     
-  .large-6.columns
-    %h4 Galleries
-    = render 'ish_manager/galleries/index', :galleries => @tag.galleries, :n_thumbs => 4
-    %hr
+  .col-sm-6
+    = render 'ish_manager/galleries/index_title', :galleries => @galleries, :n_thumbs => 4
     
 .row
-  .large-12.columns
-    %h4
-      = t('videos.list')
-      = link_to '[+]', new_video_path( :tag_id => @tag.id )
-    = render 'ish_manager/videos/index', :videos => @tag.videos
-    
+  .col-sm-6
+    = render 'ish_manager/videos/index_title', :videos => @videos
+  .col-sm-6
+    %h5 Here, nothing yet

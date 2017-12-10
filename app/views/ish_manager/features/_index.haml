@@ -11,7 +11,7 @@
 .manager-features--index
   %h3
     Features (#{features.length})
-    = link_to '[+]', new_path
+    = link_to image_new, new_path
     
   .row
     - features.each_with_index do |feature, idx|

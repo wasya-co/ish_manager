@@ -107,11 +107,7 @@ module IshManager::ImagesHelper
   def image_close
     image_tag('close.png')
   end
-  
-  def image_edit
-    image_tag('icons/24x24/edit.png', :alt => '[~]')
-  end
-  
+    
   def image_email
     image_tag 'email.gif'
   end
@@ -240,6 +236,9 @@ module IshManager::ImagesHelper
   end
   
   def edit_img
+    raw('<i class="fa fa-pencil-square"></i>')
+  end
+  def image_edit
     raw('<i class="fa fa-pencil-square"></i>')
   end
 

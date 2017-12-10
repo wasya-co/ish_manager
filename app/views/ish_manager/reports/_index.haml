@@ -8,7 +8,7 @@
 .manager-reports--index
   .row
     .col-sm-12
-      %h2
+      %h5
         Reports (#{reports.length})
         = link_to image_new, new_path
 
@@ -22,4 +22,4 @@
             - if report.subhead && report.subhead.length > 3
               .subhead= report.subhead
       = paginate reports, :param_name => :reports_page
-  %hr
+

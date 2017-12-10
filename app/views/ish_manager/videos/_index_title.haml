@@ -1,0 +1,26 @@
+
+-# videos ||= @videos
+-# videos = videos.page params[:videos_page]
+
+.row
+  .col-sm-12
+    %h5
+      Videos (#{videos.count})
+      = link_to image_new, new_video_path
+    
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
+    
+    - videos.each do |video|
+      .panel
+        .panel-content
+          .row
+            .col-xs-12
+              .center
+                = link_to video.name, video_path( video )
+                = link_to image_edit, edit_video_path( video )
+                .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+                = render 'meta', :item => video
+        
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
+
+
