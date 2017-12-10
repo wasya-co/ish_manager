@@ -16,7 +16,8 @@ end
 
 class UserStub
   def initialize args = {}
-    @profile = OpenStruct.new :role_name => :guy
+    @profile = OpenStruct.new :role_name => :guy,
+                              :friends => []
     if args[:manager]
       @profile[:manager?] = true
       @profile[:sudoer?] = true
@@ -84,3 +85,16 @@ def setup_profiles
   end
 end
 
+def setup_reports
+  Report.all.destroy
+  @report = FactoryGirl.create :report
+end
+
+def setup_tags
+  r = FactoryGirl.create( :report, :name => rand(1000) )
+
+  Tag.all.destroy
+  @tag = FactoryGirl.create :tag
+  @tag.reports << r
+  @tag.save
+end

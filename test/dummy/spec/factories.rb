@@ -19,7 +19,15 @@ FactoryGirl.define do
   factory :photo do
   end
 
+  factory :report do
+    name 'Report Name'
+  end
+
   factory :site do
+  end
+
+  factory :tag do
+    name 'tag-name'
   end
 
   factory :user do

@@ -1,6 +1,6 @@
 
 - reports = reports.page( params[:reports_page] ).per( 10 )
-- if site
+- if defined? site
   - new_path = new_site_report_path( site.id )
 - else
   - new_path = new_report_path

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe IshManager::UserProfilesController, :type => :controller do
-  # render_views # doesn't work
+  render_views
   routes { IshManager::Engine.routes }
 
   before :each do
@@ -11,7 +11,7 @@ describe IshManager::UserProfilesController, :type => :controller do
 
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
 
-    @profile = IshModels::UserProfile.new :user => @user
+    @profile = IshModels::UserProfile.new :user => @user, :email => 'some@email.com'
     @profile.save
     @profile.persisted?.should eql true
   end

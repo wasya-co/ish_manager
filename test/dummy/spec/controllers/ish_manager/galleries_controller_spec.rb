@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe IshManager::GalleriesController, :type => :controller do
-  # render_views # doesn't work
+  render_views
   routes { IshManager::Engine.routes }
 
   before :each do
