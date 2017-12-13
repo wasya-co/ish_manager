@@ -37,7 +37,9 @@
             &gt; #{p.email} <br />
         .col-sm-4
           "/
-      
+  .row
+    = f.text_area :descr, :class => 'tinymce'
+    
   .row
     .col-sm-3
       = f.check_box :is_public
