@@ -242,4 +242,8 @@ module IshManager::ImagesHelper
     raw('<i class="fa fa-pencil-square"></i>')
   end
 
+  def youtube_image_tag video
+    image_tag "https://img.youtube.com/vi/#{video.youtube_id}/0.jpg", :class => [ :youtube_img ]
+  end
+
 end

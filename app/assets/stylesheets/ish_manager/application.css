@@ -61,6 +61,7 @@ hr {
 
 .float-left {
   float: left;
+  padding-right: 1em;
 }
 .float-right {
   float: right;
@@ -79,6 +80,10 @@ hr {
 
 .collapse-expand {
   cursor: pointer;
+}
+
+.youtube_img {
+  width: 100px;
 }
 
 /**
@@ -119,9 +124,6 @@ nav.pagination
 .description {
   border: 1px solid red;
   padding: 1em;
-}
-.descr .float-left {
-  padding-right: 1em;
 }
 
 /**
