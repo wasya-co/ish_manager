@@ -19,8 +19,8 @@
         = f.select :parent_tag_id, options_for_select( @tags_list, :selected => ( params[:for_tag] || @tag.parent_tag_id ) )
     .col-xs-12.col-md-6
       .input-field 
-        = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )
         = f.label "site"
+        = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )
     .col-xs-12.col-md-12
       .input-field
         = f.check_box :is_public

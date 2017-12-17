@@ -3,14 +3,17 @@
   Tags
 
 .manager-tags--index
-  .center
-    %h1 Tags (#{tags.count})
+  .panel
+    .panel-body
+      .center
+        %h1 Tags (#{tags.count})
 
-  %ul.large-block-grid-2
-    - @tags.each do |tag|
-      = render 'ish_manager/tags/item', :tag => tag
-    - if @tags.blank?
-      %li No Tags
-  %hr
+
+      %ul.tags
+        - @tags.each do |tag|
+          = render 'ish_manager/tags/item', :tag => tag
+        - if @tags.blank?
+          %li No Tags
+      %hr
 
 

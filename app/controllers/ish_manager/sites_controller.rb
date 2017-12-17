@@ -29,7 +29,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     @galleries = @site.galleries.unscoped.where({ :is_trash => false }).page( params[:galleries_page] ).per( 10 )
     @reports = @site.reports.unscoped.where({ :is_trash => false }).page( params[:reports_page] ).per( 10 )
     @videos = @site.videos.page( params[:videos_page] ).per( 5 )
-    @tags = Tag.where( :site_id => @site.id ).page( params[:tags_page] ).per( 100 )
+    @tags = Tag.where( :site_id => @site.id, :parent_tag_id => nil ).page( params[:tags_page] ).per( 100 )
     @features = @site.features.page( params[:features_page] ).per( 9 )
     @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( @site.newsitems_per_page )
   end
