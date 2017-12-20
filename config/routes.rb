@@ -26,6 +26,8 @@ IshManager::Engine.routes.draw do
     resources :payments
   end
 
+  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }
+  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
   resources :leads
 
   resources :newsitems

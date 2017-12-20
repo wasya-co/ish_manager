@@ -19,5 +19,9 @@ module IshManager
       end
     end
 
+    def pretty_date date
+      date.to_s[0, 10]
+    end
+
   end
 end

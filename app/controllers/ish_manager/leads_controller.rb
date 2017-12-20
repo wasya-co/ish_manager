@@ -2,7 +2,12 @@ class IshManager::LeadsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Lead
-    @leads = Ish::Lead.where( :profile => current_user.profile )
+    @leads = Ish::Lead.where( :profile => current_user.profile, :is_trash => false )
+    if params[:is_done]
+      @leads = @leads.where( :is_done => true )
+    else
+      @leads = @leads.where( :is_done => false )
+    end
   end
 
   def new
@@ -22,18 +27,25 @@ class IshManager::LeadsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
-=begin
+  def show
+    authorize! :redirect, IshManager::Ability
+    redirect_to :action => :edit, :id => params[:id]
+  end
+
+  def edit
+    @lead = Ish::Lead.find params[:id]
+    authorize! :edit, @lead
+  end
+
   def update
-    @invoice = Ish::Invoice.find params[:id]
-    authorize! :update, @invoice
-    if @invoice.update_attributes params[:invoice].permit!
-      flash[:notice] = 'Success'
-      redirect_to :action => 'index'
+    @lead = Ish::Lead.find params[:id]
+    authorize! :update, @lead
+    if @lead.update_attributes params[:lead].permit!
+      flash[:notice] = 'Successfully updated lead.'
     else
-      flash[:alert] = "Cannot update invoice: #{@invoice.errors.messages}"
+      flash[:alert] = "Cannot update lead: #{@lead.errors.messages}"
     end
     redirect_to :action => 'index'
   end
-=end
 
 end
