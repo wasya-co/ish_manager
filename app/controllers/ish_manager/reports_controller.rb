@@ -19,7 +19,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
   end
 
   def show
-    @report = Report.unscoped.where({ :is_trash => false }).find params[:id]
+    @report = Report.unscoped.find params[:id]
     authorize! :show, @report
   end
 

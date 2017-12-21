@@ -25,11 +25,10 @@
     = f.label :Description
     = f.text_area :descr, :class => 'tinymce'
 
-  %br/
+  %br
 
   .row
     .col-md-6
-      / Single button
       %label{} City
       = select :report, :city_id, @cities_list, :class=>"btn"
 
@@ -72,18 +71,18 @@
           %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
       = file_field_tag :photo, :style => "display:none", :id=>"photo"
       .div.center
-        %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}/
+        %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}
 
 
   :javascript
 
       $( document ).ready(function() {
       $(".caret").html("");
-       });
+      });
 
       function upload(){
-          document.getElementById("photo").click();
-        }
+        document.getElementById("photo").click();
+      }
 
         function handleFileSelect(evt) {
           var files = evt.target.files;
@@ -109,10 +108,10 @@
         }
         document.getElementById('photo').addEventListener('change', handleFileSelect, false);
 
-
-
-  .wrapper{:style => "text-align: center;"}
-    %p.center
-      = f.check_box :is_public
-      = f.label :is_public
-    %button.btn.btn-success{:type => "submit"} submit
+  .input
+    = f.check_box :is_public
+    = f.label :is_public
+  .input
+    = f.check_box :is_trash
+    = f.label :is_trash
+  %button.btn.btn-success{:type => "submit"} submit
