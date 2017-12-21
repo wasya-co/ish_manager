@@ -22,10 +22,10 @@
         = f.label "site"
         = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )
     .col-xs-12.col-md-12
-      .input-field
+      .input
         = f.check_box :is_public
         = f.label :is_public
-      .input-field
+      .input
         = f.check_box :is_trash
         = f.label :is_trash
       .actions
