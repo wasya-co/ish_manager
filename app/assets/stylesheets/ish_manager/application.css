@@ -102,8 +102,9 @@ hr {
 }
 
 .manager-sites--title {
-  padding: 1em .2em;
-  background: url('/assets/bg/triangular.png');
+  padding: 1em;
+  background: url('/assets/bg/weather.png');
+  border-bottom: 1px solid red;
 }
 
 /**

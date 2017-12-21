@@ -2,11 +2,11 @@
 - site ||= @site
 
 .manager-sites--title
-  %h1
+  %h5
     Site http://#{site.domain}/#{site.lang}
-    = link_to '[~]', edit_site_path( site.id )
+    = link_to image_edit, edit_site_path( site.id )
 
-  %ul
+  %ul.nav.nav-pills
     %li= link_to "Features (#{site.features.length})", site_features_path( site.id )
     %li= link_to "Newsitems (#{site.newsitems.length})", site_newsitems_path( site.id )
     %li= link_to "Reports (#{site.reports.length})", site_reports_path( site.id )
