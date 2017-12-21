@@ -110,6 +110,13 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :edit, @newsitem
   end
 
+  def index
+    @resource = Site.find( params[:site_id] ) if params[:site_id]
+    @resource = City.find( params[:site_id] ) if params[:city_id]
+    authorize! :newsitems_index, @resource
+    @newsitems = @resource.newsitems
+  end
+
   private
 
   def set_lists

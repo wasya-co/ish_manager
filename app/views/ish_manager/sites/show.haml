@@ -1,7 +1,7 @@
 
 .manager-sites-show
-  = render 'title', :site => @site    
-  = render 'ish_manager/features/index',  :features  => @features.limit(@site.n_features),   :site => @site
+  = render 'header', :site => @site    
+  -# = render 'ish_manager/features/index', :features  => @features, :site => @site
   = render 'ish_manager/newsitems/index', :newsitems => @newsitems.limit(@site.n_newsitems), :site => @site
       
   .row

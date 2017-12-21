@@ -26,11 +26,11 @@ class IshManager::SitesController < IshManager::ApplicationController
   def show
     @site = Site.unscoped.find params[:id]
     authorize! :show, @site
-    @galleries = @site.galleries.unscoped.where({ :is_trash => false }).page( params[:galleries_page] ).per( 10 )
-    @reports = @site.reports.unscoped.where({ :is_trash => false }).page( params[:reports_page] ).per( 10 )
+    @galleries = @site.galleries.page( params[:galleries_page] ).per( 10 )
+    @reports = @site.reports.page( params[:reports_page] ).per( 10 )
     @videos = @site.videos.page( params[:videos_page] ).per( 5 )
     @tags = Tag.where( :site_id => @site.id, :parent_tag_id => nil ).page( params[:tags_page] ).per( 100 )
-    @features = @site.features.page( params[:features_page] ).per( 9 )
+    @features = @site.features.limit( @site.n_features ) # page( params[:features_page] ).per( 9 )
     @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( @site.newsitems_per_page )
   end
 
@@ -76,6 +76,24 @@ class IshManager::SitesController < IshManager::ApplicationController
     flash[:notice] = 'Probably successfully deleted a newsitem.'
     redirect_to site_path( @site.id )
   end
+
+  def reports
+    @site = Site.find params[:site_id]
+    authorize! :reports_index, @site
+    @reports = @site.reports.page( params[:reports_page] )
+    render 'ish_manager/reports/index'
+  end
+
+  def galleries
+    @site = Site.find params[:site_id]
+    authorize! :galleries_index, @site
+    @galleries = @site.galleries.page( params[:galleries_page] )
+  end
+
+  #
+  # private
+  #
+  private
 
 end
 

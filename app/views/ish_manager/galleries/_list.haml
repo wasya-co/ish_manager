@@ -4,6 +4,9 @@
 
 - if galleries.length > 0
   .galleries--list
+    - if galleries.respond_to? :total_pages
+      = paginate galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+
     - galleries.each do |g|
       .panel
         .panel-body
@@ -20,7 +23,7 @@
               = link_to image_tag(photo.photo.url(:thumb), :alt => g.name, :class => :thumb ), gallery_path(g.galleryname)
 
     - if galleries.respond_to? :total_pages
-      = paginate galleries, :param_name => param_name
+      = paginate galleries, :param_name => param_name, :views_prefix => 'ish_manager'
     
 - else
   %h5 No Galleries

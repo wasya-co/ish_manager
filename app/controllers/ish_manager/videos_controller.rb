@@ -17,6 +17,13 @@ class IshManager::VideosController < IshManager::ApplicationController
       @videos = @videos.where( :tag => tag )
     end
     
+    if params[:site_id]
+      @site = Site.find params[:site_id]
+      @videos = @site.videos
+    end
+    
+    @videos = @videos.page( params[:videos_page] )
+
     respond_to do |format|
       format.html do
         render

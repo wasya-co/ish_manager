@@ -6,6 +6,9 @@ class IshManager::TagsController < IshManager::ApplicationController
   def index
     @tags = Tag.unscoped.where( :parent_tag_id => nil ).order_by( :name => :asc )
     authorize! :index, Tag.new
+
+    @site = Site.find( params[:site_id] ) if params[:site_id] 
+    @city = City.find( params[:city_id] ) if params[:city_id] 
   end
   
   def show

@@ -1,10 +1,13 @@
 
+-# ish_manager / reports / index
+
+- if @site
+  = render 'ish_manager/sites/header', :site => @site
+  
 .row
   .large-12.columns
     %h3
-      Reports Index (#{@reports.length})
-      - if @site
-        In #{@site.domain}/#{@site.lang}
+      Reports (#{@reports.length})
       = link_to image_new, new_report_path
       
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
@@ -25,5 +28,5 @@
               Site #{report.site.domain}/#{report.site.lang}
             %br
             = report.created_at
-    = paginate @reports, :param_name => :reports_page
+    = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
     

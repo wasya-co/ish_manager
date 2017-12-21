@@ -1,4 +1,5 @@
 
+- reports ||= @reports
 - reports = reports.page( params[:reports_page] ).per( 10 )
 - if defined? site
   - new_path = new_site_report_path( site.id )
@@ -12,7 +13,7 @@
         Reports (#{reports.length})
         = link_to image_new, new_path
 
-      = paginate reports, :param_name => :reports_page
+      = paginate reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
       %ol
         - reports.each do |report|
           %li
@@ -21,5 +22,5 @@
             = link_to report.name, report_path( report )
             - if report.subhead && report.subhead.length > 3
               .subhead= report.subhead
-      = paginate reports, :param_name => :reports_page
+      = paginate reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
 

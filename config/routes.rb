@@ -39,9 +39,16 @@ IshManager::Engine.routes.draw do
 
   resources :sites do
     resources :features
-    resources :galleries
     resources :newsitems
+
+    get 'reports', :to => 'sites#reports'
     resources :reports
+
+    get 'galleries', :to => 'sites#galleries'
+
+    resources :galleries
+    resources :videos
+    resources :tags
   end
   
   resources :stock_actions

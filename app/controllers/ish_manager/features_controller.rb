@@ -112,14 +112,16 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     end    
   end
 
-=begin
   def index
     if params[:tag_id]
       @resource = Tag.find params[:tag_id]
     end
-    
+    if params[:site_id]
+      @resource = Site.find params[:site_id]
+    end
+    authorize! :features_index, @resource
+    @features = @resource.features
   end
-=end
 
   def destroy
     if params[:tag_id]
