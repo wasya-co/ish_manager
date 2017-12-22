@@ -15,6 +15,7 @@
             %li <b>Name:</b> #{profile.name}
             %li <b>Role:</b> #{profile.role_name}
             %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
+            %li <b>City:</b> #{profile.current_city ? profile.current_city.name : nil}
             %li <b>About:</b> #{profile.about}
         .col-sm-8
           Shared galleries:<br />
