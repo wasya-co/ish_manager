@@ -15,8 +15,6 @@ class IshManager::StockOptionsController < IshManager::ApplicationController
     authorize! :create, @stock_option
     flag = @stock_option.save
 
-    byebug
-
     if flag
       flash[:notice] = 'Created stock option.'
     else

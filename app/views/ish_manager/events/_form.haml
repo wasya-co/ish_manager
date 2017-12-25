@@ -1,0 +1,24 @@
+
+= form_for event do |f|
+  .a
+    = f.label :name
+    = f.text_field :name
+
+  .a
+    = f.label :eventname
+    = f.text_field :eventname
+
+  .a
+    = f.label :city
+    = f.select :city, options_for_select( @cities_list, :selected => event.city_id )
+
+  .a
+    = f.label :date
+    = f.text_field :date
+
+  .a
+    = f.text_area :description, :class => [ :tinymce ] 
+    
+  .a
+    = f.submit
+    

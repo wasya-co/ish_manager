@@ -224,7 +224,10 @@ module IshManager::ImagesHelper
   end
 
   def new_image_tag
-    image_tag 'icons/20x20/new.png'
+    raw('<i class="fa fa-plus-square"></i>')
+  end
+  def new_img
+    raw('<i class="fa fa-plus-square"></i>')
   end
 
   def is_public_image_tag resource
