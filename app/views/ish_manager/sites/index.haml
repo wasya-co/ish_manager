@@ -12,11 +12,15 @@
       .col-xs-12{ :class => "col-sm-#{12/per_row}" }
         .panel.panel-primary
           .panel-body
-            - sites.each do |site|
+            - sites.each_with_index do |site, idx|
               %h5
                 = link_to "#{site.domain}/#{site.lang}", site_path( site )
                 = link_to edit_img, edit_site_path( site )
+              %h5= site.title
+              .a= site.subhead
               (R#{site.reports.count}) (G#{site.galleries.count}) (V#{site.videos.count})
+              - if idx+1 != sites.length
+                %hr
       - if counter % per_row == 0
         .clearfix
         
