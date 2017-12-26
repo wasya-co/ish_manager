@@ -17,6 +17,7 @@ class IshManager::EventsController < IshManager::ApplicationController
     @event = Event.new params[:event].permit!
     authorize! :create, @event
     if @event.save
+      @event.city.touch
       redirect_to :action => :index
     else
       flash[:alert] = @event.errors.messages
@@ -35,6 +36,7 @@ class IshManager::EventsController < IshManager::ApplicationController
 
     flag = @event.update_attributes params[:event].permit!
     if flag
+      @event.city.touch
       flash[:notice] = 'updated event'
       redirect_to :action => :index
     else
