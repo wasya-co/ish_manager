@@ -20,9 +20,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def create
     @newsitem = Newsitem.new params[:newsitem].permit!
-    @resource = City.find params[:city_id] if params[:city_id]
+    @resource = City.find params[:city_id]            if params[:city_id]
     @resource = City.find params[:newsitem][:city_id] if !params[:newsitem][:city_id].blank?
-    @resource = Site.find params[:site_id] if params[:site_id]
+    @resource = Site.find params[:site_id]            if params[:site_id]
     @resource = Site.find params[:newsitem][:site_id] if !params[:newsitem][:site_id].blank?
     @resource.newsitems << @newsitem
 
