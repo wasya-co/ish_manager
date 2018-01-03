@@ -32,6 +32,8 @@ IshManager::Engine.routes.draw do
 
   resources :newsitems
 
+  resources :orders
+
   resources :photos
   resources :payments
 
