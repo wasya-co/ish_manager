@@ -22,4 +22,6 @@
           - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
             &gt; #{link_to g.name, gallery_path(g.galleryname)} <br />
             = render 'meta', :item => g
-          
+      .row
+        Address:
+        = profile.addresses[0].inspect
