@@ -11,7 +11,7 @@ describe IshManager::UserProfilesController, :type => :controller do
 
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
 
-    @profile = IshModels::UserProfile.new :user => @user, :email => 'some@email.com'
+    @profile = IshModels::UserProfile.new :user => @user, :email => 'some@email.com', :name => 'some-name-2'
     @profile.save
     @profile.persisted?.should eql true
   end

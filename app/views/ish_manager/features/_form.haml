@@ -1,11 +1,20 @@
 
 -# manager/features/_form
 - if @city
-  - url = city_features_path( @city )
+  - if @feature.persisted?
+    - url = city_feature_path( @city, @feature )
+  - else
+    - url = city_features_path( @city )
 - if @site
-  - url = site_features_path( @site )
+  - if @feature.persisted?
+    - url = site_feature_path( @site, @feature )
+  - else
+    - url = site_features_path( @site )
 - if @tag
-  - url = tag_features_path( @tag )
+  - if @feature.persisted?
+    - url = tag_feature_path( @site, @feature )
+  - else
+    - url = tag_features_path( @tag )
   
 = form_for @feature, :url => url do |f|
   - if @city

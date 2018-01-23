@@ -99,6 +99,8 @@ class IshManager::FeaturesController < IshManager::ApplicationController
       redirect_path = tag_path( @tag )
     end
     
+    authorize! :update, @feature
+
     if @feature.update_attributes params[:feature].permit!
       @city.touch if @city
       @site.touch if @site
@@ -133,6 +135,8 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     end
     authorize! :destroy_feature, @resource
     @feature = @resource.features.find params[:id]
+    authorize! :destroy, @feature
+
     if @feature.destroy
       @resource.touch
       flash[:notice] = :'Success.' 

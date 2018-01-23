@@ -80,7 +80,7 @@ def setup_profiles
   IshModels::UserProfile.all.destroy
   emails.each_with_index do |email, index|
     u = FactoryGirl.create :user, :email => email
-    p = FactoryGirl.create :user_profile, :email => email, :user => u
+    p = FactoryGirl.create :user_profile, :email => email, :user => u, :name => 'some-name'
     @profiles[index] = p
   end
 end
@@ -91,7 +91,7 @@ def setup_reports
 end
 
 def setup_tags
-  r = FactoryGirl.create( :report, :name => rand(1000) )
+  r = FactoryGirl.create( :report, :name => rand(1000), :name_seo => rand(1000) )
 
   Tag.all.destroy
   @tag = FactoryGirl.create :tag
