@@ -7,13 +7,17 @@
   - edit_url     = ->(n) { edit_city_newsitem_path( city, n ) }
   - delete_url   = ->(n) { city_newsitem_path( city, n ) }
   - new_newsitem = new_city_newsitem_path( city.id )
-  
+- if defined? tag
+  - edit_url     = ->(n) { edit_tag_newsitem_path( tag, n ) }
+  - delete_url   = ->(n) { tag_newsitem_path( tag, n ) }
+  - new_newsitem = new_tag_newsitem_path( tag.id )
+
 - newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
 
 .manager-newsitems--index
   .row
     .col-sm-12
-      %h2 Newsitems (#{newsitems.count}) #{link_to '[+]', new_newsitem }
+      %h3 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem }
       = paginate newsitems, :param_name => 'newsitems_page', :views_prefix => 'ish_manager'
       - newsitems.each do |n|
         .panel

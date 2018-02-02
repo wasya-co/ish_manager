@@ -5,7 +5,7 @@
   Topic #{@tag.name}
   
 .row
-  .large-12.columns
+  .col-sm-12
     %h5.center
       Tag
       = @tag.name
@@ -15,7 +15,11 @@
     -# = render 'ads/leaderboard'
     -# .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
     = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features]
-      
+    
+.row
+  .col-sm-12
+    = render 'ish_manager/newsitems/index', :newsitems => @tag.newsitems, :resource => @tag, :tag => @tag
+    
 .row
   .col-sm-6
     = render 'ish_manager/reports/index', :reports => @tag.reports, :n_ads => 0

@@ -3,8 +3,8 @@
 -# ish_manager / tags / _form
 -#
 
-.row
-  = form_for @tag do |f|
+= form_for @tag do |f|
+  .row
     .col-xs-12.col-md-6
       .input-field
         = f.label :name
@@ -13,21 +13,26 @@
       .input-field
         = f.label :name_seo
         = f.text_field :name_seo
+  .row      
     .col-xs-12.col-md-6
       .input-field
-        = f.label "parent tag"
         = f.select :parent_tag_id, options_for_select( @tags_list, :selected => ( params[:for_tag] || @tag.parent_tag_id ) )
+        = f.label "parent tag"
     .col-xs-12.col-md-6
       .input-field 
-        = f.label "site"
         = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )
-    .col-xs-12.col-md-12
-      .input
-        = f.check_box :is_public
-        = f.label :is_public
-      .input
-        = f.check_box :is_trash
-        = f.label :is_trash
-      .actions
-        %br
-        = f.submit
+        = f.label "site"
+  .row      
+    .col-xs-12.col-md-3
+      = f.check_box :is_public
+      = f.label :is_public
+    .col-xs-12.col-md-3
+      = f.check_box :is_feature
+      = f.label :is_feature
+    .col-xs-12.col-md-3
+      = f.check_box :is_trash
+      = f.label :is_trash
+  .row
+    .actions
+      %br
+      = f.submit

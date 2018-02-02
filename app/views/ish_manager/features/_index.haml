@@ -7,6 +7,10 @@
   - edit_url   = -> (feature) { edit_site_feature_path( site.id, feature.id ) }
   - delete_url = -> (feature) { site_feature_path(      site.id, feature.id ) }
   - new_path   = new_site_feature_path( site.id )
+- if defined? tag
+  - edit_url   = -> (feature) { edit_tag_feature_path( tag.id, feature.id ) }
+  - delete_url = -> (feature) { tag_feature_path(      tag.id, feature.id ) }
+  - new_path   = new_tag_feature_path( tag.id )
   
 .manager-features--index
   %h3

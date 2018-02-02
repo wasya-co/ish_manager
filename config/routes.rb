@@ -59,7 +59,14 @@ IshManager::Engine.routes.draw do
   resources :stock_options
   resources :stock_watches
 
-  resources :tags
+  resources :tags do
+    resources :features
+    resources :newsitems
+
+    resources :reports
+    resources :galleries
+    resources :videos
+  end
 
   resources :user_profiles
   # resources :user_profiles, :as => :ish_models_user_profiles

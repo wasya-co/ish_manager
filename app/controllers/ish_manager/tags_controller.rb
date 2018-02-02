@@ -45,10 +45,10 @@ class IshManager::TagsController < IshManager::ApplicationController
   def update
     @tag = Tag.unscoped.find params[:id]
     authorize! :update, @tag
-    
-    # byebug
 
     if @tag.update_attributes params[:tag].permit!
+      @tag.site.touch if @tag.site
+
       flash[:notice] = 'Success.'
       redirect_to tags_path
     else

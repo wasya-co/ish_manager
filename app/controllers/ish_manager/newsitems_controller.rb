@@ -5,8 +5,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def new
     @newsitem = Newsitem.new
-    @sites = Site.list
-    @cities = City.list
+    @sites    = Site.list
+    @cities   = City.list
+    @tags     = Tag.list
     if params[:city_id]
       @city = City.find params[:city_id]
       @newsitem.city = @city
@@ -15,15 +16,21 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @site = Site.find params[:site_id]
       @newsitem.site = @site
     end
+    if params[:tag_id]
+      @tag = Tag.unscoped.find params[:tag_id]
+      @newsitem.tag = @tag
+    end
     authorize! :new, @newsitem
   end
 
   def create
     @newsitem = Newsitem.new params[:newsitem].permit!
-    @resource = City.find params[:city_id]            if params[:city_id]
+    @resource = City.find params[:city_id] if params[:city_id]
     @resource = City.find params[:newsitem][:city_id] if !params[:newsitem][:city_id].blank?
-    @resource = Site.find params[:site_id]            if params[:site_id]
+    @resource = Site.find params[:site_id] if params[:site_id]
     @resource = Site.find params[:newsitem][:site_id] if !params[:newsitem][:site_id].blank?
+    @resource = Tag.find params[:tag_id] if params[:tag_id]
+    @resource = Tag.find params[:newsitem][:tag_id] if !params[:newsitem][:tag_id].blank?
     @resource.newsitems << @newsitem
 
     authorize! :create_newsitem, @resource
@@ -39,7 +46,15 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     else
       error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages.to_s
     end
-    url = params[:city_id] ? edit_city_path( @resource.id ) : edit_site_path( @resource.id )
+
+    case @resource.class.name
+    when "City"
+      url = edit_city_path( @resouce.id )
+    when "Tag"
+      url = tag_path( @resource.id )
+    when "Site"
+      url = edit_site_path( @resource.id )
+    end
     
     if flag
       flash[:notice] = 'Success'

@@ -23,7 +23,7 @@ class IshManager::SitesController < IshManager::ApplicationController
   end
 
   def edit
-    @site = Site.find params[:id]
+    @site = Site.unscoped.find params[:id]
     authorize! :update, @site
   end
   
