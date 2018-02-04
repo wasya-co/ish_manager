@@ -40,30 +40,26 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem.photo = photo
     end
 
-    flag = @newsitem.save && @resource.save
-    if flag
-      @resource.touch
-    else
-      error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages.to_s
-    end
-
     case @resource.class.name
     when "City"
       url = edit_city_path( @resouce.id )
     when "Tag"
       url = tag_path( @resource.id )
+      @resource.site.touch
     when "Site"
       url = edit_site_path( @resource.id )
     end
     
+    flag = @newsitem.save && @resource.save
     if flag
+      @resource.touch
       flash[:notice] = 'Success'
       redirect_to url
     else
+      error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages.to_s
       flash[:alert] = error
       @sites = Site.list
       @cities = City.list
-
       render :action => :new
     end
   end
@@ -78,6 +74,11 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       site = Site.find( params[:site_id] )
       flag = site.newsitems.find( params[:id] ).destroy
       url = edit_site_path( params[:site_id] )
+    end
+    if params[:tag_id]
+      tag = Tag.find( params[:tag_id] )
+      flag = tag.newsitems.find( params[:id] ).destroy
+      url = tag_path( params[:tag_id] )
     end
 
     flash[:notice] = "Success? #{flag}"
