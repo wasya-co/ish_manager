@@ -1,6 +1,9 @@
 
 .manager-events--index
-  %h5 Events (#{events.length}) #{link_to new_img, new_event_path}
+  %h5
+    Events (#{events.length}) #{link_to new_img, new_event_path}
+    - if @resource
+      in #{@resource.class.name} #{link_to @resource.name, resource_path( @resource )}
   %table
     %tr
       %th actions

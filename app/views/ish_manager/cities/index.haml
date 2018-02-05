@@ -12,7 +12,6 @@
           .panel-heading
             = link_to city.name, city_path(city)
             = link_to '[~]', edit_city_path(city)
-            .small.gray= city.id
             .cities-meta= "R(#{city.reports.length}) G(#{city.galleries.length}) V(#{city.videos.length}) U(#{city.current_users.length})"
     
           - if city.profile_photo.blank?

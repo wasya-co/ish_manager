@@ -23,5 +23,12 @@ module IshManager
       date.to_s[0, 10]
     end
 
+    def resource_path resource
+      case resource.class.name
+      when 'City'
+        city_path( resource.id )
+      end
+    end
+
   end
 end

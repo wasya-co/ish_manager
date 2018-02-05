@@ -8,9 +8,10 @@
   .small-12.columns
     .center
       %h1
-        Tags (#{Tag.count})
-        = link_to '[+]', new_tag_path
-  
+        Tags (#{@tags.count}) #{link_to image_new, new_tag_path}
+        - if @resource
+          in #{@resource.class.name} #{link_to @resource.name, resource_path(@resource)}
+        
     %ul.tags
       - @tags.each do |tag|
         = render 'item', :tag => tag

@@ -2,7 +2,7 @@
   .b
     %h2
       = @city.name
-      = link_to '[~]', edit_city_path(@city)
+      = link_to image_edit, edit_city_path(@city)
       &lt;#{@city.x}, #{@city.y}&gt;
     <em>#{@city.cityname}</em>
     %br
@@ -11,24 +11,29 @@
 
     %ul.menu-secondary
       %li
-        = link_to '[+]', new_city_feature_path( @city )
+        = link_to image_new, new_city_feature_path( @city )
         Features (#{@city.features.length})
       %li
-        = link_to '[+]', new_city_newsitem_path( @city )
+        = link_to image_new, new_city_newsitem_path( @city )
         Newsitems (#{@city.newsitems.length})
       %li
-        = link_to '[+]', new_city_report_path( @city )
+        = link_to image_new, new_city_report_path( @city )
         Reports (#{@city.reports.count})
       %li
-        = link_to '[+]', new_city_gallery_path( @city )
+        = link_to image_new, new_city_gallery_path( @city )
         Galleries (#{@city.galleries.count})
       %li
-        = link_to '[+]', new_city_video_path( @city )
+        = link_to image_new, new_city_video_path( @city )
         Videos (#{@city.videos.count})
       %li
-        = link_to '[+]', new_city_venue_path( @city )
+        = link_to image_new, new_city_venue_path( @city )
         Venues (#{@city.venues.count})
       %li
-        = link_to '[+]', new_city_event_path( @city )
-        Events (#{@city.events.count})
+        = link_to image_new, new_city_event_path( @city )
+        = link_to 'Events', city_events_path( @city )
+        (#{@city.events.count})
+      %li
+        = link_to image_new, new_city_tag_path( @city )
+        = link_to 'Tags', city_tags_path( @city )
+        (#{@city.tags.count})
     %hr

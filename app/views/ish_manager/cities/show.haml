@@ -6,6 +6,7 @@
 = render 'header', :city => @city
 = render 'ish_manager/features/index', :features => @city.features, :city => @city
 = render 'ish_manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
+
 .row
   .col-sm-6= render 'ish_manager/reports/index', :reports => @city.reports
   .col-sm-6= render 'ish_manager/galleries/index', :galleries => @city.galleries # @TODO: why not render index?

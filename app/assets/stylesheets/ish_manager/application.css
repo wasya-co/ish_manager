@@ -12,6 +12,7 @@
  *
  *= require ish_manager/bootstrap
  *= require_self
+ *= require ish_manager/tags
  */
 
 
@@ -126,13 +127,6 @@ nav.pagination
   border: 1px solid red;
   padding: 1em;
   font-size: 1.6em;
-}
-
-/**
- * tags
- */
-ul.tags ul.tags {
-  margin-left: 2em;
 }
 
 /**

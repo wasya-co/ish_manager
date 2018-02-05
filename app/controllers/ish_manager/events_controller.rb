@@ -6,6 +6,10 @@ class IshManager::EventsController < IshManager::ApplicationController
   def index
     authorize! :index, ::Event
     @events = Event.all
+    if params[:city_id]
+      @resource = City.find( params[:city_id] )
+      @events = @resource.events
+    end
   end
 
   def new
@@ -33,6 +37,11 @@ class IshManager::EventsController < IshManager::ApplicationController
   def update
     @event = Event.find params[:id]
     authorize! :update, @event
+
+    if params[:photo]
+      photo = Photo.new :photo => params[:photo]
+      @event.profile_photo = photo
+    end
 
     flag = @event.update_attributes params[:event].permit!
     if flag

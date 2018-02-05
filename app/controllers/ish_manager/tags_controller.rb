@@ -4,7 +4,14 @@ class IshManager::TagsController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    @tags = Tag.unscoped.where( :parent_tag_id => nil ).order_by( :name => :asc )
+    @resource = City.find( params[:city_id] ) if params[:city_id]
+
+    if @resource
+      @tags = @resource.tags
+    else
+      @tags = Tag.unscoped.where( :parent_tag_id => nil ).order_by( :name => :asc )
+    end
+
     authorize! :index, Tag.new
 
     @site = Site.find( params[:site_id] ) if params[:site_id] 
@@ -28,6 +35,7 @@ class IshManager::TagsController < IshManager::ApplicationController
     @tag = Tag.create params[:tag].permit!
     authorize! :create, @tag
     if @tag.save
+      do_touch
       flash[:notice] = 'Success.'
       redirect_to tags_path
     else
@@ -47,8 +55,7 @@ class IshManager::TagsController < IshManager::ApplicationController
     authorize! :update, @tag
 
     if @tag.update_attributes params[:tag].permit!
-      @tag.site.touch if @tag.site
-
+      do_touch
       flash[:notice] = 'Success.'
       redirect_to tags_path
     else
@@ -61,11 +68,19 @@ class IshManager::TagsController < IshManager::ApplicationController
     @tag = Tag.unscoped.find params[:id]
     authorize! :destroy, @tag
     if @tag.destroy
+      do_touch
       flash[:notice] = 'Success'
     else
       flash[:alert] = "Cannot destroy tag: #{@tag.errors.messages}"
     end
     redirect_to :action => 'index'
+  end
+
+  private
+
+  def do_touch
+    @tag.city.touch if @tag.city
+    @tag.site.touch if @tag.site
   end
 
 end

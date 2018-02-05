@@ -1,24 +1,45 @@
 
-= form_for event do |f|
-  .a
-    = f.label :name
-    = f.text_field :name
+= form_for event, :html => { :multipart => true } do |f|
+  .row
+    .col-sm-4
+      .input-field
+        = f.label :name
+        = f.text_field :name
+    .col-sm-4
+      .input-field
+        = f.label :eventname
+        = f.text_field :eventname
+    .col-sm-4
+      .input-field
+        = f.label :date
+        = f.text_field :date
 
-  .a
-    = f.label :eventname
-    = f.text_field :eventname
+  .row
+    .col-sm-6
+      .input-field
+        = f.select :city, options_for_select( @cities_list, :selected => event.city_id )
+        = f.label :city
+    .col-sm-3
+      .input-field
+        = f.text_field :x
+        = f.label :x
+    .col-sm-3
+      .input-field
+        = f.text_field :y
+        = f.label :y
 
-  .a
-    = f.label :city
-    = f.select :city, options_for_select( @cities_list, :selected => event.city_id )
+  .row
+    .col-sm-12
+      .input-field
+        = f.text_area :description, :class => [ :tinymce ]
+        %br
+        %br
+        = file_field_tag :photo
+        - begin
+          = image_tag event.profile_photo.photo.url(:thumb)
+        - rescue
 
-  .a
-    = f.label :date
-    = f.text_field :date
-
-  .a
-    = f.text_area :description, :class => [ :tinymce ] 
-    
-  .a
-    = f.submit
+        %br
+        %br
+        = f.submit
     
