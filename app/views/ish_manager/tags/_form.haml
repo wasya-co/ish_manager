@@ -7,17 +7,23 @@
   .row
     .col-xs-12.col-md-6
       .input-field
-        = f.label :name
         = f.text_field :name
+        = f.label :name
+        
     .col-xs-12.col-md-6
       .input-field
-        = f.label :name_seo
         = f.text_field :name_seo
+        = f.label :name_seo
   .row      
     .col-xs-12.col-md-6
       .input-field
         = f.select :parent_tag_id, options_for_select( @tags_list, :selected => ( params[:for_tag] || @tag.parent_tag_id ) )
         = f.label "parent tag"
+  .row
+    .col-xs-12.col-md-6
+      .input-field 
+        = f.select :city, options_for_select( @cities_list, :selected => @tag.city_id )
+        = f.label "city"
     .col-xs-12.col-md-6
       .input-field 
         = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )

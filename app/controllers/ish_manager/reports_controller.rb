@@ -130,7 +130,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
           @site.touch
           if @site.save
           else
-            flash[:error] = (flash[:error]||'') + 'City could not be saved (newsitem). '
+            flash[:alert] = (flash[:alert]||'') + 'City could not be saved (newsitem). '
           end
         end
 
@@ -140,7 +140,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
         format.json { render :json => @report, :status => :created, :location => @report }
       else
         format.html do
-          flash[:error] = @report.errors.inspect
+          flash[:alert] = @report.errors.inspect
           @tags_list = Tag.all.where( :is_public => true ).list
           @sites_list = Site.all.list
           @cities_list = City.all.list

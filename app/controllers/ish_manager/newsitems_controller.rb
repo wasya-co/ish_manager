@@ -108,7 +108,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     if flag
       flash[:notice] = 'Success'
     else
-      flash[:error] = "No Luck: #{@newsitem.errors.messages}"
+      flash[:alert] = "No Luck: #{@newsitem.errors.messages}"
     end
 
     redirect_to url

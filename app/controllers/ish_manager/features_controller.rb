@@ -109,7 +109,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
       flash[:notice] = 'updated feature'
       redirect_to redirect_path
     else
-      flash[:error] = 'No Luck. ' + @feature.errors.messages
+      flash[:alert] = 'No Luck. ' + @feature.errors.messages
       render :action => :edit
     end    
   end
@@ -139,9 +139,9 @@ class IshManager::FeaturesController < IshManager::ApplicationController
 
     if @feature.destroy
       @resource.touch
-      flash[:notice] = :'Success.' 
+      flash[:notice] = 'Success.'
     else
-      flash[:error] = :'No luck.'
+      flash[:alert] = "No luck. " + @feature.errors.messages
     end
     redirect_to request.referrer
   end

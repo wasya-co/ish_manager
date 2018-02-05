@@ -38,7 +38,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     if @site.save
       flash[:notice] = 'Success'
     else
-      flash[:error] = 'No Luck. ' + @site.errors.inspect
+      flash[:alert] = 'No Luck. ' + @site.errors.inspect
     end
     redirect_to sites_path
   end
@@ -50,7 +50,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     if @site.update_attributes params[:site].permit!
       flash[:notice] = 'Success'
     else
-      flash[:error] = 'No Luck'
+      flash[:alert] = 'No Luck'
     end
     redirect_to sites_path
   end

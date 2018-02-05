@@ -29,7 +29,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
       flash[:notice] = 'Success'
       redirect_to cities_path
     else
-      flash[:error] = 'No Luck'
+      flash[:alert] = 'No Luck'
       render :action => :new
     end
   end
@@ -51,7 +51,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
       flash[:notice] = 'Success'
       redirect_to edit_city_path @city.id
     else
-      flash[:error] = 'No Luck. ' + @city.errors.inspect
+      flash[:alert] = 'No Luck. ' + @city.errors.inspect
       @newsitems = @city.newsitems.all.page( params[:newsitems_page] )
       @features = @city.features.all.page( params[:features_page] )
       @photo = Photo.new
@@ -70,7 +70,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
     if flag && flagg
       flash[:notice] = 'Success'
     else
-      flash[:error] = "No Luck. #{@photo.errors.inspect} #{@city.errors.inspect}"
+      flash[:alert] = "No Luck. #{@photo.errors.messages} #{@city.errors.messages}"
     end
     redirect_to cities_path
   end

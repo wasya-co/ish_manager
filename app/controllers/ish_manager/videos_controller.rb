@@ -71,7 +71,7 @@ class IshManager::VideosController < IshManager::ApplicationController
       flash[:notice] = 'Success'      
       redirect_to videos_path
     else
-      flash[:error] = 'No luck'
+      flash[:alert] = 'No luck'
       @tags_list = Tag.list
       @cities_list = City.list
       render :action => 'new'
@@ -96,7 +96,7 @@ class IshManager::VideosController < IshManager::ApplicationController
       flash[:notice] = 'Success.'
       redirect_to videos_path
     else
-      flash[:error] = "No luck: #{@video.errors}"
+      flash[:alert] = "No luck: #{@video.errors.messages}"
       render :edit
     end
   end

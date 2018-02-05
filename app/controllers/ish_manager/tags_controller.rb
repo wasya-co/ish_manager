@@ -32,7 +32,7 @@ class IshManager::TagsController < IshManager::ApplicationController
       redirect_to tags_path
     else
       puts! @tag.errors, "error creating tag."
-      flash[:error] = "No luck. #{@tag.errors.messages}" 
+      flash[:alert] = "No luck. #{@tag.errors.messages}" 
       render :action => :new
     end
   end
@@ -52,7 +52,7 @@ class IshManager::TagsController < IshManager::ApplicationController
       flash[:notice] = 'Success.'
       redirect_to tags_path
     else
-      flash[:error] = 'No luck.'
+      flash[:alert] = 'No luck.'
       render :action => :new
     end
   end

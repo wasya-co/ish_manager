@@ -48,7 +48,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       redirect_to galleries_path
     else
       puts! @gallery.errors.messages
-      flash[:error] = 'No Luck. ' + @gallery.errors.inspect
+      flash[:alert] = 'No Luck. ' + @gallery.errors.inspect
       @cities_list = City.list
       @tags_list = Tag.list
       render :action => 'new'
@@ -81,7 +81,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       redirect_to galleries_path
     else
       puts! @gallery.errors.messages, 'cannot save gallery'
-      flash[:error] = 'No Luck. ' + @gallery.errors.messages.to_s
+      flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s
       render :action => :edit
     end
   end                           
