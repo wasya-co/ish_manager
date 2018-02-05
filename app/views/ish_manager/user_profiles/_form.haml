@@ -2,9 +2,14 @@
 - url = profile.persisted? ? profile_path( profile.id ) : profiles_path
 
 = form_for profile, :as => :profile, :url => url do |f|
-  %label name
-  = f.text_field :name
-
+  .input-field
+    %label name
+    = f.text_field :name
+    
+  .input-field
+    %label username
+    = f.text_field :username
+    
   .input-field
     %label email
     = f.text_field :email
