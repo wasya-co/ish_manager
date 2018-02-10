@@ -27,6 +27,10 @@ module IshManager
       case resource.class.name
       when 'City'
         city_path( resource.id )
+      when 'Event'
+        event_path( resource.id )
+      when 'Venue'
+        venue_path( resource.id )
       end
     end
 

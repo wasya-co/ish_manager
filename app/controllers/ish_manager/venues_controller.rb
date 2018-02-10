@@ -30,9 +30,9 @@ class IshManager::VenuesController < IshManager::ApplicationController
   end
 
   def update
-    @venue = Venue.find params[:id]
+    @resource = @venue = Venue.find params[:id]
     authorize! :update, @venue
-
+    update_profile_pic
     flag = @venue.update_attributes params[:venue].permit!
     if flag
       flash[:notice] = 'updated venue'

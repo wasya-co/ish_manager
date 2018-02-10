@@ -1,25 +1,30 @@
 
-= form_for venue do |f|
-  .a
-    = f.label :name
-    = f.text_field :name
-
-  .a
-    = f.label :name_seo
-    = f.text_field :name_seo
+= form_for venue, :html => { :multipart => true } do |f|
+  .row
+    .col-sm-6
+      = f.label :name
+      = f.text_field :name
+    .col-sm-6
+      = f.label :name_seo
+      = f.text_field :name_seo
     
   .a
     = f.label :descr
     = f.text_area :descr, :class => [ :tinymce ]
 
-  .a
-    coords
-    = f.text_field :x
-    = f.text_field :y
-
-  .a
-    = f.label :city
-    = f.select :city, options_for_select( @cities_list, :selected => venue.city_id )
+  .row
+    .col-sm-6
+      = f.label :city
+      = f.select :city, options_for_select( @cities_list, :selected => venue.city_id )
+    .col-sm-6
+      coords
+      .row
+        .col-xs-6= f.text_field :x
+        .col-xs-6= f.text_field :y
+      
+  .row
+    .col-sm-6
+      = render 'profile_pic', :resource => venue
 
   .b
     = f.submit

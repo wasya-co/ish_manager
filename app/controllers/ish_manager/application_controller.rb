@@ -49,5 +49,31 @@ module IshManager
       puts a.inspect
     end
 
+    def update_profile_pic
+      return unless params[:photo]
+      @photo = Photo.new :photo => params[:photo]
+      @photo.user_profile = @current_user.profile
+      flag = @photo.save
+      @resource.profile_photo = @photo
+      flagg = @resource.save
+      if flag && flagg
+        flash[:notice] = 'Success'
+      else
+        flash[:alert] = "No Luck. #{@photo.errors.messages} #{@resource.errors.messages}"
+      end
+      # redirect_to resource_path( @resource )
+    end
+    
+    def resource_path resource
+      case resource.class.name
+      when 'City'
+        city_path( resource.id )
+      when 'Event'
+        event_path( resource.id )
+      when 'Venue'
+        venue_path( resource.id )
+      end
+    end
+
   end
 end

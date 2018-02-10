@@ -1,0 +1,7 @@
+
+.change-profile-pic
+  %label Change profile pic
+  = file_field_tag :photo
+  - begin
+    = image_tag resource.profile_photo.photo.url(:thumb)
+    - rescue
