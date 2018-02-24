@@ -125,8 +125,7 @@ module IshManager::ImagesHelper
   end
   
   def image_delete
-    # image_tag 'delete.png'
-    '[x]'
+    raw('<i class="fa fa-trash"></i>')
   end
 
   def image_index

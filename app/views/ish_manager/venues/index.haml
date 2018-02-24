@@ -1,3 +1,9 @@
 
-= render :partial => 'index', :locals => { :venues => @venues }
-        
+.manager-venues--index
+  %h2
+    Venues (#{@venues.length})
+    - if @resource
+      in #{link_to @resource.name, resource_path( @resource )}
+    = link_to image_new, new_venue_path
+  = render 'index', :venues => @venues
+%hr     
