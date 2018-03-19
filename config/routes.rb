@@ -36,6 +36,7 @@ IshManager::Engine.routes.draw do
   resources :newsitems
 
   resources :orders
+  get 'co_tailors', :to => 'co_tailors#home'
 
   resources :photos
   resources :payments

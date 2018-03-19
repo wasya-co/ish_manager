@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: a7c159f7f0c17ba4dae36bd1e2a003ebe2f3ca77
+  revision: c5dc144bece723787dc8b975783f9a97e5e99be8
   branch: master
   specs:
-    ish_manager (0.1.8.141)
+    ish_manager (0.1.8.143)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -15,10 +15,10 @@ GIT
 
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: 203c4d9d5819dff71cee96f380d2c3dd4236cd8a
+  revision: 13eff5cdc99a11a5ff774f78f3db8eb289e25a1a
   branch: master
   specs:
-    ish_models (0.0.33.61)
+    ish_models (0.0.33.64)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
