@@ -91,10 +91,11 @@ def setup_reports
 end
 
 def setup_tags
-  r = FactoryGirl.create( :report, :name => rand(1000), :name_seo => rand(1000) )
+  Report.all.destroy
+  @report = FactoryGirl.create( :report, :name => rand(1000), :name_seo => rand(1000) )
 
   Tag.all.destroy
   @tag = FactoryGirl.create :tag
-  @tag.reports << r
+  @tag.reports << @report
   @tag.save
 end
