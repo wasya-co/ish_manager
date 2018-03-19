@@ -36,7 +36,9 @@ IshManager::Engine.routes.draw do
   resources :newsitems
 
   resources :orders
-  get 'co_tailors', :to => 'co_tailors#home'
+  get 'co_tailors',                :to => 'co_tailors#home'
+  post 'co_tailors/products',      :to => 'co_tailors#create_product'
+  patch 'co_tailors/products/:id', :to => 'co_tailors#update_product', :as => :co_tailors_product
 
   resources :photos
   resources :payments

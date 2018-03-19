@@ -1,0 +1,21 @@
+
+.panel.dropShadow
+  .panel-content
+    = form_for product, :url => product.persisted? ? co_tailors_product_path(product) : co_tailors_products_path do |f|
+      .row
+        .col-xs-6
+          .input-field
+            = f.text_field :kind
+            = f.label "kind (shirt, pants, suit)"
+          .input-field
+            = f.text_field :title
+            = f.label "title"
+          .input-field
+            = f.number_field :cost
+            = f.label "cost (cents)"
+          = f.submit
+        .col-xs-6
+          .input-field
+            = f.text_area :description, :style => "height: 200px;"
+            = f.label "description"
+

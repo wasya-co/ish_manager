@@ -2,10 +2,11 @@
 %h4 CoTailors Home
 %h5 Products
 = render 'ish_manager/co_tailors/product_form', :product => CoTailors::Product.new
+%hr
 
 %ul
   - @products.each do |product|
-    %li= product.inspect
-    
-
+    %li
+      = render 'ish_manager/co_tailors/product_form', :product => product
+      %hr
   
