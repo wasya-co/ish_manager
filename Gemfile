@@ -10,6 +10,3 @@ gem 'ish_models'
 gem 'byebug'
 gem 'rack-mini-profiler'
 
-# gem 'rspec-activemodel-mocks'
-# gem 'factory_girl_rails'
-# gem 'rspec-rails'
