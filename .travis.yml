@@ -9,7 +9,6 @@ cache: bundler
 
 before_script:
   - cd $TRAVIS_BUILD_DIR/test/dummy && bundle install --path vendor/bundle
-  - cd $TRAVIS_BUILD_DIR/test/dummy && ls -lah vendor/bundle/ruby/2.3.0/bin
   - cd $TRAVIS_BUILD_DIR/test/dummy && find .
 
 script: 
