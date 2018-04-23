@@ -11,9 +11,6 @@ install:
   - gem install bundler
   - bundle install --gemfile=test/dummy/Gemfile
 
-before_script:
-  - find .
-
 script: 
   - cd $TRAVIS_BUILD_DIR/test/dummy && bundle exec rspec spec
 

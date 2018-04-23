@@ -15,12 +15,6 @@ gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => :master
 gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => :master
 gem 'rails-controller-testing'
 
-## for travis?
-gem 'byebug'
-gem 'rspec'
-gem 'rspec-rails'
-gem 'factory_girl_rails'
-
 group :test, :development do
   gem 'byebug'
   gem 'rspec'
