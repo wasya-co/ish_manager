@@ -21,4 +21,8 @@ group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  
+  ## for travis
+  gem 'rails-controller-testing'
+
 end
