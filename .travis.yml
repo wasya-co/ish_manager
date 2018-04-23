@@ -12,6 +12,6 @@ install:
   - bundle install --gemfile=test/dummy/Gemfile --path vendor/bundle
 
 script: 
-  - bundle exec rspec test/dummy/spec -I test/dummy/spec
+  - BUNDLE_GEMFILE=test/dummy/Gemfile bundle exec rspec test/dummy/spec -I test/dummy/spec
 
 
