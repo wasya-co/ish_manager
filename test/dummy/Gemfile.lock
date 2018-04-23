@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: ef759236b8af068b8bfdb1e49f97207cf0591411
+  revision: 006c93656c2c1028c4250df73eff77a9c3b7d7c7
   branch: master
   specs:
     ish_manager (0.1.8.146)
@@ -306,6 +306,7 @@ DEPENDENCIES
   rake
   rspec
   rspec-rails
+  tzinfo (= 1.2.4)
 
 BUNDLED WITH
    1.15.4
