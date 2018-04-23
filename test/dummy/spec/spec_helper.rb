@@ -99,3 +99,5 @@ def setup_tags
   @tag.reports << @report
   @tag.save
 end
+
+Paperclip.options[:log] = false
