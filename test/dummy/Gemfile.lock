@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: 7938f9e49649a7f4ec98036d3f80c863d782112a
+  revision: 380ca580f130b8c27cab1123a1455e117e4d2d7f
   branch: master
   specs:
     ish_manager (0.1.8.146)
@@ -301,6 +301,7 @@ DEPENDENCIES
   mongoid-paperclip
   rails (~> 5.1)
   rails-controller-testing
+  rake
   rspec
   rspec-rails
 

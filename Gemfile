@@ -8,6 +8,7 @@ gem 'aws-sdk'
 gem 'mongoid-paperclip'
 gem 'ish_models'
 gem 'rack-mini-profiler'
+gem 'rake', '12.3.0'
 
 # gem 'byebug'
 

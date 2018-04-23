@@ -207,7 +207,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.0.0)
+    rake (12.3.0)
     ransack (1.8.4)
       actionpack (>= 3.0)
       activerecord (>= 3.0)
@@ -279,6 +279,7 @@ DEPENDENCIES
   ish_models
   mongoid-paperclip
   rack-mini-profiler
+  rake (= 12.3.0)
   rspec
   rspec-rails
   uglifier
