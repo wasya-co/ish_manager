@@ -5,10 +5,11 @@ language: ruby
 rvm:
  - 2.3.1
 
-# cache: bundler 
+cache: bundler 
 
 install:
   - gem install bundler
+  - bundle update
   - bundle install --gemfile=test/dummy/Gemfile
 
 script: 
