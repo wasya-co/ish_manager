@@ -26,7 +26,10 @@
           .gray
             - if report.site
               Site #{report.site.domain}/#{report.site.lang}
-            %br
+              %br
             = report.created_at
+          - if report.photo
+            = image_tag report.photo.photo.url :thumb
+          
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
     
