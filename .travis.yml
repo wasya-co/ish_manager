@@ -9,7 +9,7 @@ rvm:
 
 before_script:
   - cd $TRAVIS_BUILD_DIR/test/dummy && bundle install --path vendor/bundle
-  - cd $TRAVIS_BUILD_DIR/test/dummy && find .
+  - find .
 
 script: 
   - cd $TRAVIS_BUILD_DIR/test/dummy && bundle exec rspec spec
