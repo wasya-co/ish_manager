@@ -5,4 +5,5 @@ language: ruby
 rvm:
  - 2.3.1
 cache: bundler 
-script: bundle exec rake
+script: cd $TRAVIS_BUILD_DIR/test/dummy && bundle exec rspec spec
+
