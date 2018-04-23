@@ -15,12 +15,17 @@ gem 'i18n', '0.9.1'
 gem 'minitest', '5.10.2'
 gem 'tzinfo', '1.2.4'
 gem 'activesupport', '5.1.4'
+gem 'rspec'
+gem 'rspec-rails'
+gem 'factory_girl_rails'
 
 group :test, :development do
   gem 'byebug'
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
+
+  ## doesn't work here for travis
+  # gem 'rspec'
+  # gem 'rspec-rails'
+  # gem 'factory_girl_rails'
   
   ## for travis
   gem 'rails-controller-testing'
