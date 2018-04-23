@@ -116,7 +116,8 @@ GEM
     has_scope (0.7.1)
       actionpack (>= 4.1, < 5.2)
       activesupport (>= 4.1, < 5.2)
-    i18n (0.8.1)
+    i18n (0.9.1)
+      concurrent-ruby (~> 1.0)
     inherited_resources (1.8.0)
       actionpack (>= 4.2, <= 5.2)
       has_scope (~> 0.6)
@@ -275,6 +276,7 @@ DEPENDENCIES
   byebug
   devise
   factory_girl_rails
+  i18n (= 0.9.1)
   ish_manager!
   ish_models
   mongoid-paperclip

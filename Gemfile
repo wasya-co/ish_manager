@@ -9,6 +9,7 @@ gem 'mongoid-paperclip'
 gem 'ish_models'
 gem 'rack-mini-profiler'
 gem 'rake', '12.3.0'
+gem 'i18n', '0.9.1'
 
 # gem 'byebug'
 

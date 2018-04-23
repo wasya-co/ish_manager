@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: 380ca580f130b8c27cab1123a1455e117e4d2d7f
+  revision: 20d4d5f62d8abfc5c773a1fecf61c161f025fc05
   branch: master
   specs:
     ish_manager (0.1.8.146)
@@ -293,6 +293,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   haml
+  i18n (= 0.9.1)
   ish_manager!
   ish_models!
   kaminari
