@@ -7,6 +7,13 @@ gem 'devise'
 gem 'aws-sdk'
 gem 'mongoid-paperclip'
 gem 'ish_models'
-gem 'byebug'
 gem 'rack-mini-profiler'
 
+# gem 'byebug'
+
+group :test, :development do
+  gem 'byebug'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end

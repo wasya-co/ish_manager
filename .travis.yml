@@ -7,8 +7,11 @@ rvm:
 
 # cache: bundler 
 
-before_script:
+install:
+  - gem install bundler
   - cd $TRAVIS_BUILD_DIR/test/dummy && bundle install --path vendor/bundle
+
+before_script:
   - find .
 
 script: 
