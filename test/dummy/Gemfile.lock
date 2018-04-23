@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: 006c93656c2c1028c4250df73eff77a9c3b7d7c7
+  revision: 8eb2ef3f94d958c3d206ad698c397346da552e70
   branch: master
   specs:
     ish_manager (0.1.8.146)
@@ -287,6 +287,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activesupport (= 5.1.4)
   aws-sdk (~> 2)
   byebug
   cancancan
