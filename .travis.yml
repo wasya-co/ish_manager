@@ -5,5 +5,10 @@ language: ruby
 rvm:
  - 2.3.1
 cache: bundler 
-script: cd $TRAVIS_BUILD_DIR/test/dummy && bundle exec rspec spec
+
+before_script:
+  - cd $TRAVIS_BUILD_DIR/test/dummy && bundle install --path vendor/bundle
+
+script: 
+  - cd $TRAVIS_BUILD_DIR/test/dummy && bundle exec rspec spec
 
