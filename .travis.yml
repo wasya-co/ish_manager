@@ -9,6 +9,7 @@ rvm:
 
 install:
   - gem install bundler
+  - bundle update rake
   - bundle install --gemfile=test/dummy/Gemfile
 
 script: 
