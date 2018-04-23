@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: 20d4d5f62d8abfc5c773a1fecf61c161f025fc05
+  revision: ef759236b8af068b8bfdb1e49f97207cf0591411
   branch: master
   specs:
     ish_manager (0.1.8.146)
@@ -171,7 +171,7 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    minitest (5.10.2)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (6.1.1)
@@ -298,6 +298,7 @@ DEPENDENCIES
   ish_models!
   kaminari
   kaminari-mongoid
+  minitest (= 5.10.2)
   mongoid
   mongoid-paperclip
   rails (~> 5.1)

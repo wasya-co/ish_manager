@@ -279,6 +279,7 @@ DEPENDENCIES
   i18n (= 0.9.1)
   ish_manager!
   ish_models
+  minitest (= 5.10.2)
   mongoid-paperclip
   rack-mini-profiler
   rake (= 12.3.0)

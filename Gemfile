@@ -8,8 +8,11 @@ gem 'aws-sdk'
 gem 'mongoid-paperclip'
 gem 'ish_models'
 gem 'rack-mini-profiler'
+
+## for travis
 gem 'rake', '12.3.0'
 gem 'i18n', '0.9.1'
+gem 'minitest', '5.10.2'
 
 # gem 'byebug'
 
