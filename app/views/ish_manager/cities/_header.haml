@@ -27,7 +27,8 @@
         Videos (#{@city.videos.count})
       %li
         = link_to image_new, new_city_venue_path( @city )
-        Venues (#{@city.venues.count})
+        = link_to 'Venues', venues_path( :city_id => @city.id )
+        (#{@city.venues.count})
       %li
         = link_to image_new, new_city_event_path( @city )
         = link_to 'Events', city_events_path( @city )

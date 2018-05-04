@@ -16,7 +16,7 @@
       .card
         .card-content
           = link_to '[~]', edit_report_path( report )
-          = link_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          .float-left= button_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
           - if report.is_public
             %i.material-icons visibility
           - else
@@ -26,7 +26,10 @@
           .gray
             - if report.site
               Site #{report.site.domain}/#{report.site.lang}
-            %br
+              %br
             = report.created_at
+          - if report.photo
+            = image_tag report.photo.photo.url :thumb
+          
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
     

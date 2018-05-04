@@ -42,8 +42,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
-      @report.photo = photo
-      @report.save
+      @report.update_attributes( :photo => photo, :updated_at => Time.now )
     end
 
     respond_to do |format|

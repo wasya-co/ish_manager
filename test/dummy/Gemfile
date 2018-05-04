@@ -15,9 +15,17 @@ gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => :master
 gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => :master
 gem 'rails-controller-testing'
 
+## for travis
+gem 'i18n', '0.9.1'
+gem 'minitest', '5.10.2'
+gem 'tzinfo', '1.2.4'
+gem 'activesupport', '5.1.4'
+gem 'rails-controller-testing'
+gem 'rspec'
+gem 'rspec-rails'
+gem 'factory_girl_rails'
+gem 'rake'
+
 group :test, :development do
   gem 'byebug'
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
 end

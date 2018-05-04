@@ -7,7 +7,7 @@
   - edit_url     = ->(n) { edit_city_newsitem_path( city, n ) }
   - delete_url   = ->(n) { city_newsitem_path( city, n ) }
   - new_newsitem = new_city_newsitem_path( city.id )
-- if defined? tag
+- if defined?( tag ) && tag.class.name == 'Tag'
   - edit_url     = ->(n) { edit_tag_newsitem_path( tag, n ) }
   - delete_url   = ->(n) { tag_newsitem_path( tag, n ) }
   - new_newsitem = new_tag_newsitem_path( tag.id )

@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require ish_manager/jquery-3.2.1.min
+// require ish_manager/jquery-3.2.1.min
 //= require ish_manager/bootstrap.min
 //= require ish_manager/jquery.iframe-transport
 //= require ish_manager/jquery.ui.widget
@@ -29,6 +29,7 @@ $(function () {
 });
 
 $(document).ready(function () {
+
   $('*[data-confirm]').click(function(){
     return confirm($(this).attr('data-confirm'));
   });
@@ -40,8 +41,10 @@ $(document).ready(function () {
       plugins: 'link'
     });
   }
-  
-  $('select').material_select()
+
+  if ($('body#application').length > 0) {
+      $('select').material_select()
+  }
 
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')
@@ -88,6 +91,13 @@ $(document).ready(function () {
     $("#collapseFooter").removeClass('fa-compress')
     $(".content", mainFooterContext).css("display", 'none')
   }
+
+  $('#dataTable').DataTable({
+      pageLength: 10,
+      lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
+      lengthChange: true,
+      "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+  });
 
 });
  

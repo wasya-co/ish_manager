@@ -1,2 +1,7 @@
 
 %h5 All Orders (#{@orders.length})
+
+%ul
+  - @orders.each do |order|
+    %li= order.inspect
+    

@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/piousbox/ish_manager.git
-  revision: 86da2ab7eaad39340bb6ee4fa15744cc78cfd462
+  revision: b742c9b5de4b68998f8210cd160734e74b575ed9
   branch: master
   specs:
-    ish_manager (0.1.8.136)
+    ish_manager (0.1.8.146)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -15,10 +15,10 @@ GIT
 
 GIT
   remote: git://github.com/piousbox/ish_models.git
-  revision: 58c9a99e9affbef476d7b63b5113583ca6fa8331
+  revision: 93bc16855d551439a9ac0d827ee575fbfc6633b5
   branch: master
   specs:
-    ish_models (0.0.33.58)
+    ish_models (0.0.33.67)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -171,7 +171,7 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    minitest (5.10.2)
     mongo (2.4.3)
       bson (>= 4.2.1, < 5.0.0)
     mongoid (6.1.1)
@@ -287,22 +287,27 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  activesupport (= 5.1.4)
   aws-sdk (~> 2)
   byebug
   cancancan
   devise
   factory_girl_rails
   haml
+  i18n (= 0.9.1)
   ish_manager!
   ish_models!
   kaminari
   kaminari-mongoid
+  minitest (= 5.10.2)
   mongoid
   mongoid-paperclip
   rails (~> 5.1)
   rails-controller-testing
+  rake
   rspec
   rspec-rails
+  tzinfo (= 1.2.4)
 
 BUNDLED WITH
    1.15.4

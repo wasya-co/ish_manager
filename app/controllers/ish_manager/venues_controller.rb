@@ -6,6 +6,10 @@ class IshManager::VenuesController < IshManager::ApplicationController
   def index
     authorize! :venues_index, ::Manager
     @venues = Venue.all
+    if params[:city_id]
+      @resource = @city = City.find params[:city_id]
+      @venues = @venues.where( :city => @city )
+    end
   end
 
   def new
@@ -30,6 +34,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
   end
 
   def update
+    params[:venue][:tag_ids].delete ''
     @resource = @venue = Venue.find params[:id]
     authorize! :update, @venue
     update_profile_pic
@@ -47,6 +52,18 @@ class IshManager::VenuesController < IshManager::ApplicationController
     @venue = Venue.find params[:id]
     authorize! :show, @venue
     redirect_to :action => :edit, :id => @venue.id
+  end
+
+  def destroy
+    @venue = Venue.unscoped.find params[:id]
+    venue_name = @venue.name
+    authorize! :delete, @venue
+    if @venue.destroy
+      flash[:notice] = "Deleted venue #{venue_name}"
+    else
+      flash[:alert] = "Cannot delete venue: #{@venue.errors.messages}"
+    end
+    redirect_to venues_path
   end
 
 end

@@ -2,23 +2,32 @@
 .manager--leads-index
   %h5
     = link_to 'Leads', leads_path
-    (#{@leads.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
-    = link_to '(done)', done_leads_path
+    = link_to '[done]', done_leads_path
     
-  %table
-    %tr
-      %th &nbsp;
-      %th Created At
-      %th Company
-      %th Email
-      %th Job Url
-      %th Description
-    - @leads.each do |lead|
+  %table#dataTable
+    %thead
       %tr
-        %td= link_to raw('<i class="fa fa-play"></i>'), lead_path( lead )
-        %td= pretty_date lead.created_at
-        %td= lead.company
-        %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}"
-        %td= link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank'
-        %td= lead.description
+        %th &nbsp;
+        %th Created At
+        %th Company
+        %th Tag
+        %th Phone
+        %th Email
+        %th Job Url
+        %th Company Url
+        %th Yelp Url
+        %th Description
+    %tbody
+      - @leads.each do |lead|
+        %tr
+          %td= link_to raw('<i class="fa fa-play"></i>'), lead_path( lead )
+          %td= pretty_date lead.created_at
+          %td= lead.company
+          %td= lead.tag
+          %td= lead.phone
+          %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}"
+          %td= link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank'
+          %td= lead.company_url
+          %td= lead.yelp_url
+          %td= lead.description

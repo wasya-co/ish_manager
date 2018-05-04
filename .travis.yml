@@ -4,5 +4,14 @@ services:
 language: ruby
 rvm:
  - 2.3.1
+
 cache: bundler 
-script: bundle exec rake
+
+install:
+  - gem install bundler
+  - bundle install --gemfile=test/dummy/Gemfile --path vendor/bundle
+
+script: 
+  - BUNDLE_GEMFILE=test/dummy/Gemfile bundle exec rspec test/dummy/spec -I test/dummy/spec
+
+

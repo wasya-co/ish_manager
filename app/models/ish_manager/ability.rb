@@ -22,6 +22,7 @@ class IshManager::Ability
 
         can [ :new ], ::Feature
 
+        can [ :manage ], ::CoTailors
         can [ :cities_index, :home, :sites_index, :venues_index ], ::Manager
 
         can [ :new ], Newsitem

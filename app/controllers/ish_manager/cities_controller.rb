@@ -47,7 +47,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
       @city.profile_photo = photo
     end
     if @city.save
-      ::IshModels::CacheKey.one.update_attributes( :cities => Time.now )
+      ::IshModels::CacheKey.one.update_attributes( :cities => Time.now, :feature_cities => Time.now )
       flash[:notice] = 'Success'
       redirect_to edit_city_path @city.id
     else
