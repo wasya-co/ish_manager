@@ -1,7 +1,7 @@
 = form_tag galleries_path, :method => :get, :class => :search do
   .field.search_words
     .hide [x]
-    = text_field_tag 'keywords', nil, :placeholder => 'Search'
+    = text_field_tag 'q', nil, :placeholder => 'Search'
   .actions.hide
     = submit_tag 'Search'
   .c
