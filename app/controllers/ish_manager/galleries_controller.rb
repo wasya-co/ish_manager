@@ -98,6 +98,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     end
     authorize! :show, @gallery
     @photos = @gallery.photos.unscoped.where({ :is_trash => false })
+    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
   end
 
   def destroy

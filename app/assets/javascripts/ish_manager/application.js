@@ -99,5 +99,9 @@ $(document).ready(function () {
       "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
   });
 
+  $(".addToggle").on('click', function () {
+    $(this).next().toggle(500)
+  })
+
 });
  

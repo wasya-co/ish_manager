@@ -12,6 +12,13 @@ describe IshManager::GalleriesController, :type => :controller do
     @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx'
   end
 
+  describe 'show' do
+    it 'shows trash' do
+      get :show, :params => { :id => @gallery.id }
+      assigns( :deleted_photos ).should_not eql nil
+    end
+  end
+
   describe 'new' do
     it 'renders' do
       get :new

@@ -87,6 +87,24 @@ hr {
   width: 100px;
 }
 
+.inline {
+  display: inline;
+}
+ul.inline li {
+  display: inline;
+}
+
+/* R */
+.border-red,
+.red-border {
+  border: 1px solid red;
+  padding: 1em;
+}
+/* T */
+.addToggle + * {
+  display: none;
+}
+
 /**
  * manager... 
  */

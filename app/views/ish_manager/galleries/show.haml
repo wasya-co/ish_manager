@@ -1,23 +1,34 @@
 
 = render 'title', :gallery => @gallery
 
+-# deleted
+.row
+  %p.addToggle Deleted [<>]
+  .a
+    %ul.inline
+      - @deleted_photos.each do |ph|
+        %li.border-red= image_tag ph.photo.url( :mini )
+    %hr
+
+-# mini
 .row
   %ul
     - @photos.each do |photo|
       %li.col-xs-1= image_tag photo.photo.url( :mini ), :alt => ''
-
 .spacer{ :style => 'height: 500px' }
 
+-# thumb
 .row
   .a
     - @photos.each do |photo|
       .col-xs-4
-        = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :confirm => 'Are you sure?'
-        %br
-        = image_tag photo.photo.url( :thumb ), :alt => ''
-        
+        .item{ :style => "border: 1px solid red;" }
+          = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %br
+          = image_tag photo.photo.url( :thumb ), :alt => ''
 .spacer{ :style => 'height: 100px' }
-        
+
+-# large
 .center.large-photos
   - @photos.each do |photo|
     .item
