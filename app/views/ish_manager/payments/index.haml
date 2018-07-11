@@ -1,0 +1,21 @@
+
+-#
+-# payments / index.haml
+-#
+
+%h1 Payments
+
+%table#dataTable
+  %thead
+    %tr
+      %th Amount
+      %th Charge
+      %th Invoice
+      %th Created At
+  %tbody
+    - @payments.each do |p|
+      %tr
+        %td= p.amount
+        %td #{p.charge.to_s.length} characters
+        %td #{p.invoice.email} :: #{p.invoice.number}
+        %td= p.created_at.to_s[0..10]
