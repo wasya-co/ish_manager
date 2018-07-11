@@ -5,7 +5,7 @@ class IshManager::InvoicesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Invoice
-    @invoices = Ish::Invoice.all
+    @invoices = Ish::Invoice.all.includes( :payments )
   end
 
   def new

@@ -8,12 +8,19 @@
     = render 'form', :invoice => @new_invoice
 %hr
 
-%ul
-  - @invoices.each do |i|
-    %li
-      .panel
-        .panel-content
-          .a Number: #{i.number}
-          .a Email: #{i.profile.email}
-          .a Amount: #{i.amount}
-          .a Payments: #{i.payments.map { |p| p.amount }.join(", ") }
+%table#dataTable
+  %thead
+    %tr
+      %th Email
+      %th Number
+      %th Amount
+      %th Amount Paid
+      %th Created At
+  %tbody
+    - @invoices.each do |i|
+      %tr
+        %td= i.email
+        %td= i.number
+        %td= i.amount
+        %td= i.paid_amount
+        %td= i.created_at.to_s[0..10]

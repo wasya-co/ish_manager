@@ -6,7 +6,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     authorize! :index, Gallery
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
                                        ).order_by( :created_at => :desc 
-                                                 ).page( params[:galleries_page] ).per( 10 )
+                                                 ) # .page( params[:galleries_page] ).per( 10 )
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
     end
@@ -14,21 +14,20 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
   end
 
-  ## same as index
-  # def index_title 
-  # end
-
+=begin
+  def index_title
+  end
   def index_thumb
     @galleries = Gallery.unscoped.where( :is_trash => false 
                                        ).order_by( :created_at => :desc 
                                                  ).page( params[:galleries_page] ).per( 10 )
   end
-
   def index_mini
     @galleries = Gallery.unscoped.where( :is_trash => false 
                                        ).order_by( :created_at => :desc 
                                                  ).page( params[:galleries_page] ).per( 10 )
   end
+=end
 
   def new
     @gallery = Gallery.new

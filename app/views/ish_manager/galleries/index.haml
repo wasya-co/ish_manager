@@ -7,20 +7,22 @@
 
 = render 'ish_manager/sites/header', :site => @site if @site
 
-.container
+.title
   .row
-    .col-sm-6
-      %h4
-        My Galleries (#{@galleries.count})
-        = link_to '[+]', new_gallery_path
-    .col-sm-6= render 'search'
-  .row
-    .col-sm-12
-      -# = render 'ish_manager/galleries/menu_secondary'
-      = render 'ish_manager/galleries/list', :galleries => @galleries, :param_name => :galleries_page
-      
-.container
-  .row
-    .col-sm-12
-      %h4 Shared with me
-      = render 'ish_manager/galleries/list', :galleries => @shared_galleries, :param_name => :shared_galleries_page
+    .col-sm-12.col-md-12
+      %h1.center Galleries
+      %ul
+        %li= link_to 'titles list', galleries_index_titles_path( :render_type => Gallery::RENDER_THUMBS )
+        %li= link_to 'thumbs list', galleries_index_thumbs_path( :render_type => Gallery::RENDER_TITLES )
+
+.row
+  .col-sm-12.col-md-6
+    %h4 My Galleries (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
+    = render 'search'
+    - if params[:render_type] == Gallery::RENDER_TITLES
+      = render 'ish_manager/galleries/index_title', :galleries => @galleries, :param_name => :galleries_page
+    - else
+      = render 'ish_manager/galleries/list', :galleries => @galleries, :param_name => :galleries_page    
+  .col-sm-12.col-md-6
+    %h4 Shared with me
+    = render 'ish_manager/galleries/list', :galleries => @shared_galleries, :param_name => :shared_galleries_page

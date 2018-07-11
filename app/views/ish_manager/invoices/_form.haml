@@ -2,20 +2,19 @@
 - url = invoice.persisted? ? invoice_path( invoice.id ) : invoices_path
 
 = form_for invoice, :as => :invoice, :url => url do |f|
-  -# .input-field
-    %label email
-    = text_field_tag :email
-  .a
-    %label profile
-    = f.select :profile, options_for_select( IshModels::UserProfile.all.map{ |p| [ p.email, p.id ] } )
-    
-  %label amount
-  = f.number_field :amount, :step => 0.01, :default => 0.0
+  .input-field
+    %label Email
+    = f.text_field :email
 
-  %label number
-  = f.number_field :number
+  .input-field
+    %label amount
+    = f.number_field :amount, :step => 0.01, :default => 0.0
 
-  .a
+  .input-field
+    %label number
+    = f.number_field :number
+
+  .input-field
     %label Description
     = f.text_area :description
   
