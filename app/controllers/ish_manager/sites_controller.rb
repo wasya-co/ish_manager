@@ -47,6 +47,8 @@ class IshManager::SitesController < IshManager::ApplicationController
     @site = Site.unscoped.find params[:id]
     authorize! :update, @site
     
+    params[:site][:private_user_emails] = params[:site][:private_user_emails].gsub(/\s+/m, ' ').strip.split(" ")
+
     if @site.update_attributes params[:site].permit!
       flash[:notice] = 'Success'
     else

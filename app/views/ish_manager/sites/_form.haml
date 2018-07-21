@@ -44,15 +44,19 @@
           = f.check_box :is_trash
           = f.label :is_trash
           %br
-          = f.check_box :is_private
-          = f.label :is_private
-          %br
           = f.check_box :is_ads_enabled
           = f.label :is_ads_enabled
           %br
           = f.check_box :play_videos_in_preview
           = f.label :play_videos_in_preview
-        
+      .row
+        .col-lg-6
+          = f.check_box :is_private
+          = f.label :is_private
+        .col-lg-6
+          = f.text_field :private_user_emails
+          = f.label :private_user_emails
+
       .row
         .col-lg-12
           = f.submit 'Submit', :class => :btn
