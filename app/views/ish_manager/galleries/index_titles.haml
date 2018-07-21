@@ -3,13 +3,19 @@
   .large-12.columns
     %h1 Titled Galleries
 
-    %ul
-      - @galleries.each do |gallery|
-        %li
-          %h4= link_to gallery.name, gallery_path(gallery)
-          %span
-            = link_to '[~]', edit_gallery_path( gallery )
-            = link_to '[x]', gallery_path( gallery ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-            = is_public_image_tag( gallery )
-            <i>#{gallery.created_at.to_s.slice(0, 10)}</i>
-    
+%table#dataTable
+  %thead
+    %tr
+      %th Public?
+      %th Title
+      %th Created At
+      %th Actions
+  %tbody
+    - @galleries.each do |g|
+      %tr
+        %td= is_public_image_tag( g )
+        %td= link_to g.name, gallery_path( g )
+        %td= g.created_at.to_s.slice(0, 10)
+        %td
+          = link_to '[~]', edit_gallery_path( g )
+          = link_to '[x]', gallery_path( g ), :method => :delete, :data => { :confirm => 'Are you sure?' }

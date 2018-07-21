@@ -5,16 +5,16 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   def index
     authorize! :index, Gallery
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
-                                       ).order_by( :created_at => :desc 
-                                                 ).page( params[:galleries_page] ).per( 20 )
-    if params[:q]
-      @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
-    end
+                                       ).order_by( :created_at => :desc )
 
     if params[:render_type] == Gallery::RENDER_TITLES
       render 'index_titles'
       return
     else
+      if params[:q]
+        @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
+      end
+      @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
       @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
     end
 
