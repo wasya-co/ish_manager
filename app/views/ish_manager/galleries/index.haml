@@ -2,16 +2,13 @@
 - content_for :title do
   Manager Galleries Index
 
-- content_for :menu do
-  - # nothing
-
 = render 'ish_manager/sites/header', :site => @site if @site
 
 .title
   .row
     .col-sm-12.col-md-12
       %h1.center Galleries
-      %ul
+      %ul.menu-secondary
         %li= link_to 'titles list', galleries_index_titles_path( :render_type => Gallery::RENDER_THUMBS )
         %li= link_to 'thumbs list', galleries_index_thumbs_path( :render_type => Gallery::RENDER_TITLES )
 

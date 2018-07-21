@@ -11,6 +11,7 @@ FactoryGirl.define do
 
   factory :gallery do
     name 'xxTestxx'
+    is_trash false
     after :build do |g|
       g.site ||= Site.new( :domain => 'xxDomainxx', :lang => 'xxLangxx' )
     end
@@ -37,6 +38,7 @@ FactoryGirl.define do
 
   factory :user_profile, :class => IshModels::UserProfile do
     email 'user@email.com'
+    name 'some-name'
     after :build do |p|
       u = User.find_or_create_by :email => p.email
       p.user = u

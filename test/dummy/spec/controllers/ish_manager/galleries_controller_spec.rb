@@ -6,10 +6,16 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
-
     Gallery.all.destroy
-    @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx'
+    @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile
+  end
+
+  it '#index_titles' do
+    get :index, :params => { :render_type => Gallery::RENDER_TITLES }
+    response.should render_template 'index_titles'
+    assigns( :shared_galleries ).should eql nil
+    gs = assigns( :galleries )
+    gs.length.should > 0
   end
 
   describe 'show' do

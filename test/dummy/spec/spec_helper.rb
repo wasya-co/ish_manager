@@ -16,8 +16,7 @@ end
 
 class UserStub
   def initialize args = {}
-    @profile = OpenStruct.new :role_name => :guy,
-                              :friends => []
+    @profile = OpenStruct.new :role_name => :guy, :friends => []
     if args[:manager]
       @profile[:manager?] = true
       @profile[:sudoer?] = true
@@ -42,24 +41,6 @@ class UserStub
 
 end
 
-# this is bad... dummy app should have devise installed, and class User
-=begin
-IshManager::ApplicationController.class_eval do
-  attr_accessor :test_current_user
-  def current_user
-    @test_current_user ||= ::User.new :email => 'piousbox@gmail.com'
-    @test_current_user.profile ||= ::IshModels::UserProfile.new
-    return @test_current_user
-  end
-  def current_user= user
-    @test_current_user = user
-    return @test_current_user
-  end
-end
-=end
-
-# require_relative './factories'
-
 def puts! a, b=''
   puts "+++ +++ #{b}"
   puts a.inspect
@@ -67,11 +48,12 @@ end
 
 def setup_users
   User.all.destroy
-  @user   = FactoryGirl.create :user, :email => 'user@gmail.com'
-  @user_1 = FactoryGirl.create :user, :email => 'user-1@gmail.com'
-  @user_2 = FactoryGirl.create :user, :email => 'user-2@gmail.com'
+  @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
+  @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com'
+  @user_1  = FactoryGirl.create :user, :email => 'user-1@gmail.com'
+  @user_2  = FactoryGirl.create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user
-  allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
+  # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end
 
 def setup_profiles
