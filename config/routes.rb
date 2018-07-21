@@ -21,6 +21,7 @@ IshManager::Engine.routes.draw do
   resources :feature
   resources :friends
 
+  get 'galleries',              :to => 'galleries#index'
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
   get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   resources :galleries do
