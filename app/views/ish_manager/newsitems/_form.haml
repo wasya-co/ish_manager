@@ -2,13 +2,13 @@
 = form_for newsitem, :html => { :multipart => true } do |f|
   .a
     = f.label :site
-    = f.select :site_id, options_for_select( @sites, :selected => ( @site ? @site.id : nil ) )
+    = f.select :site_id, options_for_select( @sites_list, :selected => ( @site ? @site.id : nil ) )
     %br
     = f.label :city
-    = f.select :city_id, options_for_select( @cities, :selected => ( @city ? @city.id : nil ) )
+    = f.select :city_id, options_for_select( @cities_list, :selected => ( @city ? @city.id : nil ) )
     %br
     = f.label :tag
-    = f.select :tag_id, options_for_select( @tags, (@tag||Tag.new).id )
+    = f.select :tag_id, options_for_select( @tags_list, (@tag||Tag.new).id )
 
   .a
     = f.label :name
@@ -18,13 +18,13 @@
     = f.text_area :descr, :class => :tinymce
   .a
     = f.label :video
-    = f.select :video_id, options_for_select( @videos_list )
+    = f.select :video_id, options_for_select( @videos_list, :selected => @newsitem.video_id )
   .a
     = f.label :gallery
-    = f.select :gallery_id, options_for_select( @galleries_list )
+    = f.select :gallery_id, options_for_select( @galleries_list, :selected => @newsitem.gallery_id )
   .a
     = f.label :report
-    = f.select :report_id, options_for_select( @reports_list )
+    = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id )
   .a
     = label_tag :photo
     = file_field_tag :photo

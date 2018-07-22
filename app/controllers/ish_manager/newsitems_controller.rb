@@ -86,12 +86,18 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def update
-    if params[:site_id]
-      @site = Site.find params[:site_id]
+    if params[:site_id] || params[:newsitem][:site_id]
+      if params[:site_id]
+        @site = Site.find params[:site_id]
+      end
+      if params[:newsitem][:site_id]
+        @site = Site.find params[:newsitem][:site_id]
+      end
       @site.touch
       @newsitem = @site.newsitems.find params[:id]
       url = edit_site_path( @site )
     end
+
     if params[:city_id]
       @city = City.find params[:city_id]
       @newsitem = @city.newsitems.find params[:id]
@@ -124,6 +130,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem = @city.newsitems.find( params[:id] )
     end
     authorize! :edit, @newsitem
+    
   end
 
   def index
@@ -139,6 +146,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @videos_list    = Video.list
     @galleries_list = Gallery.list
     @reports_list   = Report.list
+    @sites_list = Site.list
+    @cities_list = City.list
+    @tags_list = Tag.list
   end
 
 end
