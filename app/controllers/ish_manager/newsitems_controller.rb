@@ -121,6 +121,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
   
   def edit
+    out = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
+    @galleries_list = [['', nil]] + out.map { |item| [ "#{item.created_at.strftime('%Y%m%d')} #{item.name}", item.id ] }
+
     if params[:site_id]
       @site = Site.find params[:site_id]
       @newsitem = @site.newsitems.find( params[:id] )
