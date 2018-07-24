@@ -17,6 +17,7 @@
         %th Job Url
         %th Company Url
         %th Yelp Url
+        %th Location
         %th Description
     %tbody
       - @leads.each do |lead|
@@ -30,4 +31,5 @@
           %td= link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank'
           %td= lead.company_url
           %td= lead.yelp_url
+          %td= lead.location
           %td= lead.description
