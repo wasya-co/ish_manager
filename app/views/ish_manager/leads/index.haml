@@ -19,6 +19,7 @@
         %th Yelp Url
         %th Location
         %th Description
+        %th Address
     %tbody
       - @leads.each do |lead|
         %tr
@@ -33,3 +34,4 @@
           %td= lead.yelp_url
           %td= lead.location
           %td= lead.description
+          %td= lead.address
