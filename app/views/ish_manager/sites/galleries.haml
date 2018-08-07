@@ -15,5 +15,5 @@
       %h4
         Galleries (#{@galleries.count})
         = link_to image_new, new_gallery_path
-      = render 'ish_manager/galleries/list', :galleries => @galleries, :param_name => :galleries_page
+      = render 'ish_manager/galleries/index', :galleries => @galleries, :param_name => :galleries_page
       
