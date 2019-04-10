@@ -8,6 +8,7 @@ gem 'aws-sdk'
 gem 'mongoid-paperclip'
 gem 'ish_models'
 gem 'rack-mini-profiler'
+gem 'ffi', '1.9.21'
 
 ## for travis
 gem 'rake', '12.3.0'

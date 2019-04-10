@@ -12,9 +12,10 @@ class IshManager::PhotosController < IshManager::ApplicationController
   def destroy
     @photo = Photo.unscoped.find params[:id]
     authorize! :destroy, @photo
+    g = @photo.gallery
     @photo.is_trash = true
     @photo.save
-    @photo.gallery.touch
+    g.touch
     redirect_to request.referrer || root_path
   end
 

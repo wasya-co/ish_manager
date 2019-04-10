@@ -6,7 +6,7 @@ if ! (( ssh-add -L | grep mac_id_rsa )) ; then
   ssh-add ~/.ssh/mac_id_rsa
 fi
 
-cd ~/projects/ruby/microsites3/ish_manager
+# cd ~/projects/ruby/microsites3/ish_manager
 
 # echo "ish_manager is only on master. as compatibility with microsites3"
 git checkout master 
