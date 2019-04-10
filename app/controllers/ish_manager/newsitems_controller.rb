@@ -31,6 +31,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @resource = Site.find params[:newsitem][:site_id] if !params[:newsitem][:site_id].blank?
     @resource = Tag.find params[:tag_id]              if params[:tag_id]
     @resource = Tag.find params[:newsitem][:tag_id]   if !params[:newsitem][:tag_id].blank?
+    @resource = IshModels::UserProfile.find params[:newsitem][:user_profile_id] if params[:newsitem][:user_profile_id]
     @resource.newsitems << @newsitem
 
     authorize! :create_newsitem, @resource
@@ -40,14 +41,18 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem.photo = photo
     end
 
-    case @resource.class.name
+    url = case @resource.class.name
     when "City"
-      url = edit_city_path( @resouce.id )
+      edit_city_path( @resouce.id )
     when "Tag"
-      url = tag_path( @resource.id )
       @resource.site.touch
+      tag_path( @resource.id )
     when "Site"
-      url = edit_site_path( @resource.id )
+      edit_site_path( @resource.id )
+    when "IshModels::UserProfile"
+      user_profiles_path
+    else
+      root_path
     end
     
     flag = @newsitem.save && @resource.save
@@ -139,6 +144,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   def index
     @resource = Site.find( params[:site_id] ) if params[:site_id]
     @resource = City.find( params[:site_id] ) if params[:city_id]
+
     authorize! :newsitems_index, @resource
     @newsitems = @resource.newsitems
   end
@@ -152,6 +158,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @sites_list = Site.list
     @cities_list = City.list
     @tags_list = Tag.list
+    @user_profiles_list = IshModels::UserProfile.list
   end
 
 end

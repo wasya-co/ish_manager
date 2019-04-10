@@ -18,10 +18,16 @@
             %li <b>City:</b> #{profile.current_city ? profile.current_city.name : nil}
             %li <b>About:</b> #{profile.about}
         .col-sm-8
-          Shared galleries:<br />
+          %h5 Shared galleries
           - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
             &gt; #{link_to g.name, gallery_path(g.galleryname)} <br />
             = render 'meta', :item => g
+          <hr />
+
+          %h5 Newsitems
+          - profile.newsitems.each do |n|
+            = render 'ish_manager/newsitems/item', n: n
+          <hr />
       .row
         Address:
         = profile.addresses[0].inspect

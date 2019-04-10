@@ -10,24 +10,32 @@
             %li{ :class => params[:controller] == 'ish_manager/events'        ? 'active' : '' }= link_to 'Events',    events_path
             %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path
             %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Profiles',  user_profiles_path
-            %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path          
+            %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path
+
           %ul.nav.nav-pills          
             %li{ :class => params[:controller] == 'ish_manager/sites'         ? 'active' : '' }= link_to 'Sites',     sites_path
             %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }= link_to 'Galleries', galleries_path
             %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }= link_to 'Reports',   reports_path
             %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }= link_to 'Videos',    videos_path
             %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path
+
+          %ul.nav.nav-pills
+            %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
+
           %ul.nav.nav-pills
             -# %li{ :class => params[:controller] == 'ish_manager/ally'          ? 'active' : '' }= link_to 'Ally',      ally_root_path
             %li{ :class => params[:controller] == 'ish_manager/stock_actions' ? 'active' : '' }= link_to 'Stock Actions', stock_actions_path
             %li{ :class => params[:controller] == 'ish_manager/stock_options' ? 'active' : '' }= link_to 'Stock Options', stock_options_path
             %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches', stock_watches_path
+
           %ul.nav.nav-pills
             %li{ :class => params[:controller] == 'ish_manager/invoices'      ? 'active' : '' }= link_to 'Invoices', invoices_path
             %li{ :class => params[:controller] == 'ish_manager/payments'      ? 'active' : '' }= link_to 'Payments', payments_path
+
           %ul.nav.nav-pills
             %li{ :class => params[:controller] == 'ish_manager/leads'         ? 'active' : '' }= link_to 'Leads', leads_path
             %li{ :class => params[:controller] == 'ish_manager/campaigns'     ? 'active' : '' }= link_to 'Campaigns', campaigns_path
+
           %ul.nav.nav-pills
             %li{ :class => params[:controller] == 'ish_manager/orders'        ? 'active' : '' }= link_to 'Orders', orders_path
             %li{ :class => params[:controller] == 'ish_manager/co_tailors'    ? 'active' : '' }= link_to 'Co Tailors', co_tailors_path

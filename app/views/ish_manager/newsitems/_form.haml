@@ -1,33 +1,39 @@
 
 = form_for newsitem, :html => { :multipart => true } do |f|
-  .a
-    = f.label :site
-    = f.select :site_id, options_for_select( @sites_list, :selected => ( @site ? @site.id : nil ) )
-    %br
-    = f.label :city
-    = f.select :city_id, options_for_select( @cities_list, :selected => ( @city ? @city.id : nil ) )
-    %br
-    = f.label :tag
-    = f.select :tag_id, options_for_select( @tags_list, (@tag||Tag.new).id )
+  .row
+    .col-sm-6{ style: 'border-right: 1px solid red;' }
+      = f.label :site
+      = f.select :site_id, options_for_select( @sites_list, :selected => ( @site ? @site.id : nil ) )
+      %br
+      = f.label :city
+      = f.select :city_id, options_for_select( @cities_list, :selected => ( @city ? @city.id : nil ) )
+      %br
+      = f.label :tag
+      = f.select :tag_id, options_for_select( @tags_list, (@tag||Tag.new).id )
+      %br
+      = f.label :user_profile
+      = f.select :user_profile_id, options_for_select( @user_profiles_list )
 
+    .col-sm-6
+      = f.label :name
+      = f.text_field :name
+      = f.label :descr
+      = f.text_area :descr, :class => :tinymce
+      = label_tag :photo
+      = file_field_tag :photo
+  %hr
+  .row
+    .col-sm-6
+      = f.label :video
+      = f.select :video_id, options_for_select( @videos_list, :selected => @newsitem.video_id )
+      .a
+      = f.label :gallery
+      = f.select :gallery_id, options_for_select( @galleries_list, :selected => @newsitem.gallery_id )
+      .a
+      = f.label :report
+      = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id )
   .a
-    = f.label :name
-    = f.text_field :name
-  .a
-    = f.label :descr
-    = f.text_area :descr, :class => :tinymce
-  .a
-    = f.label :video
-    = f.select :video_id, options_for_select( @videos_list, :selected => @newsitem.video_id )
-  .a
-    = f.label :gallery
-    = f.select :gallery_id, options_for_select( @galleries_list, :selected => @newsitem.gallery_id )
-  .a
-    = f.label :report
-    = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id )
-  .a
-    = label_tag :photo
-    = file_field_tag :photo
+    
   .a
     = f.submit :submit
   
