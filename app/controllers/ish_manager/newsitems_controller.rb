@@ -31,7 +31,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @resource = Site.find params[:newsitem][:site_id] if !params[:newsitem][:site_id].blank?
     @resource = Tag.find params[:tag_id]              if params[:tag_id]
     @resource = Tag.find params[:newsitem][:tag_id]   if !params[:newsitem][:tag_id].blank?
-    @resource = IshModels::UserProfile.find params[:newsitem][:user_profile_id] if params[:newsitem][:user_profile_id]
+    @resource = IshModels::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
     @resource.newsitems << @newsitem
 
     authorize! :create_newsitem, @resource
@@ -155,9 +155,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @videos_list    = Video.list
     @galleries_list = Gallery.list
     @reports_list   = Report.list
-    @sites_list = Site.list
-    @cities_list = City.list
-    @tags_list = Tag.list
+    @sites_list     = Site.list
+    @cities_list    = City.list
+    @tags_list      = Tag.list
     @user_profiles_list = IshModels::UserProfile.list
   end
 
