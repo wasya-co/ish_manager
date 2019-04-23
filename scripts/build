@@ -6,17 +6,17 @@ if ! (( ssh-add -L | grep mac_id_rsa )) ; then
   ssh-add ~/.ssh/mac_id_rsa
 fi
 
-# cd ~/projects/ruby/microsites3/ish_manager
-
-# echo "ish_manager is only on master. as compatibility with microsites3"
 git checkout master 
-
+# echo "ish_manager is only on master. as compatibility with microsites3"
 # branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
-version=`cat VERSION`
 
 ./scripts/version_bump
 
 bundle > /dev/null &&
+
+version=`cat VERSION`
+cat ish_manager.gemspec-template | \
+  sed -e "s/\$version/$version/g" > ish_manager.gemspec
 
 gem build ish_manager.gemspec
 gem push ish_manager-`cat VERSION`.gem
