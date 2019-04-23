@@ -12,5 +12,7 @@
         = @video.name
     = render 'ish_manager/application/meta', :item => @video
     .text-center= render 'embed', :video => @video
+    %hr
+    = link_to @video.video.url, @video.video.url
 
     -# = render 'disqus'

@@ -37,12 +37,13 @@
     -# .subhead= n.descr
     .c
       
-- if !n.video.blank?
+- if n.video_id
+  - video = Video.unscoped.find n.video_id
   .Nvideo
-    %h3
-      = link_to (n.video.name.blank? ? t('videos.no_title') : n.video.name), video_path(n.video.youtube_id)
-    = render 'ish_manager/application/meta', :item => n.video
-    = render 'ish_manager/videos/embed_half', :video => n.video
+    = link_to video.video.url, video.video.url
+    -# %h3= link_to (video.name.blank? ? t('videos.no_title') : video.name), video_path(video.youtube_id)
+    = render 'ish_manager/application/meta', :item => video
+    = render 'ish_manager/videos/embed_half', :video => video
     .c
       
 - if !n.descr.blank? && n.gallery.blank? && n.report.blank?
