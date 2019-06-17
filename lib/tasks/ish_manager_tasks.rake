@@ -56,7 +56,7 @@ namespace :ish_manager do
     while true
       watcher.watch
       print '.'
-      sleep 5 # 60 seconds
+      sleep 60 # seconds
     end
   end
 
