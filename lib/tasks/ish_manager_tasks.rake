@@ -18,6 +18,7 @@ namespace :ish_manager do
     puts 'OK'
   end
 
+=begin
   desc 'watch the stocks, and trigger actions'
   task :watch_stocks => :environment do
     while true
@@ -37,16 +38,25 @@ namespace :ish_manager do
            stock.direction == :BELOW && r <= stock.price
           IshManager::ApplicationMailer.stock_alert( stock ).deliver
 
-=begin
-          # actions
-          stock.stock_actions.where( :is_active => true ).each do |action|
-            # @TODO: actions
-          end
-=end
+          ## actions
+          # stock.stock_actions.where( :is_active => true ).each do |action|
+          #   # @TODO: actions
+          # end
           
         end
       end
       sleep 60
+    end
+  end
+=end
+
+  desc 'watch the stocks'
+  task :stockwatcher => :environment do
+    watcher = Stockwatcher.new
+    while true
+      watcher.watch
+      print '.'
+      sleep 5 # 60 seconds
     end
   end
 
