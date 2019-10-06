@@ -15,7 +15,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
         @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
       end
       @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
-      @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
+      # @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
     end
 
   end
