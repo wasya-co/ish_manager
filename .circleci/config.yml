@@ -9,17 +9,18 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-{{ checksum "test/dummy/Gemfile.lock" }}
             - v1-dependencies-
       - run:
           name: install dependencies
           command: |
+            cd test/dummy
             gem install bundler -v 2.0.1
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: v1-dependencies-{{ checksum "test/dummy/Gemfile.lock" }}
 
       # - run: bundle exec rake db:create
       # - run: bundle exec rake db:schema:load
@@ -28,6 +29,5 @@ jobs:
       - run:
           name: run tests
           command: |
-            mkdir /tmp/test-results
             cd test/dummy
             bundle exec rspec spec
