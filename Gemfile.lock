@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.172)
+    ish_manager (0.1.8.173)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -807,7 +807,7 @@ GEM
     formtastic_i18n (0.6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    haml (5.1.1)
+    haml (5.1.2)
       temple (>= 0.8.0)
       tilt
     has_scope (0.7.2)
@@ -815,11 +815,11 @@ GEM
       activesupport (>= 4.1)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
-    inherited_resources (1.10.0)
-      actionpack (>= 5.0, < 6.0)
+    inherited_resources (1.11.0)
+      actionpack (>= 5.0, < 6.1)
       has_scope (~> 0.6)
-      railties (>= 5.0, < 6.0)
-      responders (~> 2.0)
+      railties (>= 5.0, < 6.1)
+      responders (>= 2, < 4)
     ish_models (0.0.33.78)
       aws-sdk
       devise (> 0)
@@ -857,7 +857,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2019.0331)
     mimemagic (0.3.3)
-    mini_mime (1.0.1)
+    mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.10.2)
     mongo (2.8.0)
@@ -870,7 +870,7 @@ GEM
     mongoid-paperclip (0.0.11)
       mongoid
       paperclip (>= 2.3.6, != 4.3.0)
-    nio4r (2.3.1)
+    nio4r (2.5.2)
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
@@ -880,6 +880,8 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
+    polyamorous (2.3.0)
+      activerecord (>= 5.0)
     rack (2.0.7)
     rack-mini-profiler (1.0.2)
       rack (>= 1.2.0)
@@ -913,11 +915,12 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (12.3.0)
-    ransack (2.1.1)
+    ransack (2.3.0)
       actionpack (>= 5.0)
       activerecord (>= 5.0)
       activesupport (>= 5.0)
       i18n
+      polyamorous (= 2.3.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
@@ -957,12 +960,12 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    temple (0.8.1)
+    temple (0.8.2)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (0.20.3)
     thread_safe (0.3.6)
-    tilt (2.0.9)
+    tilt (2.0.10)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uglifier (4.1.20)
@@ -979,6 +982,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (= 5.1.4)
   aws-sdk
+  bundler (~> 2.0.0)
   byebug
   devise
   factory_girl_rails
