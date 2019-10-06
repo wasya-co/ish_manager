@@ -22,6 +22,8 @@ jobs:
       # - run: bundle exec rake db:create
       # - run: bundle exec rake db:schema:load
 
+      - run: gem install bundler -v 2.0.1
+
       - run:
           name: run tests
           command: |
