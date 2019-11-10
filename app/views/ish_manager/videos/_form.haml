@@ -1,52 +1,42 @@
 
 = form_for video do |f|
-
   = render 'form_errors', :item => @video
  
-  .field
-    = f.label :youtube_id
-    = f.text_field :youtube_id
-
-  .field
-    = f.label :attach
-    = f.file_field :video
-
-  .field
-    = f.label :name
-    = f.text_field :name
-
-  .field
-    = f.label :tag_id
-    = select :video, :tag_id, @tags_list, :selected => params[:tag_id]
-
-  .field
-    = f.label :city_id
-    = select :video, :city_id, @cities_list
-
-  .field
-    = f.label :site_id
-    = select_tag 'video[site_id]', options_for_select( @sites_list ), required: 'required'
-    
-  .field
-    = f.label :descr
-    = f.text_field :descr
-
   .row
-    .large-6.columns
-      = f.label :x
-      = f.text_field :x
-    .large-6.columns
-      = f.label :y
-      = f.text_field :y
+    .col-md-6
+      .field
+        = f.label :youtube_id
+        = f.text_field :youtube_id
+      .field
+        = f.label :name
+        = f.text_field :name
+      .field
+        = f.label :descr
+        = f.text_field :descr
+    .col-md-6
+      .field
+        = f.label :video
+        = f.file_field :video
+      .field
+        = f.label :thumb
+        = f.file_field :thumb
 
+      .field
+        = f.label :tag_id
+        = select :video, :tag_id, @tags_list, :selected => params[:tag_id]
+
+      .field
+        = f.label :city_id
+        = select :video, :city_id, @cities_list
+        
   .row
-    .small-4.columns
+    .col-sm-4
       = f.check_box :is_public
       = f.label :is_public
-    .small-4.columns
+    .col-sm-4
       = f.check_box :is_trash
       = f.label :is_trash
-    .small-4.columns
+    .col-sm-4
       = f.check_box :is_feature
       = f.label :is_feature
 

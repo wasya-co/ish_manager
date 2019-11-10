@@ -58,12 +58,14 @@ class IshManager::VideosController < IshManager::ApplicationController
   def create
     @video = Video.new params[:video].permit!
     @video.user_profile = current_user.profile
-    if params[:video][:site_id]
+    if !params[:video][:site_id].blank?
       @video.site = Site.find params[:video][:site_id]
       @video.site.touch
     else
-      @video.site = @site
-      @site.touch
+      if @site
+        @video.site = @site
+        @site.touch
+      end
     end
     authorize! :create, @video
     
