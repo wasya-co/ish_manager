@@ -26,7 +26,7 @@
 
           %h5 Newsitems
           - profile.newsitems.each do |n|
-            = render 'ish_manager/newsitems/item', n: n
+            = render 'ish_manager/newsitems/item', n: n, profile_id: profile.id
           <hr />
       .row
         Address:

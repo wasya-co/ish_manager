@@ -1,6 +1,4 @@
-
 class IshManager::NewsitemsController < IshManager::ApplicationController
-
   before_action :set_lists
 
   def new
@@ -76,6 +74,11 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       flag = City.find( params[:city_id] ).newsitems.find( params[:id] ).destroy
       url = edit_city_path( params[:city_id] )
     end
+    if profile_id = params[:user_profile_id]
+      profile = IshModels::UserProfile.find profile_id
+      flag = profile.newsitems.find( params[:id] ).destroy
+      url = profile_path( profile_id )
+    end
     if params[:site_id]
       site = Site.find( params[:site_id] )
       flag = site.newsitems.find( params[:id] ).destroy
@@ -87,8 +90,8 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       url = tag_path( params[:tag_id] )
     end
 
-    flash[:notice] = "Success? #{flag}"
-    redirect_to url
+    flash[:notice] = "Success? #{flag.inspect}"
+    redirect_to request.referrer # url
   end
 
   def update

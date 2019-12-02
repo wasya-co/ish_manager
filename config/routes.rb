@@ -26,6 +26,7 @@ IshManager::Engine.routes.draw do
   get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   resources :galleries do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
+    resources :newsitems
   end
 
   resources :invoices do
@@ -45,7 +46,8 @@ IshManager::Engine.routes.draw do
 
   resources :photos
   resources :payments
-
+  ## profiles, see user_profiles
+  
   resources :reports
 
   resources :sites do
@@ -75,9 +77,12 @@ IshManager::Engine.routes.draw do
     resources :videos
   end
 
-  resources :user_profiles
-  # resources :user_profiles, :as => :ish_models_user_profiles
-  resources :user_profiles, :as => :profiles
+  resources :user_profiles do
+    resources :newsitems
+  end
+  resources :user_profiles, :as => :profiles do
+    resources :newsitems
+  end
 
   resources :venues
   resources :videos
