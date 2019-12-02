@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.176)
+    ish_manager (0.1.8.177)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1001,4 +1001,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   2.0.1
+   2.0.2
