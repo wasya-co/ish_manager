@@ -1,7 +1,7 @@
 - n ||= newsitem
 .newsitems--item
-  - if profile_id
-    = button_to '[x]', profile_newsitem_path(profile_id, n.id), method: :delete, data: { confirm: 'Are you sure?' }
+  -# - if n.profile_id
+  -#   = button_to '[x]', profile_newsitem_path(n.profile_id, n.id), method: :delete, data: { confirm: 'Are you sure?' }
   - if !n.photo.blank?
     .Nphoto.panel
       .the-photo
