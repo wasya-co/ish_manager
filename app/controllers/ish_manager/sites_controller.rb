@@ -62,6 +62,7 @@ class IshManager::SitesController < IshManager::ApplicationController
     authorize! :update, @site  
     n = @site.newsitems.find( params[:newsitem_id] )
     n.delete
+    @site.touch
     @site.save
     flash[:notice] = 'Probably successfully deleted a newsitem.'
     redirect_to site_path( @site.id )
