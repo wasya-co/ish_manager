@@ -139,7 +139,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
         format.json { render :json => @report, :status => :created, :location => @report }
       else
         format.html do
-          flash[:alert] = @report.errors.inspect
+          flash[:alert] = @report.errors.messages
           @tags_list = Tag.all.where( :is_public => true ).list
           @sites_list = Site.all.list
           @cities_list = City.all.list
