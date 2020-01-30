@@ -15,6 +15,7 @@ git checkout master
 bundle > /dev/null &&
 
 version=`cat VERSION`
+echo $version
 cat ish_manager.gemspec-template | \
   sed -e "s/\$version/$version/g" > ish_manager.gemspec
 
