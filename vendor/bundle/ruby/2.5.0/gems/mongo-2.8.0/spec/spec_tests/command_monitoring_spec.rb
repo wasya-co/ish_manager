@@ -1,0 +1,64 @@
+require 'spec_helper'
+
+def ignore?(test)
+  if version = test.ignore_if_server_version_greater_than
+    return true if version == "3.0" && find_command_enabled?
+  end
+  if version = test.ignore_if_server_version_less_than
+    return true if version == "3.1" && !find_command_enabled?
+  end
+  false
+end
+
+describe 'Command Monitoring Events' do
+
+  COMMAND_MONITORING_TESTS.each do |file|
+
+
+    spec = Mongo::CommandMonitoring::Spec.new(file)
+
+    spec.tests.each do |test|
+
+      context(test.description) do
+
+        let(:subscriber) do
+          Mongo::CommandMonitoring::TestSubscriber.new
+        end
+
+        let(:monitoring) do
+          authorized_client.send(:monitoring)
+        end
+
+        before do
+          authorized_collection.find.delete_many
+          authorized_client.subscribe(Mongo::Monitoring::COMMAND, subscriber)
+        end
+
+        after do
+          monitoring.subscribers[Mongo::Monitoring::COMMAND].delete(subscriber)
+          authorized_collection.find.delete_many
+        end
+
+        test.expectations.each do |expectation|
+
+          before do
+            if ignore?(test)
+              skip 'Preconditions not met'
+            end
+          end
+
+          it "generates a #{expectation.event_name} for #{expectation.command_name}" do
+            begin
+              test.run(authorized_collection)
+              event = subscriber.send(expectation.event_type)[expectation.command_name]
+              expect(event).to send(expectation.matcher, expectation)
+            rescue Mongo::Error::OperationFailure, Mongo::Error::BulkWriteError
+              event = subscriber.send(expectation.event_type)[expectation.command_name]
+              expect(event).to send(expectation.matcher, expectation)
+            end
+          end
+        end
+      end
+    end
+  end
+end
