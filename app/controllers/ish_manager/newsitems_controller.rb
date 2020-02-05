@@ -82,6 +82,9 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     if params[:site_id]
       site = Site.find( params[:site_id] )
       flag = site.newsitems.find( params[:id] ).destroy
+      if flag
+        site.touch
+      end
       url = edit_site_path( params[:site_id] )
     end
     if params[:tag_id]
@@ -91,7 +94,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     end
 
     flash[:notice] = "Success? #{flag.inspect}"
-    redirect_to request.referrer # url
+    redirect_to request.referrer ? request.referrer : '/'
   end
 
   def update

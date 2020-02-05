@@ -17,6 +17,9 @@ FactoryGirl.define do
     end
   end
 
+  factory :newsitem do
+  end
+
   factory :photo do
   end
 
@@ -34,6 +37,14 @@ FactoryGirl.define do
   factory :user do
     email 'test@gmail.com'
     password '12345678'
+  end
+
+  factory :admin, :class => IshModels::User do
+    email 'piousbox@gmail.com'
+    password '1234567890'
+    after :build do |u|
+      p = IshModels::UserProfile.create email: 'piousbox@gmail.com', name: 'sudoer', user: u
+    end
   end
 
   factory :user_profile, :class => IshModels::UserProfile do

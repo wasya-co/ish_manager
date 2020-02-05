@@ -6,6 +6,7 @@ gem 'haml'
 
 gem 'mongoid'
 gem 'mongoid-paperclip'
+gem 'ransack', '< 1.8.7'
 gem 'aws-sdk', '~> 2'
 gem 'kaminari'
 gem 'kaminari-mongoid'
