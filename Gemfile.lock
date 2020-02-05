@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.182)
+    ish_manager (0.1.8.188)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -882,7 +882,7 @@ GEM
       terrapin (~> 0.6.0)
     polyamorous (2.3.0)
       activerecord (>= 5.0)
-    rack (2.0.7)
+    rack (2.1.2)
     rack-mini-profiler (1.0.2)
       rack (>= 1.2.0)
     rack-test (1.1.0)
