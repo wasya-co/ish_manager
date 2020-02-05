@@ -2,8 +2,8 @@
 
 set -xe
 
-if ! (( ssh-add -L | grep mac_id_rsa )) ; then
-  ssh-add ~/.ssh/mac_id_rsa
+if ! (( ssh-add -L | grep mac_id_rsa_2 )) ; then
+  ssh-add ~/.ssh/mac_id_rsa_2
 fi
 
 git checkout master 
@@ -15,6 +15,7 @@ git checkout master
 bundle > /dev/null &&
 
 version=`cat VERSION`
+echo $version
 cat ish_manager.gemspec-template | \
   sed -e "s/\$version/$version/g" > ish_manager.gemspec
 

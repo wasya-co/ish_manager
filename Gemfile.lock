@@ -982,7 +982,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (= 5.1.4)
   aws-sdk
-  bundler (~> 2.0.0)
+  bundler (~> 2.1.0)
   byebug
   devise
   factory_girl_rails
@@ -1001,4 +1001,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   2.0.2
+   2.1.4

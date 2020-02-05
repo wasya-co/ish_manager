@@ -75,6 +75,15 @@ class IshManager::CitiesController < IshManager::ApplicationController
     redirect_to cities_path
   end
 
+  def delete
+    c = City.find params[:id]
+    if c.delete
+      render
+    else
+      flash[:error] = c.errors.messages
+    end
+  end
+
   private
 
   def sett_city
