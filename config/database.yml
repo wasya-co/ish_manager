@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password:
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 20 } %>
+  schema_search_path: public,collections,identity,portfolio
+  timeout: 5000
+
+development: &development
+  <<: *default
+  database: trash
+  username: postgres
+  password: pass
+  host: 127.0.0.1

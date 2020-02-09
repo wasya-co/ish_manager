@@ -28,7 +28,7 @@ IshManager::Engine.routes.draw do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
     resources :newsitems
   end
-
+  
   resources :invoices do
     # resources :payments
   end
@@ -37,6 +37,9 @@ IshManager::Engine.routes.draw do
   get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
   resources :leads
 
+  resources 'maps'
+  resources 'markers'
+  
   resources :newsitems
 
   resources :orders

@@ -15,3 +15,4 @@
 0.1.8 - I want devise to be able to email me forgotten password
 0.1.9 - stock_watch stuff
 0.1.10 - let's share galleries with bondar
+master - 20200208 - adding map, marker management

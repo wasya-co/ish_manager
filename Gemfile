@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-
 gemspec
 
-gem 'bundler', '~> 2.1.0'
+gem 'bundler', '~> 2.0.0'
 
 gem 'uglifier'
 gem 'devise'
