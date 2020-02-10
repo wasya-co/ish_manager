@@ -1,5 +1,33 @@
 -#
--# maps / index
+-#
 -#
 
-%h1 Maps (#{@maps.count}) #{link_to '[+]', new_map_path}
+%h1 Maps #{link_to '[+]', new_gameui_map_path}
+
+%table
+  %thead
+    %tr
+      %th Slug
+      %th W
+      %th H
+      %th Description
+      %th Img
+      %th
+      %th
+      %th
+
+  %tbody
+    - @maps.each do |map|
+      %tr
+        %td= map.slug
+        %td= map.w
+        %td= map.h
+        %td= map.description
+        %td= image_tag map.img_path, width: '400px'
+        %td= link_to 'Show', map
+        %td= link_to 'Edit', edit_gameui_map_path(map)
+        %td= link_to 'Destroy', map, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+

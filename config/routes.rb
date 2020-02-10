@@ -37,9 +37,11 @@ IshManager::Engine.routes.draw do
   get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
   resources :leads
 
-  resources 'maps'
-  resources 'markers'
-  
+  namespace 'gameui' do
+    resources 'maps'
+    resources 'markers'
+  end
+
   resources :newsitems
 
   resources :orders

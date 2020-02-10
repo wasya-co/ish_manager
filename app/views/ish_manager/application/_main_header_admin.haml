@@ -6,7 +6,7 @@
         %i.fa.fa-compress.collapse-expand#collapseHeader
         .content
           %ul.nav.nav-pills
-            %li{ :class => params[:controller] == 'ish_manager/maps' ? 'active' : '' }= link_to 'GameUi::Maps', maps_path
+            %li{ :class => params[:controller] == 'ish_manager/maps' ? 'active' : '' }= link_to 'GameUi::Maps', gameui_maps_path
             %li{ :class => params[:controller] == 'ish_manager/cities'        ? 'active' : '' }= link_to 'Cities',    cities_path
             %li{ :class => params[:controller] == 'ish_manager/events'        ? 'active' : '' }= link_to 'Events',    events_path
             %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path

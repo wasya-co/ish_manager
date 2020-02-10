@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%p
+  %b Slug:
+  = @map.slug
+%p
+  %b W:
+  = @map.w
+%p
+  %b H:
+  = @map.h
+%p
+  %b Description:
+  = @map.description
+%p= image_tag @map.img_path, width: 800
+
+= link_to 'Edit', edit_gameui_map_path(@map)
+\|
+= link_to 'Maps', gameui_maps_path
