@@ -1,33 +1,21 @@
--#
--#
--#
 
-%h1 Maps #{link_to '[+]', new_gameui_map_path}
-
-%table
-  %thead
-    %tr
-      %th Slug
-      %th W
-      %th H
-      %th Description
-      %th Img
-      %th
-      %th
-      %th
-
-  %tbody
-    - @maps.each do |map|
-      %tr
-        %td= map.slug
-        %td= map.w
-        %td= map.h
-        %td= map.description
-        %td= image_tag map.img_path, width: '400px'
-        %td= link_to 'Show', map
-        %td= link_to 'Edit', edit_gameui_map_path(map)
-        %td= link_to 'Destroy', map, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
+.maps-index
+  %h1 Maps #{link_to '[+]', new_gameui_map_path}
+  - @maps.each do |map|
+    .item
+      .col
+        .row
+          .a= button_to map.slug, map
+          .a= button_to '~', edit_gameui_map_path(map)
+          .a= button_to 'x', map, method: :delete, data: { confirm: 'Are you sure?' }
+        %p < #{map.w}, #{map.h} >
+        %p= map.description
+        = image_tag map.img_path, width: 400
+      .col
+        .row
+          .a Markers (#{map.markers.length})
+          .a #{button_to '+', new_gameui_map_marker_path(map), method: :get}
+        .markers
+          - map.markers.each do |marker|
+            = marker.inspect
 

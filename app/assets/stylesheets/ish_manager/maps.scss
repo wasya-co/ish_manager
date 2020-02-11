@@ -1,0 +1,42 @@
+
+.maps-index {
+  h1 {
+    padding-bottom: 10px;
+    border-bottom: 10px solid #cecece;
+  }
+  .item {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #cecece;
+
+    input[type='submit'] {
+      font-size: 1.1em;
+      padding: 0.3em;
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-content: flex-start;
+
+      height: 3em;
+      line-height: 3em; 
+
+      width: 100%;
+      margin: 0 0 1em 0;
+      padding: 0;
+
+      > * {
+        padding-right: 1em;
+      }
+    }
+  }
+}
+
+
+.marker-form {
+  width: 300px;
+  margin: auto;
+}

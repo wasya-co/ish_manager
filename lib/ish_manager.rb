@@ -7,4 +7,7 @@ require 'kaminari/actionview'
 
 module IshManager
   # Your code goes here...
+
+  module Gameui
+  end
 end

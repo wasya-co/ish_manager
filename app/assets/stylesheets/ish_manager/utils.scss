@@ -1,0 +1,7 @@
+
+ul:not(.browser-default).errors {
+  > li {
+    list-style-type: circle;
+    margin-left: 1em;
+  }
+}

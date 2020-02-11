@@ -38,8 +38,10 @@ IshManager::Engine.routes.draw do
   resources :leads
 
   namespace 'gameui' do
-    resources 'maps'
-    resources 'markers'
+    resources 'maps' do
+      resources 'markers'
+    end
+    resources 'markers' # redundant
   end
 
   resources :newsitems

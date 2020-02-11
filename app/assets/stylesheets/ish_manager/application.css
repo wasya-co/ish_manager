@@ -13,6 +13,8 @@
  *= require ish_manager/bootstrap
  *= require_self
  *= require ish_manager/tags
+ *= require ish_manager/maps
+ *= require ish_manager/utils
  */
 
 
