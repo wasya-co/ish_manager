@@ -27,7 +27,7 @@ class IshManager::MapsController < IshManager::ApplicationController
 
     respond_to do |format|
       if @map.save
-        format.html { redirect_to map_path(@map.id), notice: 'Map was successfully created.' }
+        format.html { redirect_to gameui_map_path(@map.id), notice: 'Map was successfully created.' }
       else
         format.html { render :new }
       end
@@ -60,7 +60,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     end
 
     def map_params
-      params.require(:gameui_map).permit(:slug, :w, :h, :description, :img_path)
+      params.require(:gameui_map).permit!
     end
 
 end

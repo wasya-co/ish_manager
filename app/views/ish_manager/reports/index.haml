@@ -25,9 +25,10 @@
           %br
           .gray
             - if report.site
-              Site #{report.site.domain}/#{report.site.lang}
-              %br
-            = report.created_at
+              Site <b>#{report.site.domain}/#{report.site.lang}</b>
+            - if report.city
+              City <b>#{report.city.name}</b>
+            = pp_date report.created_at
           - if report.photo
             = image_tag report.photo.photo.url :thumb
           

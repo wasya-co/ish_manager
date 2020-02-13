@@ -1,4 +1,8 @@
 
+-#
+-# ish_manager / galleries / _form
+-#
+
 - url ||= galleries_path
 
 = form_for gallery, :url => url do |f|
@@ -47,5 +51,11 @@
     .col-sm-3
       = f.check_box :is_trash
       = f.label :is_trash
+    .col-sm-3
+      = f.label :premium_tier
+      = f.number_field :premium_tier
+    .col-sm-3
+      = f.label :username
+      = f.text_field :username
     .col-sm-3
       = f.submit 'Submit'

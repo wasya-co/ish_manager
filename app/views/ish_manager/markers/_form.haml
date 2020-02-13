@@ -1,8 +1,8 @@
 
-.marker-form
+.markers--form
 
   = form_for @marker do |f|
-    = f.hidden_field :map_id, value: (params['map_id']||@map_id)
+    -# = f.hidden_field :map_id, value: (params['map_id']||@map_id)
 
     - if @marker.errors.any?
       #error_explanation
@@ -11,26 +11,65 @@
           - @marker.errors.full_messages.each do |message|
             %li= message
 
-    .field
-      = f.label :slug
-      = f.text_field :slug
-    .field
-      = f.label :w
-      = f.number_field :w
-    .field
-      = f.label :h
-      = f.number_field :h
-    .field
-      = f.label :x
-      = f.number_field :x
-    .field
-      = f.label :y
-      = f.number_field :y
-    .field
-      = f.label :description
-      = f.text_field :description
+    .row
+      .col-md-1
+        = f.label :map
+        = f.text_field :map_id, value: @marker.map_id || params[:map_id]
+      .col-md-5
+        .field
+          = f.label :name
+          = f.text_field :name
+      .col-md-6
+        .field
+          = f.label :slug
+          = f.text_field :slug
+    .row
+      .col-md-3
+        .field
+          = f.label :w
+          = f.number_field :w
+      .col-md-3
+        .field
+          = f.label :h
+          = f.number_field :h
+      .col-md-3
+        .field
+          = f.label :x
+          = f.number_field :x
+      .col-md-3
+        .field
+          = f.label :y
+          = f.number_field :y
     .field
       = f.label :img_path
       = f.text_field :img_path
-    .actions
-      = f.submit 'Save'
+    .field
+      = f.label :title_img_path
+      = f.text_field :title_img_path
+    .row
+      .col-md-3 &nbsp;
+      .col-md-6
+        .field
+          = f.label :description
+          = f.text_area :description
+    .row
+      .col-md-4
+        .field
+          = f.label :item_type
+          = f.select :item_type, options_for_select(::Gameui::Marker::ITEM_TYPES)
+      .col-md-4
+        .field
+          = f.label :ordering
+          = f.text_field :ordering
+      .col-md-4
+    .row
+      .col-md-3 &nbsp;
+      .col-md-6
+        .row
+          .col-md-6
+            .field
+              = f.check_box :is_active
+              = f.label :is_active
+          .col-md-6
+            .actions
+              = f.submit 'Save'

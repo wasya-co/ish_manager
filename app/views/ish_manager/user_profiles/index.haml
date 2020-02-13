@@ -12,6 +12,7 @@
           %ul
             %li= link_to '[edit]', edit_user_profile_path( profile )
             %li <b>Email:</b> #{profile.email}
+            %li <b>username:</b> #{profile.username}
             %li <b>Name:</b> #{profile.name}
             %li <b>Role:</b> #{profile.role_name}
             %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}

@@ -1,19 +1,20 @@
-%p#notice= notice
 
-%p
-  %b Slug:
-  = @map.slug
-%p
-  %b W:
-  = @map.w
-%p
-  %b H:
-  = @map.h
-%p
-  %b Description:
-  = @map.description
-%p= image_tag @map.img_path, width: 800
+.maps-show
+  = render 'map_flat_row', map: @map
+  .descr= @map.description
 
-= link_to 'Edit', edit_gameui_map_path(@map)
-\|
-= link_to 'Maps', gameui_maps_path
+  .the-map
+    = image_tag @map.img_path, width: @map.w
+    - @map.markers.each do |marker|
+      .marker{ style: "position: absolute; left: #{marker.x}px; top: #{marker.y}px;" }= image_tag marker.img_path
+
+  .markers-list
+    - @map.markers.each do |marker|
+      .item
+        .flat-row
+          .a= marker.slug
+          .a= button_to '~', edit_gameui_marker_path(marker), method: :get
+          .a= button_to 'x', marker, method: :delete, data: { confirm: 'Are you sure?' }
+          .a= link_to '[api]', api_marker_path(marker)
+        %ul.bullets
+          %li <b>item_type:</b> #{marker.item_type}

@@ -22,6 +22,7 @@ module IshManager
     def pretty_date date
       date.to_s[0, 10]
     end
+    def pp_date a; pretty_date a; end
 
     def resource_path resource
       case resource.class.name
@@ -32,6 +33,21 @@ module IshManager
       when 'Venue'
         venue_path( resource.id )
       end
+    end
+
+    #
+    # api paths
+    #
+    def api_city_path city
+      "/api/cities/view/#{city.cityname}.json"
+    end
+
+    def api_map_path map
+      "/api/maps/view/#{map.slug}"
+    end
+
+    def api_marker_path marker
+      "/api/markers/view/#{marker.slug}"
     end
 
   end

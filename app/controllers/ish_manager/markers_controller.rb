@@ -1,22 +1,18 @@
 
 class IshManager::MarkersController < IshManager::ApplicationController
 
-  before_action :set_map # , only: [:show, :edit, :update, :destroy, :new, :create ]
-
-  def index
-    authorize! :markers, ::Gameui::Map
-  end
+  before_action :set_map, except: [ :destroy, :edit, :update ]
+  before_action :set_marker, only: [ :edit, :update ]
 
 =begin
-  def show
-    authorize! :show_marker, @map
+  def index
+    authorize! :markers, ::Gameui::Map
   end
 =end
 
   def new
     authorize! :new_marker, ::Gameui::Map
     @marker = ::Gameui::Marker.new
-    puts! params, 'params'
   end
 
   def edit
@@ -41,7 +37,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
   def update
     authorize! :update_marker, @map
     respond_to do |format|
-      if @maprker.update(marker_params)
+      if @marker.update(marker_params)
         format.html { redirect_to @map, notice: 'Marker was successfully updated.' }
       else
         format.html { render :edit }
@@ -50,24 +46,28 @@ class IshManager::MarkersController < IshManager::ApplicationController
   end
 
   def destroy
+    @marker = ::Gameui::Marker.find params[:id]
+    @map = @marker.map
     authorize! :destroy_marker, @map
     @marker.destroy
     respond_to do |format|
-      format.html { redirect_to maps_url, notice: 'Marker was successfully destroyed.' }
+      format.html { redirect_to @map, notice: 'Marker was successfully destroyed.' }
     end
   end
 
   private
 
     def set_map
-      puts! params, 'params'
-      puts! params[:map_id], 'params[:map_id]'
-
       @map = ::Gameui::Map.find(params[:map_id] || params[:gameui_marker][:map_id])
     end
 
+    def set_marker
+      @marker = ::Gameui::Marker.find params[:id]
+      @map = @marker.map
+    end
+
     def marker_params
-      params.require(:gameui_marker).permit(:slug, :w, :h, :x, :y, :description, :img_path)
+      params.require(:gameui_marker).permit!
     end
 
 end

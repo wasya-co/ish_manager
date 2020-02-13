@@ -1,6 +1,9 @@
 
 .meta
+  - if defined?(item.premium_tier) && item.premium_tier > 0
+    <b>$#{item.premium_tier}</b>
   <b>On</b> #{item.created_at.to_s[0...10]}
+
   - if item.city
     <b>In City:</b> #{link_to item.city.name, city_path( item.city )}
   - if item.tag

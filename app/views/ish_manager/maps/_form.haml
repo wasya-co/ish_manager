@@ -22,5 +22,10 @@
   .field
     = f.label :img_path
     = f.text_field :img_path
+  .row
+    .col-md-4
+      .field
+        = f.label :ordering_type
+        = select_tag :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
   .actions
     = f.submit 'Save'

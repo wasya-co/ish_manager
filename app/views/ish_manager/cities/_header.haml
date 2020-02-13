@@ -1,5 +1,7 @@
 
-%h2 #{@city.name} #{link_to image_edit, edit_city_path(@city)}
+%h2 
+  #{@city.name} #{link_to image_edit, edit_city_path(@city)}
+  = link_to 'API', api_city_path(@city)
 %ul
   %li &lt;#{@city.x}, #{@city.y}&gt;
   %li Cityname: <em>#{@city.cityname}</em>
