@@ -55,7 +55,7 @@
       .col-md-4
         .field
           = f.label :item_type
-          = f.select :item_type, options_for_select(::Gameui::Marker::ITEM_TYPES)
+          = f.select :item_type, options_for_select(::Gameui::Marker::ITEM_TYPES, ::Gameui::Marker::ITEM_TYPES)
       .col-md-4
         .field
           = f.label :ordering
