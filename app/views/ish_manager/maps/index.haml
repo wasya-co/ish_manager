@@ -1,6 +1,6 @@
 
 .maps-index
-  %h1 Maps #{link_to '[+]', new_gameui_map_path}
+  %h1 Maps #{link_to '[+]', new_map_path}
   - @maps.each do |map|
     .item
       .col
@@ -10,10 +10,10 @@
       .col
         .row
           .a Markers (#{map.markers.length})
-          .a #{button_to '+', new_gameui_map_marker_path(map), method: :get}
+          .a #{button_to '+', new_map_marker_path(map), method: :get}
         %ul.markers
           - map.markers.each do |marker|
             %li
               = marker.slug
-              = link_to '[~]', edit_gameui_marker_path(marker)
+              = link_to '[~]', edit_marker_path(marker)
 
