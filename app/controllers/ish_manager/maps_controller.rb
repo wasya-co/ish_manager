@@ -27,7 +27,7 @@ class IshManager::MapsController < IshManager::ApplicationController
 
     respond_to do |format|
       if @map.save
-        format.html { redirect_to map_path(@map.id), notice: 'Map was successfully created.' }
+        format.html { redirect_to map_path(@map), notice: 'Map was successfully created.' }
       else
         format.html { render :new }
       end
@@ -38,7 +38,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     authorize! :update, @map
     respond_to do |format|
       if @map.update(map_params)
-        format.html { redirect_to @map, notice: 'Map was successfully updated.' }
+        format.html { redirect_to map_path(@map), notice: 'Map was successfully updated.' }
       else
         format.html { render :edit }
       end

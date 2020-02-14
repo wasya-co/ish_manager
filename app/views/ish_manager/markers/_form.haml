@@ -1,7 +1,6 @@
-
+- url = params[:action] == 'new' ? markers_path : marker_path(@marker)
 .markers--form
-
-  = form_for @marker do |f|
+  = form_for @marker, url: url do |f|
     -# = f.hidden_field :map_id, value: (params['map_id']||@map_id)
 
     - if @marker.errors.any?

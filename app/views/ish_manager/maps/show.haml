@@ -13,8 +13,8 @@
       .item
         .flat-row
           .a= marker.slug
-          .a= button_to '~', edit__marker_path(marker), method: :get
-          .a= button_to 'x', marker, method: :delete, data: { confirm: 'Are you sure?' }
+          .a= button_to '~', edit_marker_path(marker), method: :get
+          .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
           .a= link_to '[api]', api_marker_path(marker)
         %ul.bullets
           %li <b>item_type:</b> #{marker.item_type}

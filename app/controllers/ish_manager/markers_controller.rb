@@ -27,7 +27,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
 
     respond_to do |format|
       if @marker.save
-        format.html { redirect_to gameui_map_path(@map.id), notice: 'Marker was successfully created.' }
+        format.html { redirect_to map_path(@map), notice: 'Marker was successfully created.' }
       else
         format.html { render :new }
       end
@@ -38,7 +38,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :update_marker, @map
     respond_to do |format|
       if @marker.update(marker_params)
-        format.html { redirect_to @map, notice: 'Marker was successfully updated.' }
+        format.html { redirect_to maps_path(@map), notice: 'Marker was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -51,7 +51,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :destroy_marker, @map
     @marker.destroy
     respond_to do |format|
-      format.html { redirect_to @map, notice: 'Marker was successfully destroyed.' }
+      format.html { redirect_to map_path(@map), notice: 'Marker was successfully destroyed.' }
     end
   end
 
