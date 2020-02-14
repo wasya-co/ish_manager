@@ -27,7 +27,7 @@ class IshManager::MapsController < IshManager::ApplicationController
 
     respond_to do |format|
       if @map.save
-        format.html { redirect_to gameui_map_path(@map.id), notice: 'Map was successfully created.' }
+        format.html { redirect_to map_path(@map.id), notice: 'Map was successfully created.' }
       else
         format.html { render :new }
       end
@@ -49,7 +49,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     authorize! :destroy, @map
     @map.destroy
     respond_to do |format|
-      format.html { redirect_to gameui_maps_path, notice: 'Map was successfully destroyed.' }
+      format.html { redirect_to maps_path, notice: 'Map was successfully destroyed.' }
     end
   end
 
