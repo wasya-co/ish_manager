@@ -50,11 +50,11 @@ namespace :ish_manager do
   end
 =end
 
-  desc 'watch the stocks'
+  desc 'yahoo-watch the stocks'
   task :stockwatcher => :environment do
-    watcher = Stockwatcher.new
+    watcher = YahooStockwatcher.new
     while true
-      watcher.watch
+      watcher.watch_once
       print '.'
       sleep 60 # seconds
     end

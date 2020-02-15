@@ -9,43 +9,24 @@
         .field
           %label CityName
           = f.text_field :cityname
-      .col-sm-6
-        .field
-          = image_flag 'en'
-          %label= t('cities.name_en')
-          = f.text_field :name_en
-        .field
-          = image_flag 'ru'
-          %label= t('cities.name')
-          = f.text_field :name_ru
-        .field
-          = image_flag 'pt'
-          %label= t('cities.name')
-          = f.text_field :name_pt
-      .col-sm-6
-        .field
-          = f.check_box :is_feature
-          = f.label :is_feature
-        .field
-          = f.label :n_features
-          = f.number_field :n_features
         .change-profile-pic
           %label Change profile pic
           = file_field_tag :photo
-          - begin
-            = image_tag @city.profile_photo.photo.url(:thumb)
-          - rescue
-      .col-sm-6
-        .field
-          = f.label :description
-          = f.text_area :description, :class => [ :tinymce ]          
+          = image_tag @city.profile_photo.photo.url(:thumb) rescue nil
         .field
           %label coords
           .row
             .col-xs-6
+              = f.label :x
               = f.text_field :x
             .col-xs-6
+              = f.label :y
               = f.text_field :y
+      .col-sm-6
+        .field
+          = f.label :description
+          = f.text_area :description, :class => [ :tinymce ]          
+
       .col-xs-12              
         .actions
           = f.submit

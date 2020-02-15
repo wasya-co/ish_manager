@@ -3,9 +3,6 @@
 = render 'form', :url => city_path
 %hr
 
-.row
-  .small-12.columns
-    = render 'ish_manager/features/index', :features => @city.features, :city => @city
-%hr
-= render 'ish_manager/newsitems/index', :newsitems => @city.newsitems, :city => @city
+= render 'ish_manager/features/index',  :city => @city, :features => @city.features
+= render 'ish_manager/newsitems/index', :city => @city, :newsitems => @city.newsitems
 
