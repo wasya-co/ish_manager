@@ -96,28 +96,22 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @report.is_feature = false
     @report.site = @site
 
-    saved = false
-    verified = true # verify_recaptcha( :model => @report, :message => 'There is a problem with recaptcha.' ) # @TODO: what this
-    if Rails.env.development?
-      verified = true
-    end
-
-    if verified
-      saved = @report.save
-    end
+    saved = @report.save
 
     respond_to do |format|
       if saved
 
-        # photo
-        photo = Photo.new 
-        photo.photo = params[:report][:photo]
-        # photo.user = @report.user
-        photo.is_public = @report.is_public
-        photo.is_trash = false
-        photo.report_id = @report.id
-        photo.save
-
+        if params[:report][:photo]
+          # photo
+          photo = Photo.new 
+          photo.photo = params[:report][:photo]
+          # photo.user = @report.user
+          photo.is_public = @report.is_public
+          photo.is_trash = false
+          photo.report_id = @report.id
+          photo.save
+        end
+        
         # for homepage
         # @TODO: move this to the model
         if @report.is_public
