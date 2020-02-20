@@ -4,19 +4,15 @@ module IshManager
     default from: 'from@example.com'
     layout 'mailer'
 
-    def welcome
-      @var = :value
-      mail( :to => 'piousbox@gmail.com', :subject => 'Abba, welcome!' ).deliver
-    end
-
     def stock_alert stock
       @stock = stock
       mail( :to => stock.profile.email, :subject => "IshManager Stock Alert :: #{stock.ticker}" ).deliver
     end
 
-    def condor_rollup_alert condor
+    def condor_followup_alert condor, args
       @condor = condor
-      mail( to: 'piousbox@gmail.com', subject: "Condor Alert :: #{condor.ticker}" ).deliver
+      @args = args
+      mail( to: 'piousbox@gmail.com', subject: "Condor Followup Alert :: #{condor.ticker} #{args.to_s}" ).deliver
     end
 
     def shared_galleries profiles, gallery

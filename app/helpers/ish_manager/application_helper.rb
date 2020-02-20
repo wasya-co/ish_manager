@@ -24,6 +24,10 @@ module IshManager
     end
     def pp_date a; pretty_date a; end
 
+    def pp_amount a
+      "$ #{'%.2f' % a}"
+    end
+
     def resource_path resource
       case resource.class.name
       when 'City'

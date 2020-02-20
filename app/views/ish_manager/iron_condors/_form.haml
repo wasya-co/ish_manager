@@ -5,15 +5,37 @@
 
   - url = condor.persisted? ? iron_condor_path( condor ) : iron_condors_path
   = form_for condor, url: url, :html => { :class => 'form-inline well' } do |f|
-    .form-group
-      %label.control-label Ticker
-      = f.text_field :ticker, :class => 'form-control', placeholder: :ticker
-    .form-group
-      %label.control-label # Contracts
-      = f.text_field :n_contracts, :class => 'form-control', placeholder: :n_contracts
-    .form-group
-      %label.control-label Expires on
-      = f.text_field :expires_on, :class => 'form-control datepicker', placeholder: :expires_on, id: "expires_on_#{condor.id}"
-    .form-group
-      = f.submit ">", :class => %w(btn blue)
+    .row
+      .col
+        %label.control-label Ticker
+        = f.text_field :ticker, :class => 'form-control', placeholder: 'QQQ'
+      .col
+        %label.control-label # Contracts
+        = f.text_field :n_contracts, :class => 'form-control', placeholder: 1
+      .col
+        = f.label :status
+        = f.select :status, options_for_select( ['']+::Ish::IronCondor::STATUSES, selected: condor.status )
+      .col
+        %label.control-label Expires on
+        = f.text_field :expires_on, :class => 'form-control datepicker', placeholder: :expires_on, id: "expires_on_#{condor.id}"
+    .row
+      .col
+        = f.label :iv_annual
+        = f.number_field :iv_annual, placeholder: 18, step: :any
+
+      - if condor.persisted?
+        .col
+          %ul
+            %li <b>Call Sell Strike:</b> #{condor.call_sell_strike}
+            %li <b>Call Buy Strike:</b> #{condor.call_buy_strike}
+            %li <b>Put Sell Strike:</b> #{condor.put_sell_strike}
+            %li <b>Put Buy Strike:</b> #{condor.put_buy_strike}
+        .col
+          %ul
+            %li <b>Enter Price:</b> #{pp_amount condor.enter_price}
+            %li <b>Upper Panic Therhold:</b> #{pp_amount condor.upper_panic_threshold}
+            %li <b>Lower Panic Therhold:</b> #{pp_amount condor.lower_panic_threshold}
+
+      .col
+        = f.submit ">", :class => %w(btn blue)
     .c

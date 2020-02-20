@@ -18,6 +18,19 @@ class IshManager::IronCondorsController < IshManager::ApplicationController
     redirect_to action: :index
   end
 
+  def update
+    condor = ::Ish::IronCondor.find params[:id]
+    authorize! :update, condor
+    condor.update params[:ish_iron_condor].permit!
+    condor.ticker.upcase!
+    if condor.save
+      flash[:notice] = 'Success.'
+    else
+      flash[:alert] = condor.errors.messages.to_s
+    end
+    redirect_to action: :index
+  end
+
   def destroy
     condor = ::Ish::IronCondor.find params[:id]
     authorize! :destroy, condor
