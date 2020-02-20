@@ -103,7 +103,7 @@ $(document).ready(function () {
     $(this).next().toggle(500)
   })
 
-  $(".datepicker").datepicker();
+  $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
 });
  

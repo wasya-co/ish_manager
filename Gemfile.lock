@@ -1,8 +1,9 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.200)
+    ish_manager (0.1.8.201)
       activeadmin (~> 1.0)
+      business_time (~> 0.9)
       cancancan (~> 2.0)
       devise (~> 4.3)
       haml (~> 5.0)
@@ -775,6 +776,9 @@ GEM
     bcrypt (3.1.13)
     bson (4.4.2)
     builder (3.2.4)
+    business_time (0.9.3)
+      activesupport (>= 3.2.0)
+      tzinfo
     byebug (11.0.1)
     cancancan (2.3.0)
     climate_control (0.2.0)

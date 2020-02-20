@@ -50,6 +50,16 @@ namespace :ish_manager do
   end
 =end
 
+  desc 'watch condors'
+  task watch_condors: :environment do
+    watcher = ::Ish::IronCondorWatcher.new
+    while true
+      watcher.watch_once
+      print '.'
+      sleep 60 # seconds
+    end
+  end
+
   desc 'yahoo-watch the stocks'
   task :stockwatcher => :environment do
     watcher = YahooStockwatcher.new

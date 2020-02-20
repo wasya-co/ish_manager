@@ -24,5 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_dependency "kaminari-actionview", [ "~> 1.0" ]
   s.add_dependency "mongoid-autoinc", [ "~> 6.0" ]
+  s.add_dependency "business_time", [ "~> 0.9" ]
 
 end

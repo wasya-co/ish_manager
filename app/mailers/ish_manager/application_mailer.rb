@@ -11,7 +11,12 @@ module IshManager
 
     def stock_alert stock
       @stock = stock
-      mail( :to => stock.profile.email, :subject => 'IshManager Stock Alert' ).deliver
+      mail( :to => stock.profile.email, :subject => "IshManager Stock Alert :: #{stock.ticker}" ).deliver
+    end
+
+    def condor_rollup_alert condor
+      @condor = condor
+      mail( to: 'piousbox@gmail.com', subject: "Condor Alert :: #{condor.ticker}" ).deliver
     end
 
     def shared_galleries profiles, gallery

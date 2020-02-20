@@ -1,16 +1,19 @@
 
-- if condor.persisted?
-  .float-left= button_to '[X]', iron_condor_path(condor.id), method: :delete, data: { confirm: 'Are you sure?' }
+%div{ class: condor.persisted? ? 'card' : '' }
+  - if condor.persisted?
+    .float-left= button_to '[X]', iron_condor_path(condor.id), method: :delete, data: { confirm: 'Are you sure?' }
 
-
-- url = condor.persisted? ? iron_condor_path( iron_condor ) : iron_condors_path
-= form_for condor, url: url, :html => { :class => 'form-inline well' } do |f|
-  .form-group
-    %label.control-label Ticker
-    = f.text_field :ticker, :class => 'form-control', placeholder: :ticker
-  .form-group
-    %label.control-label Expires at
-    = f.text_field :expires_at, :class => 'form-control datepicker', placeholder: :expires_at
-  .form-group
-    = f.submit ">", :class => %w(btn blue)
-  .c
+  - url = condor.persisted? ? iron_condor_path( condor ) : iron_condors_path
+  = form_for condor, url: url, :html => { :class => 'form-inline well' } do |f|
+    .form-group
+      %label.control-label Ticker
+      = f.text_field :ticker, :class => 'form-control', placeholder: :ticker
+    .form-group
+      %label.control-label # Contracts
+      = f.text_field :n_contracts, :class => 'form-control', placeholder: :n_contracts
+    .form-group
+      %label.control-label Expires on
+      = f.text_field :expires_on, :class => 'form-control datepicker', placeholder: :expires_on, id: "expires_on_#{condor.id}"
+    .form-group
+      = f.submit ">", :class => %w(btn blue)
+    .c

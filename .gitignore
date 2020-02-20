@@ -16,3 +16,4 @@ ish_manager-*.gem
 *.swp
 
 .byebug_history
+vendor/bundle
