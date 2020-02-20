@@ -1,4 +1,8 @@
 
+- if stock_watch.persisted?
+  .float-left= button_to '[X]', stock_watch_path(stock_watch.id), method: :delete, data: { confirm: 'Are you sure?' }
+
+
 - url = stock_watches_path if !stock_watch.persisted? 
 - url = stock_watch_path( stock_watch ) if stock_watch.persisted?
 
@@ -18,3 +22,4 @@
     = f.number_field :price, :step => 0.01, :placeholder => "0.01"
   .form-group
     = f.submit ">", :class => %w(btn blue)
+  .c

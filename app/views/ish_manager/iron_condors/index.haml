@@ -1,0 +1,9 @@
+
+%h1
+  Iron Condors
+
+- @condors.each do |condor|
+  = render 'form', condor: condor
+
+%hr
+= render 'form', condor: ::Ish::IronCondor.new

@@ -32,6 +32,7 @@ IshManager::Engine.routes.draw do
   resources :invoices do
     # resources :payments
   end
+  resources :iron_condors
 
   get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }
   get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
@@ -71,8 +72,8 @@ IshManager::Engine.routes.draw do
     resources :tags
   end
   
-  resources :stock_actions
-  resources :stock_options
+  # resources :stock_actions
+  # resources :stock_options
   resources :stock_watches
 
   resources :tags do

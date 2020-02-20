@@ -4,7 +4,8 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
   def index
     authorize! :index, Ish::StockWatch
     @profiles = IshModels::UserProfile.all
-    @stock_watches = Ish::StockWatch.all.includes( :profile )
+    @stock_watches = Ish::StockWatch.order_by( ticker: :asc, direction: :asc, price: :desc
+      ).includes( :profile )
     @stock_watch = Ish::StockWatch.new
     render 'index', :layout => 'ish_manager/application_no_materialize'
   end
@@ -31,6 +32,18 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
       flash[:alert] = "Cannot update stock watch: #{@stock_watch.errors.messages}"
     end
     redirect_to :action => 'index'
+  end
+
+  def destroy
+    @w = Ish::StockWatch.find params[:id]
+    authorize! :destroy, @w
+    flag = @w.destroy
+    if flag
+      flash[:notice] = 'Success.'
+    else
+      flash[:alert] = @w.errors.messages
+    end
+    redirect_to action: 'index'
   end
 
 end

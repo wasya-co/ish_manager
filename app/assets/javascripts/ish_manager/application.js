@@ -15,6 +15,7 @@
 //= require ish_manager/jquery.iframe-transport
 //= require ish_manager/jquery.ui.widget
 //= require ish_manager/jquery.fileupload
+//= require ish_manager/jquery-ui.min
 //
 
 $(function () {
@@ -65,7 +66,6 @@ $(document).ready(function () {
     }    
   })
   if (localStorage.getItem('mainHeaderCollapsed') === 'true') {
-    console.log('here')
     $("#collapseHeader").addClass('fa-expand')
     $("#collapseHeader").removeClass('fa-compress')
     $(".content", mainHeaderContext).css("display", 'none')
@@ -102,6 +102,8 @@ $(document).ready(function () {
   $(".addToggle").on('click', function () {
     $(this).next().toggle(500)
   })
+
+  $(".datepicker").datepicker();
 
 });
  
