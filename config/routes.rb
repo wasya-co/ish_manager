@@ -15,6 +15,8 @@ IshManager::Engine.routes.draw do
     resources :tags
   end
 
+  resources :covered_calls
+  
   resources :email_templates
   resources :events
 
