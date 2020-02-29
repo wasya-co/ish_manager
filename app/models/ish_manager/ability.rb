@@ -30,7 +30,10 @@ class IshManager::Ability
 
         can [ :new ], ::Feature
 
-        can [ :index ], ::Gallery
+        can [ :index, :new, :create, :create_photo ], ::Gallery
+        can [ :edit, :update ], ::Gallery do |g|
+          !g.is_trash && ( g.is_public || g.user_profile == user.profile )
+        end
         
         can [ :cities_index, :home, :sites_index, :venues_index ], ::Manager
 
@@ -44,6 +47,11 @@ class IshManager::Ability
         can [ :manage ], Ish::StockWatch
 
         # can [ :new_feature, :create_feature ], ::Tag
+
+        can [ :index, :new, :create ], ::Video
+        can [ :edit, :update, :destroy ], ::Video do |v|
+          !v.is_trash && ( v.is_public || v.user_profile == user.profile )
+        end
 
       end
 
