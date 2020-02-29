@@ -32,6 +32,9 @@
     .col-sm-3
       = f.label :premium_tier
       = f.number_field :premium_tier
+    .col-sm-3
+      = f.label :site
+      = select :gallery, :site_id, @sites_list
   .row
     .col-sm-4
       = f.check_box :is_public
