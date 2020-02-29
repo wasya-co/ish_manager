@@ -39,14 +39,17 @@ class IshManager::Ability
 
         can [ :new ], Newsitem
 
-        can [ :new, :create ], Report
+        can [ :index, :new, :create ], Report
+        can [ :edit, :update, :destroy ], Report do |g|
+          !g.is_trash && ( g.is_public || g.user_profile == user.profile )
+        end
 
         can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
         can [ :manage ], Ish::StockWatch
 
-        # can [ :new_feature, :create_feature ], ::Tag
+        can [ :index, :new, :create ], ::Tag
 
         can [ :index, :new, :create ], ::Video
         can [ :edit, :update, :destroy ], ::Video do |v|

@@ -28,14 +28,13 @@
   %br
 
   .row
-    .col-md-6
+    .col-md-4
       %label{} City
       = select :report, :city_id, @cities_list, :class=>"btn"
-
-
-
-
-    .col-md-6
+    .col-sm-4
+      = f.label :premium_tier
+      = f.number_field :premium_tier
+    .col-md-4
       .field
         = f.label :Coordinates
         .panel.panel-default
@@ -50,14 +49,10 @@
                 %label{} Y-coordinate
                 = f.text_field :y, :placeholder => "y", :type => "text", :class=>"form-control"
 
-
-
   .row
     .col-md-6
       = f.label :site
       = f.select :site_id, options_for_select(@sites_list, :selected => report.site_id || params[:site_id] )
-
-
     .col-md-6
       %label{} Tags
       = select :report, :tag_id, @tags_list, :value=>"select a tag"

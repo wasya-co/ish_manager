@@ -28,7 +28,10 @@
       .field
         = f.label :city_id
         = select :video, :city_id, @cities_list
-        
+  .row
+    .col-sm-3
+      = f.label :premium_tier
+      = f.number_field :premium_tier
   .row
     .col-sm-4
       = f.check_box :is_public
