@@ -54,8 +54,8 @@
       = f.label :site
       = f.select :site_id, options_for_select(@sites_list, :selected => report.site_id || params[:site_id] )
     .col-md-6
-      %label{} Tags
-      = select :report, :tag_id, @tags_list, :value=>"select a tag"
+      = f.label :tags
+      = f.select :tag_ids, @tags_list, {}, { multiple: true }
 
   .panel.panel-default
     .panel-heading
