@@ -25,7 +25,8 @@ class IshManager::Ability
       #
       if user.profile && [ :admin, :manager ].include?( user.profile.role_name )    
 
-        can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
+        can [ :create_newsitem, :show, :new_feature, :create_feature,
+         :index, :new, :create, :edit, :update ], City
         can [ :manage ], ::CoTailors
 
         can [ :new ], ::Feature
