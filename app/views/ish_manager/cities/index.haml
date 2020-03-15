@@ -9,14 +9,19 @@
     - @cities.each do |city|
       .col-xs-3
         .panel.panel-default
-          .panel-heading
-            = link_to city.name, city_path(city)
-            = link_to '[~]', edit_city_path(city)
-            .cities-meta= "R(#{city.reports.length}) G(#{city.galleries.length}) V(#{city.videos.length}) U(#{city.current_users.length})"
-    
-          - if city.profile_photo.blank?
-            = image_missing
-            %div{ :style => "width: 100px; height: 100px; background: #cecece;" }
-          - else
-            = image_tag city.profile_photo.photo.url(:thumb)
+          .row
+            .panel-heading
+              = link_to city.name, city_path(city)
+              = link_to '[~]', edit_city_path(city)
+              .cities-meta= "R(#{city.reports.length}) G(#{city.galleries.length}) V(#{city.videos.length}) U(#{city.current_users.length})"
+          .row
+            %ul
+              %li active? #{city.is_active}
+              %li n venues: #{city.venues.count}
+          .row
+            - if city.profile_photo.blank?
+              = image_missing
+              %div{ :style => "width: 100px; height: 100px; background: #cecece;" }
+            - else
+              = image_tag city.profile_photo.photo.url(:thumb)
 

@@ -4,7 +4,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
 
   def index
     authorize! :cities_index, Manager
-    @cities = City.all
+    @cities = City.unscoped
     @city = City.new
     @photo = Photo.new
   end
