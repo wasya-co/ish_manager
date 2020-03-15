@@ -18,17 +18,17 @@ class IshManager::Ability
 
       can [ :home ], ::IshManager::Ability
       
-      can [ :friends_index, :friends_new ], ::IshModels::UserProfile
-
       #
-      # role admin, manager
+      # role admin
       #
-      if user.profile && [ :admin, :manager ].include?( user.profile.role_name )    
+      if user.profile && [ :admin ].include?( user.profile.role_name )
 
-        can [ :create_newsitem, :show, :new_feature, :create_feature ], ::City
+        can [ :create_newsitem, :show, :new_feature, :create_feature,
+         :index, :new, :create, :edit, :update ], City
         can [ :manage ], ::CoTailors
 
         can [ :new ], ::Feature
+        can [ :friends_index, :friends_new ], ::IshModels::UserProfile
 
         can [ :index, :new, :create, :create_photo ], ::Gallery
         can [ :edit, :update ], ::Gallery do |g|
@@ -59,6 +59,15 @@ class IshManager::Ability
       end
 
       #
+      # role manager
+      #
+      if user.profile && :manager == user.profile.role_name
+        can [ :create_newsitem, :show, :new_feature, :create_feature,
+         :index, :new, :create, :edit, :update ], City
+      end
+
+
+      #
       # role guy (and manager)
       #
       if user.profile && [ :manager, :guy ].include?( user.profile.role_name )
@@ -71,9 +80,9 @@ class IshManager::Ability
           gallery.shared_profiles.include? user.profile
         end
 
-        can [ :index ], ::Report
+        # can [ :index ], ::Report
 
-        can [ :index ], ::Video
+        # can [ :index ], ::Video
         
       end
 

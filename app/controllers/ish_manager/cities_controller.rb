@@ -3,7 +3,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
   before_action :sett_city, :only => [ :show, :edit ]
 
   def index
-    authorize! :cities_index, Manager
+    authorize! :index, City
     @cities = City.unscoped
     @city = City.new
     @photo = Photo.new
@@ -60,7 +60,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
   end
 
   def change_profile_pic
-    authorize! :change_profile_pic, City
+    authorize! :update, City
     @city = City.find params[:id]
     @photo = Photo.new params[:photo]
     @photo.user = @current_user
