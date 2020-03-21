@@ -6,8 +6,8 @@
 
   - if item.city
     <b>In City:</b> #{link_to item.city.name, city_path( item.city )}
-  - if item.tag
-    <b>Tag:</b> #{link_to item.tag.name, tag_path( item.tag )}
+  - if item.tags
+    <b>Tags:</b> #{ item.tags.map(&:name).join(', ') }
   - if item.site
     <b>Site:</b>
     = link_to "#{item.site.domain}/#{item.site.lang}", site_path( item.site )

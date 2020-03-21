@@ -26,8 +26,8 @@
       = select :gallery, :venue_id, @venues_list
   .row
     .col-sm-4
-      = f.label :tag
-      = select :gallery, :tag_id, @tags_list
+      = f.label :tags
+      = f.select :tag_ids, @tags_list, {}, { multiple: true }
       
   .row
     .panel
