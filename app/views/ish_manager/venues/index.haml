@@ -5,5 +5,5 @@
     - if @resource
       in #{link_to @resource.name, resource_path( @resource )}
     = link_to image_new, new_venue_path
-  = render 'index', :venues => @venues,:from_city => 'no'
+  = render 'index', :venues => @venues
 %hr     
