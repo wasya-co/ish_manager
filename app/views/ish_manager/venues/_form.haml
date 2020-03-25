@@ -23,7 +23,8 @@
   .row
     .col-sm-6
       = f.label :city
-      = f.select :city, options_for_select( @cities_list, :selected => venue.city_id )
+      = f.hidden_field :to_city,value:venue.to_city
+      = f.select :city_id, options_for_select( @cities_list, :selected => venue.city_id )
     .col-sm-6
       coords
       .row

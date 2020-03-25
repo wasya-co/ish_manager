@@ -1,10 +1,10 @@
-
+- from_city = from_city
 %ol
   - venues.each do |venue|
     %li
-      = link_to image_edit, edit_venue_path( venue )
-      .float-left= button_to '[x]', venue_path( venue ), :method => 'delete', :data => { :confirm => 'Are you sure?' }
-      = link_to venue.name, venue_path( venue )
+      = link_to '[~]', edit_venue_path( venue,from_city: from_city )
+      = button_to '[x]', venue_path( venue,from_city: from_city ), :method => 'delete', :data => { :confirm => 'Are you sure?' }
+      = link_to venue.name, venue_path( venue,from_city: from_city )
       %br
       %br
       .clearfix

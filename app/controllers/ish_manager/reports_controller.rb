@@ -63,7 +63,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
     authorize! :new, @report
     @tags_list = Tag.all.where( :is_public => true ).list
     @sites_list = Site.all.list
-    @cities_list = City.all.list
+    @cities_list = City.list
     @venues_list = Venue.all.list
 
     respond_to do |format|
