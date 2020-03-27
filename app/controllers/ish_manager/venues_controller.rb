@@ -14,6 +14,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
 
   def new
     @venue = Venue.new
+    @venue.city_id = params[:city_id] if params[:city_id]
     authorize! :new, @venue
   end
 
@@ -21,7 +22,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
     @venue = Venue.new params[:venue].permit!
     authorize! :create, @venue
     if @venue.save
-      redirect_to :action => :index
+      redirect_to city_path( params[:venue][:city_id] ), :notice => 'Venue successfully created.'
     else
       flash[:alert] = @venue.errors.messages
       render :action => :new
@@ -41,7 +42,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
     flag = @venue.update_attributes params[:venue].permit!
     if flag
       flash[:notice] = 'updated venue'
-      redirect_to :action => :index
+      redirect_to city_path( params[:venue][:city_id] )
     else
       flash[:alert] = "No luck: #{@venue.errors.messages}"
       render :action => :edit
@@ -63,7 +64,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
     else
       flash[:alert] = "Cannot delete venue: #{@venue.errors.messages}"
     end
-    redirect_to venues_path
+    redirect_to city_path( @venue.city_id )
   end
 
 end

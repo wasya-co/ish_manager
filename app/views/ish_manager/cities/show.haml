@@ -13,6 +13,12 @@
     %h5 Galleries
     = render 'ish_manager/galleries/index', :galleries => @city.galleries
 .row
+  .col-sm-6
+    %h5
+      Venues (#{@city.venues.length})
+      = link_to image_new, new_venue_path(city_id: @city.id)
+    = render 'ish_manager/venues/index', :venues => @city.venues
+.row
   .col-sm-6= render 'ish_manager/videos/index', :videos => @city.videos
   .col-sm-6
     = render 'ish_manager/users/index', :users => @city.current_users
