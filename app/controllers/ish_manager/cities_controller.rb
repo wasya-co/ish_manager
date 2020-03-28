@@ -11,7 +11,6 @@ class IshManager::CitiesController < IshManager::ApplicationController
   
   def show
     authorize! :show, @city
-    @videos = @city.videos.page( params[:videos_page] ).per( 10 )
   end
   
   def new

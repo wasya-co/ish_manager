@@ -1,6 +1,7 @@
 
 - n_thumbs   ||= 8
 - param_name ||= :galleries_page
+- galleries = galleries.page( params[:galleries_page] ).per( 10 )
 
 - if galleries.length > 0
   .galleries--list
