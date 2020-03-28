@@ -32,7 +32,9 @@
         = render 'ish_manager/reports/index', :reports => @city.reports
     .row
       .col-sm-12#galleries
-        %h5 Galleries
+        %h5
+          Galleries (#{@city.galleries.length})
+          = link_to image_new, new_gallery_path(city_id: @city.id)
         = render 'ish_manager/galleries/index', :galleries => @city.galleries
     .row
       .col-sm-12#videos
