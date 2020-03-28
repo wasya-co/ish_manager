@@ -33,5 +33,6 @@
               %li username: #{n.username}
               - if n.photo
                 %li Photo id: #{n.photo.id}
+            = render 'ish_manager/newsitems/item', :newsitem => n
       = paginate newsitems, :param_name => 'newsitems_page', :views_prefix => 'ish_manager'
   %hr
