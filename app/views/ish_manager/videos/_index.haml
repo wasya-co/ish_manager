@@ -1,7 +1,5 @@
 
 - videos ||= @videos
-- videos = videos.page(params[:videos_page]).per( 10 )
-
 .row
   .col-sm-12
     %h5
@@ -9,7 +7,7 @@
       = link_to '[+]', new_video_path
     %br
     
-    = paginate videos, :param_name => 'videos_page', :views_prefix => 'ish_manager'
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
     
     - videos.each do |video|
       .panel
@@ -29,6 +27,6 @@
                 - else
                   = render 'ish_manager/videos/preview', :video => video
         
-    = paginate videos, :param_name => 'videos_page', :views_prefix => 'ish_manager'
+    = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
 %hr
 

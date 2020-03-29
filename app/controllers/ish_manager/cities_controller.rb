@@ -11,6 +11,14 @@ class IshManager::CitiesController < IshManager::ApplicationController
   
   def show
     authorize! :show, @city
+    @videos = @city.videos.page( params[:videos_page] ).per( Video::PER_PAGE )
+    @venues = @city.venues.page( params[:venues_page] ).per( Venue::PER_PAGE )
+    @galleries = @city.galleries.page( params[:galleries_page] ).per( Gallery::PER_PAGE )
+    @reports = @city.reports.page( params[:reports_page] ).per( Report::PER_PAGE )
+    @newsitems = @city.newsitems.page( params[:newsitems_page] ).per( Newsitem::PER_PAGE )
+    if params[:q]
+      @venues = @venues.where({ :name => /#{params[:q]}/i })
+    end
   end
   
   def new

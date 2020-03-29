@@ -1,8 +1,5 @@
-- venues = venues.page( params[:venues_page] ).per( 10 )
-- if params[:venue_searchq]
-  - venues = venues.where({ :name => /#{params[:venue_searchq]}/i })
 - if venues.respond_to? :total_pages
-  = paginate venues, :param_name => :venues_page, :views_prefix => 'ish_manager'
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'
 %ol
   - venues.each do |venue|
     %li
@@ -13,4 +10,4 @@
       %br
       .clearfix
 - if venues.respond_to? :total_pages
-  = paginate venues, :param_name => :venues_page, :views_prefix => 'ish_manager'
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'
