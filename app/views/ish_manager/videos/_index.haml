@@ -1,28 +1,10 @@
 
 - videos ||= @videos
-- videos = videos.page params[:videos_page]
-
 .row
   .col-sm-12
     %h5
       Videos (#{videos.count})
       = link_to '[+]', new_video_path
-
-    - if current_user.profile.videos_embed
-      Embed?
-      .inline
-        = form_tag user_profile_path( current_user.profile ), :method => :patch do 
-          = hidden_field_tag 'ish_models_user_profile[videos_embed]', false
-          = hidden_field_tag 'redirect_to', videos_path
-          = submit_tag 'Preview?'
-    - else
-      .inline
-        = form_tag user_profile_path( current_user.profile ), :method => :patch do
-          = hidden_field_tag 'ish_models_user_profile[videos_embed]', true
-          = hidden_field_tag 'redirect_to', videos_path
-          = submit_tag 'Embed?'
-      Preview?
-
     %br
     
     = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'

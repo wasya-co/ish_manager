@@ -17,8 +17,8 @@
 .manager-newsitems--index
   .row
     .col-sm-12
-      %h3 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem }
-      = paginate newsitems, :param_name => 'newsitems_page', :views_prefix => 'ish_manager'
+      %h5 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem }
+      = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
       - newsitems.each do |n|
         .panel
           .panel-body
@@ -34,4 +34,5 @@
               - if n.photo
                 %li Photo id: #{n.photo.id}
             = render 'ish_manager/newsitems/item', :newsitem => n
+      = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
   %hr

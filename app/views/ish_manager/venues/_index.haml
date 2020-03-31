@@ -1,3 +1,5 @@
+- if venues.respond_to? :total_pages
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'
 %ol
   - venues.each do |venue|
     %li
@@ -7,3 +9,5 @@
       %br
       %br
       .clearfix
+- if venues.respond_to? :total_pages
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'
