@@ -4,7 +4,7 @@ class IshManager::VenuesController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    authorize! :venues_index, ::Manager
+    authorize! :index, Venue.new
     @venues = Venue.all
     if params[:city_id]
       @resource = @city = City.find params[:city_id]

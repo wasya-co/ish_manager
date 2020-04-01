@@ -1,8 +1,4 @@
 
 %h1.center= link_to @city.name, city_path( @city )
 = render 'form', :url => city_path
-%hr
-
-= render 'ish_manager/features/index',  :city => @city, :features => @city.features
-= render 'ish_manager/newsitems/index', :city => @city, :newsitems => @city.newsitems
 

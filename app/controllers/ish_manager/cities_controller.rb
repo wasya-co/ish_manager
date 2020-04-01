@@ -56,7 +56,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
     if @city.save
       ::IshModels::CacheKey.one.update_attributes( :cities => Time.now, :feature_cities => Time.now )
       flash[:notice] = 'Success'
-      redirect_to edit_city_path @city.id
+      redirect_to city_path @city.id
     else
       flash[:alert] = 'No Luck. ' + @city.errors.inspect
       @newsitems = @city.newsitems.all.page( params[:newsitems_page] )

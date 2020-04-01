@@ -35,7 +35,7 @@ class IshManager::Ability
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
         
-        can [ :cities_index, :home, :sites_index, :venues_index ], ::Manager
+        can [ :cities_index, :home, :sites_index ], ::Manager
 
         can [ :new ], Newsitem
 
@@ -55,6 +55,8 @@ class IshManager::Ability
         can [ :edit, :update, :destroy ], ::Video do |v|
           !v.is_trash && ( v.is_public || v.user_profile == user.profile )
         end
+
+        can [ :index, :add, :create, :edit, :update, :show ], Venue
 
       end
 
