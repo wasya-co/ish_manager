@@ -4,10 +4,13 @@ gem 'rails', "~> 5.1"
 gem 'devise'
 gem 'haml'
 
+gem 'sassc'
+gem 'aws-sdk-s3'
+gem 'aws-sdk'
+
 gem 'mongoid'
 gem 'mongoid-paperclip'
 gem 'ransack', '< 1.8.7'
-gem 'aws-sdk', '~> 2'
 gem 'kaminari'
 gem 'kaminari-mongoid'
 gem 'activeadmin'

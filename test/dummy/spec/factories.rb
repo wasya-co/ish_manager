@@ -4,9 +4,6 @@ FactoryGirl.define do
   factory :city do
     name 'City'
     cityname 'city'
-    name_ru 'city'
-    name_pt 'city'
-    name_en 'city'
   end
 
   factory :gallery do

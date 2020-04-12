@@ -10,10 +10,10 @@ describe IshManager::GalleriesController, :type => :controller do
     @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile
   end
 
-  it '#index' do
-    get :index
-    assigns( :shared_galleries ).should eql nil
-  end
+  # it '#index' do
+  #   get :index
+  #   assigns( :shared_galleries ).should eql nil
+  # end
   
   it '#index_titles' do
     get :index, :params => { :render_type => Gallery::RENDER_TITLES }
