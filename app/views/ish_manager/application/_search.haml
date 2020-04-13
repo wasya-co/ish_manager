@@ -1,4 +1,8 @@
-= form_tag galleries_path, :method => :get, :class => :search do
+
+- # @TODO: definitely more abstract
+- path ||= galleries_path 
+
+= form_tag path, :method => :get, :class => :search do
   .field.search_words
     .hide [x]
     = text_field_tag 'q', nil, :placeholder => 'Search'

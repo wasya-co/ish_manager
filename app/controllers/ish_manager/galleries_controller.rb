@@ -5,35 +5,22 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   def index
     authorize! :index, Gallery
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
-                                       ).order_by( :created_at => :desc )
-
-    if params[:render_type] == Gallery::RENDER_TITLES
-      render 'index_titles'
-      return
-    else
-      if params[:q]
-        @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
-      end
-      @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
-      @shared_galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false ).page( params[:shared_galleries_page] ).per( 10 )
+      ).order_by( :created_at => :desc )
+    if params[:q]
+      @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
     end
+    @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
 
+    render params[:render_type]
   end
 
-=begin
-  def index_title
+  def shared_with_me
+    authorize! :index, Gallery
+    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false 
+      ).order_by( :created_at => :desc 
+      ).page( params[:shared_galleries_page] ).per( 10 )
+    render params[:render_type]
   end
-  def index_thumb
-    @galleries = Gallery.unscoped.where( :is_trash => false 
-                                       ).order_by( :created_at => :desc 
-                                                 ).page( params[:galleries_page] ).per( 10 )
-  end
-  def index_mini
-    @galleries = Gallery.unscoped.where( :is_trash => false 
-                                       ).order_by( :created_at => :desc 
-                                                 ).page( params[:galleries_page] ).per( 10 )
-  end
-=end
 
   def new
     @gallery = Gallery.new
@@ -82,9 +69,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     # puts! params[:gallery][:shared_profiles], 'shared profiles'
     if @gallery.update_attributes( params[:gallery].permit! )
       new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids] 
-                                                       ).select do |p|
-        !old_shared_profile_ids.include?( p.id )
-      end
+        ).select { |p| !old_shared_profile_ids.include?( p.id ) }
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
       redirect_to galleries_path

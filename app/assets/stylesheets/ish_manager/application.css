@@ -202,3 +202,8 @@ table.stock_watches .trashy {
   border: 1px solid green;
   padding: 5px;
 }
+
+.menu-secondary li.active a {
+  border-bottom: 5px solid black;
+}
+

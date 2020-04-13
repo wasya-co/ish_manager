@@ -23,12 +23,14 @@ IshManager::Engine.routes.draw do
   resources :feature
   resources :friends
 
-  get 'galleries',              :to => 'galleries#index'
+  get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
   get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
+  get 'galleries/shared', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_THUMBS }
+  get 'galleries/shared_titles', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_TITLES 
+    }, as: :galleries_shared_titles
   resources :galleries do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
-    resources :newsitems
   end
   
   resources :invoices do
