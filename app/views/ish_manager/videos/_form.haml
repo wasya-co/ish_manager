@@ -20,11 +20,9 @@
       .field
         = f.label :thumb
         = f.file_field :thumb
-
       .field
-        = f.label :tag_id
-        = select :video, :tag_id, @tags_list, :selected => params[:tag_id]
-
+        = f.label :tags
+        = f.select :tag_ids, @tags_list, {}, { multiple: true }
       .field
         = f.label :city_id
         = select :video, :city_id, @cities_list
