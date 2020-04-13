@@ -51,12 +51,13 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.new
     authorize! :new, @video
 
-    # @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    # @cities_list = City.list
+    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
+    @cities_list = City.list
   end
   
   def create
-    @video = Video.new params[:video].permit!
+    @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
+      tags city site user_profile premium_tier premium_purchases thumb video |)
     @video.user_profile = current_user.profile
     if !params[:video][:site_id].blank?
       @video.site = Site.find params[:video][:site_id]
@@ -109,7 +110,7 @@ class IshManager::VideosController < IshManager::ApplicationController
     flag = @video.update_attributes( :is_trash => true )
     @video.city.touch if @video.city
     @video.site.touch if @video.site
-    @video.tag.touch if @video.tag
+    @video.tags.map &:touch
     if flag
       flash[:notice] = "deleted video"
     else

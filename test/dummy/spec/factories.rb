@@ -53,4 +53,9 @@ FactoryGirl.define do
     end
   end
 
+  factory :video do
+    youtube_id 'some-youtube-id'
+  end
+  
+
 end
