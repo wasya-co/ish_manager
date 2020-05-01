@@ -12,10 +12,10 @@ describe IshManager::CitiesController, :type => :controller do
     User.all.destroy
     @user = FactoryGirl.create :user
     sign_in @user, :scope => :user
-    
+
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
   end
-  
+
   describe 'new' do
     it 'renders' do
       get :new
@@ -28,6 +28,11 @@ describe IshManager::CitiesController, :type => :controller do
       get :edit, :params => { :id => @city.id }
       response.should be_success
     end
+  end
+
+  it 'show' do
+    get :show, params: { id: @city.id }
+    response.should be_success
   end
 
 end
