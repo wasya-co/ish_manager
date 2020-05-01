@@ -1,0 +1,28 @@
+
+
+- content_for :title do
+  Manager Galleries Index
+
+
+= render 'ish_manager/sites/header', :site => @site if @site
+
+
+-# .title.hide
+  .row
+    .col-sm-12.col-md-12
+      %h1.center Galleries
+      %ul.menu-secondary
+        %li= link_to 'titles list', galleries_index_titles_path( :render_type => Gallery::RENDER_THUMBS )
+        %li= link_to 'thumbs list', galleries_index_thumbs_path( :render_type => Gallery::RENDER_TITLES )
+
+.row
+  .col-sm-12.col-md-12
+    %h4 My Galleries (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
+    = render 'search'
+    - if params[:render_type] == Gallery::RENDER_TITLES
+      = render 'ish_manager/galleries/index_title', :galleries => @galleries, :param_name => :galleries_page
+    - else
+      = render 'ish_manager/galleries/index', :galleries => @galleries, :param_name => :galleries_page    
+  .col-sm-12.col-md-6
+    %h4 Shared with me
+    = render 'ish_manager/galleries/index', :galleries => @shared_galleries, :param_name => :shared_galleries_page
