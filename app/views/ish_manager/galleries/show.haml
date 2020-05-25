@@ -33,6 +33,6 @@
 .center.large-photos
   - @photos.each do |photo|
     .item
-      .wrapper
-        = image_tag photo.photo.url( :large ), :alt => ''
+      .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
+        = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
 

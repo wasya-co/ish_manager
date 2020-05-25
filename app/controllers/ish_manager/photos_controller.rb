@@ -14,7 +14,12 @@ class IshManager::PhotosController < IshManager::ApplicationController
     authorize! :destroy, @photo
     @photo.gallery.touch if @photo.gallery
     @photo.is_trash = true
-    @photo.save
+    flag = @photo.save
+    if flag
+      flash[:notice] = "Success"
+    else
+      flash[:alert] = "No luck: #{@photo.errors.messages}"
+    end
     redirect_to request.referrer || root_path
   end
 
