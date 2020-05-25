@@ -6,27 +6,23 @@
       Videos (#{videos.count})
       = link_to '[+]', new_video_path
     %br
-    
+
     = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
-    
+
     - videos.each do |video|
       .panel
         .panel-content
           .row
-            .col-xs-12.col-sm-6
-              .center
+            .col-sm-6
+              .float-left
+                .thumb= image_tag video.thumb.url(:thumb)
+              .a
                 = link_to video.name, video_path( video )
                 .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
                 = link_to '[~]', edit_video_path( video )
-                = render 'meta', :item => video
-                = image_tag video.thumb.url(:thumb)
-            .col-xs-12.col-sm-6
-              .center
-                - if @current_user.profile.videos_embed
-                  = render 'ish_manager/videos/embed', :video => video
-                - else
-                  = render 'ish_manager/videos/preview', :video => video
-        
+              = render 'meta', :item => video
+              .c
+
     = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'
 %hr
 

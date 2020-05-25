@@ -1,13 +1,13 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
-  
+
   def index
     authorize! :index, Gallery
     @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
       ).order_by( :created_at => :desc )
     if params[:q]
-      @galleries = @galleries.where({ :name => /#{params[:q]}/i })      
+      @galleries = @galleries.where({ :name => /#{params[:q]}/i })
     end
     @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
 
@@ -16,8 +16,8 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def shared_with_me
     authorize! :index, Gallery
-    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false 
-      ).order_by( :created_at => :desc 
+    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
+      ).order_by( :created_at => :desc
       ).page( params[:shared_galleries_page] ).per( 10 )
     render params[:render_type]
   end
@@ -68,7 +68,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
     # puts! params[:gallery][:shared_profiles], 'shared profiles'
     if @gallery.update_attributes( params[:gallery].permit! )
-      new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids] 
+      new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids]
         ).select { |p| !old_shared_profile_ids.include?( p.id ) }
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
@@ -78,7 +78,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s
       render :action => :edit
     end
-  end                           
+  end
 
   def show
     begin

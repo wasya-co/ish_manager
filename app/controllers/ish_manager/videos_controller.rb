@@ -2,7 +2,7 @@
 class IshManager::VideosController < IshManager::ApplicationController
 
   before_action :set_lists
-  
+
   def index
     authorize! :index, Video.new
     @videos = Video.unscoped.where( is_trash: false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
@@ -16,12 +16,16 @@ class IshManager::VideosController < IshManager::ApplicationController
       tag = Tag.find params[:tag_id]
       @videos = @videos.where( :tag => tag )
     end
-    
+
     if params[:site_id]
       @site = Site.find params[:site_id]
       @videos = @site.videos
     end
-    
+
+    if params[:q]
+      @videos = @videos.where({ :name => /#{params[:q]}/i })
+    end
+
     @videos = @videos.page( params[:videos_page] )
 
     respond_to do |format|
@@ -54,7 +58,7 @@ class IshManager::VideosController < IshManager::ApplicationController
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
     @cities_list = City.list
   end
-  
+
   def create
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
       tags city site user_profile premium_tier premium_purchases thumb video |)
@@ -69,9 +73,9 @@ class IshManager::VideosController < IshManager::ApplicationController
       end
     end
     authorize! :create, @video
-    
+
     if @video.save
-      flash[:notice] = 'Success'      
+      flash[:notice] = 'Success'
       redirect_to videos_path
     else
       flash[:alert] = 'No luck'
@@ -80,11 +84,11 @@ class IshManager::VideosController < IshManager::ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @video = Video.unscoped.find params[:id]
     authorize! :edit, @video
-    
+
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
     @cities_list = City.list
   end
@@ -118,5 +122,5 @@ class IshManager::VideosController < IshManager::ApplicationController
     end
     redirect_to :action => 'index'
   end
-  
+
 end

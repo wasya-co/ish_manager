@@ -3,7 +3,7 @@
   .row
     .col-sm-12.col-md-12
       %h1.center #{params[:action]} (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
-      = render 'search'
+      = render 'search', path: galleries_path
       %ul.menu-secondary
         %li{ class: "#{params[:render_type] == 'index_titles' ? 'active' : ''}" }
           = link_to 'titles list', galleries_index_titles_path( :render_type => Gallery::RENDER_THUMBS )

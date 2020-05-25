@@ -1,4 +1,6 @@
 
 = render 'ish_manager/sites/header', :site => @site if @site
-= render 'index', :videos => @videos
 
+= render 'search', path: videos_path
+
+= render 'index', :videos => @videos
