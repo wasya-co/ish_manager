@@ -1,5 +1,6 @@
 
 = render 'title', :gallery => @gallery
+= render 'ish_manager/photos/multinew', :gallery => @gallery
 
 -# deleted
 .row
@@ -32,6 +33,6 @@
 .center.large-photos
   - @photos.each do |photo|
     .item
-      = image_tag photo.photo.url( :large ), :alt => ''
-      %br
-      %br
+      .wrapper
+        = image_tag photo.photo.url( :large ), :alt => ''
+

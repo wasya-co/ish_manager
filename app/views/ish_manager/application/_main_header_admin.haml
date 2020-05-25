@@ -14,13 +14,14 @@
             %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path
 
           %ul.nav.nav-pills
-            %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path      
+            %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
             %li{ :class => params[:controller] == 'ish_manager/sites'         ? 'active' : '' }= link_to 'Sites',     sites_path
             %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }= link_to 'Galleries', galleries_path
             %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }= link_to 'Reports',   reports_path
             %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }= link_to 'Videos',    videos_path
-            %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path            
+            %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path
 
+        - proc do # nothing
           %ul.nav.nav-pills
             -# %li{ :class => params[:controller] == 'ish_manager/ally'          ? 'active' : '' }= link_to 'Ally',      ally_root_path
             -# %li{ :class => params[:controller] == 'ish_manager/stock_actions' ? 'active' : '' }= link_to 'Stock Actions', stock_actions_path
@@ -29,16 +30,18 @@
             %li{ :class => params[:controller] == 'ish_manager/iron_condors' ? 'active' : '' }= link_to 'Iron Condors', iron_condors_path
             %li{ :class => params[:controller] == 'ish_manager/covered_calls' ? 'active' : '' }= link_to 'Covered Calls', covered_calls_path
 
+        - proc do # nothing
           %ul.nav.nav-pills
             %li{ :class => params[:controller] == 'ish_manager/invoices'      ? 'active' : '' }= link_to 'Invoices', invoices_path
             %li{ :class => params[:controller] == 'ish_manager/payments'      ? 'active' : '' }= link_to 'Payments', payments_path
             %li{ :class => params[:controller] == 'ish_manager/orders'        ? 'active' : '' }= link_to 'Orders', orders_path
             -# %li{ :class => params[:controller] == 'ish_manager/co_tailors'    ? 'active' : '' }= link_to 'Co Tailors', co_tailors_path
 
+        - proc do # nothing
           %ul.nav.nav-pills
             %li{ :class => params[:controller] == 'ish_manager/leads'         ? 'active' : '' }= link_to 'Leads', leads_path
             %li{ :class => params[:controller] == 'ish_manager/campaigns'     ? 'active' : '' }= link_to 'Campaigns', campaigns_path
-            
-            
+
+
   %hr
 

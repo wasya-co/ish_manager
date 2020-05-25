@@ -3,7 +3,8 @@
   .col-xs-12
     .center
       %h2
-        #{gallery.name} (#{gallery.photos.length})
+        = link_to gallery.name, gallery_path(gallery)
+        (#{gallery.photos.length})
         = link_to '[~]', edit_gallery_path( gallery )
         [x]
       galleryname :: #{gallery.galleryname}

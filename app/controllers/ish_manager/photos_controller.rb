@@ -3,7 +3,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
 
   # @TODO: this is bad? _vp_ 20170513
   skip_authorization_check :only => [ :j_create ]
-  protect_from_forgery :except => [ :j_create] 
+  protect_from_forgery :except => [ :j_create]
 
   def without_gallery
     @photos = Photo.unscoped.where( :gallery => nil, :is_trash => false )
@@ -12,10 +12,9 @@ class IshManager::PhotosController < IshManager::ApplicationController
   def destroy
     @photo = Photo.unscoped.find params[:id]
     authorize! :destroy, @photo
-    g = @photo.gallery
+    @photo.gallery.touch if @photo.gallery
     @photo.is_trash = true
     @photo.save
-    g.touch
     redirect_to request.referrer || root_path
   end
 
@@ -36,9 +35,9 @@ class IshManager::PhotosController < IshManager::ApplicationController
     authorize! :create_photo, gallery
 
     @photo = Photo.new params[:photo].permit!
-    @photo.is_public = true   
+    @photo.is_public = true
     @photo.gallery = gallery
-    
+
     # cache
     @photo.gallery.site.touch if @photo.gallery.site
     @photo.gallery.city.touch if @photo.gallery.city
@@ -55,7 +54,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
       }
       render :json => [ j ]
     else
-      render :json => { "errors" => @photo.errors } 
+      render :json => { "errors" => @photo.errors }
     end
   end
 

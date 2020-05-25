@@ -16,6 +16,7 @@
  *= require ish_manager/maps
  *= require ish_manager/utils
  *= require ish_manager/jquery-ui
+ *= require ish_manager/galleries
  */
 
 
@@ -58,7 +59,7 @@ hr {
   border: 1px solid red;
   width: 100px;
   height: 100px;
-}  
+}
 .large-photos img {
   width: 100%;
 }
@@ -117,7 +118,7 @@ ul.inline li {
 }
 
 /**
- * manager... 
+ * manager...
  */
 
 .manager--main-header {
