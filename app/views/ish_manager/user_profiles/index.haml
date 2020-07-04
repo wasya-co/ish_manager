@@ -2,7 +2,7 @@
 %h5
   User Profiles (#{@user_profiles.count})
   = link_to '[+]', new_user_profile_path
- 
+
 
 - @user_profiles.each do |profile|
   .panel
@@ -17,7 +17,6 @@
             %li <b>Role:</b> #{profile.role_name}
             %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
             %li <b>City:</b> #{profile.current_city ? profile.current_city.name : nil}
-            %li <b>About:</b> #{profile.about}
         .col-sm-8
           %h5 Shared galleries
           - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
