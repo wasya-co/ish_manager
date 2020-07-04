@@ -15,4 +15,6 @@
     %hr
     = link_to @video.video.url, @video.video.url
 
-    -# = render 'disqus'
+    %p <b>User Profile:</b> #{@video.user_profile.name}
+
+= @video.inspect
