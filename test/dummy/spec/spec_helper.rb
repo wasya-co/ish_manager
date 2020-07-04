@@ -39,6 +39,10 @@ class UserStub
     return 'some@email.com'
   end
 
+  def id
+    return 1
+  end
+
 end
 
 def puts! a, b=''

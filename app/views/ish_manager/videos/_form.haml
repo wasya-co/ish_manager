@@ -1,7 +1,7 @@
 
 = form_for video do |f|
   = render 'form_errors', :item => @video
- 
+
   .row
     .col-md-6
       .field
@@ -32,7 +32,10 @@
       = f.number_field :premium_tier
     .col-sm-3
       = f.label :site
-      = select :gallery, :site_id, @sites_list
+      = f.select :site_id, @sites_list
+    .col-sm-3
+      = f.label :user_profile
+      = f.select :user_profile_id, @user_profiles_list
   .row
     .col-sm-4
       = f.check_box :is_public
