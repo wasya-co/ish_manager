@@ -50,16 +50,6 @@ def puts! a, b=''
   puts a.inspect
 end
 
-def setup_users
-  User.all.destroy
-  @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
-  @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com'
-  @user_1  = FactoryGirl.create :user, :email => 'user-1@gmail.com'
-  @user_2  = FactoryGirl.create :user, :email => 'user-2@gmail.com'
-  sign_in @user, :scope => :user
-  # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
-end
-
 def setup_profiles
   emails = %w( one@gmail.com two@gmail.com three@gmail.com )
   @profiles = {}
@@ -84,6 +74,16 @@ def setup_tags
   @tag = FactoryGirl.create :tag
   @tag.reports << @report
   @tag.save
+end
+
+def setup_users
+  User.all.destroy
+  @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
+  @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
+  @user_1  = FactoryGirl.create :user, :email => 'user-1@gmail.com'
+  @user_2  = FactoryGirl.create :user, :email => 'user-2@gmail.com'
+  sign_in @user, :scope => :user
+  # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end
 
 Paperclip.options[:log] = false

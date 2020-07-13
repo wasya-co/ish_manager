@@ -24,10 +24,10 @@
           .panel-body
             %ul
               %li
-                = link_to '[~]', edit_url.call( n )
-                = button_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+                .float-left= link_to '[~]', edit_url.call( n )
+                .float-left= button_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
                 Name: #{n.name}
-                Desc: #{n.descr}
+              %li Desc: #{n.descr}
               %li Report id: #{n.report_id}
               %li Gallery id: #{n.gallery_id}
               %li username: #{n.username}

@@ -41,7 +41,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     if @gallery.save
       ::IshManager::ApplicationMailer.shared_galleries( params[:gallery][:shared_profiles], @gallery ).deliver
       flash[:notice] = 'Success'
-      redirect_to galleries_path
+      redirect_to edit_gallery_path(@gallery)
     else
       puts! @gallery.errors.messages
       flash[:alert] = 'No Luck. ' + @gallery.errors.inspect
