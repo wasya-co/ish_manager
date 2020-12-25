@@ -24,7 +24,8 @@
     - @photos.each do |photo|
       .col-xs-4
         .item{ :style => "border: 1px solid red;" }
-          = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          .float-left= button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          = link_to "go to", "#large_#{photo.id}"
           %br
           = image_tag photo.photo.url( :thumb ), :alt => ''
 .spacer{ :style => 'height: 100px' }
@@ -33,6 +34,9 @@
 .center.large-photos
   - @photos.each do |photo|
     .item
-      .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
+      %a{id: "large_#{photo.id}" }
+      -# .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
+      .wrapper
         = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        = image_tag photo.photo.url(:large)
+        = link_to "large", photo.photo.url(:large)
