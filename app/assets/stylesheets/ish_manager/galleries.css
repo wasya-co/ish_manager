@@ -15,8 +15,10 @@
   height: 100%;
   background-repeat: no-repeat;
   background-position: center center;
+  background-size: contain;
 }
 
 .large-photos .item .wrapper img {
   max-height: 100%;
+  max-width: 100%;
 }

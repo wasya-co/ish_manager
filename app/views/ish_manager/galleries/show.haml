@@ -35,8 +35,6 @@
   - @photos.each do |photo|
     .item
       %a{id: "large_#{photo.id}" }
-      -# .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
-      .wrapper
-        = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-        = image_tag photo.photo.url(:large)
-        = link_to "large", photo.photo.url(:large)
+      .float-left= button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+      = link_to "large", photo.photo.url(:large)
+      .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
