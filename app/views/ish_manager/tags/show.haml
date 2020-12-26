@@ -2,33 +2,31 @@
 -# ish_manager / tags / show
 
 - content_for :title do
-  Topic #{@tag.name}
-  
+  Tag #{@tag.name}
+
 .row
   .col-sm-12
     %h5.center
       Tag
       = @tag.name
       = link_to image_edit, edit_tag_path( @tag )
-      -# = link_to_delete( @tag )
-      .inline= button_to 'X', tag_path( @tag ), :method => :delete, :data => { :confirm => 'Are you sure?' } 
-    -# = render 'ads/leaderboard'
+      .inline= button_to 'X', tag_path( @tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }
     -# .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
-    = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features]
-    
+    -# = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features]
+
+- proc do # nothing
+  .row
+    .col-sm-12
+      = render 'ish_manager/newsitems/index', :newsitems => @tag.newsitems, :resource => @tag, :tag => @tag
+
 .row
   .col-sm-12
-    = render 'ish_manager/newsitems/index', :newsitems => @tag.newsitems, :resource => @tag, :tag => @tag
-    
-.row
-  .col-sm-6
     = render 'ish_manager/reports/index', :reports => @tag.reports, :n_ads => 0
-    
-  .col-sm-6
-    = render 'ish_manager/galleries/index_title', :galleries => @galleries, :n_thumbs => 4
-    
+
 .row
-  .col-sm-6
+  .col-sm-12
+    = render 'ish_manager/galleries/index_title', :galleries => @galleries, :n_thumbs => 4
+
+.row
+  .col-sm-12
     = render 'ish_manager/videos/index_title', :videos => @videos
-  .col-sm-6
-    %h5 Here, nothing yet

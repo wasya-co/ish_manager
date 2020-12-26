@@ -61,18 +61,18 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
+    params[:gallery][:tag_ids].delete('')
+
     params[:gallery][:shared_profiles].delete('')
-    # params[:gallery][:shared_profiles] = IshModels::UserProfile.find( params[:gallery][:shared_profiles] ).to_a
     params[:gallery][:shared_profile_ids] = params[:gallery][:shared_profiles]
     params[:gallery].delete :shared_profiles
 
-    # puts! params[:gallery][:shared_profiles], 'shared profiles'
     if @gallery.update_attributes( params[:gallery].permit! )
       new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids]
         ).select { |p| !old_shared_profile_ids.include?( p.id ) }
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
-      redirect_to galleries_path
+      redirect_to gallery_path(@gallery)
     else
       puts! @gallery.errors.messages, 'cannot save gallery'
       flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s
