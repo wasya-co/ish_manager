@@ -8,7 +8,7 @@ class IshManager::Ability
     # signed in user
     #
     unless user.blank?
-      
+
       #
       # only sudoer... total power
       #
@@ -17,7 +17,7 @@ class IshManager::Ability
       end
 
       can [ :home ], ::IshManager::Ability
-      
+
       #
       # role admin
       #
@@ -34,7 +34,7 @@ class IshManager::Ability
         can [ :edit, :update ], ::Gallery do |g|
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
-        
+
         can [ :cities_index, :home, :sites_index ], ::Manager
 
         can [ :new ], Newsitem
@@ -44,7 +44,7 @@ class IshManager::Ability
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
 
-        can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
+        can [ :new, :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
         can [ :manage ], Ish::StockWatch
@@ -85,15 +85,16 @@ class IshManager::Ability
         # can [ :index ], ::Report
 
         # can [ :index ], ::Video
-        
+
       end
 
     end
+
     #
     # anonymous user
     #
     user ||= ::User.new
-    
+
     can [ :show ], ::Gallery do |gallery|
       gallery.is_public
     end
@@ -101,6 +102,6 @@ class IshManager::Ability
     can [ :show ], ::Report do |report|
       report.is_public
     end
-    
+
   end
 end

@@ -1,5 +1,11 @@
+
 class IshManager::SitesController < IshManager::ApplicationController
-  
+
+  ## params:
+  ## :domain, :lang, :title, :subhead, :description, :homepage_layout, :layout,
+  ##   :n_features, :n_newsitems, :newsitems_per_page, :is_trash, :is_ads_enabled,
+  ##   :is_private, :play_videos_in_preview, :private_user_emails,
+
   def index
     authorize! :sites_index, ::Manager
     @site_groups = Site.where( :is_trash => false ).order_by( :lang => :desc ).group_by {|s|s.domain}
@@ -26,14 +32,15 @@ class IshManager::SitesController < IshManager::ApplicationController
     @site = Site.unscoped.find params[:id]
     authorize! :update, @site
   end
-  
+
   def new
-    authorize! :new, Site.new
     @site = Site.new
+    authorize! :new, @site
   end
 
   def create
     authorize! :create, Site.new
+    params[:site][:private_user_emails] = params[:site][:private_user_emails].gsub(/\s+/m, ' ').strip.split(" ") if params[:site][:private_user_emails]
     @site = Site.new params[:site].permit!
     if @site.save
       flash[:notice] = 'Success'
@@ -46,7 +53,7 @@ class IshManager::SitesController < IshManager::ApplicationController
   def update
     @site = Site.unscoped.find params[:id]
     authorize! :update, @site
-    
+
     params[:site][:private_user_emails] = params[:site][:private_user_emails].gsub(/\s+/m, ' ').strip.split(" ")
 
     if @site.update_attributes params[:site].permit!
@@ -57,9 +64,9 @@ class IshManager::SitesController < IshManager::ApplicationController
     redirect_to sites_path
   end
 
-  def newsitem_delete    
+  def newsitem_delete
     @site = Site.find params[:site_id]
-    authorize! :update, @site  
+    authorize! :update, @site
     n = @site.newsitems.find( params[:newsitem_id] )
     n.delete
     @site.touch

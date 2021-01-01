@@ -1,0 +1,1 @@
+../../../../../app/models/ish_manager/ability.rb

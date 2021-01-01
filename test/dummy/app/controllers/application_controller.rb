@@ -4,4 +4,10 @@ class ApplicationController < ActionController::Base
   def home
   end
 
+  private
+
+  def set_current_ability
+    @current_ability ||= ::IshManager::Ability.new( current_user )
+  end
+
 end

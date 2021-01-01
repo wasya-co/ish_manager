@@ -63,7 +63,7 @@ module IshManager
       end
       # redirect_to resource_path( @resource )
     end
-    
+
     def resource_path resource
       case resource.class.name
       when 'City'
