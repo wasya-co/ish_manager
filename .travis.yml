@@ -3,15 +3,15 @@ services:
   - mongodb
 language: ruby
 rvm:
- - 2.3.1
+ - 2.5.0
 
-cache: bundler 
+cache: bundler
 
 install:
   - gem install bundler
   - bundle install --gemfile=test/dummy/Gemfile --path vendor/bundle
 
-script: 
+script:
   - BUNDLE_GEMFILE=test/dummy/Gemfile bundle exec rspec test/dummy/spec -I test/dummy/spec
 
 
