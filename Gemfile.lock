@@ -915,7 +915,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.3.0)
+    rake (13.0.3)
     ransack (2.3.0)
       actionpack (>= 5.0)
       activerecord (>= 5.0)
@@ -996,7 +996,7 @@ DEPENDENCIES
   mongoid-paperclip
   rack-mini-profiler
   rails-controller-testing
-  rake (= 12.3.0)
+  rake (= 13.0.3)
   rspec
   rspec-rails
   tzinfo (= 1.2.4)
