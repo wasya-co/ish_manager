@@ -61,7 +61,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
-    params[:gallery][:tag_ids].delete('')
+    params[:gallery][:tag_ids].delete('') if params[:gallery][:tag_ids]
 
     params[:gallery][:shared_profiles].delete('')
     params[:gallery][:shared_profile_ids] = params[:gallery][:shared_profiles]

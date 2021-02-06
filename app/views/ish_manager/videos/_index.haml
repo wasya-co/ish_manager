@@ -15,7 +15,10 @@
           .row
             .col-sm-6
               .float-left
-                .thumb= image_tag video.thumb.url(:thumb)
+                - if video.youtube_id
+                  .thumb-youtube= image_tag "https://img.youtube.com/vi/#{video.youtube_id}/1.jpg"
+                - else
+                  .thumb= image_tag video.thumb.url(:thumb)
               .a
                 = link_to video.name, video_path( video )
                 .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }

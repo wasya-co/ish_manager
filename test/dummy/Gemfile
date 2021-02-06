@@ -32,4 +32,5 @@ gem 'rake'
 
 group :test, :development do
   gem 'byebug'
+  gem 'capybara'
 end

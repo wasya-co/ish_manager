@@ -6,6 +6,13 @@ require 'rspec/rails'
 require 'devise'
 
 RSpec.configure do |config|
+
+  ## 20210205
+  config.include Rails.application.routes.url_helpers
+  config.include Warden::Test::Helpers
+  Warden.test_mode!
+
+
   config.infer_spec_type_from_file_location!
 
   # config.include Devise::TestHelpers, :type => :helper
