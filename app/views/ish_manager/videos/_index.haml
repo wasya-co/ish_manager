@@ -15,7 +15,7 @@
           .row
             .col-sm-6
               .float-left
-                - if video.youtube_id
+                - if video.youtube_id.present?
                   .thumb-youtube= image_tag "https://img.youtube.com/vi/#{video.youtube_id}/1.jpg"
                 - else
                   .thumb= image_tag video.thumb.url(:thumb)

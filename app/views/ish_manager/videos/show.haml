@@ -16,5 +16,5 @@
     = link_to @video.video.url, @video.video.url
 
     %p <b>User Profile:</b> #{@video.user_profile.name}
-
-= @video.inspect
+    %p= image_tag @video.thumb.url(:thumb)
+    %p <b>Video:</b> #{@video.inspect}
