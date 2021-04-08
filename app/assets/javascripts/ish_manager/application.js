@@ -26,7 +26,7 @@ $(function () {
       var tempUrl = data.result[0].thumbnail_url;
       $('<img/>').attr('src', tempUrl).appendTo(photos);
     }
-  });  
+  });
 });
 
 $(document).ready(function () {
@@ -34,7 +34,7 @@ $(document).ready(function () {
   $('*[data-confirm]').click(function(){
     return confirm($(this).attr('data-confirm'));
   });
-  
+
   if ($(".tinymce").length > 0) {
     tinymce.init({
       mode: "specific_textareas",
@@ -63,7 +63,7 @@ $(document).ready(function () {
       $(this).addClass('fa-compress')
       localStorage.setItem('mainHeaderCollapsed', 'false')
       $('.content', $(this).parent()).css('display', 'block')
-    }    
+    }
   })
   if (localStorage.getItem('mainHeaderCollapsed') === 'true') {
     $("#collapseHeader").addClass('fa-expand')
@@ -83,7 +83,7 @@ $(document).ready(function () {
       $(this).addClass('fa-compress')
       localStorage.setItem('mainFooterCollapsed', 'false')
       $('.content', $(this).parent()).css('display', 'block')
-    }    
+    }
   })
   if (localStorage.getItem('mainFooterCollapsed') === 'true') {
     console.log('here')
@@ -106,4 +106,4 @@ $(document).ready(function () {
   $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
 });
- 
+

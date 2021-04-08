@@ -7,7 +7,6 @@
     %meta{ :charset => 'UTF-8' }
     %meta{ :description => 'some description' }
     %script{ :src => "//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" }
-    -# %script{ :src => "//code.jquery.com/jquery-3.3.1.slim.min.js" }
     %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/jquery.tinymce.min.js" }
     %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/tinymce.min.js" }
     %script{ :src => "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" }
@@ -34,3 +33,5 @@
         = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' unless Rails.env.development?
+    = render 'debug' if Rails.env.development?
+

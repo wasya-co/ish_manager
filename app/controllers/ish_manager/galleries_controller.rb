@@ -4,7 +4,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile
+    @galleries = Gallery.unscoped.where( is_done: false, is_trash: false, :user_profile => current_user.profile
       ).order_by( :created_at => :desc )
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })

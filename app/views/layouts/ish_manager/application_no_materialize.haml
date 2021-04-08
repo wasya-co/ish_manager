@@ -30,3 +30,4 @@
       .container
         = yield
     = render :partial => 'ish_manager/application/main_footer'
+    = render 'debug' if Rails.env.development?

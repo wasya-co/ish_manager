@@ -13,7 +13,7 @@
     .col-sm-6
       = f.label :galleryname
       = f.text_field :galleryname
-      
+
   .row
     .col-sm-4
       = f.label :site
@@ -28,7 +28,7 @@
     .col-sm-4
       = f.label :tags
       = f.select :tag_ids, @tags_list, {}, { multiple: true }
-      
+
   .row
     .panel
       .panel-body
@@ -46,7 +46,7 @@
     = f.text_area :subhead
   .row
     = f.text_area :descr, class: :tinymce
-    
+
   .row
     .col-sm-3
       = f.check_box :is_public
@@ -54,6 +54,9 @@
     .col-sm-3
       = f.check_box :is_trash
       = f.label :is_trash
+    .col-sm-3
+      = f.check_box :is_done
+      = f.label :is_done
     .col-sm-3
       = f.label :premium_tier
       = f.number_field :premium_tier
