@@ -12,7 +12,7 @@ gem 'rack-mini-profiler'
 gem 'ffi', '1.11.3'
 
 ## for travis
-gem 'rake', '12.3.0'
+gem 'rake', '13.0.3'
 gem 'i18n', '0.9.1'
 gem 'minitest', '5.10.2'
 gem 'tzinfo', '1.2.4'
