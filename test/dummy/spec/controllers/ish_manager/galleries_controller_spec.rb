@@ -10,11 +10,17 @@ describe IshManager::GalleriesController, :type => :controller do
     @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile
   end
 
-  describe "create" do
-    it "redirects" do
+  describe "#create" do
+    it "redirects after creation" do
       post :create, params: { gallery: { name: "abba" } }
       new_gallery = Gallery.where( name: "abba" ).first
       response.should redirect_to edit_gallery_path(new_gallery.id)
+    end
+
+    it 'succeeds' do
+      n_galleries = Gallery.count
+      post :create, :params => { :gallery => { :name => "abba-#{rand(100)}" } }
+      Gallery.count.should eql n_galleries+1
     end
   end
 
@@ -26,6 +32,13 @@ describe IshManager::GalleriesController, :type => :controller do
       assigns( :shared_galleries ).should eql nil
       gs = assigns( :galleries )
       gs.length.should > 0
+    end
+
+    it 'searches done galleries as well as active ones' do
+      gallery_name = 'abba1233'
+      g = FactoryGirl.create( :gallery, { is_done: true, name: gallery_name, user_profile_id: @profile.id })
+      get :index, params: { q: gallery_name, render_type: Gallery::RENDER_THUMBS }
+      assert assigns(:galleries).map(&:name).include?(gallery_name)
     end
 
   end
@@ -54,12 +67,6 @@ describe IshManager::GalleriesController, :type => :controller do
       expect( ::IshManager::ApplicationMailer ).to receive( :shared_galleries ).with( [ @profiles[2] ], @gallery ).and_return(OpenStruct.new)
       post :update, :params => { :id => @gallery.id, :gallery => { :shared_profiles => [ @profiles[1].id, @profiles[2].id ] } }
     end
-  end
-
-  it 'create' do
-    n_galleries = Gallery.count
-    post :create, :params => { :gallery => { :name => "abba-#{rand(100)}" } }
-    Gallery.count.should eql n_galleries+1
   end
 
 end

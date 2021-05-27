@@ -8,6 +8,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       :user_profile => current_user.profile ).order_by( :created_at => :desc )
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })
+      @galleries.selector.delete('is_done')
     end
     @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
 
