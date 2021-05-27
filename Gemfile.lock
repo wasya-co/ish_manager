@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.235)
+    ish_manager (0.1.8.236)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -805,7 +805,7 @@ GEM
     ffi (1.11.3)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
-    formtastic_i18n (0.6.0)
+    formtastic_i18n (0.7.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     haml (5.2.1)
@@ -924,7 +924,7 @@ GEM
       activesupport (>= 5.0)
       i18n
       polyamorous (= 2.3.0)
-    rb-fsevent (0.10.4)
+    rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     responders (3.0.0)
