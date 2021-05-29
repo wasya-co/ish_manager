@@ -3,15 +3,15 @@
 
 - if @site
   = render 'ish_manager/sites/header', :site => @site
-  
+
 .row
   .large-12.columns
     %h3
       Reports (#{@reports.length})
       = link_to image_new, new_report_path
-      
+
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
-    
+
     - @reports.each do |report|
       .card
         .card-content
@@ -20,7 +20,7 @@
           - if report.is_public
             %i.material-icons visibility
           - else
-            %i.material-icons visibility off
+            %i.material-icons visibility_off
           = link_to report.name, report_path( report )
           %br
           .gray
@@ -31,6 +31,6 @@
             = pp_date report.created_at
           - if report.photo
             = image_tag report.photo.photo.url :thumb
-          
+
     = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
-    
+

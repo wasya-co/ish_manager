@@ -7,5 +7,9 @@
         (#{gallery.photos.length})
         = link_to '[~]', edit_gallery_path( gallery )
         [x]
+        - if gallery.is_public && !gallery.is_trash && !gallery.is_done
+          %i.material-icons visibility
+        - else
+          %i.material-icons visibility_off
       galleryname :: #{gallery.galleryname}
       = render 'meta', :item => gallery

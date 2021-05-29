@@ -6,7 +6,7 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-    Gallery.all.destroy
+    Gallery.unscoped.destroy_all
     @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile
   end
 
@@ -47,6 +47,17 @@ describe IshManager::GalleriesController, :type => :controller do
     it 'shows trash' do
       get :show, :params => { :id => @gallery.id }
       assigns( :deleted_photos ).should_not eql nil
+    end
+
+    it 'shows visibility, visibility_off for non-public galleries' do
+      get :show, :params => { :id => @gallery.id }
+      response.body.should match "<i class='material-icons'>visibility</i>"
+      response.body.should_not match "<i class='material-icons'>visibility_off</i>"
+
+      @gallery.update_attributes is_public: false
+      get :show, :params => { :id => @gallery.id }
+      response.body.should_not match "<i class='material-icons'>visibility</i>"
+      response.body.should match "<i class='material-icons'>visibility_off</i>"
     end
   end
 
