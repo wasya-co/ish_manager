@@ -26,7 +26,7 @@ class IshManager::VideosController < IshManager::ApplicationController
       @videos = @videos.where({ :name => /#{params[:q]}/i })
     end
 
-    @videos = @videos.page( params[:videos_page] )
+    @videos = @videos.page( params[:videos_page] ).per( 10 )
 
     respond_to do |format|
       format.html do

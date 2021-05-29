@@ -10,7 +10,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })
       @galleries.selector.delete('is_done')
     end
-    @galleries = @galleries.page( params[:galleries_page] ).per( 20 )
+    @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
 
     render params[:render_type]
   end
