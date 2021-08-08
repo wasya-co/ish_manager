@@ -42,13 +42,35 @@ namespace :ish_manager do
           # stock.stock_actions.where( :is_active => true ).each do |action|
           #   # @TODO: actions
           # end
-          
+
         end
       end
       sleep 60
     end
   end
 =end
+
+  desc 'watch the stocks, and trigger actions - not alphavantage, tda now. 2021-08-08'
+  task :watch_stocks => :environment do
+    while true
+      stocks = Ish::StockWatch.where( :notification_type => :EMAIL )
+      stocks.each do |stock|
+        begin
+          Timeout::timeout( 10 ) do
+            out = Ish::Ameritrade::Api.get_quote({ symbol: stock.ticker })
+            r = out[:lastPrice]
+            if  stock.direction == :ABOVE &&  r >= stock.price ||
+                stock.direction == :BELOW && r <= stock.price
+              IshManager::ApplicationMailer.stock_alert( stock ).deliver
+           end
+          end
+        rescue Exception => e
+          puts! e, 'e in :watch_stocks'
+        end
+      end
+      sleep 60
+    end
+  end
 
   desc 'watch condors'
   task watch_condors: :environment do
