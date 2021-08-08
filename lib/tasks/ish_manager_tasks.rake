@@ -50,8 +50,8 @@ namespace :ish_manager do
   end
 =end
 
-  desc 'watch the stocks, and trigger actions - not alphavantage, tda now. 2021-08-08'
-  task :watch_stocks => :environment do
+  desc 'watch the stocks 2, and trigger actions - not alphavantage, tda now. 2021-08-08'
+  task watch_stocks: :environment do
     while true
       stocks = Ish::StockWatch.where( :notification_type => :EMAIL )
       stocks.each do |stock|
