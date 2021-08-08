@@ -82,6 +82,7 @@ namespace :ish_manager do
     end
   end
 
+=begin
   desc 'yahoo-watch the stocks'
   task :stockwatcher => :environment do
     watcher = YahooStockwatcher.new
@@ -91,5 +92,6 @@ namespace :ish_manager do
       sleep 60 # seconds
     end
   end
+=end
 
 end

@@ -2,12 +2,16 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'bundler'
-
+gem 'httparty'
 gem 'uglifier'
 gem 'devise'
 gem 'aws-sdk'
 gem 'mongoid-paperclip'
-gem 'ish_models'
+
+gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
+# gem 'ish_models', path: './ish_models'
+# gem 'ish_models'
+
 gem 'rack-mini-profiler'
 gem 'ffi', '1.11.3'
 
@@ -28,7 +32,7 @@ group :test, :development do
   # gem 'rspec'
   # gem 'rspec-rails'
   # gem 'factory_girl_rails'
-  
+
   ## for travis
   gem 'rails-controller-testing'
 
