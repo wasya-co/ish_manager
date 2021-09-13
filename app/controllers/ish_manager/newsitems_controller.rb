@@ -3,9 +3,12 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def new
     @newsitem = Newsitem.new
-    @sites    = Site.list
-    @cities   = City.list
-    @tags     = Tag.list
+
+    @cities_list   = City.list
+    @maps_list     = ::Gameui::Map.list
+    @sites_list    = Site.list
+    @tags_list     = Tag.list
+
     if params[:city_id]
       @city = City.find params[:city_id]
       @newsitem.city = @city
@@ -30,6 +33,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @resource ||= Tag.find params[:tag_id]                if params[:tag_id]
     @resource ||= Tag.find params[:newsitem][:tag_id]     if !params[:newsitem][:tag_id].blank?
     @resource ||= IshModels::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
+    @resource ||= ::Gameui::Map.find params[:newsitem][:map_id] if !params[:newsitem][:map_id].blank?
     @resource.newsitems << @newsitem
 
     authorize! :create_newsitem, @resource
@@ -52,7 +56,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     else
       root_path
     end
-    
+
     flag = @newsitem.save && @resource.save
     if flag
       @resource.touch
@@ -66,7 +70,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       render :action => :new
     end
   end
-  
+
   def destroy
     authorize! :destroy, Newsitem
     if params[:city_id]
@@ -121,7 +125,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     end
     authorize! :update, @newsitem
     flag = @newsitem.update_attributes params[:newsitem].permit!
-    
+
     if flag
       flash[:notice] = 'Success'
     else
@@ -130,7 +134,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
     redirect_to url
   end
-  
+
   def edit
     out = Gallery.unscoped.where( :is_trash => false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
     @galleries_list = [['', nil]] + out.map { |item| [ "#{item.created_at.strftime('%Y%m%d')} #{item.name}", item.id ] }
@@ -144,7 +148,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem = @city.newsitems.find( params[:id] )
     end
     authorize! :edit, @newsitem
-    
+
   end
 
   def index

@@ -2,17 +2,21 @@
 = form_for newsitem, :html => { :multipart => true } do |f|
   .row
     .col-sm-6{ style: 'border-right: 1px solid red;' }
+      %br
+      = f.label :map
+      = f.select :map_id, options_for_select( @maps_list, selected:( @map ? @map.id : params[:map_id] || nil ) )
+      %br
       = f.label :site
-      = f.select :site_id, options_for_select( @sites_list, :selected => ( @site ? @site.id : nil ) )
+      = f.select :site_id, options_for_select( @sites_list, :selected => ( @site ? @site.id : params[:site_id] || nil ) )
       %br
       = f.label :city
-      = f.select :city_id, options_for_select( @cities_list, :selected => ( @city ? @city.id : nil ) )
+      = f.select :city_id, options_for_select( @cities_list, :selected => ( @city ? @city.id : params[:city_id] || nil ) )
       %br
       = f.label :tag
-      = f.select :tag_id, options_for_select( @tags_list, (@tag||Tag.new).id )
+      = f.select :tag_id, options_for_select( @tags_list, selected:( @tag ? @tag.id : params[:tag_id] || nil ) )
       %br
       = f.label :user_profile
-      = f.select :user_profile_id, options_for_select( @user_profiles_list )
+      = f.select :user_profile_id, options_for_select( @user_profiles_list, selected: ( @user_profile ? @user_profile.id : params[:user_profile_id] || nil ) )
 
     .col-sm-6
       = f.label :name
@@ -33,7 +37,7 @@
       = f.label :report
       = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id )
   .a
-    
+
   .a
     = f.submit :submit
-  
+

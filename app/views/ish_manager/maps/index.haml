@@ -3,17 +3,4 @@
   %h1 Maps #{link_to '[+]', new_map_path}
   - @maps.each do |map|
     .item
-      .col
-        = render 'map_flat_row', map: map
-        %p= map.description
-        = image_tag map.img_path, width: 400
-      .col
-        .row
-          .a Markers (#{map.markers.length})
-          .a #{button_to '+', new_map_marker_path(map), method: :get}
-        %ul.markers
-          - map.markers.each do |marker|
-            %li
-              = marker.slug
-              = link_to '[~]', edit_marker_path(marker)
-
+      = render 'map_meta_row', map: map

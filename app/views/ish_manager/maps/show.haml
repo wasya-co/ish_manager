@@ -1,13 +1,16 @@
 
 .maps-show
-  = render 'map_flat_row', map: @map
-  .descr= @map.description
+  = render 'map_meta_row', map: @map
+  %p.addToggle Description [<>]
+  .descr= raw @map.description
 
+  %p.addToggle The Map [<>]
   .the-map
     = image_tag @map.img_path, width: @map.w
     - @map.markers.each do |marker|
       .marker{ style: "position: absolute; left: #{marker.x}px; top: #{marker.y}px;" }= image_tag marker.img_path
 
+  %p.addToggle Markers (#{@map.markers.count}) [<>]
   .markers-list
     - @map.markers.each do |marker|
       .item
@@ -18,3 +21,9 @@
           .a= link_to '[api]', api_marker_path(marker)
         %ul.bullets
           %li <b>item_type:</b> #{marker.item_type}
+
+  %p.addToggle Newsitems (#{@map.newsitems.count}) [<>]
+  .newsitems-list
+    - @map.newsitems.each do |newsitem|
+      .item
+        = newsitem.inspect

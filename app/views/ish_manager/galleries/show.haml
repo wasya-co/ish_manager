@@ -37,4 +37,6 @@
       %a{id: "large_#{photo.id}" }
       .float-left= button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
       = link_to "large", photo.photo.url(:large)
+      &nbsp;|&nbsp;
+      = link_to "original", photo.photo.url(:original)
       .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }

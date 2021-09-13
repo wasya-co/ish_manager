@@ -4,5 +4,6 @@
   .a= button_to '~', edit_map_path(map), method: :get
   .a <b>#{map.w}x#{map.h}_#{map.slug}</b>
   .a= button_to '+marker', new_map_marker_path(map), method: :get
+  .a= button_to '+newsitem', new_map_newsitem_path(map), method: :get
   .a= link_to '[api]', api_map_path(map)
   .a= button_to 'x', map_path(map), method: :delete, data: { confirm: 'Are you sure?' }

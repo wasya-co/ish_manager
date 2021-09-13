@@ -12,7 +12,7 @@
         - @map.errors.full_messages.each do |message|
           %li= message
 
-  
+
   .row
     .col-md-3
       .field
@@ -32,7 +32,8 @@
         = f.number_field :h
   .field
     = f.label :description
-    = f.text_field :description
+    = f.text_area :description, class: 'tinymce'
+
   .field
     = f.label :img_path
     = f.text_field :img_path

@@ -16,7 +16,7 @@ IshManager::Engine.routes.draw do
   end
 
   resources :covered_calls
-  
+
   resources :email_templates
   resources :events
 
@@ -27,12 +27,12 @@ IshManager::Engine.routes.draw do
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
   get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   get 'galleries/shared', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_THUMBS }
-  get 'galleries/shared_titles', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_TITLES 
+  get 'galleries/shared_titles', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_TITLES
     }, as: :galleries_shared_titles
   resources :galleries do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
   end
-  
+
   resources :invoices do
     # resources :payments
   end
@@ -45,6 +45,7 @@ IshManager::Engine.routes.draw do
   scope 'gameui' do
     resources 'maps' do
       resources 'markers'
+      resources 'newsitems'
     end
     resources 'markers' # redundant
   end
@@ -59,7 +60,7 @@ IshManager::Engine.routes.draw do
   resources :photos
   resources :payments
   ## profiles, see user_profiles
-  
+
   resources :reports
 
   resources :sites do
@@ -75,7 +76,7 @@ IshManager::Engine.routes.draw do
     resources :videos
     resources :tags
   end
-  
+
   # resources :stock_actions
   # resources :stock_options
   resources :stock_watches
@@ -98,5 +99,5 @@ IshManager::Engine.routes.draw do
 
   resources :venues
   resources :videos
-  
+
 end

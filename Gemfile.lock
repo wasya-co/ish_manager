@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.242)
+    ish_manager (0.1.8.243)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1277,7 +1277,7 @@ GEM
     mimemagic (0.3.10)
       nokogiri (~> 1)
       rake
-    mini_mime (1.1.0)
+    mini_mime (1.1.1)
     minitest (5.10.2)
     mongo (2.15.0)
       bson (>= 4.8.2, < 5.0.0)
