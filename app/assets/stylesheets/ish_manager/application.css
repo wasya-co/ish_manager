@@ -11,6 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require ish_manager/bootstrap
+ *= require ish_manager/reset
  *= require_self
  *= require ish_manager/tags
  *= require ish_manager/maps
