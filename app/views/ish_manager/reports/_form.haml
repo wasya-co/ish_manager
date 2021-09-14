@@ -29,12 +29,9 @@
 
   .row
     .col-md-4
-      %label{} City
-      = select :report, :city_id, @cities_list, :class=>"btn"
-    .col-sm-4
-      = f.label :premium_tier
-      = f.number_field :premium_tier
-    .col-md-4
+      .field
+        %label City
+        = select :report, :city_id, @cities_list, :class=>"btn"
       .field
         = f.label :Coordinates
         .panel.panel-default
@@ -48,6 +45,15 @@
               .form-group
                 %label{} Y-coordinate
                 = f.text_field :y, :placeholder => "y", :type => "text", :class=>"form-control"
+    .col-sm-4
+      .field
+        = f.label :premium_tier
+        = f.number_field :premium_tier
+      .field
+        = f.label :user_profile
+        = select :report, :user_profile_id, @user_profiles_list
+    .col-md-4
+      unused
 
   .row
     .col-md-6

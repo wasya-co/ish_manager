@@ -12,11 +12,13 @@
     %script{ :src => "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" }
     = stylesheet_link_tag "//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"
     = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :media => 'all'
-    = stylesheet_link_tag "ish_manager/application", media: "all"
+
     = stylesheet_link_tag "ish_manager/materialize", media: "all"
+    = stylesheet_link_tag "ish_manager/application", media: "all"
     = stylesheet_link_tag "//fonts.googleapis.com/icon?family=Material+Icons"
-    = javascript_include_tag "ish_manager/application"
+
     = javascript_include_tag "ish_manager/materialize"
+    = javascript_include_tag "ish_manager/application"
     = csrf_meta_tags
   %body#application
     .bg-white

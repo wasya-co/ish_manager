@@ -1,0 +1,8 @@
+
+.user-profiles--show
+  %ul
+    %li
+      User profile: #{@user_profile.inspect}
+    %li
+      Purchased Items:
+      = @user_profile.premium_purchases.inspect
