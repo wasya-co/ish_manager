@@ -1,4 +1,8 @@
 
+.panel-body img.thumb {
+  display: inline;
+}
+
 .large-photos .item {
   border: 1px solid red;
   display: block;
