@@ -40,15 +40,14 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   end
 
   def create
-    @profile = IshModels::UserProfile.new params[:profile].permit!
-    authorize! :create, @profile
-    @profile.user = User.find_or_create_by( :email => params[:profile][:email] )
-    @profile.user.password ||= (0...12).map { rand(100) }.join
-    if !@profile.user.save
-      puts! @profile.user.errors.messages
-      raise 'cannot save profile.user'
+    @user = User.find_or_create_by( :email => params[:profile][:email] )
+    @user.password ||= (0...12).map { rand(100) }.join
+    @user.profile = IshModels::UserProfile.new params[:profile].permit!
+    authorize! :create, @user.profile
+    if !@user.save
+      raise "cannot save profile.user: #{@profile.user.errors.full_messages} profile errors: #{@profile.errors.full_messages}"
     end
-    if @profile.save
+    if @user.profile.save
       flash[:notice] = "Created profile"
     else
       flash[:alert] = "Cannot create profile: #{@profile.errors.messages}"
