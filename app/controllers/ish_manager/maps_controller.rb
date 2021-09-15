@@ -23,6 +23,9 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def create
     @map = ::Gameui::Map.new(map_params)
+    if map_params[:parent_slug].present?
+      @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
+    end
     authorize! :create, @map
 
     respond_to do |format|
@@ -37,6 +40,11 @@ class IshManager::MapsController < IshManager::ApplicationController
   def update
     authorize! :update, @map
     respond_to do |format|
+      if map_params[:parent_slug].present?
+        @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
+      else
+        @map.parent = nil
+      end
       if @map.update(map_params)
         format.html { redirect_to map_path(@map), notice: 'Map was successfully updated.' }
       else

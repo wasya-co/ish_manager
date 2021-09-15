@@ -12,24 +12,28 @@
         - @map.errors.full_messages.each do |message|
           %li= message
 
-
   .row
+    .col-md-3
+      .field
+        = f.label :name
+        = f.text_field :name
     .col-md-3
       .field
         = f.label :slug
         = f.text_field :slug
-    .col-md-3
       .field
         = f.label :parent_slug
         = f.text_field :parent_slug
-    .col-md-3
+
+
+    .col-md-2
       .field
         = f.label :w
         = f.number_field :w
-    .col-md-3
       .field
         = f.label :h
         = f.number_field :h
+
   .field
     = f.label :description
     = f.text_area :description, class: 'tinymce'
