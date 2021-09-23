@@ -4,7 +4,7 @@ describe IshManager::NewsitemsController, :type => :controller do
   render_views
   routes { IshManager::Engine.routes }
   include Devise::Test::ControllerHelpers
-  
+
 
   before :each do
     @site = FactoryGirl.create :site
@@ -12,12 +12,9 @@ describe IshManager::NewsitemsController, :type => :controller do
     @site.newsitems << @newsitem
     @site.updated_at = '2020-01-01'
     @site.save
-
-    User.all.destroy
-    @user = FactoryGirl.create :admin
-    sign_in @user, :scope => :user
+    setup_users
   end
-  
+
   describe 'destroy' do
     it 'touches sites on destroy' do
       @site.newsitems.length.should eql 1

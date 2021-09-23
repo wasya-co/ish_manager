@@ -23,6 +23,12 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def create
     @map = ::Gameui::Map.new(map_params)
+
+    if params[:image_asset]
+      image = ::Ish::ImageAsset.new :image => params[:image_asset]
+      @map.image = image
+    end
+
     if map_params[:parent_slug].present?
       @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
     end
@@ -39,6 +45,12 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def update
     authorize! :update, @map
+
+    if params[:image_asset]
+      image = ::Ish::ImageAsset.new :image => params[:image_asset]
+      @map.image = image
+    end
+
     respond_to do |format|
       if map_params[:parent_slug].present?
         @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
@@ -59,6 +71,10 @@ class IshManager::MapsController < IshManager::ApplicationController
     respond_to do |format|
       format.html { redirect_to maps_path, notice: 'Map was successfully destroyed.' }
     end
+  end
+
+  def map_editor
+    authorize! :update, @map
   end
 
   private

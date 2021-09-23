@@ -1,6 +1,14 @@
 
 FactoryGirl.define do
 
+  factory :admin, :class => IshModels::User do
+    email 'piousbox@gmail.com'
+    password '1234567890'
+    after :build do |u|
+      p = IshModels::UserProfile.create email: 'piousbox@gmail.com', name: 'sudoer', user: u
+    end
+  end
+
   factory :city do
     name 'City'
     cityname 'city'
@@ -11,6 +19,18 @@ FactoryGirl.define do
     is_trash false
     after :build do |g|
       g.site ||= Site.new( :domain => 'xxDomainxx', :lang => 'xxLangxx' )
+    end
+  end
+
+  factory :image_asset, class: Ish::ImageAsset do
+    image { File.new(File.join(Rails.root, 'data', 'image.jpg')) }
+  end
+
+  factory :map, class: Gameui::Map do
+    name 'name'
+    slug 'slug'
+    after :build do |map|
+      map.image = FactoryGirl.create :image_asset
     end
   end
 
@@ -36,14 +56,6 @@ FactoryGirl.define do
     password '12345678'
   end
 
-  factory :admin, :class => IshModels::User do
-    email 'piousbox@gmail.com'
-    password '1234567890'
-    after :build do |u|
-      p = IshModels::UserProfile.create email: 'piousbox@gmail.com', name: 'sudoer', user: u
-    end
-  end
-
   factory :user_profile, :class => IshModels::UserProfile do
     email 'user@email.com'
     name 'some-name'
@@ -56,6 +68,6 @@ FactoryGirl.define do
   factory :video do
     youtube_id 'some-youtube-id'
   end
-  
+
 
 end

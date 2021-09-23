@@ -4,10 +4,14 @@
   %p.addToggle Description [<>]
   .descr= raw @map.description
 
-  %p.addToggle The Map [<>]
-  .the-map
+  %p.addToggle
+    The Map (#{@map.w}x#{@map.h})
     = link_to 'Map Editor', location_map_editor_path(@map.id)
-    = image_tag @map.img_path, width: @map.w
+    [<>]
+  .the-map
+
+    = image_tag @map.image.image.url(:original), width: @map.w
+    -# = @map.image.inspect
     - @map.markers.each do |marker|
       .marker{ style: "position: absolute; left: #{marker.x}px; top: #{marker.y}px;" }= image_tag marker.img_path
 

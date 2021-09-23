@@ -85,8 +85,11 @@ end
 
 def setup_users
   User.all.destroy
+  IshModels::UserProfile.all.destroy
   @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
   @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
+  @profile.save && @profile.reload
+  @user.save && @user.reload
   @user_1  = FactoryGirl.create :user, :email => 'user-1@gmail.com'
   @user_2  = FactoryGirl.create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user

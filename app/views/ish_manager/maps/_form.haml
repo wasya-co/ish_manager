@@ -27,27 +27,19 @@
       .field
         = f.label :parent_slug
         = f.text_field :parent_slug
-
-
     .col-md-2
+      &nbsp;
+    .col-md-4
       .field
-        = f.label :w
-        = f.number_field :w
+        = f.label :ordering_type
+        = select_tag :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
       .field
-        = f.label :h
-        = f.number_field :h
+        = file_field_tag :image_asset
+        = image_tag @map.image_asset.image.url(:thumb) rescue nil
 
   .field
     = f.label :description
     = f.text_area :description, class: 'tinymce'
 
-  .field
-    = f.label :img_path
-    = f.text_field :img_path
-  .row
-    .col-md-4
-      .field
-        = f.label :ordering_type
-        = select_tag :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
   .actions
     = f.submit 'Save'

@@ -8,7 +8,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
     @city = City.new
     @photo = Photo.new
   end
-  
+
   def show
     authorize! :show, @city
     @videos = @city.videos.page( params[:videos_page] ).per( Video::PER_PAGE )
@@ -20,7 +20,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
       @venues = @venues.where({ :name => /#{params[:q]}/i })
     end
   end
-  
+
   def new
     @city = City.new
     authorize! :new, City
@@ -44,7 +44,7 @@ class IshManager::CitiesController < IshManager::ApplicationController
   def edit
     authorize! :edit, @city
   end
-  
+
   def update
     @city = City.find( params[:id] )
     authorize! :update, @city
