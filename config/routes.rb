@@ -43,6 +43,7 @@ IshManager::Engine.routes.draw do
   resources :leads
 
   scope 'gameui' do
+    get 'maps/:id/map-editor', to: 'maps#map_editor', as: :location_map_editor
     resources 'maps' do
       resources 'markers'
       resources 'newsitems'

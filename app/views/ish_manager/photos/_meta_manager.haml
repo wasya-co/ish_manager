@@ -1,0 +1,7 @@
+
+.--meta-manager
+  = button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+  .right-hand
+    = link_to "go to", "#large_#{photo.id}", class: 'goto'
+    = link_to "large", photo.photo.url(:large)
+    = link_to "original", photo.photo.url(:original)

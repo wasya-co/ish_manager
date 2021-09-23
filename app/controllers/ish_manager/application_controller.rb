@@ -25,9 +25,11 @@ module IshManager
     end
 
     def set_lists
-      @sites_list = Site.all.list
       @cities_list = City.list
+      @locations_list = ::Gameui::Map.list
+      @sites_list = Site.all.list
       @venues_list = Venue.all.list
+
       @reports_list = Report.all.list
       @galleries_list = Gallery.all.list
       @videos_list = Video.all.list

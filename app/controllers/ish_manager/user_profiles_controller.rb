@@ -21,6 +21,7 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   def update
     @profile = IshModels::UserProfile.find params[:id]
     authorize! :update, @profile
+
     flag = @profile.update_attributes params[:profile].permit!
     if flag
       flash[:notice] = "Updated profile #{@profile.email}"

@@ -2,9 +2,9 @@
 -# ish_manager / maps / _form
 -#
 
-- url = params[:action] == 'new' ? maps_path : map_path(@map)
+- url = params[:action] == 'new' ? maps_path : map_path(@map.id)
 
-= form_for @map, url: url do |f|
+= form_for @map, :html => { :multipart => true }, url: url do |f|
   - if @map.errors.any?
     #error_explanation
       %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"

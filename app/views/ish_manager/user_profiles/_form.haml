@@ -5,15 +5,11 @@
   .input-field
     %label name
     = f.text_field :name
-    
-  .input-field
-    %label username
-    = f.text_field :username
-    
+
   .input-field
     %label email
     = f.text_field :email
-    
+
   .input-field
     = f.select :role_name, options_for_select( [[nil, nil]] + IshModels::UserProfile::ROLES.map { |r| [ r, r ] }, :selected => profile.role_name )
     %label role name
@@ -21,14 +17,18 @@
   .input-field
     = f.select :current_city, options_for_select( @cities_list, :selected => profile.current_city_id )
     %label City
-    
+
   .input-field
     = f.label :fb_access_token
     = f.text_field :fb_access_token
   .input-field
     = f.label :fb_long_access_token
     = f.text_field :fb_long_access_token
-  
+
+  .input-field
+    = f.label :bookmarked_location_ids
+    = f.select :bookmarked_location_ids, @locations_list, {}, { multiple: true }
+
   = f.submit 'Save', :class => %w(button)
-  
-    
+
+

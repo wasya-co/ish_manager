@@ -1,3 +1,6 @@
+-#
+-# ish_manager / galleries / show.haml
+-#
 
 = render 'title', :gallery => @gallery
 = render 'ish_manager/photos/multinew', :gallery => @gallery
@@ -15,28 +18,24 @@
 .row
   %ul
     - @photos.each do |photo|
-      %li.col-xs-1= image_tag photo.photo.url( :mini ), :alt => ''
+      %li.col-xs-1
+        = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
+
 .spacer{ :style => 'height: 500px' }
 
 -# thumb
-.row
-  .a
-    - @photos.each do |photo|
-      .col-xs-4
-        .item{ :style => "border: 1px solid red;" }
-          .float-left= button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-          = link_to "go to", "#large_#{photo.id}"
-          %br
-          = image_tag photo.photo.url( :thumb ), :alt => ''
+.row.row-thumbs
+  - @photos.each do |photo|
+    .col-xs-3
+      .item
+        = render 'ish_manager/photos/meta_manager', photo: photo
+        = image_tag photo.photo.url( :thumb ), :alt => ''
 .spacer{ :style => 'height: 100px' }
 
 -# large
-.center.large-photos
+.row.row-large
   - @photos.each do |photo|
     .item
       %a{id: "large_#{photo.id}" }
-      .float-left= button_to '[x]', photo_path( :id => photo.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-      = link_to "large", photo.photo.url(:large)
-      &nbsp;|&nbsp;
-      = link_to "original", photo.photo.url(:original)
+      = render 'ish_manager/photos/meta_manager', photo: photo
       .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }

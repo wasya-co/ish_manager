@@ -1,5 +1,6 @@
-
--# = render 'ish_manager/sites/header', :site => @site if @site
+-#
+-# ish_manager / galleries / _index.haml
+-#
 
 = render 'ish_manager/galleries/menu'
 
@@ -23,8 +24,9 @@
           - if g.photos.length == 0
             = image_missing
           - else
-            - g.photos.limit( n_thumbs ).each do |photo|
-              = link_to image_tag(photo.photo.url(:thumb), :alt => g.name, :class => :thumb ), gallery_path(g.galleryname)
+            .thumbnails
+              - g.photos.limit( n_thumbs ).each do |photo|
+                = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.galleryname)
 
     - if @galleries.respond_to? :total_pages
       = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'

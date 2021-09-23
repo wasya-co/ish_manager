@@ -28,6 +28,14 @@
           - profile.newsitems.each do |n|
             = render 'ish_manager/newsitems/item', n: n, profile_id: profile.id
           <hr />
+
+          %h5 Bookmarked Locations
+          %ul
+            - profile.bookmarked_locations.each do |n|
+              %li
+                = n.id
+                = n.inspect
+
       .row
         Address:
         = profile.addresses[0].inspect

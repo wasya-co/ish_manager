@@ -72,6 +72,7 @@
           %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
       = file_field_tag :photo, :style => "display:none", :id=>"photo"
       .div.center
+        -# @TODO: wtf?
         %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}
 
 
