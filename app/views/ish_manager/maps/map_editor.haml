@@ -1,2 +1,28 @@
 
-%h1 Map Editor
+.maps-map-editor
+  %h1 Map Editor
+
+  .map-editor
+    = image_tag @map.image.image.url(:original)
+    - @map.markers.each do |m|
+      .marker{ data: { 'slug': m.slug, 'center-offset-x': m.centerOffsetX, 'center-offset-y': m.centerOffsetY }, style: "top: #{m.y-m.centerOffsetY}px; left: #{m.x-m.centerOffsetX}px;" }
+        = image_tag m.image.image.url(:original)
+        = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{m.centerOffsetY-10}px; left: #{m.centerOffsetX-10}px;" )
+
+  .markers-list
+    %h1
+      Markers (#{@map.markers.length})
+      = link_to '[+]', new_marker_path({ map_id: @map.id })
+    - @map.markers.each do |m|
+      = form_for m, { html: { class: "item #{m.slug}" }, url: marker_path(m.id) } do |f|
+        = m.slug
+        = link_to '[~]', edit_marker_path(m.id)
+        .field
+          = f.label :x
+          = f.text_field :x
+        .field
+          = f.label :y
+          = f.text_field :y
+        .field
+          = f.submit 'Save'
+

@@ -1,15 +1,17 @@
 
 class IshManager::MapsController < IshManager::ApplicationController
 
-  before_action :set_map, only: [:show, :edit, :update, :destroy]
+  before_action :set_map, only: [:destroy, :edit, :map_editor, :show, :update, ]
 
   def index
     authorize! :index, ::Gameui::Map
-    @maps = ::Gameui::Map.all
+    @maps = ::Gameui::Map.where( parent_slug: "" )
+    @all_maps = Gameui::Map.all
   end
 
   def show
     authorize! :show, @map
+    @maps = Gameui::Map.where( parent_slug: @map.slug )
   end
 
   def new
@@ -24,9 +26,10 @@ class IshManager::MapsController < IshManager::ApplicationController
   def create
     @map = ::Gameui::Map.new(map_params)
 
-    if params[:image_asset]
-      image = ::Ish::ImageAsset.new :image => params[:image_asset]
+    if params[:image]
+      image = ::Ish::ImageAsset.new :image => params[:image]
       @map.image = image
+      image.save
     end
 
     if map_params[:parent_slug].present?
@@ -46,8 +49,8 @@ class IshManager::MapsController < IshManager::ApplicationController
   def update
     authorize! :update, @map
 
-    if params[:image_asset]
-      image = ::Ish::ImageAsset.new :image => params[:image_asset]
+    if params[:image]
+      image = ::Ish::ImageAsset.new :image => params[:image]
       @map.image = image
     end
 
@@ -80,7 +83,8 @@ class IshManager::MapsController < IshManager::ApplicationController
   private
 
     def set_map
-      @map = ::Gameui::Map.find(params[:id])
+      @map = ::Gameui::Map.where(id: params[:id]).first
+      @map ||= Gameui::Map.find_by(slug: params[:id])
     end
 
     def map_params

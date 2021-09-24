@@ -1,3 +1,10 @@
+/**
+ * utils first
+ */
+.red-cross {
+  position: absolute;
+}
+
 
 .maps-index {
   h1 {
@@ -22,7 +29,7 @@
       align-content: flex-start;
 
       height: 3em;
-      line-height: 3em; 
+      line-height: 3em;
 
       width: 100%;
       margin: 0 0 1em 0;
@@ -43,17 +50,41 @@
       border: 1px solid yellow;
     }
   }
+  .markers-list {
+    .item {
+      border: 1px solid #d59d05; /* brown*/
+      padding: .5em;
+      margin: 1em 0 0 0;
+    }
+  }
 }
 
 .markers--form {
-  /* width: 300px;
-  margin: auto; */
+  .image-thumb {
+    border: 1px solid yellow;
+    position: relative;
+    display: inline-block;
+
+
+  }
 }
 
-.markers-list {
-  .item {
-    border: 1px solid #d59d05; /* brown*/
-    padding: .5em;
-    margin: 1em 0 0 0;
+.maps-map-editor {
+  .map-editor {
+    border: 1px solid red;
+    position: relative;
+
+    .marker {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      border: 1px solid yellow;
+    }
+  }
+  .markers-list {
+    .item {
+      border: 1px solid green;
+    }
   }
 }

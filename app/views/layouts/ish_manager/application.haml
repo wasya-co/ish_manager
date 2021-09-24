@@ -21,7 +21,7 @@
     = javascript_include_tag "ish_manager/materialize"
 
     = csrf_meta_tags
-  %body#application
+  %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }
     .bg-white
       - role = current_user ? current_user.profile.role_name : ''
       = render :partial => "ish_manager/application/main_header_#{role}"

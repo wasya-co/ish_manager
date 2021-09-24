@@ -1,6 +1,14 @@
+-#
+-# ish_manager / maps / index.haml
+-#
 
 .maps-index
-  %h1 Maps #{link_to '[+]', new_map_path}
+  %h1 Maps (#{@maps.length}) #{link_to '[+]', new_map_path}
   - @maps.each do |map|
     .item
       = render 'map_meta_row', map: map
+
+  %h1 All Maps (#{@all_maps.length})
+  %ul
+    - @all_maps.each do |m|
+      %li= link_to m.slug, edit_map_path(m.id)

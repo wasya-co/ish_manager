@@ -16,7 +16,8 @@
 //= require ish_manager/jquery.ui.widget
 //= require ish_manager/jquery.fileupload
 //= require ish_manager/jquery-ui.min
-//
+//= require ish_manager/shared
+//= require ish_manager/maps
 
 $(function () {
   $('#fileupload').fileupload({
@@ -29,7 +30,7 @@ $(function () {
   });
 });
 
-$(document).ready(function () {
+$(function () {
 
   $('*[data-confirm]').click(function(){
     return confirm($(this).attr('data-confirm'));
@@ -43,7 +44,7 @@ $(document).ready(function () {
     });
   }
 
-  if ($('body#application').length > 0) {
+  if ($('body').length > 0) {
       $('select').material_select()
   }
 

@@ -25,6 +25,15 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :create_marker, @map
     @map_id = @map.id
 
+    if params[:image]
+      @marker.image = ::Ish::ImageAsset.new :image => params[:image]
+      @marker.image.save
+    end
+    if params[:title_image]
+      @marker.title_image = ::Ish::ImageAsset.new :image => params[:title_image]
+      @marker.title_image.save
+    end
+
     respond_to do |format|
       if @marker.save
         @marker.map.touch
@@ -37,6 +46,16 @@ class IshManager::MarkersController < IshManager::ApplicationController
 
   def update
     authorize! :update_marker, @map
+
+    if params[:image]
+      @marker.image = ::Ish::ImageAsset.new :image => params[:image]
+      @marker.image.save
+    end
+    if params[:title_image]
+      @marker.title_image = ::Ish::ImageAsset.new :image => params[:title_image]
+      @marker.title_image.save
+    end
+
     respond_to do |format|
       if @marker.update(marker_params)
         @marker.map.touch

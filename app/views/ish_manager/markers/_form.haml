@@ -1,6 +1,13 @@
-- url = params[:action] == 'new' ? markers_path : marker_path(@marker)
+
+-#
+-# ish_manager / markers / _form
+-#
+
+-# @TODO: can I not have this url at all?
+- url = %w|new create|.include?(params[:action]) ? markers_path : marker_path(@marker.id)
 .markers--form
-  = form_for @marker, url: url do |f|
+  = form_for @marker, :html => { :multipart => true }, url: url do |f|
+    -# @TODO: yeah move the map id into this hidden field.
     -# = f.hidden_field :map_id, value: (params['map_id']||@map_id)
 
     - if @marker.errors.any?
@@ -25,26 +32,31 @@
     .row
       .col-md-3
         .field
-          = f.label :w
-          = f.number_field :w
+          = f.label :image
+          = file_field_tag :image
+          .image-thumb
+            = image_tag(@marker.image.image.url(:thumb)) rescue nil
+            = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{@marker.centerOffsetY-10}px; left: #{@marker.centerOffsetX-10}px;" )
       .col-md-3
         .field
-          = f.label :h
-          = f.number_field :h
+          = f.label :centerOffsetX
+          = f.text_field :centerOffsetX
+        .field
+          = f.label :centerOffsetY
+          = f.text_field :centerOffsetY
       .col-md-3
         .field
           = f.label :x
-          = f.number_field :x
-      .col-md-3
+          = f.text_field :x
         .field
           = f.label :y
-          = f.number_field :y
-    .field
-      = f.label :img_path
-      = f.text_field :img_path
-    .field
-      = f.label :title_img_path
-      = f.text_field :title_img_path
+          = f.text_field :y
+      .col-md-3
+        .field
+          = f.label :title_image
+          = file_field_tag :title_image
+          = image_tag @marker.title_image.image.url(:thumb) rescue nil
+
     .field
       = f.label :url, "URL (if any)"
       = f.text_field :url
