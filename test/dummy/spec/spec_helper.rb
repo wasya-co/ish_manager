@@ -21,6 +21,7 @@ RSpec.configure do |config|
 
 end
 
+# @TODO: remove this, right?
 class UserStub
   def initialize args = {}
     @profile = OpenStruct.new :role_name => :guy, :friends => []
@@ -55,6 +56,16 @@ end
 def puts! a, b=''
   puts "+++ +++ #{b}"
   puts a.inspect
+end
+
+def do_setup
+  setup_users
+
+  Report.unscoped.destroy_all
+  @report = FactoryGirl.create :report
+
+  ::Gameui::PremiumPurchase.unscoped.destroy_all
+  @purchase = FactoryGirl.create :purchase, item: @report, user_profile: @profile
 end
 
 def setup_profiles

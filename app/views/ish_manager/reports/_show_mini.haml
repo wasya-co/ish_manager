@@ -11,5 +11,5 @@
         - if report.city
           In #{link_to report.city.name, city_path( report.city )}
 
-      - if report.subhead.length > 3
+      - if report.subhead.present?
         .subhead= report.subhead

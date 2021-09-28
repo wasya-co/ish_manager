@@ -7,7 +7,6 @@ describe IshManager::ReportsController, :type => :controller do
 
   before :each do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
 
     Report.all.destroy
     @report = FactoryGirl.create :report, :name => 'xx-test-report-xx'

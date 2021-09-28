@@ -40,6 +40,9 @@ FactoryGirl.define do
   factory :photo do
   end
 
+  factory :purchase, class: Gameui::PremiumPurchase do
+  end
+
   factory :report do
     name 'Report Name'
   end
