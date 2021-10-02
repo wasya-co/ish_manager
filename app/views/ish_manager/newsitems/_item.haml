@@ -40,9 +40,9 @@
           - n.gallery.tags do |tag|
             = link_to tag, tag_path(tag.name_seo)
       - unless 0 == n.gallery.photos.length
-        - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|
-          = link_to image_tag( photo.photo.url(:thumb), :alt => photo.name ), photo.photo.url(:small), :rel => "lightbox[#{n.gallery.galleryname}]"
-      -# .subhead= n.descr
+        .thumbnails
+          - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|
+            = link_to image_tag( photo.photo.url(:thumb), :alt => photo.name ), photo.photo.url(:small), :rel => "lightbox[#{n.gallery.galleryname}]"
       .c
 
   - if n.video_id

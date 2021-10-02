@@ -7,14 +7,14 @@
     .col-sm-6
       = f.label :name_seo
       = f.text_field :name_seo
-      
+
   .row
     .col-sm-6
       = f.label :subhead
       = f.text_area :subhead
     .col-sm-6
       = render 'profile_pic', :resource => venue
-      
+
   .row
     .col-sm-12
       = f.label :descr
@@ -34,7 +34,10 @@
     .col-sm-6
       = f.label :tags
       = f.select :tag_ids, options_for_select( @tags_list, :selected => venue.tag_ids ), {}, { :multiple => true }
-      
+    .col-sm-6
+      = f.label :address
+      = f.text_field :address
+
   .row
     .col-sm-12
       = f.submit
