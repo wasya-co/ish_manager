@@ -33,8 +33,7 @@
           %ul
             - profile.bookmarked_locations.each do |n|
               %li
-                = n.id
-                = n.inspect
+                = n.slug
 
       .row
         Address:

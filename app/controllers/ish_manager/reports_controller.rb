@@ -3,11 +3,48 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   before_action :set_lists
 
+  def create
+    @report = Report.new params[:report].permit!
+    @report.user_profile = current_user.profile # @TODO: this should not be hard-coded
+    authorize! :create, @report
+
+    flag = @report.save
+    respond_to do |format|
+      if flag
+
+        ## @TODO: I'm sure there is a better way
+        if params[:report][:photo]
+          photo = Photo.new
+          photo.photo = params[:report][:photo]
+          photo.is_public = @report.is_public
+          photo.is_trash = false
+          photo.report_id = @report.id
+          photo.save
+        end
+
+        format.html do
+          redirect_to report_path(@report), :notice => 'Report was successfully created.'
+        end
+        format.json { render :json => @report, :status => :created, :location => @report } # TODO: remove, I got the api now.
+      else
+        format.html do
+          flash[:alert] = @report.errors.full_messages
+          @tags_list = Tag.all.list
+          @sites_list = Site.all.list
+          @cities_list = City.all.list
+
+          render :action => "new"
+        end
+        format.json { render :json => @report.errors, :status => :unprocessable_entity } # @TODO: remove, right? no api here.
+      end
+    end
+  end
+
   def index
     authorize! :index, Report
-    @reports = Report.unscoped.order_by( :created_at => :desc 
+    @reports = Report.unscoped.order_by( :created_at => :desc
                                        ).where( :is_trash => false, :user_profile => current_user.profile
-                                              ).page( params[:reports_page] 
+                                              ).page( params[:reports_page]
                                                     ).per( Report::PER_PAGE )
     if false === params[:site]
       @reports = @reports.where( :site_id => nil )
@@ -74,76 +111,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
     end
   end
 
-  def create
-    @report = Report.new params[:report].permit!
-    @report.user_profile = current_user.profile
-    authorize! :create, @report
 
-    @site = Site.where( :id => params[:report][:site_id] ).first
-    @site ||= Site.find_by :domain => 'piousbox.com', :lang => :en 
-
-    if @site
-      redirect_path = site_reports_path( @site.id )
-    end
-    if params[:report][:city_id]
-      redirect_path = city_path( params[:report][:city_id] )
-    end
-
-    # @report.user = @current_user || User.where( :username => 'anon' ).first
-    # @report.username = @report.user.username
-    @report[:lang] = @locale
-    @report.name_seo ||= @report.id
-    @report.is_feature = false
-    @report.site = @site
-
-    saved = @report.save
-
-    respond_to do |format|
-      if saved
-
-        if params[:report][:photo]
-          # photo
-          photo = Photo.new 
-          photo.photo = params[:report][:photo]
-          # photo.user = @report.user
-          photo.is_public = @report.is_public
-          photo.is_trash = false
-          photo.report_id = @report.id
-          photo.save
-        end
-        
-        # for homepage
-        # @TODO: move this to the model
-        if @report.is_public
-          n = Newsitem.new
-          n.report = @report
-          n.descr = @report.subhead
-          # n.user = @report.user
-          @site.newsitems << n
-          @site.touch
-          if @site.save
-          else
-            flash[:alert] = (flash[:alert]||'') + 'City could not be saved (newsitem). '
-          end
-        end
-
-        format.html do
-          redirect_to redirect_path, :notice => 'Report was successfully created (but newsitem, no information).' 
-        end
-        format.json { render :json => @report, :status => :created, :location => @report }
-      else
-        format.html do
-          flash[:alert] = @report.errors.messages
-          @tags_list = Tag.all.where( :is_public => true ).list
-          @sites_list = Site.all.list
-          @cities_list = City.all.list
-
-          render :action => "new"
-        end
-        format.json { render :json => @report.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
 
 end
 

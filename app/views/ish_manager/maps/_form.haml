@@ -4,7 +4,7 @@
 
 - url = params[:action] == 'new' ? maps_path : map_path(@map.id)
 
-= form_for @map, :html => { :multipart => true }, url: url do |f|
+= form_for @map, :html => { :multipart => true, class: 'maps--form' }, url: url do |f|
   - if @map.errors.any?
     #error_explanation
       %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"
@@ -13,25 +13,25 @@
           %li= message
 
   .row
-    .col-md-3
+    .col.s3
       .field
         = f.label :name
         = f.text_field :name
       .field
         = f.label :map_slug, "Map slug (if any)"
         = f.text_field :map_slug
-    .col-md-3
+    .col.s3
       .field
         = f.label :slug
         = f.text_field :slug
       .field
         = f.label :parent_slug
         = f.text_field :parent_slug
-    .col-md-2
+    .col.s2
       .field
         = f.label :ordering_type
         = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
-    .col-md-4
+    .col.s4
 
       .field
         = f.label :image
@@ -41,6 +41,14 @@
   .field
     = f.label :description
     = f.text_area :description, class: 'tinymce'
+
+  .row
+    .col.s6
+      = f.label :labels
+      = f.text_area :labels
+    .col.s6
+      = f.label :config
+      = f.text_area :config
 
   .actions
     = f.submit 'Save'

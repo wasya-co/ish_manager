@@ -6,6 +6,7 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   def index
     @user_profiles = IshModels::UserProfile.all.includes( :user )
     authorize! :index, IshModels::UserProfile
+    render layout: 'ish_manager/application_no_materialize'
   end
 
   def show
@@ -23,10 +24,11 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
     authorize! :update, @profile
 
     flag = @profile.update_attributes params[:profile].permit!
+
     if flag
       flash[:notice] = "Updated profile #{@profile.email}"
     else
-      flash[:alert] = "Cannot update profile: #{pp_errors @profile.errors.messages}"
+      flash[:alert] = "Cannot update profile: #{@profile.errors.full_messages}"
     end
     if params[:redirect_to]
       redirect_to params[:redirect_to]

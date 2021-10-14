@@ -18,40 +18,40 @@
             %li= message
 
     .row
-      .col-md-1
+      .col.s1
         = f.label :map
         = f.text_field :map_id, value: @marker.map_id || params[:map_id]
-      .col-md-5
+      .col.s5
         .field
           = f.label :name
           = f.text_field :name
-      .col-md-6
+      .col.s6
         .field
           = f.label :slug
           = f.text_field :slug
     .row
-      .col-md-3
+      .col.s3
         .field
           = f.label :image
           = file_field_tag :image
           .image-thumb
             = image_tag(@marker.image.image.url(:thumb)) rescue nil
             = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{@marker.centerOffsetY-10}px; left: #{@marker.centerOffsetX-10}px;" )
-      .col-md-3
+      .col.s3
         .field
           = f.label :centerOffsetX
           = f.text_field :centerOffsetX
         .field
           = f.label :centerOffsetY
           = f.text_field :centerOffsetY
-      .col-md-3
+      .col.s3
         .field
           = f.label :x
           = f.text_field :x
         .field
           = f.label :y
           = f.text_field :y
-      .col-md-3
+      .col.s3
         .field
           = f.label :title_image
           = file_field_tag :title_image
@@ -61,29 +61,29 @@
       = f.label :url, "URL (if any)"
       = f.text_field :url
     .row
-      .col-md-3 &nbsp;
-      .col-md-6
+      .col.s3 &nbsp;
+      .col.s6
         .field
           = f.label :description
           = f.text_area :description
     .row
-      .col-md-4
+      .col.s4
         .field
           = f.label :item_type
           = f.select :item_type, options_for_select( ::Gameui::Marker::ITEM_TYPES, selected: @marker.item_type )
-      .col-md-4
+      .col.s4
         .field
           = f.label :ordering
           = f.text_field :ordering
-      .col-md-4
+      .col.s4
     .row
-      .col-md-3 &nbsp;
-      .col-md-6
+      .col.s3 &nbsp;
+      .col.s6
         .row
-          .col-md-6
+          .col.s6
             .field
               = f.check_box :is_active
               = f.label :is_active
-          .col-md-6
+          .col.s6
             .actions
               = f.submit 'Save'

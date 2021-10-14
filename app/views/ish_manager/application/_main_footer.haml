@@ -4,7 +4,7 @@
     .row
       %i.fa.fa-compress.collapse-expand#collapseFooter
       .content
-        .col-sm-5
+        .col.s5
           - if defined?( current_user ) && current_user
             %ul
               %li >[ #{current_user.email} ]<
@@ -13,7 +13,7 @@
             Please log in
             = link_to '[+]', main_app.new_user_session_path
 
-        .col-sm-5
+        .col.s5
           %br
           \~__^
           = @version
@@ -23,5 +23,5 @@
           %br
           %br
           %br
-        .col-sm.2
+        .col.s2
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
