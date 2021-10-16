@@ -2,7 +2,7 @@
 .manager-cities--form
   = form_for @city, :html => { :multipart => true } do |f|
     .row
-      .col-sm-6
+      .col.s6
         .field
           %label= t('cities.name')
           = f.text_field :name
@@ -16,10 +16,10 @@
         .field
           %label coords
           .row
-            .col-xs-6
+            .col.s6
               = f.label :x
               = f.text_field :x
-            .col-xs-6
+            .col.s6
               = f.label :y
               = f.text_field :y
         .field
@@ -28,11 +28,11 @@
         .field
           = f.check_box :is_active
           = f.label :is_active
-      .col-sm-6
+      .col.s6
         .field
           = f.label :description
           = f.text_area :description, :class => [ :tinymce ]          
 
-      .col-xs-12
+      .col.s12
         .actions
           = f.submit

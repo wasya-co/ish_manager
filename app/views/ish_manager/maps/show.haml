@@ -32,10 +32,7 @@
           %li <b>item_type:</b> #{marker.item_type}
 
   %p.addToggle Newsitems (#{@map.newsitems.count}) [<>]
-  .newsitems-list
-    - @map.newsitems.each do |newsitem|
-      .item
-        = newsitem.inspect
+  = render 'ish_manager/newsitems/index', newsitems: @map.newsitems
 
   %p.addToggle Maps (#{@maps.count}) [<>]
   .maps-list

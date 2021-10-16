@@ -3,7 +3,7 @@
 -# videos = videos.page params[:videos_page]
 
 .row
-  .col-sm-12
+  .col.s12
     %h5
       Videos (#{videos.count})
       = link_to image_new, new_video_path
@@ -14,7 +14,7 @@
       .panel
         .panel-content
           .row
-            .col-xs-12
+            .col.s12
               .float-left= youtube_image_tag( video )
               .a
                 = link_to video.name, video_path( video )

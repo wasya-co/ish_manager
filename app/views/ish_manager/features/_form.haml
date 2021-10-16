@@ -12,10 +12,10 @@
     - url = site_features_path( @site )
 - if @tag
   - if @feature.persisted?
-    - url = tag_feature_path( @site, @feature )
+    - url = tag_feature_path( @tag, @feature )
   - else
     - url = tag_features_path( @tag )
-  
+
 = form_for @feature, :url => url do |f|
   - if @city
     = hidden_field_tag :city_id, @city.id
@@ -26,7 +26,7 @@
   - if @tag
     = hidden_field_tag :tag_id,  @tag.id  if @tag
     Tag #{@tag.name}
-    
+
   .row
     .large-6.columns
       = f.label :name
@@ -52,10 +52,10 @@
       %br
       = f.label :video
       = select :feature, :video_id, @videos_list
-      
+
   .row
     %hr
-    .large-6.columns 
+    .large-6.columns
       %br
       = f.label :weight
       = f.text_field :weight
@@ -65,6 +65,6 @@
     .large-6.columns
       .field
         = f.label :inner_html
-        = f.text_area :inner_html
+        = f.text_area :inner_html, class: 'large'
       .actions
         = f.submit

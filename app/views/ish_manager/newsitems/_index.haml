@@ -1,38 +1,27 @@
-
-- if defined? site
-  - edit_url     = ->(n) { edit_site_newsitem_path( site, n ) }
-  - delete_url   = ->(n) { site_newsitem_path( site, n ) }
-  - new_newsitem = new_site_newsitem_path( site.id )
-- if defined? city
-  - edit_url     = ->(n) { edit_city_newsitem_path( city, n ) }
-  - delete_url   = ->(n) { city_newsitem_path( city, n ) }
-  - new_newsitem = new_city_newsitem_path( city.id )
-- if defined?( tag ) && tag.class.name == 'Tag'
-  - edit_url     = ->(n) { edit_tag_newsitem_path( tag, n ) }
-  - delete_url   = ->(n) { tag_newsitem_path( tag, n ) }
-  - new_newsitem = new_tag_newsitem_path( tag.id )
+-#
+-# ish_manager / newsitems / _index
+-#
 
 - newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
 
 .manager-newsitems--index
-  .row
-    .col-sm-12
-      %h5 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem }
-      = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
-      - newsitems.each do |n|
-        .panel
-          .panel-body
-            %ul
-              %li
-                .float-left= link_to '[~]', edit_url.call( n )
-                .float-left= button_to '[x]', delete_url.call( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-                Name: #{n.name}
-              %li Desc: #{n.descr}
-              %li Report id: #{n.report_id}
-              %li Gallery id: #{n.gallery_id}
-              %li username: #{n.username}
-              - if n.photo
-                %li Photo id: #{n.photo.id}
-            = render 'ish_manager/newsitems/item', :newsitem => n
-      = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
-  %hr
+  %h5 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem_path }
+  = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
+  - newsitems.each do |n|
+    .card
+      .card-content
+        %ul
+          %li
+            .float-left= link_to '[~]', edit_newsitem_path(n)
+            .float-left= button_to '[x]', newsitem_path( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            Name: #{n.name}
+          %li Desc: #{n.descr}
+          %li Created at: #{n.created_at}
+          %li Report id: #{n.report_id}
+          %li Gallery id: #{n.gallery_id}
+          %li username: #{n.username}
+          - if n.photo
+            %li Photo id: #{n.photo.id}
+        = render 'ish_manager/newsitems/item', :newsitem => n
+  = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
+

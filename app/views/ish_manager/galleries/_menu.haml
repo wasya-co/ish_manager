@@ -1,7 +1,7 @@
 
 .title
   .row
-    .col-sm-12.col-md-12
+    .col.s12.col.m12
       %h1.center #{params[:action]} (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
       = render 'search', path: galleries_path
       %ul.menu-secondary

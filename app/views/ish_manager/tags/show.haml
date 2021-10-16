@@ -5,28 +5,24 @@
   Tag #{@tag.name}
 
 .row
-  .col-sm-12
-    %h5.center
-      Tag
-      = @tag.name
-      = link_to image_edit, edit_tag_path( @tag )
-      .inline= button_to 'X', tag_path( @tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-    -# .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
-    -# = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features]
+  .col.s12
+    = render 'meta', tag: @tag
+    .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
+    = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features], resource: @tag
 
 - proc do # nothing
   .row
-    .col-sm-12
+    .col.s12
       = render 'ish_manager/newsitems/index', :newsitems => @tag.newsitems, :resource => @tag, :tag => @tag
 
 .row
-  .col-sm-12
+  .col.s12
     = render 'ish_manager/reports/index', :reports => @tag.reports, :n_ads => 0
 
 .row
-  .col-sm-12
+  .col.s12
     = render 'ish_manager/galleries/index_title', :galleries => @galleries, :n_thumbs => 4
 
 .row
-  .col-sm-12
+  .col.s12
     = render 'ish_manager/videos/index_title', :videos => @videos

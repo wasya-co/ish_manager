@@ -4,13 +4,14 @@
 - if defined? @site
   - url = site_newsitem_path( @site, @newsitem ) if @site
 
-.row
-  .small-12.columns
-    %h1 Edit this newsitem
-    - if @site
-      For site: #{@site.domain} #{@site.lang} <br />
-    - if @city
-      For city: #{@city.name} <br />
-    id: #{@newsitem.id}
-    
-    = render 'form', :newsitem => @newsitem, :url => url
+.newsitems-edit
+  %h1 Edit Newsitem
+  - if @site
+    For site: #{@site.domain} #{@site.lang} <br />
+  - if @city
+    For city: #{@city.name} <br />
+
+  = render 'form', :newsitem => @newsitem, :url => url
+
+.debug
+  = @newsitem.inspect

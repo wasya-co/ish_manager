@@ -18,7 +18,7 @@
 .row
   %ul
     - @photos.each do |photo|
-      %li.col-xs-1
+      %li.col.s1
         = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
 
 .spacer{ :style => 'height: 500px' }
@@ -26,7 +26,7 @@
 -# thumb
 .row.row-thumbs
   - @photos.each do |photo|
-    .col-xs-3
+    .col.s3
       .item
         = render 'ish_manager/photos/meta_manager', photo: photo
         = image_tag photo.photo.url( :thumb ), :alt => ''

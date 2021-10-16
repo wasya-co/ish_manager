@@ -1,26 +1,5 @@
+-#
+-# ish_manager / features / index
+-#
 
-.row
-  .large-12.columns
-    %h5 Features in <b>#{@resource.class.name}</b> #{@resource.name}
-
-    %ul
-      - @resource.features.each do |feature|
-        %li.panel
-          .panel-body
-
-            = link_to '[~]', edit_city_feature_path( @resource, feature ) if 'City' == @resource.class.name
-            = link_to '[~]', edit_tag_feature_path( @resource, feature ) if 'Tag' == @resource.class.name
-            = link_to '[~]', edit_site_feature_path( @resource, feature ) if 'Site' == @resource.class.name
-            = link_to '[~]', edit_venue_feature_path( @resource, feature ) if 'Venue' == @resource.class.name
-
-            = button_to( '[x]', city_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'City' == @resource.class.name
-            = button_to( '[x]', tag_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Tag' == @resource.class.name
-            = button_to( '[x]', site_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Site' == @resource.class.name
-            = button_to( '[x]', venue_feature_path( @resource, feature ), :method => :delete, :data => { :confirm => :'Are you sure?' } ) if 'Venue' == @resource.class.name
-
-            %ul
-              %li Name #{feature.name}
-              %li Subhead: #{feature.subhead}
-              %li Report: #{feature.report}
-              - if feature.gallery
-                %li Gallery: #{feature.gallery.id} <br /> #{feature.gallery.name}
+= render 'index'

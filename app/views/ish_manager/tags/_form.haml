@@ -5,37 +5,33 @@
 
 = form_for @tag do |f|
   .row
-    .col-xs-12.col-md-6
+    .col.s12.m6
       .input-field
         = f.label :name
         = f.text_field :name
-        
-    .col-xs-12.col-md-6
-      .input-field
-        = f.text_field :name_seo
-        = f.label :name_seo
-  .row      
-    .col-xs-12.col-md-6
+
+  .row
+    .col.s12.col.m6
       .input-field
         = f.select :parent_tag_id, options_for_select( @tags_list, :selected => ( params[:for_tag] || @tag.parent_tag_id ) )
         = f.label "parent tag"
   .row
-    .col-xs-12.col-md-6
-      .input-field 
+    .col.s12.m6
+      .input-field
         = f.select :city, options_for_select( @cities_list, :selected => @tag.city_id )
         = f.label "city"
-    .col-xs-12.col-md-6
-      .input-field 
+    .col.s12.m6
+      .input-field
         = f.select :site, options_for_select( @sites_list, :selected => @tag.site_id )
         = f.label "site"
-  .row      
-    .col-xs-12.col-md-3
+  .row
+    .col.s12.m3
       = f.check_box :is_public
       = f.label :is_public
-    .col-xs-12.col-md-3
+    .col.s12.m3
       = f.check_box :is_feature
       = f.label :is_feature
-    .col-xs-12.col-md-3
+    .col.s12.m3
       = f.check_box :is_trash
       = f.label :is_trash
   .row

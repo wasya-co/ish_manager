@@ -1,4 +1,4 @@
 
 %h3
-  Edit Tag #{link_to @tag.name, tag_path(@tag)}
+  Edit Tag #{link_to @tag.name, tag_path(@tag)} (#{@tag.slug})
 = render 'form', :tag => @tag

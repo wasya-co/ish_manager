@@ -8,7 +8,7 @@
   .panel
     .panel-body
       .row
-        .col-sm-4
+        .col.s4
           %ul
             %li
               <b>Email:</b> #{link_to profile.email, user_profile_path(profile)}
@@ -17,7 +17,7 @@
             %li <b>Role:</b> #{profile.role_name}
             %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
             %li <b>City:</b> #{profile.current_city ? profile.current_city.name : nil}
-        .col-sm-8
+        .col.s8
           %h5 Shared galleries
           - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
             &gt; #{link_to g.name, gallery_path(g.galleryname)} <br />

@@ -1,7 +1,7 @@
 
 - videos ||= @videos
 .row
-  .col-sm-12
+  .col.s12
     %h5
       Videos (#{videos.count})
       = link_to '[+]', new_video_path
@@ -13,7 +13,7 @@
       .panel
         .panel-content
           .row
-            .col-sm-6
+            .col.s6
               .float-left
                 - if video.youtube_id.present?
                   -## doesn't work with private videos, which are most

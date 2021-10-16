@@ -3,7 +3,7 @@
   = render 'form_errors', :item => @video
 
   .row
-    .col-md-6
+    .col.m6
       .field
         = f.label :youtube_id
         = f.text_field :youtube_id
@@ -13,7 +13,7 @@
       .field
         = f.label :descr
         = f.text_field :descr
-    .col-md-6
+    .col.m6
       .field
         = f.label :video
         = f.file_field :video
@@ -27,23 +27,23 @@
         = f.label :city_id
         = select :video, :city_id, @cities_list
   .row
-    .col-sm-3
+    .col.s3
       = f.label :premium_tier
       = f.number_field :premium_tier
-    .col-sm-3
+    .col.s3
       = f.label :site
       = f.select :site_id, @sites_list
-    .col-sm-3
+    .col.s3
       = f.label :user_profile
       = f.select :user_profile_id, @user_profiles_list
   .row
-    .col-sm-4
+    .col.s4
       = f.check_box :is_public
       = f.label :is_public
-    .col-sm-4
+    .col.s4
       = f.check_box :is_trash
       = f.label :is_trash
-    .col-sm-4
+    .col.s4
       = f.check_box :is_feature
       = f.label :is_feature
 

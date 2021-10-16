@@ -9,7 +9,7 @@
     - counter = 0
     - @site_groups.each do |domain, sites|
       - counter +=1 
-      .col-xs-12{ :class => "col-sm-#{12/per_row}" }
+      .col.s12{ :class => "col.s#{12/per_row}" }
         .panel.panel-primary
           .panel-body
             - sites.each_with_index do |site, idx|

@@ -1,3 +1,6 @@
+-#
+-# ish_manager / sites / _header
+-#
 
 - site ||= @site
 
@@ -6,11 +9,13 @@
     Site http://#{site.domain}/#{site.lang}
     = link_to image_edit, edit_site_path( site.id )
 
-  %ul.nav.nav-pills
-    %li= link_to "Features (#{site.features.length})", site_features_path( site.id )
+  %ul.inline
+    %li
+      = link_to "Features (#{site.features.length})", site_features_path( site.id )
+      = link_to "[+]", new_site_feature_path( site.id )
     %li= link_to "Newsitems (#{site.newsitems.length})", site_newsitems_path( site.id )
     %li= link_to "Reports (#{site.reports.length})", site_reports_path( site.id )
     %li= link_to "Galleries (#{site.galleries.length})", site_galleries_path( site.id )
     %li= link_to "Videos (#{site.videos.length})", site_videos_path( site.id )
     %li= link_to "Tags (#{site.tags.length})", site_tags_path( site.id )
-    
+

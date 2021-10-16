@@ -1,35 +1,35 @@
 
 = form_for event, :html => { :multipart => true } do |f|
   .row
-    .col-sm-4
+    .col.s4
       .input-field
         = f.label :name
         = f.text_field :name
-    .col-sm-4
+    .col.s4
       .input-field
         = f.label :eventname
         = f.text_field :eventname
-    .col-sm-4
+    .col.s4
       .input-field
         = f.label :date
         = f.text_field :date
 
   .row
-    .col-sm-6
+    .col.s6
       .input-field
         = f.select :city, options_for_select( @cities_list, :selected => event.city_id )
         = f.label :city
-    .col-sm-3
+    .col.s3
       .input-field
         = f.text_field :x
         = f.label :x
-    .col-sm-3
+    .col.s3
       .input-field
         = f.text_field :y
         = f.label :y
 
   .row
-    .col-sm-12
+    .col.s12
       .input-field
         = f.text_area :description, :class => [ :tinymce ]
         %br

@@ -7,39 +7,39 @@
 
 = form_for gallery, :url => url do |f|
   .row
-    .col-sm-6
+    .col.s6
       = f.label :name
       = f.text_field :name
-    .col-sm-6
+    .col.s6
       = f.label :galleryname
       = f.text_field :galleryname
 
   .row
-    .col-sm-4
+    .col.s4
       = f.label :site
       = select :gallery, :site_id, @sites_list
-    .col-sm-4
+    .col.s4
       = f.label :city
       = select :gallery, :city_id, @cities_list
-    .col-sm-4
+    .col.s4
       = f.label :venue
       = select :gallery, :venue_id, @venues_list
   .row
-    .col-sm-4
+    .col.s4
       = f.label :tags
       = f.select :tag_ids, @tags_list, {}, { multiple: true }
 
   .row
     .panel
       .panel-body
-        .col-sm-4
+        .col.s4
           = f.label 'Shared with'
           = f.select :shared_profiles, options_for_select( [[nil,nil,:disabled=>true]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
-        .col-sm-4
+        .col.s4
           Shared with:<br />
           - gallery.shared_profiles.each do |p|
             &gt; #{p.email} <br />
-        .col-sm-4
+        .col.s4
           "/
   .row
     = f.label :subhead
@@ -48,20 +48,20 @@
     = f.text_area :descr, class: :tinymce
 
   .row
-    .col-sm-3
+    .col.s3
       = f.check_box :is_public
       = f.label :is_public
-    .col-sm-3
+    .col.s3
       = f.check_box :is_trash
       = f.label :is_trash
-    .col-sm-3
+    .col.s3
       = f.check_box :is_done
       = f.label :is_done
-    .col-sm-3
+    .col.s3
       = f.label :premium_tier
       = f.number_field :premium_tier
-    .col-sm-3
+    .col.s3
       = f.label :username
       = f.text_field :username
-    .col-sm-3
+    .col.s3
       = f.submit 'Submit'

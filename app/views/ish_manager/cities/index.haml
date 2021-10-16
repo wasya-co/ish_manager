@@ -1,13 +1,13 @@
 
 .container
   .row
-    .col-xs-12
+    .col.s12
       %h1
         Cities
         = link_to '[+]', new_city_path
       
     - @cities.each do |city|
-      .col-xs-3
+      .col.s3
         .panel.panel-default
           .row
             .panel-heading
