@@ -20,7 +20,7 @@ IshManager::Engine.routes.draw do
   resources :email_templates
   resources :events
 
-  resources :feature
+  resources :features
   resources :friends
 
   get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }

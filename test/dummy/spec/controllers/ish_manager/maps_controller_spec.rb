@@ -6,9 +6,7 @@ describe IshManager::MapsController do
   include Devise::Test::ControllerHelpers
 
   before :each do
-    ::Gameui::Map.destroy_all
-    @map = FactoryGirl.create :map
-    setup_users
+    do_setup
   end
 
   it '#map_editor' do

@@ -7,22 +7,26 @@ describe IshManager::NewsitemsController, :type => :controller do
 
 
   before :each do
-    @site = FactoryGirl.create :site
-    @newsitem = FactoryGirl.create :newsitem, :report_id => 'abba-1'
-    @site.newsitems << @newsitem
-    @site.updated_at = '2020-01-01'
-    @site.save
-    setup_users
+    do_setup
+
+    [ @city, @site, @tag ].each do |res|
+      @newsitem = FactoryGirl.create :newsitem, :report_id => 'abba-1'
+      res.newsitems << @newsitem
+      res.updated_at = '2020-01-01'
+      res.save
+    end
   end
 
   describe 'destroy' do
-    it 'touches sites on destroy' do
-      @site.newsitems.length.should eql 1
-      timestamp = @site.updated_at
-      delete :destroy, params: { site_id: @site.id, id: @site.newsitems.first.id }
+    it 'touches city, site, tag on destroy' do
+      [ @city, @site, @tag ].each do |res|
+        res.newsitems.length.should eql 1
+        timestamp = res.updated_at
+        delete :destroy, params: { id: res.newsitems.first.id }
 
-      @site.reload
-      @site.updated_at.should_not eql timestamp
+        res.reload
+        res.updated_at.should_not eql timestamp
+      end
     end
   end
 

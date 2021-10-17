@@ -26,15 +26,15 @@ module IshManager
 
     def set_lists
       @cities_list = City.list
-      @locations_list = ::Gameui::Map.list
-      @sites_list = Site.all.list
-      @venues_list = Venue.all.list
-
-      @reports_list = Report.all.list
       @galleries_list = Gallery.all.list
-      @videos_list = Video.all.list
-      @user_profiles_list = IshModels::UserProfile.all.list
+      @locations_list = ::Gameui::Map.list
+      @maps_list = ::Gameui::Map.list
+      @reports_list = Report.all.list
+      @sites_list = Site.all.list
       @tags_list = Tag.list
+      @user_profiles_list = IshModels::UserProfile.all.list
+      @venues_list = Venue.all.list
+      @videos_list = Video.all.list
     end
 
     def access_denied exception

@@ -5,8 +5,8 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def index
     authorize! :index, ::Gameui::Map
-    @maps = ::Gameui::Map.where( parent_slug: "" )
-    @all_maps = Gameui::Map.all
+    @maps = ::Gameui::Map.where( parent_slug: "" ).order( slug: :asc )
+    @all_maps = Gameui::Map.all.order( slug: :asc )
   end
 
   def show

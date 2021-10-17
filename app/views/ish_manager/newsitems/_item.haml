@@ -17,12 +17,12 @@
         %li <b>Report</b> #{n.report.id}
         %li Premium Tier #{n.report.premium_tier}
       %h5
-        = link_to n.report.name, report_path(n.report.name_seo)
+        = link_to n.report.name, report_path(n.report.slug)
         = link_to "[~]", edit_report_path(n.report)
       .meta
         on #{pretty_date n.report.created_at} by #{n.report.username}
       - unless n.report.photo.blank?
-        .thumb= link_to image_tag(n.report.photo.photo.url(:thumb), :alt => ''), report_path( n.report.name_seo )
+        .thumb= link_to image_tag(n.report.photo.photo.url(:thumb), :alt => ''), report_path( n.report.slug )
       .subhead= n.report.subhead
       .c
 
@@ -38,7 +38,7 @@
         - unless n.gallery.tags.blank?
           = t('tags.in')
           - n.gallery.tags do |tag|
-            = link_to tag, tag_path(tag.name_seo)
+            = link_to tag, tag_path(tag.slug)
       - unless 0 == n.gallery.photos.length
         .thumbnails
           - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|

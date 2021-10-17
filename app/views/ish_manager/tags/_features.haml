@@ -7,6 +7,6 @@
   .items
     - feature_tags.each do |tag|
       .item
-        %h3= link_to tag['name_'+@locale.to_s], tag_path(tag.name_seo)
+        %h3= link_to tag['name_'+@locale.to_s], tag_path(tag.slug)
 
   .c

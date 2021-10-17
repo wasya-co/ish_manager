@@ -5,10 +5,12 @@
 .maps-index
   %h1 Maps (#{@maps.length}) #{link_to '[+]', new_map_path}
   - @maps.each do |map|
-    .item
-      = render 'map_meta_row', map: map
+    = render 'index_item', map: map
+
 
   %h1 All Maps (#{@all_maps.length})
   %ul
     - @all_maps.each do |m|
-      %li= link_to m.slug, edit_map_path(m.id)
+      %li
+        = link_to m.slug, map_path(m.id)
+        = link_to '[~]', edit_map_path(m.id)

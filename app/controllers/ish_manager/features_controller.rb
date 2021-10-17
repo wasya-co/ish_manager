@@ -2,7 +2,7 @@
 class IshManager::FeaturesController < IshManager::ApplicationController
 
   before_action :set_lists
-  
+
   def new
     if params[:city_id]
       @city = City.find params[:city_id]
@@ -70,7 +70,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
       @feature = @tag.features.find params[:id]
       authorize! :edit_feature, @tag
     end
-   
+
     if params[:venue_id]
       @venue = Tag.find params[:venue_id]
       @feature = @venue.features.find params[:id]
@@ -81,13 +81,13 @@ class IshManager::FeaturesController < IshManager::ApplicationController
 
   def update
     unless params[:city_id].blank?
-      @city = City.find params[:city_id] 
+      @city = City.find params[:city_id]
       authorize! :update_feature, @city
       @feature = @city.features.find params[:id]
       redirect_path = city_path( @city )
     end
     unless params[:site_id].blank?
-      @site = Site.find params[:site_id] 
+      @site = Site.find params[:site_id]
       authorize! :update_feature, @site
       @feature = @site.features.find params[:id]
       redirect_path = site_path( @site )
@@ -98,7 +98,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
       @feature = @tag.features.find params[:id]
       redirect_path = tag_path( @tag )
     end
-    
+
     authorize! :update, @feature
 
     if @feature.update_attributes params[:feature].permit!
@@ -111,7 +111,7 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     else
       flash[:alert] = 'No Luck. ' + @feature.errors.messages
       render :action => :edit
-    end    
+    end
   end
 
   def index
@@ -145,6 +145,6 @@ class IshManager::FeaturesController < IshManager::ApplicationController
     end
     redirect_to request.referrer
   end
-  
+
 end
 

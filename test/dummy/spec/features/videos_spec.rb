@@ -10,8 +10,8 @@ RSpec.describe 'Videos system', type: :feature do
 
     visit "/ish_manager/videos"
 
-    expect(page).to have_css('.videos-index')
-    expect(page).to have_css('.thumb-youtube')
+    expect(page).to have_css('.videos--index')
+    expect(page).to have_css('.video-embed-half')
   end
 
 end

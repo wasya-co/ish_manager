@@ -58,14 +58,38 @@ def puts! a, b=''
   puts a.inspect
 end
 
+##
+## Cannot be alphabetized!
+##
 def do_setup
   setup_users
 
+  # C
+  City.unscoped.destroy_all
+  @city = FactoryGirl.create :city
+
+  # R
   Report.unscoped.destroy_all
   @report = FactoryGirl.create :report
 
+  # M
+  ::Gameui::Map.destroy_all
+  @map = FactoryGirl.create :map
+  @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
+  @map.save
+
+  # P
   ::Gameui::PremiumPurchase.unscoped.destroy_all
   @purchase = FactoryGirl.create :purchase, item: @report, user_profile: @profile
+
+  # S
+  Site.unscoped.destroy_all
+  @site = FactoryGirl.create :site
+
+  # T
+  Tag.unscoped.destroy_all
+  @tag = FactoryGirl.create :tag
+
 end
 
 def setup_profiles
@@ -86,7 +110,7 @@ end
 
 def setup_tags
   Report.all.destroy
-  @report = FactoryGirl.create( :report, :name => rand(1000), :name_seo => rand(1000) )
+  @report = FactoryGirl.create( :report, :name => rand(1000), :slug => rand(1000) )
 
   Tag.all.destroy
   @tag = FactoryGirl.create :tag
