@@ -1,0 +1,6 @@
+
+.row
+  .large-12.columns
+    %h1 Edit Report #{@report.name}
+
+    = render 'form', :url => report_path(@report.id), :report => @report

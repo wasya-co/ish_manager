@@ -1,0 +1,4 @@
+
+%h1 Edit Feature of city #{@city.name}
+
+= render 'manager/features/form', :url => city_feature_path(@city.id, @feature.id)

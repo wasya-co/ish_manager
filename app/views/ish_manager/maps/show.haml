@@ -1,0 +1,42 @@
+-#
+-# ish_manager / maps / show.haml
+-#
+
+.maps-show
+  = render 'map_meta_row', map: @map
+  %p.addToggle Description [<>]
+  .descr= raw @map.description
+
+  %p.addToggle
+    The Map (#{@map.w}x#{@map.h})
+    = link_to 'Map Editor', location_map_editor_path(@map.id)
+    [<>]
+  .the-map
+    = image_tag @map.image.image.url(:original) rescue nil
+    - @map.markers.each do |marker|
+      -# @TODO: this should be a partial
+      .marker{ style: "position: absolute; left: #{marker.x - marker.centerOffsetX}px; top: #{marker.y - marker.centerOffsetY}px;" }
+        = image_tag marker.image.image.url(:original)
+
+  %p.addToggle Markers (#{@map.markers.count}) [<>]
+  .markers-list
+    - @map.markers.each do |marker|
+      .item
+        .flat-row
+          .a= marker.slug
+          .a= button_to '~', edit_marker_path(marker), method: :get
+          .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
+          .a= link_to '[api]', api_marker_path(marker)
+          .a= link_to '[this map]', edit_map_path(marker.slug)
+        %ul.bullets
+          %li <b>item_type:</b> #{marker.item_type}
+
+  %p.addToggle Newsitems (#{@map.newsitems.count}) [<>]
+  = render 'ish_manager/newsitems/index', newsitems: @map.newsitems
+
+  %p.addToggle Maps (#{@maps.count}) [<>]
+  .maps-list
+    - @maps.each do |m|
+      .item
+        = link_to m.slug, edit_map_path(m.id)
+

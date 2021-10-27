@@ -1,0 +1,213 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require ish_manager/tags
+ *= require ish_manager/maps
+ *= require ish_manager/utils
+ *= require ish_manager/jquery-ui
+ *= require ish_manager/galleries
+ *= require ish_manager/photos
+ *= require ish_manager/user_profiles
+ *= require ish_manager/videos
+ */
+
+ body {
+  background: #dedede;
+  font-size: 20px;
+}
+pre {
+  background: #e0e0e0;
+  padding: 1em;
+}
+
+/**
+ * utils
+ */
+
+/* A */
+
+.addToggle + * {
+  display: none;
+}
+.alert {
+  border: 1px solid yellow;
+  padding: .8em;
+}
+
+/* B */
+
+.bg-white {
+  background: url('/assets/bg/confectionary.png');
+  padding-bottom: 1em;
+}
+
+.blue {
+  background: #5bc0de;
+  color: white;
+}
+
+.border-red {
+  border: 1px solid red;
+  padding: 1em;
+}
+
+/* C */
+
+.center {
+  text-align: center;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.collapse-expand {
+  cursor: pointer;
+}
+
+/* D */
+/* E */
+/* F */
+
+.flex-row {
+  display: flex;
+}
+
+.float-left {
+  float: left;
+  padding-right: 1em;
+}
+.float-right {
+  float: right;
+}
+hr {
+  background: red;
+  height: 1px !important;
+}
+
+/* I */
+
+.inline {
+  display: inline-block;
+}
+ul.inline li {
+  display: inline;
+}
+
+/* L */
+textarea.large {
+  height: 400px;
+}
+
+.large-photos img {
+  width: 100%;
+}
+
+/* M */
+
+.menu-secondary {}
+.menu-secondary li {
+  display: inline;
+}
+.menu-secondary li a {
+  padding: 1rem;
+  background: white;
+}
+
+/* P */
+.panel-content {
+  padding: .5em;
+}
+
+/* S */
+.small {
+  font-size: .8em;
+}
+
+.thumb {
+  background: dedede;
+  border: 1px solid red;
+  width: 100px;
+  height: 100px;
+}
+ul.inline li {
+  padding-right: 1em;
+}
+
+.notice {
+  border: 1px solid green;
+  padding: .8em;
+}
+
+.youtube_img {
+  width: 100px;
+}
+
+
+
+
+
+
+
+
+/**
+ * manager...
+ */
+
+.manager--main-header {
+  background: url('/assets/bg/weather.png');
+  ul {
+    li {
+      display: inline;
+      padding: 1em;
+    }
+  }
+}
+.manager--main-header hr {
+  margin-top: 0;
+}
+
+.manager-galleries--index .mini {
+  float: left;
+}
+
+.manager-sites--title {
+  padding: 1em;
+  background: url('/assets/bg/weather.png');
+  border-bottom: 1px solid red;
+}
+
+
+/**
+ * reports
+ */
+.descr,
+.description {
+  border: 1px solid red;
+  padding: 1em;
+  font-size: 1.6em;
+}
+
+
+/*
+ * newsitems
+ */
+.newsitems--item {
+  border: 1px solid green;
+  padding: 5px;
+}
+
+.menu-secondary li.active a {
+  border-bottom: 5px solid black;
+}
+

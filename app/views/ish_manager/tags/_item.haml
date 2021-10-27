@@ -1,0 +1,16 @@
+
+%li
+  %div
+    - if tag.is_feature
+      %i.fa.fa-exclamation
+    = link_to tag.name, tag_path(tag)
+    = link_to '[+]', new_tag_path( :for_tag => tag.id )
+    = link_to '[~]', edit_tag_path( tag )
+    .inline= button_to '[x]', tag_path( tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+    (R #{tag.reports.length}) (G #{tag.galleries.length}) (V #{tag.videos.length})
+  
+    - if tag.children_tags.length > 0
+      %ul.tags
+        - tag.children_tags.map do |tt|
+          = render 'ish_manager/tags/item', :tag => tt, :is_panel => false
+

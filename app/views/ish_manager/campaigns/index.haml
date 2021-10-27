@@ -1,0 +1,24 @@
+
+.manager--campaigns-index
+  %h5
+    = link_to 'Campaigns', campaigns_path
+    (#{@campaigns.count})
+    = link_to raw("<i class='fa fa-plus-square'></i>"), new_campaign_path
+    -# = link_to '(done)', done_campaigns_path
+    
+  %table
+    %tr
+      %th &nbsp;
+      %th Created At
+      %th Company
+      %th Email
+      %th Job Url
+      %th Description
+    - @campaigns.each do |campaign|
+      %tr
+        %td= link_to raw('<i class="fa fa-play"></i>'), campaign_path( campaign )
+        %td= pretty_date campaign.created_at
+        %td= campaign.company
+        %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{campaign.email}"
+        %td= link_to raw('<i class="fa fa-user-md"></i>'), campaign.job_url, :target => '_blank'
+        %td= campaign.description

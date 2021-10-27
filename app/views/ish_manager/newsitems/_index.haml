@@ -1,0 +1,27 @@
+-#
+-# ish_manager / newsitems / _index
+-#
+
+- newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
+
+.manager-newsitems--index
+  %h5 Newsitems (#{newsitems.count}) #{link_to image_new, new_newsitem_path }
+  = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
+  - newsitems.each do |n|
+    .card
+      .card-content
+        %ul
+          %li
+            .float-left= link_to '[~]', edit_newsitem_path(n)
+            .float-left= button_to '[x]', newsitem_path( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+            Name: #{n.name}
+          %li Desc: #{n.descr}
+          %li Created at: #{n.created_at}
+          %li Report id: #{n.report_id}
+          %li Gallery id: #{n.gallery_id}
+          %li username: #{n.username}
+          - if n.photo
+            %li Photo id: #{n.photo.id}
+        = render 'ish_manager/newsitems/item', :newsitem => n
+  = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
+

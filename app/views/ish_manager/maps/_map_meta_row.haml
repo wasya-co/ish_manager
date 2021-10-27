@@ -1,0 +1,11 @@
+
+.maps--map-meta-row
+  .flat-row
+    .a= link_to map.name, map_path(map)
+    .a= button_to '~', edit_map_path(map), method: :get
+    .a= button_to 'map editor', location_map_editor_path(map.id), method: :get
+    .a= button_to '+marker', new_map_marker_path(map), method: :get
+    .a= button_to '+newsitem', new_map_newsitem_path(map), method: :get
+    .a= link_to '[api]', api_map_path(map)
+    .a= button_to 'x', map_path(map), method: :delete, data: { confirm: 'Are you sure?' }
+  .a= map.slug

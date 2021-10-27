@@ -1,0 +1,20 @@
+
+- content_for :title do
+  #{@video.name} | #{@site ? @site.title : ''}
+
+.row
+  .large-12.columns
+
+    %h3
+      - if @video.name.blank?
+        = t('videos.no_title')
+      - else
+        = @video.name
+    = render 'ish_manager/application/meta', :item => @video
+    .text-center= render 'embed', :video => @video
+    %hr
+    = link_to @video.video.url, @video.video.url
+
+    %p <b>User Profile:</b> #{@video.user_profile.name}
+    %p= image_tag @video.thumb.url(:thumb)
+    %p <b>Video:</b> #{@video.inspect}

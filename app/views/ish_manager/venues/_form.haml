@@ -1,0 +1,43 @@
+
+= form_for venue, :html => { :multipart => true } do |f|
+  .row
+    .col.s6
+      = f.label :name
+      = f.text_field :name
+    .col.s6
+      = f.label :slug
+      = f.text_field :slug
+
+  .row
+    .col.s6
+      = f.label :subhead
+      = f.text_area :subhead
+    .col.s6
+      = render 'profile_pic', :resource => venue
+
+  .row
+    .col.s12
+      = f.label :descr
+      = f.text_area :descr, :class => [ :tinymce ]
+
+  .row
+    .col.s6
+      = f.label :city
+      = f.select :city_id, options_for_select( @cities_list, :selected => venue.city_id )
+    .col.s6
+      coords
+      .row
+        .col.s6= f.text_field :x
+        .col.s6= f.text_field :y
+
+  .row
+    .col.s6
+      = f.label :tags
+      = f.select :tag_ids, options_for_select( @tags_list, :selected => venue.tag_ids ), {}, { :multiple => true }
+    .col.s6
+      = f.label :address
+      = f.text_field :address
+
+  .row
+    .col.s12
+      = f.submit

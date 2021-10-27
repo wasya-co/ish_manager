@@ -1,0 +1,35 @@
+-#
+-# ish_manager / galleries / _index.haml
+-#
+
+= render 'ish_manager/galleries/menu'
+
+- n_thumbs   ||= 8
+- param_name ||= :galleries_page
+
+- if @galleries.length > 0
+  .galleries--list
+    - if @galleries.respond_to? :total_pages
+      = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+
+    - @galleries.each do |g|
+      .panel
+        .panel-body
+          %h3
+            = link_to '[~]', edit_gallery_path( g )
+            = link_to g.name, gallery_path(g.slug)
+            (#{g.photos.length})
+          = render 'meta', :item => g
+          - if g.photos.length == 0
+            = image_missing
+          - else
+            .thumbnails
+              - g.photos.limit( n_thumbs ).each do |photo|
+                = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
+
+    - if @galleries.respond_to? :total_pages
+      = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+
+- else
+  %h5 No Galleries
+

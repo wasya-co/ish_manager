@@ -1,0 +1,42 @@
+/* utils */
+
+.thumbnails {
+  display: flex;
+}
+
+.row-thumbs .item {
+  margin-bottom: 1em;
+  border: 1px solid red;
+  padding: 10px;
+  img {
+    margin-top: 10px;
+  }
+}
+
+.row-large .item {
+  border: 1px solid red;
+  display: block;
+
+  padding: 10px;
+  margin: 10px;
+
+  height: 90vh;
+  max-width: 100vw;
+
+  .goto {
+    display: none;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+}

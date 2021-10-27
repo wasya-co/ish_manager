@@ -1,0 +1,15 @@
+
+.manager--main-header
+  .container
+    .row
+      .col.s12
+        %i.fa.fa-compress.collapse-expand#collapseHeader
+        .content
+          %ul.nav.nav-pills
+            %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }= link_to 'Galleries', galleries_path
+            %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }= link_to 'Reports',   reports_path
+            %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }= link_to 'Videos',    videos_path
+            %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path          
+          %ul.nav.nav-pills
+  %hr
+

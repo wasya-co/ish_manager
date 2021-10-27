@@ -1,0 +1,13 @@
+- if venues.respond_to? :total_pages
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'
+%ol
+  - venues.each do |venue|
+    %li
+      = link_to image_edit, edit_venue_path(venue)
+      .float-left= button_to '[x]', venue_path(venue), :method => 'delete', :data => { :confirm => 'Are you sure?' }
+      = link_to venue.name, venue_path(venue)
+      %br
+      %br
+      .clearfix
+- if venues.respond_to? :total_pages
+  = paginate venues, :param_name => 'venues_page', :views_prefix => 'ish_manager'

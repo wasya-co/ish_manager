@@ -1,0 +1,5 @@
+
+%h3.center= link_to @venue.name, venue_path( @venue )
+
+= render :partial => 'form', :locals => { :venue => @venue }
+

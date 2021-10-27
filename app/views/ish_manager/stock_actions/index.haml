@@ -1,0 +1,13 @@
+
+%h4 Stock Actions
+
+%p <b>Note:</b> a stock option cannot belong to two actions.
+
+%hr
+- @stock_actions.each do |stock_action|
+  = render 'form', :stock_action => stock_action
+        
+%hr
+%h5 New
+= render 'form', :stock_action => @stock_action
+

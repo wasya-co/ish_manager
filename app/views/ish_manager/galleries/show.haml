@@ -1,0 +1,41 @@
+-#
+-# ish_manager / galleries / show.haml
+-#
+
+= render 'title', :gallery => @gallery
+= render 'ish_manager/photos/multinew', :gallery => @gallery
+
+-# deleted
+.row
+  %p.addToggle Deleted [<>]
+  .a
+    %ul.inline
+      - @deleted_photos.each do |ph|
+        %li.border-red= image_tag ph.photo.url( :mini )
+    %hr
+
+-# mini
+.row
+  %ul
+    - @photos.each do |photo|
+      %li.col.s1
+        = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
+
+.spacer{ :style => 'height: 500px' }
+
+-# thumb
+.row.row-thumbs
+  - @photos.each do |photo|
+    .col.s3
+      .item
+        = render 'ish_manager/photos/meta_manager', photo: photo
+        = image_tag photo.photo.url( :thumb ), :alt => ''
+.spacer{ :style => 'height: 100px' }
+
+-# large
+.row.row-large
+  - @photos.each do |photo|
+    .item
+      %a{id: "large_#{photo.id}" }
+      = render 'ish_manager/photos/meta_manager', photo: photo
+      .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }

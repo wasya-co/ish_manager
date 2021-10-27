@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -xe
+
+if ssh-add -L | grep macpc ; then
+  echo ok # nothing
+else
+  ssh-add ~/.ssh/mac_id_rsa_2
+fi
+
+git checkout master 
+# echo "ish_manager is only on master. as compatibility with microsites3"
+# branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
+
+./scripts/version_bump
+
+bundle > /dev/null &&
+
+version=`cat VERSION`
+echo $version
+cat ish_manager.gemspec-template | \
+  sed -e "s/\$version/$version/g" > ish_manager.gemspec
+
+gem build ish_manager.gemspec
+gem push ish_manager-`cat VERSION`.gem
+
+git add .
+git commit -m 'autobuild `date "+%Y%m%d"`'
+git push origin master
+
+echo "ish_manager build ok"
+

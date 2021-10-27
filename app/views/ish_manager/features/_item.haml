@@ -1,0 +1,16 @@
+
+.panel
+  - unless feature[:name].blank?
+    %h5= link_to feature[:name].titleize, feature[:link_path]
+  - unless feature[:image_path].blank?
+    = link_to image_tag( feature[:image_path] ), feature[:link_path]
+  - unless feature[:subhead].blank?
+    .descr= raw feature[:subhead]
+  - unless feature.report.blank?
+    %h3= link_to feature.report.name, report_path(feature.report.slug)
+    .descr= raw feature.report.subhead
+  - unless feature.gallery.blank?
+    %h3= link_to feature.gallery.name, gallery_path(feature.gallery)
+    - begin
+      = image_tag feature.gallery.photos[0].photo.url( :thumb )
+    - rescue

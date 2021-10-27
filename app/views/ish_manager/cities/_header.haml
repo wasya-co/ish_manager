@@ -1,0 +1,39 @@
+
+%h2.text-center
+  #{@city.name} #{link_to image_edit, edit_city_path(@city)}
+  = link_to 'API', api_city_path(@city)
+-#%ul
+-#  %li &lt;#{@city.x}, #{@city.y}&gt;
+-#  %li Cityname: <em>#{@city.cityname}</em>
+-#  - unless @city.profile_photo.blank?
+-#    %li Thumb: #{image_tag @city.profile_photo.photo.url(:thumb)}
+-#
+-#%ul.menu
+-#  %li
+-#    = link_to image_new, new_city_feature_path( @city )
+-#    Features (#{@city.features.length})
+-#  %li
+-#    = link_to image_new, new_city_newsitem_path( @city )
+-#    Newsitems (#{@city.newsitems.length})
+-#  %li
+-#    = link_to image_new, new_city_report_path( @city )
+-#    Reports (#{@city.reports.count})
+-#  %li
+-#    = link_to image_new, new_city_gallery_path( @city )
+-#    Galleries (#{@city.galleries.count})
+-#  %li
+-#    = link_to image_new, new_city_video_path( @city )
+-#    Videos (#{@city.videos.count})
+-#  %li
+-#    = link_to image_new, new_city_venue_path( @city )
+-#    = link_to 'Venues', venues_path( :city_id => @city.id )
+-#    (#{@city.venues.count})
+-#  %li
+-#    = link_to image_new, new_city_event_path( @city )
+-#    = link_to 'Events', city_events_path( @city )
+-#    (#{@city.events.count})
+-#  %li
+-#    = link_to image_new, new_city_tag_path( @city )
+-#    = link_to 'Tags', city_tags_path( @city )
+-#    (#{@city.tags.count})
+%hr

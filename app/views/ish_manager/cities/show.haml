@@ -1,0 +1,63 @@
+
+-#
+-# ish_manager / cities / show
+-#
+
+= render 'header', :city => @city
+.row
+  .col.s6
+    %h5
+      Venues (#{@venues.length})
+      = link_to image_new, new_venue_path(city_id: @city.id)
+    = render 'ish_manager/venues/search', :city => @city
+    = render 'ish_manager/venues/index', :venues => @venues
+  .col.s6
+    .col.s3
+      %a{href: '#newsitems'}
+        NewsItems (#{@city.newsitems.length})
+    .col.s3
+      %a{href: '#reports'}
+        Reports (#{@city.reports.length})
+    .col.s3
+      %a{href: '#galleries'}
+        Galleries (#{@city.galleries.length})
+    .col.s3
+      %a{href: '#videos'}
+        Videos (#{@city.videos.length})
+    .row
+      .col.s12#newsitems
+        = render 'ish_manager/newsitems/index', :newsitems => @newsitems, :city => @city
+    .row
+      .col.s12#reports
+        = render 'ish_manager/reports/index', :reports => @reports
+    .row
+      .col.s12#galleries
+        %h5
+          Galleries (#{@city.galleries.length})
+          = link_to image_new, new_gallery_path(city_id: @city.id)
+        = render 'ish_manager/galleries/index', :galleries => @galleries
+    .row
+      .col.s12#videos
+        = render 'ish_manager/videos/index', :videos => @videos
+
+
+
+-#= render 'ish_manager/features/index',  :features => @city.features,   :city => @city
+-#
+-#.row
+-#  .col.s6= render 'ish_manager/reports/index', :reports => @city.reports
+-#  .col.s6
+-#    %h5 Galleries
+-#    = render 'ish_manager/galleries/index', :galleries => @city.galleries
+-#.row
+-#  .col.s6
+-#    %h5
+-#      Venues (#{@city.venues.length})
+-#      = link_to image_new, new_venue_path(city_id: @city.id)
+-#    = render 'ish_manager/venues/index', :venues => @city.venues
+-#.row
+-#  .col.s6= render 'ish_manager/videos/index', :videos => @city.videos
+-#  .col.s6
+-#    = render 'ish_manager/users/index', :users => @city.current_users
+-#    = render 'ish_manager/events/index', :events => @city.events
+-#    = render 'ish_manager/venues/index', :venues => @city.venues

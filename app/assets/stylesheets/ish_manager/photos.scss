@@ -1,0 +1,12 @@
+
+.--meta-manager {
+  display: flex;
+  justify-content: space-between;
+
+  .right-hand a {
+  }
+  .right-hand a:not(:last-child):after {
+    content: "|";
+    padding: 0 10px 0 15px;
+  }
+}

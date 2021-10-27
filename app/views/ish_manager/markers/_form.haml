@@ -1,0 +1,89 @@
+
+-#
+-# ish_manager / markers / _form
+-#
+
+-# @TODO: can I not have this url at all?
+- url = %w|new create|.include?(params[:action]) ? markers_path : marker_path(@marker.id)
+.markers--form
+  = form_for @marker, :html => { :multipart => true }, url: url do |f|
+    -# @TODO: yeah move the map id into this hidden field.
+    -# = f.hidden_field :map_id, value: (params['map_id']||@map_id)
+
+    - if @marker.errors.any?
+      #error_explanation
+        %p= "#{pluralize(@marker.errors.count, "error")} prohibited this map from being saved:"
+        %ul.errors
+          - @marker.errors.full_messages.each do |message|
+            %li= message
+
+    .row
+      .col.s1
+        = f.label :map
+        = f.text_field :map_id, value: @marker.map_id || params[:map_id]
+      .col.s5
+        .field
+          = f.label :name
+          = f.text_field :name
+      .col.s6
+        .field
+          = f.label :slug
+          = f.text_field :slug
+    .row
+      .col.s3
+        .field
+          = f.label :image
+          = file_field_tag :image
+          .image-thumb
+            = image_tag(@marker.image.image.url(:thumb)) rescue nil
+            = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{@marker.centerOffsetY-10}px; left: #{@marker.centerOffsetX-10}px;" )
+      .col.s3
+        .field
+          = f.label :centerOffsetX
+          = f.text_field :centerOffsetX
+        .field
+          = f.label :centerOffsetY
+          = f.text_field :centerOffsetY
+      .col.s3
+        .field
+          = f.label :x
+          = f.text_field :x
+        .field
+          = f.label :y
+          = f.text_field :y
+      .col.s3
+        .field
+          = f.label :title_image
+          = file_field_tag :title_image
+          = image_tag @marker.title_image.image.url(:thumb) rescue nil
+
+    .field
+      = f.label :url, "URL (if any)"
+      = f.text_field :url
+    .row
+      .col.s3 &nbsp;
+      .col.s6
+        .field
+          = f.label :description
+          = f.text_area :description
+    .row
+      .col.s4
+        .field
+          = f.label :item_type
+          = f.select :item_type, options_for_select( ::Gameui::Marker::ITEM_TYPES, selected: @marker.item_type )
+      .col.s4
+        .field
+          = f.label :ordering
+          = f.text_field :ordering
+      .col.s4
+    .row
+      .col.s3 &nbsp;
+      .col.s6
+        .row
+          .col.s6
+            .field
+              = f.check_box :is_active
+              = f.label :is_active
+          .col.s6
+            .actions
+              = f.submit 'Save'

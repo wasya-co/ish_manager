@@ -1,0 +1,8 @@
+
+.item{ style: "display: flex; flex-direction: column;" }
+  = render 'map_meta_row', map: map
+  - if map.childs.length > 0
+    %ul{ style: "margin-left: 5em;" }
+      - map.childs.each do |m|
+        %li
+          = render 'index_item', map: m

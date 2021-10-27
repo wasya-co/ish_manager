@@ -1,0 +1,15 @@
+
+.manager-reports--show-mini
+  .row
+    .large-12.columns
+      .title
+        = report.name
+        = link_to '[~]', edit_report_path( report )
+
+      .meta
+        On #{report.created_at.to_s.slice(0, 10)}
+        - if report.city
+          In #{link_to report.city.name, city_path( report.city )}
+
+      - if report.subhead.present?
+        .subhead= report.subhead

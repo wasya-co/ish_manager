@@ -1,0 +1,18 @@
+
+.manager-sites-show
+  = render 'header', :site => @site    
+  -# = render 'ish_manager/features/index', :features  => @features, :site => @site
+  -# = render 'ish_manager/newsitems/index', :newsitems => @newsitems.limit(@site.n_newsitems), :site => @site
+      
+  .row
+    .col.s6
+      = render 'ish_manager/galleries/index_title', :galleries => @galleries
+    .col.s6
+      = render 'ish_manager/reports/index', :reports => @reports, :site => @site
+
+  .row
+    .col.s6
+      = render 'ish_manager/videos/index_title', :videos => @videos
+    .col.s6
+      = render 'ish_manager/tags/index', :tags => @tags
+

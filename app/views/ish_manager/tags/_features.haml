@@ -1,0 +1,12 @@
+
+.tags-features
+  .title
+    %h1
+      = link_to t('tags.list'), tags_path
+
+  .items
+    - feature_tags.each do |tag|
+      .item
+        %h3= link_to tag['name_'+@locale.to_s], tag_path(tag.slug)
+
+  .c

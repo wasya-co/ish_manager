@@ -1,0 +1,63 @@
+
+.panel
+  .panel-content
+    - url ||= site_path(site)
+    = form_for site, :url => url do |f|
+      .row
+        .col-lg-6
+          = f.label :domain
+          = f.text_field :domain # , :disabled => params[:action] == 'edit' ? true : false
+        .col-lg-6
+          = f.label :lang
+          = f.text_field :lang # , :disabled => params[:action] == 'edit' ? true : false
+
+      .row
+        .col-lg-6
+          = f.label :title
+          = f.text_field :title
+        .col-lg-6
+          = f.label :subhead
+          = f.text_area :subhead
+          %br
+          = f.label :description
+          = f.text_area :description
+
+      .row
+        .col-lg-6
+          = f.label :homepage_layout
+          = f.select :homepage_layout, [ 'show' ]
+        .col-lg-6
+          = f.label :layout
+          = f.select :layout, [ 'application' ]
+
+      .row
+        .col-lg-4
+          = f.label :n_features
+          = f.text_field :n_features
+        .col-lg-4
+          = f.label :n_newsitems
+          = f.text_field :n_newsitems
+          %br
+          = f.label :newsitems_per_page
+          = f.number_field :newsitems_per_page, :default => 10 
+        .col-lg-4
+          = f.check_box :is_trash
+          = f.label :is_trash
+          %br
+          = f.check_box :is_ads_enabled
+          = f.label :is_ads_enabled
+          %br
+          = f.check_box :play_videos_in_preview
+          = f.label :play_videos_in_preview
+      .row
+        .col-lg-6
+          = f.check_box :is_private
+          = f.label :is_private
+        .col-lg-6
+          = f.text_field :private_user_emails
+          = f.label :private_user_emails
+
+      .row
+        .col-lg-12
+          = f.submit 'Submit', :class => :btn
+      

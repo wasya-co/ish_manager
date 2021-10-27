@@ -1,0 +1,51 @@
+
+= form_for video do |f|
+  = render 'form_errors', :item => @video
+
+  .row
+    .col.m6
+      .field
+        = f.label :youtube_id
+        = f.text_field :youtube_id
+      .field
+        = f.label :name
+        = f.text_field :name
+      .field
+        = f.label :descr
+        = f.text_field :descr
+    .col.m6
+      .field
+        = f.label :video
+        = f.file_field :video
+      .field
+        = f.label :thumb
+        = f.file_field :thumb
+      .field
+        = f.label :tags
+        = f.select :tag_ids, @tags_list, {}, { multiple: true }
+      .field
+        = f.label :city_id
+        = select :video, :city_id, @cities_list
+  .row
+    .col.s3
+      = f.label :premium_tier
+      = f.number_field :premium_tier
+    .col.s3
+      = f.label :site
+      = f.select :site_id, @sites_list
+    .col.s3
+      = f.label :user_profile
+      = f.select :user_profile_id, @user_profiles_list
+  .row
+    .col.s4
+      = f.check_box :is_public
+      = f.label :is_public
+    .col.s4
+      = f.check_box :is_trash
+      = f.label :is_trash
+    .col.s4
+      = f.check_box :is_feature
+      = f.label :is_feature
+
+  .action
+    = f.submit

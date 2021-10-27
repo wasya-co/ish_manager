@@ -1,0 +1,61 @@
+-#
+-# ish_manager / maps / _form
+-#
+
+- url = params[:action] == 'new' ? maps_path : map_path(@map.id)
+
+= form_for @map, :html => { :multipart => true, class: 'maps--form' }, url: url do |f|
+  - if @map.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"
+      %ul
+        - @map.errors.full_messages.each do |message|
+          %li= message
+
+  .row
+    .col.s3
+      .field
+        = f.label :name
+        = f.text_field :name
+      .field
+        = f.label :map_slug, "Map slug (if any)"
+        = f.text_field :map_slug
+    .col.s3
+      .field
+        = f.label :slug
+        = f.text_field :slug
+      .field
+        = f.label :parent_slug
+        = f.text_field :parent_slug
+    .col.s2
+      .field
+        = f.label :ordering_type
+        = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
+    .col.s4
+
+      .field
+        = f.label :image
+        = file_field_tag :image
+        = image_tag @map.image.image.url(:thumb) rescue nil
+
+  .field
+    = f.label :description
+    = f.text_area :description, class: 'tinymce'
+
+  .row
+    .col.s6
+      = f.label "Labels"
+      = f.text_area :labels, class: 'large'
+      %pre.small
+        description
+        map
+        markers
+        newsitems
+    .col.s6
+      = f.label "Config"
+      = f.text_area :config, class: 'large'
+      %pre.small
+        description.collapsible: bool
+        map_panel_type: "MapPanel" | "MapPanelNoZoom" | "ThreePanelV1"
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,23 @@
+
+%h1 Newsitem for #{@city.name}
+
+= form_for @newsitem, :url => manager_city_newsitems_path(@city.cityname) do |f|
+
+  .field
+    %label descr
+    = f.text_area :descr, :class => 'tinymce tiny_mce'
+
+  .field
+    %label Report
+    = select :newsitem, :report_id, @list_reports
+
+  .field
+    %label Gallery
+    = select :newsitem, :gallery_id, @list_galleries
+
+  .field
+    %label User
+    = select :newsitem, :username, @list_users
+
+
+  = f.submit

@@ -1,0 +1,45 @@
+
+= form_for event, :html => { :multipart => true } do |f|
+  .row
+    .col.s4
+      .input-field
+        = f.label :name
+        = f.text_field :name
+    .col.s4
+      .input-field
+        = f.label :eventname
+        = f.text_field :eventname
+    .col.s4
+      .input-field
+        = f.label :date
+        = f.text_field :date
+
+  .row
+    .col.s6
+      .input-field
+        = f.select :city, options_for_select( @cities_list, :selected => event.city_id )
+        = f.label :city
+    .col.s3
+      .input-field
+        = f.text_field :x
+        = f.label :x
+    .col.s3
+      .input-field
+        = f.text_field :y
+        = f.label :y
+
+  .row
+    .col.s12
+      .input-field
+        = f.text_area :description, :class => [ :tinymce ]
+        %br
+        %br
+        = file_field_tag :photo
+        - begin
+          = image_tag event.profile_photo.photo.url(:thumb)
+        - rescue
+
+        %br
+        %br
+        = f.submit
+    

@@ -1,0 +1,8 @@
+
+- if @resource.class.name == 'Site'
+  = render 'ish_manager/sites/header', :site => @resource
+  = render 'index', :newsitems => @newsitems, :site => @resource
+  
+- if @resource.class.name == 'City'
+  = render 'ish_manager/cities/header', :city => @resource
+  = render 'index', :newsitems => @newsitems, :city => @resource

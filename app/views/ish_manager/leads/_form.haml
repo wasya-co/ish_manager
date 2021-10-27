@@ -1,0 +1,42 @@
+
+- url = lead.persisted? ? lead_path( lead.id ) : leads_path
+
+= form_for lead, :as => :lead, :url => url do |f|
+  .input-field
+    = f.label :email
+    = f.text_field :email
+    
+  .input-field
+    = f.label :job_url
+    = f.text_field :job_url
+  .input-field
+    = f.label :company_url
+    = f.text_field :company_url
+  .input-field
+    = f.label :yelp_url
+    = f.text_field :yelp_url
+    
+  .input-field
+    = f.label :company
+    = f.text_field :company
+  .input-field
+    = f.label :tag
+    = f.text_field :tag
+  .input-field
+    = f.label :location
+    = f.text_field :location
+  .input-field
+    = f.label :description
+    = f.text_area :description
+  .input-field
+    = f.label :address
+    = f.text_area :address
+  .field
+    = f.check_box :is_done
+    = f.label :is_done
+  .field
+    = f.check_box :is_trash
+    = f.label :is_trash
+  .actions{ :style => "margin-top: 1em;" }
+    = f.submit
+  

@@ -1,0 +1,70 @@
+
+-# manager/features/_form
+- if @city
+  - if @feature.persisted?
+    - url = city_feature_path( @city, @feature )
+  - else
+    - url = city_features_path( @city )
+- if @site
+  - if @feature.persisted?
+    - url = site_feature_path( @site, @feature )
+  - else
+    - url = site_features_path( @site )
+- if @tag
+  - if @feature.persisted?
+    - url = tag_feature_path( @tag, @feature )
+  - else
+    - url = tag_features_path( @tag )
+
+= form_for @feature, :url => url do |f|
+  - if @city
+    = hidden_field_tag :city_id, @city.id
+    City #{@city.name}
+  - if @site
+    = hidden_field_tag :site_id, @site.id
+    Site #{@site.domain}
+  - if @tag
+    = hidden_field_tag :tag_id,  @tag.id  if @tag
+    Tag #{@tag.name}
+
+  .row
+    .large-6.columns
+      = f.label :name
+      = f.text_field :name
+      %br
+      = f.label :subhead
+      = f.text_field :subhead
+      %br
+      = f.label :image_path
+      = f.text_field :image_path
+      %br
+      = f.label :link_path
+      = f.text_field :link_path
+    -# %br
+      = f.label :photo
+      = f.file_field :photo
+    .large-6.columns
+      = f.label :report
+      = select :feature, :report_id, @reports_list
+      %br
+      = f.label :gallery
+      = select :feature, :gallery_id, @galleries_list
+      %br
+      = f.label :video
+      = select :feature, :video_id, @videos_list
+
+  .row
+    %hr
+    .large-6.columns
+      %br
+      = f.label :weight
+      = f.text_field :weight
+      %br
+      = f.label :partial_name
+      = f.text_field :partial_name
+    .large-6.columns
+      .field
+        = f.label :inner_html
+        = f.text_area :inner_html, class: 'large'
+      .actions
+        = f.submit

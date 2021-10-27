@@ -1,0 +1,7 @@
+
+.videos-index
+  = render 'ish_manager/sites/header', :site => @site if @site
+
+  = render 'search', path: videos_path
+
+  = render 'index', :videos => @videos

@@ -1,0 +1,22 @@
+
+- content_for :title do
+  = t('tags.list')
+
+= render 'ish_manager/sites/header', :site => @site if @site
+
+.row
+  .small-12.columns
+    .center
+      %h1
+        Tags (#{@tags.count}) #{link_to image_new, new_tag_path}
+        - if @resource
+          in #{@resource.class.name} #{link_to @resource.name, resource_path(@resource)}
+        
+    %ul.tags
+      - @tags.each do |tag|
+        = render 'item', :tag => tag
+      - if @tags.blank?
+        %li No Tags
+
+
+

@@ -1,0 +1,16 @@
+
+- content_for :title do
+  Tags
+
+.manager-tags--index
+  .center
+    %h5 Tags (#{tags.count})
+  .panel
+    .panel-body
+      %ul.tags
+        - @tags.each do |tag|
+          = render 'ish_manager/tags/item', :tag => tag
+        - if @tags.blank?
+          %li No Tags
+
+

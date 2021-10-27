@@ -1,0 +1,21 @@
+
+services:
+  - mongodb
+language: ruby
+rvm:
+ - 2.5.0
+
+cache: bundler
+
+before_install:
+  - gem update --system
+  - bundle
+
+install:
+  - gem install bundler
+  - bundle install --gemfile=test/dummy/Gemfile --path vendor/bundle
+
+script:
+  - BUNDLE_GEMFILE=test/dummy/Gemfile bundle exec rspec test/dummy/spec -I test/dummy/spec
+
+
