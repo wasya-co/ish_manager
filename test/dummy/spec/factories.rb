@@ -1,6 +1,8 @@
 
 FactoryGirl.define do
 
+  # alphabetized : )
+
   factory :admin, :class => IshModels::User do
     email 'piousbox@gmail.com'
     password '1234567890'
@@ -16,9 +18,11 @@ FactoryGirl.define do
 
   factory :gallery do
     name 'xxTestxx'
+    slug 'xxSlugxx'
     is_trash false
     after :build do |g|
       g.site ||= Site.new( :domain => 'xxDomainxx', :lang => 'xxLangxx' )
+      g.slug ||= name
     end
   end
 

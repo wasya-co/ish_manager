@@ -25,6 +25,7 @@ module IshManager
     end
 
     def set_lists
+      # alphabetized! : )
       @cities_list = City.list
       @galleries_list = Gallery.all.list
       @locations_list = ::Gameui::Map.list

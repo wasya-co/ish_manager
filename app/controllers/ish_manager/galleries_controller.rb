@@ -2,33 +2,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  def index
-    authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where( :is_done.in => [false, nil], :is_trash.in => [false, nil],
-      :user_profile => current_user.profile ).order_by( :created_at => :desc )
-    if params[:q]
-      @galleries = @galleries.where({ :name => /#{params[:q]}/i })
-      @galleries.selector.delete('is_done')
-    end
-    @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
-
-    render params[:render_type]
-  end
-
-  def shared_with_me
-    authorize! :index, Gallery
-    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
-      ).order_by( :created_at => :desc
-      ).page( params[:shared_galleries_page] ).per( 10 )
-    render params[:render_type]
-  end
-
-  def new
-    @gallery = Gallery.new
-    authorize! :new, @gallery
-    @cities_list = City.list
-    @tags_list = Tag.list
-  end
+  # alphabetized! : )
 
   def create
     params[:gallery][:shared_profiles] ||= []
@@ -45,16 +19,76 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       redirect_to edit_gallery_path(@gallery)
     else
       puts! @gallery.errors.messages
-      flash[:alert] = 'No Luck. ' + @gallery.errors.inspect
-      @cities_list = City.list
-      @tags_list = Tag.list
+      flash[:alert] = "Cannot create the gallery: #{@gallery.errors.full_messages}"
       render :action => 'new'
     end
+  end
+
+  def destroy
+    @gallery = Gallery.unscoped.find params[:id]
+    authorize! :destroy, @gallery
+    @gallery.is_trash = true
+    @gallery.save
+    flash[:notice] = 'Logically deleted gallery.'
+    redirect_to galleries_path
   end
 
   def edit
     @gallery = Gallery.unscoped.find params[:id]
     authorize! :edit, @gallery
+  end
+
+  def index
+    authorize! :index, Gallery
+    @galleries = Gallery.unscoped.where( :is_done.in => [false, nil], :is_trash.in => [false, nil],
+      :user_profile => current_user.profile ).order_by( :created_at => :desc )
+    if params[:q]
+      @galleries = @galleries.where({ :name => /#{params[:q]}/i })
+      @galleries.selector.delete('is_done')
+    end
+    @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
+
+    render params[:render_type]
+  end
+
+  def j_show
+    @gallery = Gallery.unscoped.find( params[:id] )
+    authorize! :show, @gallery
+    respond_to do |format|
+      format.json do
+        jjj = {}
+        jjj[:photos] = @gallery.photos.map do |ph|
+          { :thumbnail_url => ph.photo.url( :thumb ),
+          :delete_type => 'DELETE',
+          :delete_url => photo_path(ph) }
+        end
+        render :json => jjj
+      end
+    end
+  end
+
+  def new
+    @gallery = Gallery.new
+    authorize! :new, @gallery
+  end
+
+  def shared_with_me
+    authorize! :index, Gallery
+    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
+      ).order_by( :created_at => :desc
+      ).page( params[:shared_galleries_page] ).per( 10 )
+    render params[:render_type]
+  end
+
+  def show
+    begin
+      @gallery = Gallery.unscoped.find_by :slug => params[:id]
+    rescue
+      @gallery = Gallery.unscoped.find params[:id]
+    end
+    authorize! :show, @gallery
+    @photos = @gallery.photos.unscoped.where({ :is_trash => false })
+    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
   end
 
   def update
@@ -78,42 +112,6 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       puts! @gallery.errors.messages, 'cannot save gallery'
       flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s
       render :action => :edit
-    end
-  end
-
-  def show
-    begin
-      @gallery = Gallery.unscoped.find_by :slug => params[:id]
-    rescue
-      @gallery = Gallery.unscoped.find params[:id]
-    end
-    authorize! :show, @gallery
-    @photos = @gallery.photos.unscoped.where({ :is_trash => false })
-    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
-  end
-
-  def destroy
-    @gallery = Gallery.unscoped.find params[:id]
-    authorize! :destroy, @gallery
-    @gallery.is_trash = true
-    @gallery.save
-    flash[:notice] = 'Logically deleted gallery.'
-    redirect_to galleries_path
-  end
-
-  def j_show
-    @gallery = Gallery.unscoped.find( params[:id] )
-    authorize! :show, @gallery
-    respond_to do |format|
-      format.json do
-        jjj = {}
-        jjj[:photos] = @gallery.photos.map do |ph|
-          { :thumbnail_url => ph.photo.url( :thumb ),
-          :delete_type => 'DELETE',
-          :delete_url => photo_path(ph) }
-        end
-        render :json => jjj
-      end
     end
   end
 
