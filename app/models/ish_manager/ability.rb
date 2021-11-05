@@ -66,6 +66,11 @@ class IshManager::Ability
       if user.profile && :manager == user.profile.role_name
         can [ :create_newsitem, :show, :new_feature, :create_feature,
          :index, :new, :create, :edit, :update ], City
+
+         can [ :edit, :index, :show, :update,
+               :new_marker, :edit_marker, :create_marker, :update_marker,
+         ], Gameui::Map
+
       end
 
 

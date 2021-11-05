@@ -35,7 +35,7 @@
           = f.label :image
           = file_field_tag :image
           .image-thumb
-            = image_tag(@marker.image.image.url(:thumb)) rescue nil
+            = image_tag(@marker.image.image.url(:original)) rescue nil
             = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{@marker.centerOffsetY-10}px; left: #{@marker.centerOffsetX-10}px;" )
       .col.s3
         .field

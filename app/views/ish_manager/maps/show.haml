@@ -21,13 +21,15 @@
   %p.addToggle Markers (#{@map.markers.count}) [<>]
   .markers-list
     - @map.markers.each do |marker|
-      .item
+      .flex-row.bordered
+        = image_tag marker.image.image.url(:original)
         .flat-row
           .a= marker.slug
           .a= button_to '~', edit_marker_path(marker), method: :get
           .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
           .a= link_to '[api]', api_marker_path(marker)
           .a= link_to '[this map]', edit_map_path(marker.slug)
+      .hide
         %ul.bullets
           %li <b>item_type:</b> #{marker.item_type}
 
