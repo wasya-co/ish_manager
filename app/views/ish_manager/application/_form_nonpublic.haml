@@ -1,0 +1,16 @@
+
+.application--form-nonpublic
+  .panel
+    .panel-body
+      .row
+        .col.s3
+          = f.check_box :is_public
+          = f.label :is_public
+        .col.s4
+          = f.label 'Shared with'
+          = f.select :shared_profiles, options_for_select(@user_profiles_list, selected: model.shared_profiles.map(&:id) ), {}, { :multiple => true }
+        .col.s4
+          Shared with:<br />
+          - model.shared_profiles.each do |p|
+            &gt; #{p.email} <br />
+        .col.s4 &nbsp;

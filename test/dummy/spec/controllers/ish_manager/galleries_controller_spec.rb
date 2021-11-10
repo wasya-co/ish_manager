@@ -15,18 +15,16 @@ describe IshManager::GalleriesController, :type => :controller do
   # alphabetized
 
   describe "#create" do
-    it "redirects after creation" do
-      post :create, params: { gallery: { name: "abba" } }
-      new_gallery = Gallery.where( name: "abba" ).first
-      response.should redirect_to edit_gallery_path(new_gallery.id)
-    end
-
     it 'succeeds' do
       n_galleries = Gallery.count
       post :create, :params => { :gallery => { :name => "abba-#{rand(100)}" } }
       Gallery.count.should eql n_galleries+1
     end
-
+    it "redirects after creation" do
+      post :create, params: { gallery: { name: "abba" } }
+      new_gallery = Gallery.where( name: "abba" ).first
+      response.should redirect_to edit_gallery_path(new_gallery.id)
+    end
     it 'fails' do
       n_galleries = Gallery.count
       post :create, params: { gallery: { is_trash: true } }
@@ -65,6 +63,7 @@ describe IshManager::GalleriesController, :type => :controller do
       assigns( :gallery ).should_not eql nil
       assigns( :cities_list ).should_not eql nil
       assigns( :tags_list ).should_not eql nil
+      assigns( :user_profiles_list ).should_not eql nil
     end
   end
 

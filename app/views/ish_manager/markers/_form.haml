@@ -57,6 +57,8 @@
           = file_field_tag :title_image
           = image_tag @marker.title_image.image.url(:thumb) rescue nil
 
+    = render 'ish_manager/application/form_nonpublic', f: f, model: @marker
+
     .field
       = f.label :url, "URL (if any)"
       = f.text_field :url

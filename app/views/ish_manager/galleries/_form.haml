@@ -29,18 +29,9 @@
       = f.label :tags
       = f.select :tag_ids, @tags_list, {}, { multiple: true }
 
-  .row
-    .panel
-      .panel-body
-        .col.s4
-          = f.label 'Shared with'
-          = f.select :shared_profiles, options_for_select( [[nil,nil,:disabled=>true]]+current_user.profile.friends.map { |f| [ f.email, f.id ] }, :selected => gallery.shared_profiles.map(&:id) ), {}, { :multiple => true }
-        .col.s4
-          Shared with:<br />
-          - gallery.shared_profiles.each do |p|
-            &gt; #{p.email} <br />
-        .col.s4
-          "/
+  = render 'ish_manager/application/form_nonpublic', f: f, model: gallery
+
+
   .row
     = f.label :subhead
     = f.text_area :subhead
@@ -48,9 +39,6 @@
     = f.text_area :descr, class: :tinymce
 
   .row
-    .col.s3
-      = f.check_box :is_public
-      = f.label :is_public
     .col.s3
       = f.check_box :is_trash
       = f.label :is_trash
