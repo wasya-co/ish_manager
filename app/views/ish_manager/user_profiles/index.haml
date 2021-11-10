@@ -23,7 +23,6 @@
             %li
               <b>Profile Photo:</b>
               = image_tag profile.profile_photo.photo.url(:thumb) rescue nil
-            %li <b>Address:</b> #{profile.addresses[0].inspect}
 
         .col.s8
           %h5 Shared galleries

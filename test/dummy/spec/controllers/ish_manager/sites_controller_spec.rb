@@ -12,7 +12,7 @@ describe IshManager::SitesController, :type => :controller do
     City.all.destroy
     @city = FactoryGirl.create :city
 
-    IshModels::UserProfile.all.destroy
+    Ish::UserProfile.all.destroy
     @p1 = FactoryGirl.create :user_profile, role_name: :manager, email: 'p_1@gmail.com'
     @p2 = FactoryGirl.create :user_profile, role_name: :admin, email: 'p_2@gmail.com'
 

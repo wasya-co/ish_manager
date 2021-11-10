@@ -95,7 +95,7 @@ end
 def setup_profiles
   emails = %w( one@gmail.com two@gmail.com three@gmail.com )
   @profiles = {}
-  IshModels::UserProfile.all.destroy
+  Ish::UserProfile.all.destroy
   emails.each_with_index do |email, index|
     u = FactoryGirl.create :user, :email => email
     p = FactoryGirl.create :user_profile, :email => email, :user => u, :name => 'some-name'
@@ -120,7 +120,7 @@ end
 
 def setup_users
   User.all.destroy
-  IshModels::UserProfile.all.destroy
+  Ish::UserProfile.all.destroy
   @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
   @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
   @profile.save && @profile.reload

@@ -3,11 +3,11 @@ FactoryGirl.define do
 
   # alphabetized : )
 
-  factory :admin, :class => IshModels::User do
+  factory :admin do
     email 'piousbox@gmail.com'
     password '1234567890'
     after :build do |u|
-      p = IshModels::UserProfile.create email: 'piousbox@gmail.com', name: 'sudoer', user: u
+      p = Ish::UserProfile.create email: 'piousbox@gmail.com', name: 'sudoer', user: u
     end
   end
 
@@ -63,7 +63,7 @@ FactoryGirl.define do
     password '12345678'
   end
 
-  factory :user_profile, :class => IshModels::UserProfile do
+  factory :user_profile, :class => Ish::UserProfile do
     email 'user@email.com'
     name 'some-name'
     after :build do |p|

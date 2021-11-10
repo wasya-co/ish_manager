@@ -30,7 +30,13 @@
     .col.s2
       .field
         = f.label :ordering_type
-        = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES)
+        = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES, selected: @map.ordering_type)
+      .field
+        = f.label :rated
+        = f.select :rated, options_for_select(Location::RATED_OPTIONS, selected: @map.rated)
+      .field
+        = f.label :premium_tier
+        = f.number_field :premium_tier
     .col.s4
 
       .field

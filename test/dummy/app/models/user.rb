@@ -40,7 +40,7 @@ class User
   # field :locked_at,       type: Time
   include Mongoid::Timestamps
 
-  has_one :profile, :class_name => '::IshModels::UserProfile'
+  has_one :profile, :class_name => '::Ish::UserProfile'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -87,7 +87,7 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def edit
     @video = Video.unscoped.find params[:id]
-    @user_profiles_list = IshModels::UserProfile.list
+    @user_profiles_list = Ish::UserProfile.list
     authorize! :edit, @video
 
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list

@@ -11,7 +11,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     @resource ||= Site.find params[:newsitem][:site_id]   if !params[:newsitem][:site_id].blank?
     @resource ||= Tag.find params[:tag_id]                if params[:tag_id]
     @resource ||= Tag.find params[:newsitem][:tag_id]     if !params[:newsitem][:tag_id].blank?
-    @resource ||= IshModels::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
+    @resource ||= Ish::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
     @resource ||= ::Gameui::Map.find params[:newsitem][:map_id] if !params[:newsitem][:map_id].blank?
     @resource.newsitems << @newsitem
     @resource.touch
@@ -26,7 +26,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     url = case @resource.class.name
     when "City"
       edit_city_path( @resource.id )
-    when "IshModels::UserProfile"
+    when "Ish::UserProfile"
       user_profiles_path
     when "Site"
       edit_site_path( @resource.id )

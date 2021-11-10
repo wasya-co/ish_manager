@@ -33,7 +33,7 @@ module IshManager
       @reports_list = Report.all.list
       @sites_list = Site.all.list
       @tags_list = Tag.list
-      @user_profiles_list = IshModels::UserProfile.all.list
+      @user_profiles_list = Ish::UserProfile.all.list
       @venues_list = Venue.all.list
       @videos_list = Video.all.list
     end

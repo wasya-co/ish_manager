@@ -4,22 +4,22 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    @user_profiles = IshModels::UserProfile.all.includes( :user )
-    authorize! :index, IshModels::UserProfile
+    @user_profiles = Ish::UserProfile.all.includes( :user )
+    authorize! :index, Ish::UserProfile
   end
 
   def show
-    @user_profile = IshModels::UserProfile.find params[:id]
+    @user_profile = Ish::UserProfile.find params[:id]
     authorize! :show, @user_profile
   end
 
   def edit
-    @profile = IshModels::UserProfile.find params[:id]
+    @profile = Ish::UserProfile.find params[:id]
     authorize! :edit, @profile
   end
 
   def update
-    @profile = IshModels::UserProfile.find params[:id]
+    @profile = Ish::UserProfile.find params[:id]
     authorize! :update, @profile
 
     if params[:photo]
@@ -42,14 +42,14 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   end
 
   def new
-    @profile = IshModels::UserProfile.new
+    @profile = Ish::UserProfile.new
     authorize! :new, @profile
   end
 
   def create
     @user = User.find_or_create_by( :email => params[:profile][:email] )
     @user.password ||= (0...12).map { rand(100) }.join
-    @user.profile = IshModels::UserProfile.new params[:profile].permit!
+    @user.profile = Ish::UserProfile.new params[:profile].permit!
     authorize! :create, @user.profile
 
     if params[:photo]

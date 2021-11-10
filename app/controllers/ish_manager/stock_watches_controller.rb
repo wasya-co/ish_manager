@@ -3,7 +3,7 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::StockWatch
-    @profiles = IshModels::UserProfile.all
+    @profiles = Ish::UserProfile.all
     @stock_watches = Ish::StockWatch.order_by( ticker: :asc, direction: :asc, price: :desc
       ).includes( :profile )
     @stock_watch = Ish::StockWatch.new

@@ -28,7 +28,7 @@ class IshManager::Ability
         can [ :manage ], ::CoTailors
 
         can [ :new ], ::Feature
-        can [ :friends_index, :friends_new ], ::IshModels::UserProfile
+        can [ :friends_index, :friends_new ], ::Ish::UserProfile
 
         can [ :index, :new, :create, :create_photo ], ::Gallery
         can [ :edit, :update ], ::Gallery do |g|
@@ -47,7 +47,7 @@ class IshManager::Ability
         can [ :new, :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
-        can [ :manage ], Ish::StockWatch
+        can [ :manage ], ::Warbler::StockWatch
 
         can [ :index, :new, :create ], ::Tag
 

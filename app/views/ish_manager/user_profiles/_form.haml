@@ -24,7 +24,7 @@
         %br
 
       .input-field
-        = f.select :role_name, options_for_select( [[nil, nil]] + IshModels::UserProfile::ROLES.map { |r| [ r, r ] }, :selected => profile.role_name )
+        = f.select :role_name, options_for_select( [[nil, nil]] + Ish::UserProfile::ROLES.map { |r| [ r, r ] }, :selected => profile.role_name )
         %label role name
 
       .input-field

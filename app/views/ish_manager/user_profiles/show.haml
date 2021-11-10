@@ -8,7 +8,8 @@
       %ul
         - @user_profile.premium_purchases.each do |purchase|
           %li
-            -# = purchase.item_type.constantize.find(purchase.item_id).inspect
-            = render 'ish_manager/reports/show_mini', report: purchase.item_type.constantize.find(purchase.item_id)
+            = purchase.item_type.constantize.find(purchase.item_id).inspect
+            -## this doesn't work b/c an unlocked map has no city.
+            -# = render 'ish_manager/reports/show_mini', report: purchase.item_type.constantize.find(purchase.item_id)
 
 

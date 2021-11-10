@@ -7,7 +7,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   def create
     params[:gallery][:shared_profiles] ||= []
     params[:gallery][:shared_profiles].delete('')
-    params[:gallery][:shared_profiles] = IshModels::UserProfile.find params[:gallery][:shared_profiles]
+    params[:gallery][:shared_profiles] = Ish::UserProfile.find params[:gallery][:shared_profiles]
     @gallery = Gallery.new params[:gallery].permit!
     @gallery.user_profile = current_user.profile
     @gallery.username = current_user.profile.username
@@ -103,7 +103,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     params[:gallery].delete :shared_profiles
 
     if @gallery.update_attributes( params[:gallery].permit! )
-      new_shared_profiles = IshModels::UserProfile.find( params[:gallery][:shared_profile_ids]
+      new_shared_profiles = Ish::UserProfile.find( params[:gallery][:shared_profile_ids]
         ).select { |p| !old_shared_profile_ids.include?( p.id ) }
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
