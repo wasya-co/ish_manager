@@ -2,26 +2,7 @@
 class IshManager::MapsController < IshManager::ApplicationController
 
   before_action :set_map, only: [:destroy, :edit, :map_editor, :show, :update, ]
-
-  def index
-    authorize! :index, ::Gameui::Map
-    @maps = ::Gameui::Map.where( parent_slug: "" ).order( slug: :asc )
-    @all_maps = Gameui::Map.all.order( slug: :asc )
-  end
-
-  def show
-    authorize! :show, @map
-    @maps = Gameui::Map.where( parent_slug: @map.slug )
-  end
-
-  def new
-    authorize! :new, ::Gameui::Map
-    @map = ::Gameui::Map.new
-  end
-
-  def edit
-    authorize! :edit, @map
-  end
+  before_action :set_lists
 
   def create
     @map = ::Gameui::Map.new(map_params)
@@ -44,6 +25,39 @@ class IshManager::MapsController < IshManager::ApplicationController
         format.html { render :new }
       end
     end
+  end
+
+  def destroy
+    authorize! :destroy, @map
+    @map.destroy
+    respond_to do |format|
+      format.html { redirect_to maps_path, notice: 'Map was successfully destroyed.' }
+    end
+  end
+
+  def edit
+    authorize! :edit, @map
+  end
+
+  def index
+    authorize! :index, ::Gameui::Map
+    @maps = ::Gameui::Map.unscoped.where( parent_slug: "" ).order( slug: :asc )
+    @all_maps = Gameui::Map.all.order( slug: :asc )
+  end
+
+  def map_editor
+    authorize! :update, @map
+    @markers = @map.markers.unscoped
+  end
+
+  def new
+    authorize! :new, ::Gameui::Map
+    @map = ::Gameui::Map.new
+  end
+
+  def show
+    authorize! :show, @map
+    @maps = Gameui::Map.where( parent_slug: @map.slug )
   end
 
   def update
@@ -70,27 +84,22 @@ class IshManager::MapsController < IshManager::ApplicationController
     end
   end
 
-  def destroy
-    authorize! :destroy, @map
-    @map.destroy
-    respond_to do |format|
-      format.html { redirect_to maps_path, notice: 'Map was successfully destroyed.' }
-    end
-  end
-
-  def map_editor
-    authorize! :update, @map
-  end
-
   private
 
-    def set_map
-      @map = ::Gameui::Map.where(id: params[:id]).first
-      @map ||= Gameui::Map.find_by(slug: params[:id])
+  def map_params
+    out = params.require(:gameui_map).permit!
+
+    out[:shared_profiles].delete('')
+    if out[:shared_profiles].present?
+      out[:shared_profiles] = Ish::UserProfile.find( out[:shared_profiles] )
     end
 
-    def map_params
-      params.require(:gameui_map).permit!
-    end
+    out
+  end
+
+  def set_map
+    @map = ::Gameui::Map.unscoped.where(id: params[:id]).first
+    @map ||= Gameui::Map.unscoped.find_by(slug: params[:id])
+  end
 
 end

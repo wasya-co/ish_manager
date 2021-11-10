@@ -8,7 +8,7 @@
           = f.label :is_public
         .col.s4
           = f.label 'Shared with'
-          = f.select :shared_profiles, options_for_select(@user_profiles_list, selected: model.shared_profiles.map(&:id) ), {}, { :multiple => true }
+          = f.select :shared_profiles, options_for_select(@user_profiles_list, selected: model.shared_profile_ids), {}, { :multiple => true }
         .col.s4
           Shared with:<br />
           - model.shared_profiles.each do |p|

@@ -9,8 +9,6 @@ gem 'aws-sdk'
 gem 'mongoid-paperclip'
 
 gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => :master
-# gem 'ish_models', path: './ish_models'
-# gem 'ish_models'
 
 gem 'rack-mini-profiler'
 gem 'ffi', '1.11.3'
@@ -27,11 +25,6 @@ gem 'factory_girl_rails'
 
 group :test, :development do
   gem 'byebug'
-
-  ## doesn't work here for travis
-  # gem 'rspec'
-  # gem 'rspec-rails'
-  # gem 'factory_girl_rails'
 
   ## for travis
   gem 'rails-controller-testing'

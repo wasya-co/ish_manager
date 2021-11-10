@@ -3,6 +3,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
 
   before_action :set_map, except: [ :destroy, :edit, :update ]
   before_action :set_marker, only: [ :edit, :update ]
+  before_action :set_lists
 
   def new
     authorize! :new_marker, ::Gameui::Map
@@ -78,12 +79,19 @@ class IshManager::MarkersController < IshManager::ApplicationController
   end
 
   def set_marker
-    @marker = ::Gameui::Marker.find params[:id]
+    @marker = ::Gameui::Marker.unscoped.find params[:id]
     @map = @marker.map
   end
 
   def marker_params
-    params.require(:gameui_marker).permit!
+    out = params.require(:gameui_marker).permit!
+
+    out[:shared_profiles].delete('')
+    if out[:shared_profiles].present?
+      out[:shared_profiles] = Ish::UserProfile.find( out[:shared_profiles] )
+    end
+
+    out
   end
 
 end
