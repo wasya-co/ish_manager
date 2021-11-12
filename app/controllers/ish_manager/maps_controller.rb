@@ -47,7 +47,6 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def map_editor
     authorize! :update, @map
-    @markers = @map.markers.unscoped
   end
 
   def new
@@ -100,6 +99,7 @@ class IshManager::MapsController < IshManager::ApplicationController
   def set_map
     @map = ::Gameui::Map.unscoped.where(id: params[:id]).first
     @map ||= Gameui::Map.unscoped.find_by(slug: params[:id])
+    @markers = @map.markers.unscoped
   end
 
 end

@@ -29,7 +29,7 @@ module IshManager
       @cities_list = City.list
       @galleries_list = Gallery.all.list
       @locations_list = ::Gameui::Map.list
-      @maps_list = ::Gameui::Map.list
+      @maps_list = ::Gameui::Map.list # @TODO: missing nonpublic!
       @reports_list = Report.all.list
       @sites_list = Site.all.list
       @tags_list = Tag.list

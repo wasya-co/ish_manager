@@ -11,6 +11,8 @@ class IshManager::MarkersController < IshManager::ApplicationController
   end
 
   def edit
+    @marker = ::Gameui::Marker.unscoped.find params[:id]
+    @map = @marker.map
     authorize! :edit_marker, @map
   end
 
@@ -86,7 +88,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
   def marker_params
     out = params.require(:gameui_marker).permit!
 
-    out[:shared_profiles].delete('')
+    out[:shared_profiles].delete('') if out[:shared_profiles]
     if out[:shared_profiles].present?
       out[:shared_profiles] = Ish::UserProfile.find( out[:shared_profiles] )
     end

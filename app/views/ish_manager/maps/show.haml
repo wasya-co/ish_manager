@@ -13,14 +13,14 @@
     [<>]
   .the-map
     = image_tag @map.image.image.url(:original) rescue nil
-    - @map.markers.each do |marker|
+    - @markers.each do |marker|
       -# @TODO: this should be a partial
       .marker{ style: "position: absolute; left: #{marker.x - marker.centerOffsetX}px; top: #{marker.y - marker.centerOffsetY}px;" }
         = image_tag marker.image.image.url(:original)
 
-  %p.addToggle Markers (#{@map.markers.count}) [<>]
+  %p.addToggle Markers (#{@markers.count}) [<>]
   .markers-list
-    - @map.markers.each do |marker|
+    - @markers.each do |marker|
       .flex-row.bordered
         = image_tag marker.image.image.url(:original)
         .flat-row

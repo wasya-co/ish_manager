@@ -73,7 +73,8 @@ def do_setup
   @report = FactoryGirl.create :report
 
   # M
-  ::Gameui::Map.destroy_all
+  ::Gameui::Marker.unscoped.destroy_all
+  ::Gameui::Map.unscoped.destroy_all
   @map = FactoryGirl.create :map
   @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
   @map.save

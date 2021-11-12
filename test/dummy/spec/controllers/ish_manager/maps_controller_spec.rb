@@ -15,4 +15,12 @@ describe IshManager::MapsController do
     assigns(:map).should_not eql nil
   end
 
+  describe '#show' do
+    it 'shows nonpublic markers' do
+      @marker = FactoryGirl.create :marker, { map: @map, is_public: false }
+      get :show, params: { id: @map.id }
+      assigns(:markers).should eql [@marker]
+    end
+  end
+
 end

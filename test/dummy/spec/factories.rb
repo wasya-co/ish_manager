@@ -38,6 +38,15 @@ FactoryGirl.define do
     end
   end
 
+  factory :marker, class: Gameui::Marker do
+    name 'name'
+    slug 'slug'
+    after :build do |map|
+      map.image = FactoryGirl.create :image_asset
+      map.item_type = ::Gameui::Marker::ITEM_TYPES[0]
+    end
+  end
+
   factory :newsitem do
   end
 
