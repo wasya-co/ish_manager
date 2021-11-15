@@ -21,7 +21,7 @@
  *= require ish_manager/videos
  */
 
- body {
+body {
   background: #dedede;
   font-size: 20px;
 }
@@ -110,6 +110,11 @@ hr {
 }
 ul.inline li {
   display: inline;
+}
+.inline-search {
+  width: 20px;
+  bordeR: 1px solid white;
+  display: inline-block;
 }
 
 /* L */

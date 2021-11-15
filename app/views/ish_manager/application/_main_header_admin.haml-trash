@@ -1,0 +1,22 @@
+
+
+        -# %li{ :class => params[:controller] == 'ish_manager/sites'         ? 'active' : '' }= link_to 'Sites',     sites_path
+        -# %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }= link_to 'Tags',      tags_path
+        -# %li{ :class => params[:controller] == 'ish_manager/cities'        ? 'active' : '' }= link_to 'Cities',    cities_path
+        -# %li{ :class => params[:controller] == 'ish_manager/events'        ? 'active' : '' }= link_to 'Events',    events_path
+        -# %li{ :class => params[:controller] == 'ish_manager/venues'        ? 'active' : '' }= link_to 'Venues',    venues_path
+        -# %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path
+      - proc do # nothing
+        %ul.nav.nav-pills
+          %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches', stock_watches_path
+          -# %li{ :class => params[:controller] == 'ish_manager/stock_actions' ? 'active' : '' }= link_to 'Stock Actions', stock_actions_path
+          -# %li{ :class => params[:controller] == 'ish_manager/stock_options' ? 'active' : '' }= link_to 'Stock Options', stock_options_path
+          -# %li{ :class => params[:controller] == 'ish_manager/iron_condors' ? 'active' : '' }= link_to 'Iron Condors', iron_condors_path
+          -# %li{ :class => params[:controller] == 'ish_manager/covered_calls' ? 'active' : '' }= link_to 'Covered Calls', covered_calls_path
+        %ul.nav.nav-pills
+          %li{ :class => params[:controller] == 'ish_manager/invoices'      ? 'active' : '' }= link_to 'Invoices', invoices_path
+          %li{ :class => params[:controller] == 'ish_manager/payments'      ? 'active' : '' }= link_to 'Payments', payments_path
+          %li{ :class => params[:controller] == 'ish_manager/orders'        ? 'active' : '' }= link_to 'Orders', orders_path
+        %ul.nav.nav-pills
+          %li{ :class => params[:controller] == 'ish_manager/leads'         ? 'active' : '' }= link_to 'Leads', leads_path
+          %li{ :class => params[:controller] == 'ish_manager/campaigns'     ? 'active' : '' }= link_to 'Campaigns', campaigns_path

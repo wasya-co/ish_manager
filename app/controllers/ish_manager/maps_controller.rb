@@ -41,7 +41,16 @@ class IshManager::MapsController < IshManager::ApplicationController
 
   def index
     authorize! :index, ::Gameui::Map
-    @maps = ::Gameui::Map.unscoped.where( parent_slug: "" ).order( slug: :asc )
+
+    if params[:q]
+      @maps = ::Gameui::Map.where({ slug: /#{params[:q]}/i })
+      if @maps.length == 1
+        redirect_to map_path(@maps[0])
+        return
+      end
+    end
+
+    @maps ||= ::Gameui::Map.unscoped.where( parent_slug: "" ).order( slug: :asc )
     @all_maps = Gameui::Map.all.order( slug: :asc )
   end
 
