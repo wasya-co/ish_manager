@@ -49,6 +49,7 @@ IshManager::Engine.routes.draw do
       resources 'newsitems'
     end
     get 'maps/:id', to: 'maps#edit'
+    resources 'markers'
   end
 
   resources :newsitems

@@ -2,19 +2,12 @@
 .manager-reports-show
   .row
     .large-12.columns
-      %h1
+      %h1.flex-row
         = @report.name
         = link_to '[~]', edit_report_path( @report )
+        = button_to '[x]', report_path( @report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-      .meta
-        -# By #{link_to @report.user_profile.username, user_path( @report.user )}
-        On #{@report.created_at.to_s.slice(0, 10)}
-        - if @report.site
-          In #{link_to "http://#{@report.site.domain}/#{@report.site.lang}", site_path( @report.site )}
-        -# - if @report.tag
-        -#   Tagged #{link_to @report.tag.name, manager_tag_path( @report.tag )}
-        - if @report.city
-          In #{link_to @report.city.name, city_path( @report.city )}
+      = render 'meta', item: @report
 
       - if @report.subhead.length > 3
         .subhead= @report.subhead
@@ -23,6 +16,5 @@
         - if @report.photo
           .float-left= image_tag @report.photo.photo.url( :small )
         = raw @report.descr
-        .c
-
-      .c
+  %hr
+  = render 'form', :url => report_path(@report.id), :report => @report
