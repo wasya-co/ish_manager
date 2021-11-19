@@ -3,6 +3,8 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   before_action :set_lists
 
+  # alphabetized : )
+
   def create
     @report = Report.new params[:report].permit!
     @report.user_profile = current_user.profile # @TODO: this should not be hard-coded
@@ -40,24 +42,12 @@ class IshManager::ReportsController < IshManager::ApplicationController
     end
   end
 
-  def index
-    authorize! :index, Report
-    @reports = Report.unscoped.order_by( :created_at => :desc
-                                       ).where( :is_trash => false, :user_profile => current_user.profile
-                                              ).page( params[:reports_page]
-                                                    ).per( Report::PER_PAGE )
-    if false === params[:site]
-      @reports = @reports.where( :site_id => nil )
-    end
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @reports = @reports.where( :site_id => params[:site_id] )
-    end
-  end
-
-  def show
+  def destroy
     @report = Report.unscoped.find params[:id]
-    authorize! :show, @report
+    authorize! :destroy, @report
+    @report.is_trash = true
+    @report.save
+    redirect_to request.referrer
   end
 
   def edit
@@ -65,12 +55,46 @@ class IshManager::ReportsController < IshManager::ApplicationController
     authorize! :edit, @report
   end
 
-  def destroy
+  def index
+    authorize! :index, Report
+    @reports = Report.unscoped.order_by( :created_at => :desc
+      ).where( :is_trash => false, :user_profile => current_user.profile
+      ).page( params[:reports_page] ).per( Report::PER_PAGE )
+    if false === params[:site]
+      @reports = @reports.where( :site_id => nil )
+    end
+    if params[:site_id]
+      @site = Site.find params[:site_id]
+      @reports = @reports.where( :site_id => params[:site_id] )
+    end
+    if params[:q]
+      @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
+      if @reports.length == 1
+        redirect_to report_path(@reports[0])
+        return
+      end
+    end
+  end
+
+  def new
+    @report = Report.new
+    authorize! :new, @report
+    @tags_list = Tag.all.where( :is_public => true ).list
+    @sites_list = Site.all.list
+    @cities_list = City.list
+    @venues_list = Venue.all.list
+
+    respond_to do |format|
+      format.html do
+        render
+      end
+      format.json { render :json => @report }
+    end
+  end
+
+  def show
     @report = Report.unscoped.find params[:id]
-    authorize! :destroy, @report
-    @report.is_trash = true
-    @report.save
-    redirect_to request.referrer
+    authorize! :show, @report
   end
 
   def update
@@ -94,24 +118,6 @@ class IshManager::ReportsController < IshManager::ApplicationController
       end
     end
   end
-
-  def new
-    @report = Report.new
-    authorize! :new, @report
-    @tags_list = Tag.all.where( :is_public => true ).list
-    @sites_list = Site.all.list
-    @cities_list = City.list
-    @venues_list = Venue.all.list
-
-    respond_to do |format|
-      format.html do
-        render
-      end
-      format.json { render :json => @report }
-    end
-  end
-
-
 
 end
 

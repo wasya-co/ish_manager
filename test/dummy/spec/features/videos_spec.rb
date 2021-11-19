@@ -8,7 +8,7 @@ RSpec.describe 'Videos system', type: :feature do
     video = Video.create youtube_id: 'a', user_profile: profile
     login_as(user, scope: :user)
 
-    visit "/ish_manager/videos"
+    visit "/manager/videos"
 
     expect(page).to have_css('.videos--index')
     expect(page).to have_css('.video-embed-half')

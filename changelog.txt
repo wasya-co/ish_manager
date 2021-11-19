@@ -16,3 +16,5 @@
 0.1.9 - stock_watch stuff
 0.1.10 - let's share galleries with bondar
 master - 20200208 - adding map, marker management
+0.1.16 - stock watches are back in, and test/dummy is aleady the host!
+
