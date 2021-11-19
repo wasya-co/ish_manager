@@ -8,7 +8,6 @@
         -# %li{ :class => params[:controller] == 'ish_manager/friends      ' ? 'active' : '' }= link_to 'Friends',   friends_path
       - proc do # nothing
         %ul.nav.nav-pills
-          %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches', stock_watches_path
           -# %li{ :class => params[:controller] == 'ish_manager/stock_actions' ? 'active' : '' }= link_to 'Stock Actions', stock_actions_path
           -# %li{ :class => params[:controller] == 'ish_manager/stock_options' ? 'active' : '' }= link_to 'Stock Options', stock_options_path
           -# %li{ :class => params[:controller] == 'ish_manager/iron_condors' ? 'active' : '' }= link_to 'Iron Condors', iron_condors_path

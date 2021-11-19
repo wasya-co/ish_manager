@@ -11,16 +11,28 @@
             = form_tag maps_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_map_path
-        %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
+
         %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }
           = link_to 'Galleries', galleries_path
+          .inline-search
+            = form_tag galleries_path, method: :get do
+              = text_field_tag :q
           = link_to '[+]', new_gallery_path
         %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }
           = link_to 'Reports',   reports_path
+          .inline-search
+            = form_tag reports_path, method: :get do
+              = text_field_tag :q
           = link_to '[+]', new_report_path
         %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }
           = link_to 'Videos',    videos_path
+          .inline-search
+            = form_tag videos_path, method: :get do
+              = text_field_tag :q
           = link_to '[+]', new_video_path
+      %ul
+        %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
+        %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches', stock_watches_path
         %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Profiles',  user_profiles_path
   %hr
 

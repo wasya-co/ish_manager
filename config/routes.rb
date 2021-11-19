@@ -48,7 +48,8 @@ IshManager::Engine.routes.draw do
       resources 'markers'
       resources 'newsitems'
     end
-    resources 'markers' # redundant
+    get 'maps/:id', to: 'maps#edit'
+    resources 'markers'
   end
 
   resources :newsitems
