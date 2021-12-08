@@ -13,7 +13,6 @@
  *= require_self
  *= require ish_manager/tags
  *= require ish_manager/maps
- *= require ish_manager/utils
  *= require ish_manager/jquery-ui
  *= require ish_manager/galleries
  *= require ish_manager/photos
@@ -25,14 +24,58 @@ body {
   background: #dedede;
   font-size: 20px;
 }
+
 pre {
   background: #e0e0e0;
   padding: 1em;
 }
 
+ul:not(.browser-default).errors,
+ul:not(.browser-default).bullets, {
+  > li {
+    list-style-type: circle;
+    margin-left: 1em;
+  }
+}
+
 /**
  * utils
  */
+
+.-index {
+  .item {
+    margin-bottom: 3em;
+  }
+
+  /* clear nth! */
+  .row div:nth-child(2n+1) {
+    clear:left
+  }
+
+  .row h3 {
+    margin-bottom: 0;
+  }
+}
+
+
+.flat-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  height: 2.4em;
+  line-height: 3em;
+
+  width: 100%;
+  margin: 1em 0 0 0;
+  padding: 0;
+
+  > * {
+    padding-right: 1em;
+  }
+}
+
 
 /* A */
 
@@ -89,6 +132,7 @@ pre {
 
 .flex-row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .float-left {
