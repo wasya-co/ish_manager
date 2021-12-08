@@ -31,8 +31,8 @@
                   - g.photos.limit( n_thumbs ).each do |photo|
                     = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
 
-      - if @galleries.respond_to? :total_pages
-        = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+    - if @galleries.respond_to? :total_pages
+      = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
 
   - else
     %h5 No Galleries

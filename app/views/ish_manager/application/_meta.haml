@@ -1,20 +1,18 @@
 
 .meta
-  - if defined?(item.premium_tier) && item.premium_tier > 0
-    <b>Tier:$#{item.premium_tier}</b>
-  <b>On</b> #{item.created_at.to_s[0...10]}
 
-  - if item.city
-    <b>In City:</b> #{link_to item.city.name, city_path( item.city )}
-  - if item.tags.length > 0
-    <b>Tags:</b> #{ item.tags.map(&:name).join(', ') }
-  - if item.site
-    <b>Site:</b>
-    = link_to "#{item.site.domain}/#{item.site.lang}", site_path( item.site )
-  - if item.respond_to?( :venue ) && item.venue
-    <b>Venue:</b>
-    = link_to item.venue.name, venue_path( item.venue )
+  <b>On</b> #{item.created_at.to_s[0...10]}
   - if item.user_profile
     <b>By:</b>
     = link_to item.user_profile.name, edit_user_profile_path( item.user_profile )
 
+  - if item.tags.length > 0
+    <b>Tags:</b> #{ item.tags.map(&:name).join(', ') }
+  - if item.city
+    <b>In City:</b> #{link_to item.city.name, city_path( item.city )}
+  - if item.respond_to?( :venue ) && item.venue
+    <b>Venue:</b>
+    = link_to item.venue.name, venue_path( item.venue )
+
+  - if defined?(item.premium_tier) && item.premium_tier > 0
+    <b>Tier:$#{item.premium_tier}</b>
