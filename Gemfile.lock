@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0)
+    ish_manager (0.1.8.263)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1227,7 +1227,7 @@ GEM
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.7.0)
-    globalid (0.5.2)
+    globalid (1.0.0)
       activesupport (>= 5.0)
     haml (5.2.2)
       temple (>= 0.8.0)
