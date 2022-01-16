@@ -4,6 +4,10 @@ def puts! a, b=''
   puts a.inspect
 end
 
+class Warbler::StockWatch
+  SLEEP_TIME_SECONDS = 60
+end
+
 namespace :ish_manager do
 
   desc "every user needs a user_profile"
@@ -21,13 +25,16 @@ namespace :ish_manager do
   desc 'watch the stocks, and trigger actions - not alphavantage, tda now. 2021-08-08'
   task watch_stocks: :environment do
     while true
-      stocks = Warbler::StockWatch.where( :notification_type => :EMAIL )
+      stocks = Warbler::StockWatch.where( notification_type: :EMAIL )
       stocks.each do |stock|
+
+        puts! stock, 'stock'
+
         begin
           Timeout::timeout( 10 ) do
-            out = Ish::Ameritrade::Api.get_quote({ symbol: stock.ticker })
+            out = Warbler::Ameritrade::Api.get_quote({ symbol: stock.ticker })
             r = out[:lastPrice]
-            if  stock.direction == :ABOVE &&  r >= stock.price ||
+            if  stock.direction == :ABOVE && r >= stock.price ||
                 stock.direction == :BELOW && r <= stock.price
               IshManager::ApplicationMailer.stock_alert( stock ).deliver
            end
@@ -36,7 +43,7 @@ namespace :ish_manager do
           puts! e, 'e in :watch_stocks'
         end
       end
-      sleep 60
+      sleep Warbler::StockWatch::SLEEP_TIME_SECONDS
     end
   end
 

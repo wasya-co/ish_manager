@@ -5,16 +5,23 @@
     %link{ :rel => 'icon', :href => '/favicon.ico?v=1' }
     %meta{ :name => :viewport, :content => 'width=device-width, initial-scale=1.0' }
     %meta{ :charset => 'UTF-8' }
-    %meta{ :description => 'some description' }
-    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" }
-    %script{ :src => "https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/jquery.tinymce.min.js" }
-    %script{ :src => "https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/tinymce.min.js" }
+    %meta{ :description => 'Ish CMS - Ish Manager' }
+
+    %script{ :src => "//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" }
+    %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/jquery.tinymce.min.js" }
+    %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/tinymce.min.js" }
     %script{ :src => "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" }
+
+
+    = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     = stylesheet_link_tag "//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"
-    = stylesheet_link_tag "ish_manager/application", media: "all"
     = stylesheet_link_tag "//fonts.googleapis.com/icon?family=Material+Icons"
     = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :media => 'all'
+
+    = stylesheet_link_tag "ish_manager/application", media: "all"
+
     = javascript_include_tag "ish_manager/application"
+
     = csrf_meta_tags
   %body#application_no_materialize
     .bg-white
@@ -31,3 +38,6 @@
         = yield
     = render :partial => 'ish_manager/application/main_footer'
     = render 'debug' if Rails.env.development?
+    %script{ src: "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" }
+    :javascript
+      M.AutoInit();

@@ -11,7 +11,7 @@
 // about supported directives.
 //
 // require ish_manager/jquery-3.2.1.min
-//= require ish_manager/bootstrap.min
+// require ish_manager/bootstrap.min
 //= require ish_manager/jquery.iframe-transport
 //= require ish_manager/jquery.ui.widget
 //= require ish_manager/jquery.fileupload
@@ -20,6 +20,7 @@
 //= require ish_manager/maps
 
 $(function () {
+
   $('#fileupload').fileupload({
     dataType: 'json',
     done: function (e, data) {
@@ -28,9 +29,6 @@ $(function () {
       $('<img/>').attr('src', tempUrl).appendTo(photos);
     }
   });
-});
-
-$(function () {
 
   $('*[data-confirm]').click(function(){
     return confirm($(this).attr('data-confirm'));
@@ -44,9 +42,9 @@ $(function () {
     });
   }
 
-  if ($('body').length > 0) {
+  /* if ($('body').length > 0) {
       $('select').material_select()
-  }
+  } */
 
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')
