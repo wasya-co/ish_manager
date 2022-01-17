@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.273)
+    ish_manager (0.1.8.274)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1291,7 +1291,11 @@ GEM
       paperclip (>= 2.3.6, != 4.3.0)
     multi_xml (0.6.0)
     nio4r (2.5.8)
-    nokogiri (1.12.2-x86_64-darwin)
+    nokogiri (1.13.1-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.1-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.1-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     paperclip (6.1.0)
@@ -1302,7 +1306,7 @@ GEM
       terrapin (~> 0.6.0)
     polyamorous (2.3.0)
       activerecord (>= 5.0)
-    racc (1.5.2)
+    racc (1.6.0)
     rack (2.2.3)
     rack-mini-profiler (2.3.2)
       rack (>= 1.2.0)
@@ -1401,6 +1405,7 @@ GEM
 PLATFORMS
   universal-darwin-21
   x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   activesupport (= 5.1.4)
