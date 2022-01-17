@@ -5,7 +5,12 @@ require File.expand_path("../../config/environment.rb", __FILE__)
 require 'rspec/rails'
 require 'devise'
 
+## From: https://github.com/DatabaseCleaner/database_cleaner-mongoid
+DatabaseCleaner[:mongoid].strategy = [:deletion]
+
 RSpec.configure do |config|
+
+  config.include FactoryBot::Syntax::Methods
 
   ## 20210205
   config.include Rails.application.routes.url_helpers
@@ -66,30 +71,30 @@ def do_setup
 
   # C
   City.unscoped.destroy_all
-  @city = FactoryGirl.create :city
+  @city = FactoryBot.create :city
 
   # R
   Report.unscoped.destroy_all
-  @report = FactoryGirl.create :report
+  @report = FactoryBot.create :report
 
   # M
   ::Gameui::Marker.unscoped.destroy_all
   ::Gameui::Map.unscoped.destroy_all
-  @map = FactoryGirl.create :map
+  @map = FactoryBot.create :map
   @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
   @map.save
 
   # P
   ::Gameui::PremiumPurchase.unscoped.destroy_all
-  @purchase = FactoryGirl.create :purchase, item: @report, user_profile: @profile
+  @purchase = FactoryBot.create :purchase, item: @report, user_profile: @profile
 
   # S
   Site.unscoped.destroy_all
-  @site = FactoryGirl.create :site
+  @site = FactoryBot.create :site
 
   # T
   Tag.unscoped.destroy_all
-  @tag = FactoryGirl.create :tag
+  @tag = FactoryBot.create :tag
 
 end
 
@@ -98,23 +103,23 @@ def setup_profiles
   @profiles = {}
   Ish::UserProfile.all.destroy
   emails.each_with_index do |email, index|
-    u = FactoryGirl.create :user, :email => email
-    p = FactoryGirl.create :user_profile, :email => email, :user => u, :name => 'some-name'
+    u = FactoryBot.create :user, :email => email
+    p = FactoryBot.create :user_profile, :email => email, :user => u, :name => 'some-name'
     @profiles[index] = p
   end
 end
 
 def setup_reports
   Report.all.destroy
-  @report = FactoryGirl.create :report
+  @report = FactoryBot.create :report
 end
 
 def setup_tags
   Report.all.destroy
-  @report = FactoryGirl.create( :report, :name => rand(1000), :slug => rand(1000) )
+  @report = FactoryBot.create( :report, :name => rand(1000), :slug => rand(1000) )
 
   Tag.all.destroy
-  @tag = FactoryGirl.create :tag
+  @tag = FactoryBot.create :tag
   @tag.reports << @report
   @tag.save
 end
@@ -122,12 +127,12 @@ end
 def setup_users
   User.all.destroy
   Ish::UserProfile.all.destroy
-  @user    = FactoryGirl.create :user, :email => 'piousbox@gmail.com'
-  @profile = FactoryGirl.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
+  @user    = FactoryBot.create :user, :email => 'piousbox@gmail.com'
+  @profile = FactoryBot.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
   @profile.save && @profile.reload
   @user.save && @user.reload
-  @user_1  = FactoryGirl.create :user, :email => 'user-1@gmail.com'
-  @user_2  = FactoryGirl.create :user, :email => 'user-2@gmail.com'
+  @user_1  = FactoryBot.create :user, :email => 'user-1@gmail.com'
+  @user_2  = FactoryBot.create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user
   # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end

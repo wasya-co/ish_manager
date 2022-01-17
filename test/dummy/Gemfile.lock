@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: a990a8e39e7464f773e907dd659a8c10b40b75dd
-  branch: 0.1.16
+  revision: 1cfd0dbe83119b2f4f9e9073078cbeb12cd8a15b
+  branch: master
   specs:
-    ish_manager (0.1.8.261)
+    ish_manager (0.1.8.273)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1208,6 +1208,10 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    database_cleaner-core (2.0.1)
+    database_cleaner-mongoid (2.0.1)
+      database_cleaner-core (~> 2.0.0)
+      mongoid
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -1217,11 +1221,11 @@ GEM
     diff-lcs (1.4.4)
     erubi (1.10.0)
     execjs (2.8.1)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     ffi (1.15.4)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
@@ -1408,17 +1412,18 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-darwin-21
 
 DEPENDENCIES
-  activeadmin
   activesupport (= 5.1.4)
   aws-sdk
   aws-sdk-s3
   byebug
   cancancan
   capybara
+  database_cleaner-mongoid
   devise
-  factory_girl_rails
+  factory_bot_rails
   haml
   httparty
   i18n (= 0.9.1)
@@ -1439,4 +1444,4 @@ DEPENDENCIES
   tzinfo (= 1.2.4)
 
 BUNDLED WITH
-   2.2.25
+   2.3.4
