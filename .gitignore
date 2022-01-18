@@ -10,7 +10,7 @@ test/dummy/vendor
 
 *~
 \#*
-*.trash
+*trash
 ish_manager-*.gem
 .#*
 *.swp

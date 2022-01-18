@@ -1,5 +1,6 @@
 class IshManager::NewsitemsController < IshManager::ApplicationController
   before_action :set_lists
+  layout 'ish_manager/application2'
 
   ## Alphabetized : )
 

@@ -1,6 +1,8 @@
 
 class IshManager::StockWatchesController < IshManager::ApplicationController
 
+  layout 'ish_manager/application2'
+
   def create
     @stock_watch = Warbler::StockWatch.new permitted_params
     authorize! :create, @stock_watch
@@ -31,7 +33,6 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
     @stock_watches = Warbler::StockWatch.order_by( ticker: :asc, direction: :asc, price: :desc
       ).includes( :profile )
     @stock_watch = Warbler::StockWatch.new
-    # render 'index', :layout => 'ish_manager/application_no_materialize'
   end
 
   def update
