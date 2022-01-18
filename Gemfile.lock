@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 07bec05a3a1a16b68f1d5214c9f90cca307ba9de
-  branch: 1.1.0
+  revision: 83dd9653c95db67c43eb1f3c977d9b1a68245efd
+  branch: master
   specs:
-    ish_models (0.0.33.146)
+    ish_models (0.0.33.147)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.274)
+    ish_manager (0)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1250,19 +1250,19 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    kaminari (1.2.1)
+    kaminari (1.2.2)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.2.1)
-      kaminari-activerecord (= 1.2.1)
-      kaminari-core (= 1.2.1)
-    kaminari-actionview (1.2.1)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
       actionview
-      kaminari-core (= 1.2.1)
-    kaminari-activerecord (1.2.1)
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
       activerecord
-      kaminari-core (= 1.2.1)
-    kaminari-core (1.2.1)
-    kaminari-mongoid (1.0.1)
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
+    kaminari-mongoid (1.0.2)
       kaminari-core (~> 1.0)
       mongoid
     loofah (2.11.0)
@@ -1278,6 +1278,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.2)
+    mini_portile2 (2.7.1)
     minitest (5.10.2)
     mongo (2.15.0)
       bson (>= 4.8.2, < 5.0.0)
@@ -1291,7 +1292,8 @@ GEM
       paperclip (>= 2.3.6, != 4.3.0)
     multi_xml (0.6.0)
     nio4r (2.5.8)
-    nokogiri (1.13.1-arm64-darwin)
+    nokogiri (1.13.1)
+      mini_portile2 (~> 2.7.0)
       racc (~> 1.4)
     nokogiri (1.13.1-x86_64-darwin)
       racc (~> 1.4)
@@ -1403,6 +1405,7 @@ GEM
     websocket-extensions (0.1.5)
 
 PLATFORMS
+  ruby
   universal-darwin-21
   x86_64-darwin-19
   x86_64-linux

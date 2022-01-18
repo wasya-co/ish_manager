@@ -8,7 +8,7 @@ gem 'devise'
 gem 'aws-sdk'
 gem 'mongoid-paperclip'
 
-gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => '1.1.0'
+gem 'ish_models',  :github => 'piousbox/ish_models',  :branch => 'master'
 
 gem 'rack-mini-profiler'
 gem 'ffi', '1.11.3'
