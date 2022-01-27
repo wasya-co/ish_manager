@@ -1,11 +1,12 @@
 
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment.rb", __FILE__)
+require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'factory_bot'
 require 'devise'
 
 ## From: https://github.com/DatabaseCleaner/database_cleaner-mongoid
-DatabaseCleaner[:mongoid].strategy = [:deletion]
+# DatabaseCleaner[:mongoid].strategy = [:deletion]
 
 RSpec.configure do |config|
 
@@ -126,12 +127,12 @@ end
 def setup_users
   User.all.destroy
   Ish::UserProfile.all.destroy
-  @user    = FactoryBot.create :user, :email => 'piousbox@gmail.com'
+  @user    = create(:user, :email => 'piousbox@gmail.com')
   @profile = FactoryBot.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
   @profile.save && @profile.reload
   @user.save && @user.reload
-  @user_1  = FactoryBot.create :user, :email => 'user-1@gmail.com'
-  @user_2  = FactoryBot.create :user, :email => 'user-2@gmail.com'
+  @user_1  = create :user, :email => 'user-1@gmail.com'
+  @user_2  = create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user
   # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end

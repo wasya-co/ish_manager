@@ -1,5 +1,6 @@
 
 FactoryBot.define do
+
   # alphabetized : )
 
   factory :admin do
@@ -33,7 +34,7 @@ FactoryBot.define do
     name { 'name' }
     slug { 'slug' }
     after :build do |map|
-      map.image = FactoryGirl.create :image_asset
+      map.image = create :image_asset
     end
   end
 
@@ -41,7 +42,7 @@ FactoryBot.define do
     name { 'name' }
     slug { 'slug' }
     after :build do |map|
-      map.image = FactoryGirl.create :image_asset
+      map.image = create :image_asset
       map.item_type = ::Gameui::Marker::ITEM_TYPES[0]
     end
   end

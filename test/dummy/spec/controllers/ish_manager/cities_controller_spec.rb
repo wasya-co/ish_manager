@@ -7,10 +7,10 @@ describe IshManager::CitiesController, :type => :controller do
 
   before :each do
     City.all.destroy
-    @city = FactoryGirl.create :city
+    @city = create :city
 
     User.all.destroy
-    @user = FactoryGirl.create :user
+    @user = create :user
     sign_in @user, :scope => :user
 
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))

@@ -9,7 +9,7 @@ describe IshManager::ReportsController, :type => :controller do
     setup_users
 
     Report.all.destroy
-    @report = FactoryGirl.create :report, :name => 'xx-test-report-xx'
+    @report = create :report, :name => 'xx-test-report-xx'
   end
 
   describe 'update' do

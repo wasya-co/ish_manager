@@ -8,7 +8,7 @@ describe IshManager::ApplicationController, :type => :controller do
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
 
     Gallery.all.destroy
-    @gallery = FactoryGirl.create :gallery, :name => 'xx-test-gallery-xx'
+    @gallery = create :gallery, :name => 'xx-test-gallery-xx'
   end
 
   it '#home - header for guy' do

@@ -6,13 +6,13 @@ describe IshManager::VideosController, :type => :controller do
 
   before do
     setup_users
-    @video = FactoryGirl.create :video, is_trash: true
+    @video = create :video, is_trash: true
 
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
   end
 
   it '#destroy' do
-    v = FactoryGirl.create :video, is_trash: true
+    v = create :video, is_trash: true
     delete :destroy, params: { id: v.id }
     response.should be_redirect
     vv = Video.where( id: v.id ).first
