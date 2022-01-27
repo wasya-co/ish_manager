@@ -82,6 +82,7 @@ FactoryBot.define do
   end
 
   factory :video do
+    name { 'some-name' }
     youtube_id { 'some-youtube-id' }
   end
 
