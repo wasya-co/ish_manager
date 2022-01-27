@@ -2,19 +2,18 @@
 - content_for :title do
   #{@video.name} | #{@site ? @site.title : ''}
 
-.row
-  .large-12.columns
+.ish_manager-videos-show
+  = link_to '[Back]', videos_path
 
-    %h3
-      - if @video.name.blank?
-        = t('videos.no_title')
-      - else
-        = @video.name
-    = render 'ish_manager/application/meta', :item => @video
-    .text-center= render 'embed', :video => @video
-    %hr
-    = link_to @video.video.url, @video.video.url
+  = render 'embed', :video => @video
 
-    %p <b>User Profile:</b> #{@video.user_profile.name}
-    %p= image_tag @video.thumb.url(:thumb)
-    %p <b>Video:</b> #{@video.inspect}
+  .row
+    = image_tag @video.thumb.url(:thumb)
+    .a
+      .title
+        = @video.name.blank? ? t('videos.no_title') : @video.name
+      .flex-row
+        = render 'meta_edit', item: @video
+        = render 'ish_manager/application/meta', :item => @video
+        = link_to @video.video_file_name, @video.video.url
+

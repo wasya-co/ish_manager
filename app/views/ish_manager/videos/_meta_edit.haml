@@ -1,0 +1,4 @@
+
+.meta-edit
+  .inline= button_to '[x]', video_path( item ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+  = link_to '[~]', edit_video_path( item )

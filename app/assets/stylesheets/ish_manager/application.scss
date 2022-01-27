@@ -58,23 +58,6 @@ ul:not(.browser-default).bullets, {
 }
 
 
-.flat-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-start;
-
-  height: 2.4em;
-  line-height: 3em;
-
-  width: 100%;
-  margin: 1em 0 0 0;
-  padding: 0;
-
-  > * {
-    padding-right: 1em;
-  }
-}
 
 
 /* A */
@@ -130,9 +113,28 @@ ul:not(.browser-default).bullets, {
 /* E */
 /* F */
 
+.flat-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  height: 2.4em;
+  line-height: 3em;
+
+  width: 100%;
+  margin: 1em 0 0 0;
+  padding: 0;
+
+  > * {
+    padding-right: 1em;
+  }
+}
+
+
 .flex-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* @TODO: why does it wrap? in ish_manager/show , I'd prefer it didn't. */
 }
 
 .float-left {
@@ -172,14 +174,6 @@ textarea.large {
 
 /* M */
 
-.menu-secondary li {
-  display: inline;
-}
-.menu-secondary li a {
-  padding: 1rem;
-  background: white;
-}
-
 
 .manager--main-header {
   background: url('/assets/bg/weather.png');
@@ -217,6 +211,16 @@ textarea.large {
   border-bottom: 1px solid red;
 }
 
+.menu-secondary li {
+  display: inline;
+}
+.menu-secondary li a {
+  padding: 1rem;
+  background: white;
+}
+.meta-edit {
+  display: inline;
+}
 
 /* P */
 .panel-content {
