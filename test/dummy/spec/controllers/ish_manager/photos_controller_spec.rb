@@ -4,13 +4,13 @@ describe IshManager::PhotosController, :type => :controller do
   routes { IshManager::Engine.routes }
   before :each do
     Site.unscoped.destroy
-    @site = FactoryGirl.create :site
+    @site = create :site
 
     Gallery.unscoped.destroy
     @gallery = Gallery.create :site => @site
 
     Photo.unscoped.destroy
-    @photo = FactoryGirl.create :photo, :gallery => @gallery
+    @photo = create :photo, :gallery => @gallery
 
     setup_users
   end

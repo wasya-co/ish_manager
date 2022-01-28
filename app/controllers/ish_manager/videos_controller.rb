@@ -34,7 +34,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   def destroy
     @video = Video.unscoped.find params[:id]
     authorize! :destroy, @video
-    flag = @video.update_attributes( :is_trash => true )
+    flag = @video.delete
     @video.city.touch if @video.city
     @video.site.touch if @video.site
     @video.tags.map &:touch
@@ -91,7 +91,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   end
 
   def show
-    @video = Video.where( :youtube_id => params[:youtube_id] ).first
+    @video = Video.unscoped.where( :youtube_id => params[:youtube_id] ).first
     @video ||= Video.unscoped.find params[:id]
     authorize! :show, @video
 

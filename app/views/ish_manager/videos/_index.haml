@@ -23,9 +23,8 @@
                 .thumb= image_tag video.thumb.url(:thumb)
             .a
               = link_to video.name, video_path( video )
-              .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-              = link_to '[~]', edit_video_path( video )
-            = render 'meta', :item => video
+            = render 'meta_edit', item: video
+            = render 'meta', item: video
             .c
 
   = paginate videos, :param_name => :videos_page, :views_prefix => 'ish_manager'

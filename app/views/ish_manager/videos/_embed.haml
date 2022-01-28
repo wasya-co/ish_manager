@@ -1,0 +1,5 @@
+
+- if !video.youtube_id.blank?
+  = render 'embed_youtube', video: video
+- else
+  = render 'embed_s3', video: video

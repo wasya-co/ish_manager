@@ -6,17 +6,20 @@ describe IshManager::VideosController, :type => :controller do
 
   before do
     setup_users
-    @video = FactoryGirl.create :video, is_trash: true
-
     allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
+
+    @video = create :video
   end
 
-  it '#destroy' do
-    v = FactoryGirl.create :video, is_trash: true
+  it '#destroy, and the deleted video is accessible' do
+    v = create :video
     delete :destroy, params: { id: v.id }
-    response.should be_redirect
     vv = Video.where( id: v.id ).first
     vv.should eql nil
+
+    get :show, params: { id: v.id }
+    response.should be_success
+    assigns(:video).name.should eql 'some-name'
   end
 
   describe '#edit' do

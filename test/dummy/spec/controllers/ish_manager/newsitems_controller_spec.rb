@@ -10,7 +10,7 @@ describe IshManager::NewsitemsController, :type => :controller do
     do_setup
 
     [ @city, @site, @tag ].each do |res|
-      @newsitem = FactoryGirl.create :newsitem, :report_id => 'abba-1'
+      @newsitem = create :newsitem, :report_id => 'abba-1'
       res.newsitems << @newsitem
       res.updated_at = '2020-01-01'
       res.save
