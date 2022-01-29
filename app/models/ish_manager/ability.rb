@@ -7,7 +7,7 @@ class IshManager::Ability
     #
     # signed in user
     #
-    unless user.blank?
+    if !user.blank?
 
       #
       # only sudoer... total power

@@ -7,6 +7,14 @@ require 'devise'
 
 ## From: https://github.com/DatabaseCleaner/database_cleaner-mongoid
 # DatabaseCleaner[:mongoid].strategy = [:deletion]
+DatabaseCleaner.clean
+Ish::UserProfile.unscoped.destroy_all
+
+def puts! a, b=''
+  puts "+++ +++ #{b}"
+  puts a.inspect
+end
+User.unscoped.destroy_all
 
 RSpec.configure do |config|
 
@@ -24,43 +32,6 @@ RSpec.configure do |config|
   # config.include Devise::TestHelpers, :type => :controller
   config.include Devise::Test::ControllerHelpers, :type => :controller
 
-end
-
-# @TODO: remove this, right?
-class UserStub
-  def initialize args = {}
-    @profile = OpenStruct.new :role_name => :guy, :friends => []
-    if args[:manager]
-      @profile[:manager?] = true
-      @profile[:sudoer?] = true
-      @profile[:role_name] = :admin
-    end
-    if args[:sudoer]
-      @profile[:sudoer?] = true
-    end
-  end
-
-  def profile= profile
-    @profile = profile
-  end
-
-  def profile
-    return @profile
-  end
-
-  def email
-    return 'some@email.com'
-  end
-
-  def id
-    return 1
-  end
-
-end
-
-def puts! a, b=''
-  puts "+++ +++ #{b}"
-  puts a.inspect
 end
 
 ##
@@ -125,16 +96,16 @@ def setup_tags
 end
 
 def setup_users
-  User.all.destroy
-  Ish::UserProfile.all.destroy
+  ## @TODO: cleanup of these can be much better
+  User.unscoped.destroy_all
+  Ish::UserProfile.unscoped.destroy_all
   @user    = create(:user, :email => 'piousbox@gmail.com')
-  @profile = FactoryBot.create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
+  @profile = create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
   @profile.save && @profile.reload
-  @user.save && @user.reload
+  @user.profile = @profile ; @user.save
   @user_1  = create :user, :email => 'user-1@gmail.com'
   @user_2  = create :user, :email => 'user-2@gmail.com'
   sign_in @user, :scope => :user
-  # allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => true ))
 end
 
 Paperclip.options[:log] = false

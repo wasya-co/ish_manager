@@ -1,4 +1,7 @@
 
+## @TODO: this is copy-pasted *in part* from ish_models, should be in one place really.
+## should convert location of factories across gems
+
 FactoryBot.define do
 
   # alphabetized : )
@@ -50,6 +53,17 @@ FactoryBot.define do
   factory :newsitem do
   end
 
+  factory :option_watch, class: Warbler::OptionWatch do
+    contractType { 'PUT' }
+    date { '2021-01-01' }
+    price { 55 }
+    strike { 100 }
+    ticker { 'SPY' }
+    after :build do |doc|
+      doc.profile = create(:user_profile)
+    end
+  end
+
   factory :photo do
   end
 
@@ -63,21 +77,32 @@ FactoryBot.define do
   factory :site do
   end
 
+  factory :stock_watch, class: Warbler::StockWatch do
+    price { 55 }
+    ticker { 'SPY' }
+    after :build do |doc|
+      doc.profile = create(:user_profile)
+    end
+  end
+
   factory :tag do
     name { 'tag-name' }
   end
 
   factory :user do
-    email { 'test@gmail.com' }
-    password { '12345678' }
+    sequence :email do |n|
+      "some-#{n}@email.com"
+    end
+    password { '1234567890' }
   end
 
   factory :user_profile, :class => Ish::UserProfile do
-    email { 'user@email.com' }
+    sequence :email do |n|
+      "test-#{n}@email.com"
+    end
     name { 'some-name' }
-    after :build do |p|
-      u = User.find_or_create_by :email => p.email
-      p.user = u
+    after :build do |doc|
+      doc.user = create(:user)
     end
   end
 

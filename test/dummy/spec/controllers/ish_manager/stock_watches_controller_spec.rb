@@ -7,9 +7,6 @@ describe IshManager::StockWatchesController, :type => :controller do
 
   before :each do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
-
-    setup_tags
   end
 
   it '#index' do
@@ -22,28 +19,16 @@ describe IshManager::StockWatchesController, :type => :controller do
     assigns(:stock_watch).should_not eql nil
   end
 
-  it '#create_stock_watch' do
+  it '#create' do
     expect do
-      post :create_stock_watch
-    end.to change( Warbler::StockWatch.count ).by( 1 )
+      post :create, params: { warbler_stock_watch: build(:stock_watch).attributes }
+    end.to change { Warbler::StockWatch.count }.by( 1 )
   end
 
-  it '#create_option_watch' do
-    expect do
-      post :create_stock_watch
-    end.to change( Warbler::OptionWatch.count ).by( 1 )
-  end
-
-  it '#update_stock_watch' do
+  it '#update' do
     a = create(:stock_watch, price: 100 )
-    post :update_stock_watch, params: { id: a.id, stock_watch: { price: 99 } }
-    a.reload.price.should eql 99
-  end
-
-  it '#update_option_watch' do
-    a = create(:option_watch, strike: 100 )
-    post :update_option_watch, params: { id: a.id, option_watch: { strike: 99 } }
-    a.reload.strike.should eql 99
+    post :update, params: { id: a.id, warbler_stock_watch: { price: 99 } }
+    a.reload.price.should eql 99.0
   end
 
 end
