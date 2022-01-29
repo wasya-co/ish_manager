@@ -17,7 +17,7 @@ gem 'kaminari-mongoid'
 # gem 'activeadmin'
 gem 'cancancan'
 gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => 'master'
-gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => '0.2.0'
+gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => 'master'
 
 gem 'database_cleaner-mongoid'
 

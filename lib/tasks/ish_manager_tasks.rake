@@ -4,10 +4,6 @@ def puts! a, b=''
   puts a.inspect
 end
 
-class Warbler::StockWatch
-  SLEEP_TIME_SECONDS = 60
-end
-
 namespace :ish_manager do
 
   desc "every user needs a user_profile"
@@ -27,9 +23,6 @@ namespace :ish_manager do
     while true
       stocks = Warbler::StockWatch.where( notification_type: :EMAIL )
       stocks.each do |stock|
-
-        puts! stock, 'stock'
-
         begin
           Timeout::timeout( 10 ) do
             out = Warbler::Ameritrade::Api.get_quote({ symbol: stock.ticker })
@@ -40,7 +33,7 @@ namespace :ish_manager do
            end
           end
         rescue Exception => e
-          puts! e, 'e in :watch_stocks'
+          puts! e, 'Error in ish_manager:watch_stocks :'
         end
       end
       sleep Warbler::StockWatch::SLEEP_TIME_SECONDS

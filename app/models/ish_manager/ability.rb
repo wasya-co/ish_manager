@@ -100,6 +100,8 @@ class IshManager::Ability
     #
     user ||= ::User.new
 
+    can [ :open_permission ], IshManager::Ability
+
     can [ :show ], ::Gallery do |gallery|
       gallery.is_public
     end

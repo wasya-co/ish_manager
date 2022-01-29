@@ -3,6 +3,8 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
 
   layout 'ish_manager/application2'
 
+  ## alphabetized : )
+
   def create
     @stock_watch = Warbler::StockWatch.new permitted_params
     authorize! :create, @stock_watch
@@ -33,6 +35,8 @@ class IshManager::StockWatchesController < IshManager::ApplicationController
     @stock_watches = Warbler::StockWatch.order_by( ticker: :asc, direction: :asc, price: :desc
       ).includes( :profile )
     @stock_watch = Warbler::StockWatch.new
+    @option_watches = Warbler::OptionWatch.order_by( ticker: :asc, direction: :asc, price: :desc ).includes( :profile )
+    @option_watch = Warbler::OptionWatch.new
   end
 
   def update
