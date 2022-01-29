@@ -82,6 +82,7 @@ IshManager::Engine.routes.draw do
   # resources :stock_actions
   # resources :stock_options
   resources :stock_watches
+  resources :option_watches
 
   resources :tags do
     resources :features

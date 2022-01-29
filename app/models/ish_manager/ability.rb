@@ -7,7 +7,7 @@ class IshManager::Ability
     #
     # signed in user
     #
-    unless user.blank?
+    if !user.blank?
 
       #
       # only sudoer... total power
@@ -99,6 +99,8 @@ class IshManager::Ability
     # anonymous user
     #
     user ||= ::User.new
+
+    can [ :open_permission ], IshManager::Ability
 
     can [ :show ], ::Gallery do |gallery|
       gallery.is_public
