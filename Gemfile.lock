@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.280)
+    ish_manager (0.1.8.281)
       activeadmin (~> 1.0)
       cancancan (~> 2.0)
       devise (~> 4.3)
