@@ -15,12 +15,15 @@ module IshManager
             :subject => 'You got new shared galleries on pi manager' ).deliver
     end
 
+    def option_alert inst
+      @inst = inst
+      mail( :to => inst.profile.email, :subject => "IshManager Option Alert :: #{inst.ticker}" ).deliver
+    end
 
     def stock_alert stock
       @stock = stock
       mail( :to => stock.profile.email, :subject => "IshManager Stock Alert :: #{stock.ticker}" ).deliver
     end
-
 
   end
 end
