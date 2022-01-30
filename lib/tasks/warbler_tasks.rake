@@ -25,6 +25,7 @@ namespace :warbler do
           puts! e, 'Error in ish_manager:watch_stocks :'
         end
       end
+      print '.'
       sleep Warbler::StockWatch::SLEEP_TIME_SECONDS
     end
   end
@@ -41,13 +42,14 @@ namespace :warbler do
             r = out[:last]
             if  option.direction == :ABOVE && r >= option.price ||
                 option.direction == :BELOW && r <= option.price
-              Warbler::ApplicationMailer.option_alert( option ).deliver
+              IshManager::ApplicationMailer.option_alert( option ).deliver
             end
           end
         rescue Exception => e
           puts! e, 'Error in ish_manager:watch_options :'
         end
       end
+      print '.'
       sleep Warbler::OptionWatch::SLEEP_TIME_SECONDS
     end
   end
