@@ -2,29 +2,28 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'factory_bot'
 require 'devise'
+# require 'factory_bot_rails'
 
 ## From: https://github.com/DatabaseCleaner/database_cleaner-mongoid
-# DatabaseCleaner[:mongoid].strategy = [:deletion]
 DatabaseCleaner.clean
-Ish::UserProfile.unscoped.destroy_all
 
 def puts! a, b=''
   puts "+++ +++ #{b}"
   puts a.inspect
 end
-User.unscoped.destroy_all
 
 RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
+  config.before(:suite) do
+    # FactoryBot.find_definitions
+  end
 
   ## 20210205
   config.include Rails.application.routes.url_helpers
   config.include Warden::Test::Helpers
   Warden.test_mode!
-
 
   config.infer_spec_type_from_file_location!
 
@@ -96,15 +95,27 @@ def setup_tags
 end
 
 def setup_users
-  ## @TODO: cleanup of these can be much better
-  User.unscoped.destroy_all
-  Ish::UserProfile.unscoped.destroy_all
-  @user    = create(:user, :email => 'piousbox@gmail.com')
+  DatabaseCleaner.clean
+
+  # @TODO: both of these should be in factory
+  @admin = @user = create(:user, :email => 'piousbox@gmail.com')
   @profile = create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
   @profile.save && @profile.reload
   @user.profile = @profile ; @user.save
-  @user_1  = create :user, :email => 'user-1@gmail.com'
+
+  # @TODO: both of these should be in factory
+  @manager = create(:user, email: 'manager@gmail.com')
+  @profile = create :user_profile, :email => 'manager@gmail.com', role_name: 'manager', user: @manager
+  @profile.save && @profile.reload
+  @manager.profile = @profile ; @manager.save
+
+  @guy = @user_1  = create :user, :email => 'guy@gmail.com'
+  @profile = create :user_profile, :email => 'guy@gmail.com', role_name: 'guy', user: @guy
+  @profile.save && @profile.reload
+  @guy.profile = @profile ; @guy.save
+
   @user_2  = create :user, :email => 'user-2@gmail.com'
+
   sign_in @user, :scope => :user
 end
 

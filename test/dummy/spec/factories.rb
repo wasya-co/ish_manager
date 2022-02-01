@@ -53,17 +53,6 @@ FactoryBot.define do
   factory :newsitem do
   end
 
-  factory :option_watch, class: Warbler::OptionWatch do
-    contractType { 'PUT' }
-    date { '2021-01-01' }
-    price { 55 }
-    strike { 100 }
-    ticker { 'SPY' }
-    after :build do |doc|
-      doc.profile = create(:user_profile)
-    end
-  end
-
   factory :photo do
   end
 
@@ -75,14 +64,6 @@ FactoryBot.define do
   end
 
   factory :site do
-  end
-
-  factory :stock_watch, class: Warbler::StockWatch do
-    price { 55 }
-    ticker { 'SPY' }
-    after :build do |doc|
-      doc.profile = create(:user_profile)
-    end
   end
 
   factory :tag do

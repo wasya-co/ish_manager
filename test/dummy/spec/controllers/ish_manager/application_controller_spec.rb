@@ -5,23 +5,23 @@ describe IshManager::ApplicationController, :type => :controller do
   render_views
   before :each do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
-
-    Gallery.all.destroy
-    @gallery = create :gallery, :name => 'xx-test-gallery-xx'
   end
 
   it '#home - header for guy' do
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => false }))
+    sign_in @guy, scope: :user
+
     get :home
+
     response.should be_success
     response.should render_template( :partial => '_main_header_guy' )
   end
 
   it '#home - header for admin' do
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
+    sign_in @manager, scope: :user
+
     get :home
+
     response.should be_success
-    response.should render_template( :partial => '_main_header_admin' )
+    response.should render_template( :partial => '_main_header_manager' )
   end
 end

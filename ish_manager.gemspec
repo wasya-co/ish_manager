@@ -16,13 +16,18 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", [ "~> 5.1" ]
-  s.add_dependency "activeadmin", [ "~> 1.0" ]
-  s.add_dependency "haml", [ '~> 5.0' ]
+  s.add_dependency "activeadmin", [ "~> 1.0" ] # @TODO: I don't even use it
+  s.add_dependency 'aws-sdk'
   s.add_dependency "cancancan", [ "~> 2.0" ]
   s.add_dependency "devise", [ "~> 4.3" ]
+  s.add_dependency 'ffi', '1.11.3'
+  s.add_dependency "haml", [ '~> 5.0' ]
+  s.add_dependency 'httparty'
+  s.add_dependency "ish_models"
   s.add_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_dependency "kaminari-actionview", [ "~> 1.0" ]
   s.add_dependency "mongoid-autoinc", [ "~> 6.0" ]
-
+  s.add_dependency 'mongoid-paperclip'
+  s.add_dependency "rails", [ "~> 5.1" ]
+  s.add_dependency 'uglifier'
 end
