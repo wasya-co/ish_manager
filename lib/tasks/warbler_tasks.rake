@@ -6,6 +6,18 @@ end
 
 namespace :warbler do
 
+  desc 'test placing orders for stock' do
+  task place_order_stock: :environment do
+    opts = {
+      "instruction": "BUY",
+      "price": "1.10",
+      "quantity": 1,
+      "symbol": "BAC",
+    }
+    out = Warbler::Ameritrade::Api.place_stock_limit_order opts
+    puts! out, 'out'
+  end
+
   ## @TODO: this is still in ish_manager namespace, need to actually move it here.
   desc 'watch the stocks, and trigger actions - not alphavantage, tda now. 2021-08-08'
   task watch_stocks: :environment do
