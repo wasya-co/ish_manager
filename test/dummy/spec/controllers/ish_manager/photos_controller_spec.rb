@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe IshManager::PhotosController, :type => :controller do
   routes { IshManager::Engine.routes }
-  before :each do
+
+  before do
+    setup_users
+
     Site.unscoped.destroy
     @site = create :site
 
@@ -11,14 +14,15 @@ describe IshManager::PhotosController, :type => :controller do
 
     Photo.unscoped.destroy
     @photo = create :photo, :gallery => @gallery
-
-    setup_users
   end
 
   context '#destroy' do
     it '#destroy - access denied' do
+      sign_in @guy, scope: :user
       n = Photo.count
+
       delete :destroy, :params => { :id => @photo.id }
+
       session[:flash]['flashes']['alert'].should_not eql nil
       Photo.count.should eql n
     end
