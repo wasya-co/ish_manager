@@ -5,6 +5,8 @@ require 'rspec/rails'
 require 'devise'
 # require 'factory_bot_rails'
 
+ActiveSupport::Deprecation.silenced = true
+
 ## From: https://github.com/DatabaseCleaner/database_cleaner-mongoid
 DatabaseCleaner.clean
 

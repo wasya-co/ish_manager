@@ -12,8 +12,6 @@ describe IshManager::CitiesController, :type => :controller do
     User.all.destroy
     @user = create :user
     sign_in @user, :scope => :user
-
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
   end
 
   describe 'new' do

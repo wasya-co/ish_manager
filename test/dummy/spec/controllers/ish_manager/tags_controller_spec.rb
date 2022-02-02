@@ -6,8 +6,6 @@ describe IshManager::TagsController, :type => :controller do
 
   before :each do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
-
     setup_tags
   end
 

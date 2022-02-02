@@ -19,8 +19,6 @@ describe IshManager::SitesController, :type => :controller do
     User.all.destroy
     @manager_user = create :user, profile: @p1, email: 'p_1@gmail.com'
     @admin_user = create :user, profile: @p2, email: 'p_2@gmail.com'
-
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ admin: true, manager: true, }))
   end
 
   describe 'new' do

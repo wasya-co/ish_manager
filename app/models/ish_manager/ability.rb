@@ -47,7 +47,7 @@ class IshManager::Ability
         can [ :new, :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
-        can [ :manage ], ::Warbler::StockWatch
+        # can [ :manage ], ::Warbler::StockWatch
 
         can [ :index, :new, :create ], ::Tag
 

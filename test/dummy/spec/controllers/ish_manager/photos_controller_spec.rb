@@ -17,7 +17,6 @@ describe IshManager::PhotosController, :type => :controller do
 
   context '#destroy' do
     it '#destroy - access denied' do
-      allow(controller).to receive(:current_user).and_return(UserStub.new(:manager => false))
       n = Photo.count
       delete :destroy, :params => { :id => @photo.id }
       session[:flash]['flashes']['alert'].should_not eql nil
@@ -25,7 +24,6 @@ describe IshManager::PhotosController, :type => :controller do
     end
 
     it '#destroy - ok for sudoer' do
-      allow(controller).to receive(:current_user).and_return(UserStub.new(:sudoer => true))
       n = Photo.count
       delete :destroy, :params => { :id => @photo.id }
       Photo.count.should eql n-1
