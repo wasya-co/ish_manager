@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'devise'
-# require 'factory_bot_rails'
 
 ActiveSupport::Deprecation.silenced = true
 
@@ -18,9 +17,6 @@ end
 RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
-  config.before(:suite) do
-    # FactoryBot.find_definitions
-  end
 
   ## 20210205
   config.include Rails.application.routes.url_helpers
@@ -107,14 +103,14 @@ def setup_users
 
   # @TODO: both of these should be in factory
   @manager = create(:user, email: 'manager@gmail.com')
-  @profile = create :user_profile, :email => 'manager@gmail.com', role_name: 'manager', user: @manager
-  @profile.save && @profile.reload
-  @manager.profile = @profile ; @manager.save
+  @profile_0 = create :user_profile, :email => 'manager@gmail.com', role_name: 'manager', user: @manager
+  @profile_0.save && @profile_0.reload
+  @manager.profile = @profile_0 ; @manager.save
 
   @guy = @user_1  = create :user, :email => 'guy@gmail.com'
-  @profile = create :user_profile, :email => 'guy@gmail.com', role_name: 'guy', user: @guy
-  @profile.save && @profile.reload
-  @guy.profile = @profile ; @guy.save
+  @profile_1 = create :user_profile, :email => 'guy@gmail.com', role_name: 'guy', user: @guy
+  @profile_1.save && @profile_1.reload
+  @guy.profile = @profile_1 ; @guy.save
 
   @user_2  = create :user, :email => 'user-2@gmail.com'
 

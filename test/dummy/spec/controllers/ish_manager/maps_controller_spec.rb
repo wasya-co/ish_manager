@@ -18,8 +18,10 @@ describe IshManager::MapsController do
   describe '#show' do
     it 'shows nonpublic markers' do
       @marker = create :marker, { map: @map, is_public: false }
+      @marker.image = create :image_asset
+
       get :show, params: { id: @map.id }
-      assigns(:markers).should eql [@marker]
+      assigns(:markers).to_a.should eql [@marker]
     end
   end
 

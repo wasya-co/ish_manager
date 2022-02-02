@@ -5,31 +5,29 @@ describe IshManager::CitiesController, :type => :controller do
   routes { IshManager::Engine.routes }
   include Devise::Test::ControllerHelpers
 
-  before :each do
-    City.all.destroy
+  before do
+    setup_users
+    sign_in @admin, scope: :user
     @city = create :city
-
-    User.all.destroy
-    @user = create :user
-    sign_in @user, :scope => :user
   end
 
-  describe 'new' do
+  describe '#new' do
     it 'renders' do
       get :new
       response.should be_success
     end
   end
 
-  describe 'edit' do
+  describe '#edit' do
     it 'renders' do
       get :edit, :params => { :id => @city.id }
       response.should be_success
     end
   end
 
-  it 'show' do
+  it '#show' do
     get :show, params: { id: @city.id }
+    puts! response.body if !response.success?
     response.should be_success
   end
 

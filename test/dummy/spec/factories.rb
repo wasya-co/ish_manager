@@ -44,9 +44,9 @@ FactoryBot.define do
   factory :marker, class: Gameui::Marker do
     name { 'name' }
     slug { 'slug' }
+    item_type { ::Gameui::Marker::ITEM_TYPES[0] }
     after :build do |map|
       map.image = create :image_asset
-      map.item_type = ::Gameui::Marker::ITEM_TYPES[0]
     end
   end
 

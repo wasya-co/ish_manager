@@ -1,42 +1,7 @@
 
 class IshManager::SitesController < IshManager::ApplicationController
 
-  ## params:
-  ## :domain, :lang, :title, :subhead, :description, :homepage_layout, :layout,
-  ##   :n_features, :n_newsitems, :newsitems_per_page, :is_trash, :is_ads_enabled,
-  ##   :is_private, :play_videos_in_preview, :private_user_emails,
-
-  def index
-    authorize! :sites_index, ::Manager
-    @site_groups = Site.where( :is_trash => false ).order_by( :lang => :desc ).group_by {|s|s.domain}
-  end
-
-  # not trash
-  def trash
-    @sites = Site.unscoped.where( :is_trash => true ).order_by( :domainname => :desc, :lang => :desc )
-    render :action => :index
-  end
-
-  def show
-    @site = Site.unscoped.find params[:id]
-    authorize! :show, @site
-    @galleries = @site.galleries.page( params[:galleries_page] ).per( 10 )
-    @reports = @site.reports.page( params[:reports_page] ).per( 10 )
-    @videos = @site.videos.page( params[:videos_page] ).per( 5 )
-    @tags = Tag.where( :site_id => @site.id, :parent_tag_id => nil ).page( params[:tags_page] ).per( 100 )
-    @features = @site.features.limit( @site.n_features ) # page( params[:features_page] ).per( 9 )
-    @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( @site.newsitems_per_page )
-  end
-
-  def edit
-    @site = Site.unscoped.find params[:id]
-    authorize! :update, @site
-  end
-
-  def new
-    @site = Site.new
-    authorize! :new, @site
-  end
+  # alphabetized
 
   def create
     authorize! :create, Site.new
@@ -47,21 +12,29 @@ class IshManager::SitesController < IshManager::ApplicationController
     else
       flash[:alert] = 'No Luck. ' + @site.errors.inspect
     end
+
     redirect_to sites_path
   end
 
-  def update
+  def edit
     @site = Site.unscoped.find params[:id]
     authorize! :update, @site
+  end
 
-    params[:site][:private_user_emails] = params[:site][:private_user_emails].gsub(/\s+/m, ' ').strip.split(" ")
+  def galleries
+    @site = Site.find params[:site_id]
+    authorize! :galleries_index, @site
+    @galleries = @site.galleries.page( params[:galleries_page] )
+  end
 
-    if @site.update_attributes params[:site].permit!
-      flash[:notice] = 'Success'
-    else
-      flash[:alert] = 'No Luck'
-    end
-    redirect_to sites_path
+  def index
+    authorize! :sites_index, ::Manager
+    @site_groups = Site.where( :is_trash => false ).order_by( :lang => :desc ).group_by {|s|s.domain}
+  end
+
+  def new
+    @site = Site.new
+    authorize! :new, @site
   end
 
   def newsitem_delete
@@ -82,10 +55,35 @@ class IshManager::SitesController < IshManager::ApplicationController
     render 'ish_manager/reports/index'
   end
 
-  def galleries
-    @site = Site.find params[:site_id]
-    authorize! :galleries_index, @site
-    @galleries = @site.galleries.page( params[:galleries_page] )
+  def show
+    @site = Site.unscoped.find params[:id]
+    authorize! :show, @site
+    @galleries = @site.galleries.page( params[:galleries_page] ).per( 10 )
+    @reports = @site.reports.page( params[:reports_page] ).per( 10 )
+    @videos = @site.videos.page( params[:videos_page] ).per( 5 )
+    @tags = Tag.where( :site_id => @site.id, :parent_tag_id => nil ).page( params[:tags_page] ).per( 100 )
+    @features = @site.features.limit( @site.n_features ) # page( params[:features_page] ).per( 9 )
+    @newsitems = @site.newsitems.page( params[:newsitems_page] ).per( @site.newsitems_per_page )
+  end
+
+  # not trash
+  def trash
+    @sites = Site.unscoped.where( :is_trash => true ).order_by( :domainname => :desc, :lang => :desc )
+    render :action => :index
+  end
+
+  def update
+    @site = Site.unscoped.find params[:id]
+    authorize! :update, @site
+
+    params[:site][:private_user_emails] = params[:site][:private_user_emails].gsub(/\s+/m, ' ').strip.split(" ")
+
+    if @site.update_attributes params[:site].permit!
+      flash[:notice] = 'Success'
+    else
+      flash[:alert] = 'No Luck'
+    end
+    redirect_to sites_path
   end
 
   #

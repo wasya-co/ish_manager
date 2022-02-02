@@ -6,7 +6,7 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-    Gallery.unscoped.destroy_all
+
     @gallery = create :gallery,
       :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile,
       slug: 'xxSlugxx'
