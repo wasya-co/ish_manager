@@ -21,6 +21,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     @marker.map = @map
     authorize! :create_marker, @map
     @map_id = @map.id
+    @marker.creator_profile_id = current_user.profile.id
 
     if params[:image]
       @marker.image = ::Ish::ImageAsset.new :image => params[:image]
@@ -36,6 +37,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
         @marker.map.touch
         format.html { redirect_to map_path(@map), notice: 'Marker was successfully created.' }
       else
+        flash[:alert] = @marker.errors.full_messages
         format.html { render :new }
       end
     end
@@ -81,7 +83,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
   end
 
   def set_marker
-    @marker = ::Gameui::Marker.unscoped.find params[:id]
+    @marker = ::Gameui::Marker.find params[:id]
     @map = @marker.map
   end
 

@@ -48,7 +48,7 @@ def do_setup
   # M
   ::Gameui::Marker.unscoped.destroy_all
   ::Gameui::Map.unscoped.destroy_all
-  @map = FactoryBot.create :map
+  @map = create :map
   @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
   @map.save
 

@@ -197,7 +197,8 @@ textarea.large {
 }
 
 
-.manager--main-header.development {
+.manager--main-header.development,
+.manager--main-header.development_production {
   background: url('/assets/bg/weather-development.png');
 }
 

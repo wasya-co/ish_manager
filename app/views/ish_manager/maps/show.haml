@@ -22,7 +22,7 @@
   .markers-list
     - @markers.each do |marker|
       .flex-row.bordered
-        = image_tag marker.image.image.url(:original)
+        = image_tag marker.title_image.image.url(:original)
         .flat-row
           .a= marker.slug
           .a= button_to '~', edit_marker_path(marker), method: :get

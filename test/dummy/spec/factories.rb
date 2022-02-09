@@ -4,6 +4,10 @@
 
 FactoryBot.define do
 
+  sequence :email do |n|
+    "test-#{n}@email.com"
+  end
+
   # alphabetized : )
 
   factory :admin do
@@ -36,6 +40,7 @@ FactoryBot.define do
   factory :map, class: Gameui::Map do
     name { 'name' }
     slug { 'slug' }
+    creator_profile { create(:profile) }
     after :build do |map|
       map.image = create :image_asset
     end
@@ -56,6 +61,14 @@ FactoryBot.define do
   factory :photo do
   end
 
+  factory :profile, :class => Ish::UserProfile do
+    email { generate(:email) }
+    name { 'some-name' }
+    after :build do |doc|
+      doc.user = create(:user)
+    end
+  end
+
   factory :purchase, class: Gameui::PremiumPurchase do
   end
 
@@ -71,16 +84,13 @@ FactoryBot.define do
   end
 
   factory :user do
-    sequence :email do |n|
-      "some-#{n}@email.com"
-    end
+    email { generate(:email) }
     password { '1234567890' }
   end
 
+  # @deprecated, use :profile
   factory :user_profile, :class => Ish::UserProfile do
-    sequence :email do |n|
-      "test-#{n}@email.com"
-    end
+    email { generate(:email) }
     name { 'some-name' }
     after :build do |doc|
       doc.user = create(:user)
