@@ -27,6 +27,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "kaminari-actionview", [ "~> 1.0" ]
   s.add_runtime_dependency "mongoid-autoinc", [ "~> 6.0" ]
   s.add_runtime_dependency 'mongoid-paperclip'
-  s.add_runtime_dependency "rails", [ "~> 5.1" ]
+  s.add_runtime_dependency "rails", "~> 6.0.0" 
   s.add_runtime_dependency 'uglifier'
 end
