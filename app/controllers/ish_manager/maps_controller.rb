@@ -1,8 +1,10 @@
 
 class IshManager::MapsController < IshManager::ApplicationController
 
-  before_action :set_map, only: [:destroy, :edit, :map_editor, :show, :update, ]
+  before_action :set_map, only: [ :destroy, :edit, :map_editor, :show, :update, ] # alphabetized
   before_action :set_lists
+
+  # alphabetized
 
   def create
     @map = ::Gameui::Map.new(map_params)
@@ -105,6 +107,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     out
   end
 
+  ## @TODO: remove all instances of unscoped, everywhere.
   def set_map
     @map = ::Gameui::Map.unscoped.where(id: params[:id]).first
     @map ||= Gameui::Map.unscoped.find_by(slug: params[:id])

@@ -8,32 +8,21 @@ gem 'sassc'
 gem 'aws-sdk-s3'
 gem 'aws-sdk'
 
-gem 'mongoid'
+gem 'mongoid' # @TODO: I tried removing this dependency from here but could not.
 gem 'mongoid-paperclip'
 gem 'mongoid_paranoia'
-gem 'ransack', '< 1.8.7'
 gem 'kaminari'
 gem 'kaminari-mongoid'
-# gem 'activeadmin'
 gem 'cancancan'
-gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => 'master'
-gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => '0.3.0'
 
-gem 'database_cleaner-mongoid'
-
-## for travis
-gem 'i18n', '0.9.1'
-gem 'minitest', '5.10.2'
-gem 'tzinfo', '1.2.4'
-gem 'activesupport', '5.1.4'
-gem 'rails-controller-testing'
-gem 'rspec'
-gem 'rspec-rails'
-gem 'factory_bot_rails' # , require: false
-
+gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => '1.5.0'
+gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => '0.4.0'
 
 group :test, :development do
   gem 'byebug'
-  gem 'capybara'
-  gem 'httparty'
+  gem 'capybara' # @TODO: remove?
+  gem 'database_cleaner-mongoid'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails' # , require: false
+  gem 'rails-controller-testing'
 end

@@ -15,5 +15,5 @@
       .flex-row
         = render 'meta_edit', item: @video
         = render 'ish_manager/application/meta', :item => @video
-        = link_to @video.video_file_name, @video.video.url
+      .flex-row= link_to @video.video_file_name, @video.video.url
 

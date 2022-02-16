@@ -42,9 +42,9 @@ $(function () {
     });
   }
 
-  /* if ($('body').length > 0) {
+  if ($('body').length > 0) {
       $('select').material_select()
-  } */
+  }
 
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')

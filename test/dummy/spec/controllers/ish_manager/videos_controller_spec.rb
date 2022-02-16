@@ -6,8 +6,6 @@ describe IshManager::VideosController, :type => :controller do
 
   before do
     setup_users
-    allow(controller).to receive(:current_user).and_return(UserStub.new({ :manager => true }))
-
     @video = create :video
   end
 

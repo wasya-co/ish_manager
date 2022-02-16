@@ -44,10 +44,10 @@ class IshManager::Ability
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
 
-        can [ :new, :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
+        can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
           !site.is_private && !site.is_trash
         end
-        can [ :manage ], ::Warbler::StockWatch
+        # can [ :manage ], ::Warbler::StockWatch
 
         can [ :index, :new, :create ], ::Tag
 

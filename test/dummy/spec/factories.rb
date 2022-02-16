@@ -4,6 +4,10 @@
 
 FactoryBot.define do
 
+  sequence :email do |n|
+    "test-#{n}@email.com"
+  end
+
   # alphabetized : )
 
   factory :admin do
@@ -36,6 +40,7 @@ FactoryBot.define do
   factory :map, class: Gameui::Map do
     name { 'name' }
     slug { 'slug' }
+    creator_profile { create(:profile) }
     after :build do |map|
       map.image = create :image_asset
     end
@@ -44,27 +49,24 @@ FactoryBot.define do
   factory :marker, class: Gameui::Marker do
     name { 'name' }
     slug { 'slug' }
+    item_type { ::Gameui::Marker::ITEM_TYPES[0] }
     after :build do |map|
       map.image = create :image_asset
-      map.item_type = ::Gameui::Marker::ITEM_TYPES[0]
     end
   end
 
   factory :newsitem do
   end
 
-  factory :option_watch, class: Warbler::OptionWatch do
-    contractType { 'PUT' }
-    date { '2021-01-01' }
-    price { 55 }
-    strike { 100 }
-    ticker { 'SPY' }
-    after :build do |doc|
-      doc.profile = create(:user_profile)
-    end
+  factory :photo do
   end
 
-  factory :photo do
+  factory :profile, :class => Ish::UserProfile do
+    email { generate(:email) }
+    name { 'some-name' }
+    after :build do |doc|
+      doc.user = create(:user)
+    end
   end
 
   factory :purchase, class: Gameui::PremiumPurchase do
@@ -77,29 +79,18 @@ FactoryBot.define do
   factory :site do
   end
 
-  factory :stock_watch, class: Warbler::StockWatch do
-    price { 55 }
-    ticker { 'SPY' }
-    after :build do |doc|
-      doc.profile = create(:user_profile)
-    end
-  end
-
   factory :tag do
     name { 'tag-name' }
   end
 
   factory :user do
-    sequence :email do |n|
-      "some-#{n}@email.com"
-    end
+    email { generate(:email) }
     password { '1234567890' }
   end
 
+  # @deprecated, use :profile
   factory :user_profile, :class => Ish::UserProfile do
-    sequence :email do |n|
-      "test-#{n}@email.com"
-    end
+    email { generate(:email) }
     name { 'some-name' }
     after :build do |doc|
       doc.user = create(:user)

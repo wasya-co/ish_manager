@@ -13,4 +13,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
-Rails.application.config.assets.precompile += %w( icons/20x20/public2.png icons/20x20/private.png )
+Rails.application.config.assets.precompile += %w(
+  icons/20x20/public2.png
+  icons/20x20/private.png
+  icons/10x10_red-cross.png )
