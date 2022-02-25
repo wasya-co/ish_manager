@@ -55,9 +55,11 @@ class IshManager::MarkersController < IshManager::ApplicationController
       @marker.title_image.save
     end
 
+    old_map = @marker.map
     respond_to do |format|
       if @marker.update(marker_params)
         @marker.map.touch
+        old_map.touch
         format.html { redirect_to location_map_editor_path(@map.id), notice: 'Marker was successfully updated.' }
       else
         format.html { render :edit }

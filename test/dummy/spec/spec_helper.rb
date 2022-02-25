@@ -72,7 +72,7 @@ def setup_profiles
   Ish::UserProfile.all.destroy
   emails.each_with_index do |email, index|
     u = FactoryBot.create :user, :email => email
-    p = FactoryBot.create :user_profile, :email => email, :user => u, :name => 'some-name'
+    p = FactoryBot.create :profile, :email => email, :user => u, :name => 'some-name'
     @profiles[index] = p
   end
 end
@@ -95,22 +95,14 @@ end
 def setup_users
   DatabaseCleaner.clean
 
-  # @TODO: both of these should be in factory
   @admin = @user = create(:user, :email => 'piousbox@gmail.com')
-  @profile = create :user_profile, :email => 'piousbox@gmail.com', role_name: 'manager', user: @user
-  @profile.save && @profile.reload
-  @user.profile = @profile ; @user.save
+  @profile = @user.profile # @TODO: just remove
 
-  # @TODO: both of these should be in factory
   @manager = create(:user, email: 'manager@gmail.com')
-  @profile_0 = create :user_profile, :email => 'manager@gmail.com', role_name: 'manager', user: @manager
-  @profile_0.save && @profile_0.reload
-  @manager.profile = @profile_0 ; @manager.save
+  @profile_0 = @manager.profile # @TODO: just remove
 
   @guy = @user_1  = create :user, :email => 'guy@gmail.com'
-  @profile_1 = create :user_profile, :email => 'guy@gmail.com', role_name: 'guy', user: @guy
-  @profile_1.save && @profile_1.reload
-  @guy.profile = @profile_1 ; @guy.save
+  @profile_1 = @guy.profile # @TODO: just remove
 
   @user_2  = create :user, :email => 'user-2@gmail.com'
 

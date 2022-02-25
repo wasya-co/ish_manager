@@ -7,7 +7,7 @@
     = image_tag @map.image.image.url(:original)
     - @markers.each do |m|
       .marker{ data: { 'slug': m.slug, 'center-offset-x': m.centerOffsetX, 'center-offset-y': m.centerOffsetY }, style: "top: #{m.y-m.centerOffsetY}px; left: #{m.x-m.centerOffsetX}px;" }
-        = image_tag m.image.image.url(:original)
+        = image_tag m.image ? m.image.image.url(:original) : image_missing
         = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{m.centerOffsetY-10}px; left: #{m.centerOffsetX-10}px;" )
 
   .markers-list

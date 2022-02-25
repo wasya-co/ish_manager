@@ -21,3 +21,7 @@ module Dummy
   end
 end
 
+def puts! a, b=''
+  puts "+++ +++ #{b}"
+  puts a.inspect
+end

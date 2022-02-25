@@ -8,6 +8,14 @@ FactoryBot.define do
     "test-#{n}@email.com"
   end
 
+  sequence :handle do |n|
+    "handle-#{n}"
+  end
+
+  sequence :slug do |n|
+    "slug-#{n}"
+  end
+
   # alphabetized : )
 
   factory :admin do
@@ -39,7 +47,7 @@ FactoryBot.define do
 
   factory :map, class: Gameui::Map do
     name { 'name' }
-    slug { 'slug' }
+    slug { generate(:slug) }
     creator_profile { create(:profile) }
     after :build do |map|
       map.image = create :image_asset
@@ -48,10 +56,10 @@ FactoryBot.define do
 
   factory :marker, class: Gameui::Marker do
     name { 'name' }
-    slug { 'slug' }
+    slug { generate(:slug) }
     item_type { ::Gameui::Marker::ITEM_TYPES[0] }
-    after :build do |map|
-      map.image = create :image_asset
+    after :build do |marker|
+      marker.image = create :image_asset
     end
   end
 
@@ -61,11 +69,11 @@ FactoryBot.define do
   factory :photo do
   end
 
-  factory :profile, :class => Ish::UserProfile do
+  factory :profile, aliases: [ :user_profile ], :class => Ish::UserProfile do
     email { generate(:email) }
-    name { 'some-name' }
+    id { generate(:handle) }
     after :build do |doc|
-      doc.user = create(:user)
+      doc.user ||= create(:user)
     end
   end
 
@@ -86,14 +94,8 @@ FactoryBot.define do
   factory :user do
     email { generate(:email) }
     password { '1234567890' }
-  end
-
-  # @deprecated, use :profile
-  factory :user_profile, :class => Ish::UserProfile do
-    email { generate(:email) }
-    name { 'some-name' }
-    after :build do |doc|
-      doc.user = create(:user)
+    after :build do |u|
+      u.profile ||= create(:profile, email: u.email, user: u)
     end
   end
 
