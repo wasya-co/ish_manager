@@ -11,7 +11,7 @@ describe IshManager::MapsController do
 
   it '#map_editor' do
     get :map_editor, params: { id: @map.id }
-    response.should be_success
+    response.should be_successful
     assigns(:map).should_not eql nil
   end
 

@@ -59,7 +59,7 @@ describe IshManager::GalleriesController, :type => :controller do
   describe '#new' do
     it 'renders' do
       get :new
-      response.should be_success
+      response.should be_successful
       assigns( :gallery ).should_not eql nil
       assigns( :cities_list ).should_not eql nil
       assigns( :tags_list ).should_not eql nil

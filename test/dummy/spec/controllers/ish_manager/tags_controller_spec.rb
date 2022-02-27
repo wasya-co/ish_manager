@@ -12,18 +12,18 @@ describe IshManager::TagsController, :type => :controller do
   describe 'new' do
     it 'renders' do
       get :new
-      response.should be_success
+      response.should be_successful
     end
   end
 
   it '#index' do
     get :index
-    response.should be_success
+    response.should be_successful
   end
 
   it '#show' do
     get :show, :params => { :id => @tag.id }
-    response.should be_success
+    response.should be_successful
   end
 
 end

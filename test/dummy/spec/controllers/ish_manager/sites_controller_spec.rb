@@ -19,7 +19,7 @@ describe IshManager::SitesController, :type => :controller do
     it 'renders' do
       sign_in @admin, :scope => :user
       get :new
-      response.should be_success
+      response.should be_successful
     end
   end
 
@@ -44,7 +44,7 @@ describe IshManager::SitesController, :type => :controller do
     it 'admin - success' do
       sign_in @admin, scope: :user
       get :edit, params: { id: @site.id }
-      response.should be_success
+      response.should be_successful
     end
   end
 

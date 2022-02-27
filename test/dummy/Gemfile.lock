@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: c3ab51699dc903bb88be8c44105886092beb82d6
+  revision: 101801b3213ce1fd6b75a5c2ad2a731e948a140c
   branch: 0.4.0
   specs:
     ish_manager (0.1.8.284)
@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 8067401e2788e4b07dc55a4bccfc332436911fa9
-  branch: 1.5.0
+  revision: 72788ae260ff9ec9d2d33270d4999f98dafe262c
+  branch: master
   specs:
     ish_models (0.0.33.158)
       aws-sdk

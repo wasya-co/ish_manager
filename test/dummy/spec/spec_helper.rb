@@ -93,20 +93,6 @@ def setup_tags
 end
 
 def setup_users
-  DatabaseCleaner.clean
-
-  @admin = @user = create(:user, :email => 'piousbox@gmail.com')
-  @profile = @user.profile # @TODO: just remove
-
-  @manager = create(:user, email: 'manager@gmail.com')
-  @profile_0 = @manager.profile # @TODO: just remove
-
-  @guy = @user_1  = create :user, :email => 'guy@gmail.com'
-  @profile_1 = @guy.profile # @TODO: just remove
-
-  @user_2  = create :user, :email => 'user-2@gmail.com'
-
-  sign_in @user, :scope => :user
 end
 
 Paperclip.options[:log] = false
