@@ -50,3 +50,5 @@
 
 %hr
 = render 'form'
+
+= button_to 'Export Subtree', export_map_path(@map.id, format: :json)

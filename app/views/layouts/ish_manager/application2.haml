@@ -28,6 +28,12 @@
         .row
           .col.s12
             - if notice
+              - if notice.class == Array
+                %ul
+                  - notice.map do |n|
+                    %li
+                      - n.map do |k,v|
+                        <b>#{k} :</b> #{v}
               %p.notice= notice
             - if alert
               %p.alert= alert

@@ -10,7 +10,6 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     params[:gallery][:shared_profiles] = Ish::UserProfile.find params[:gallery][:shared_profiles]
     @gallery = Gallery.new params[:gallery].permit!
     @gallery.user_profile = current_user.profile
-    @gallery.username = current_user.profile.username
     authorize! :create, @gallery
 
     if @gallery.save

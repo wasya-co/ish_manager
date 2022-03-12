@@ -1,0 +1,6 @@
+
+.image-assets
+  - @image_assets.each do |a|
+    .red-border
+      |#{a.id}| - <b>#{a.image_file_name}</b><br />
+      = image_tag a.image.url, class: 'img-400'

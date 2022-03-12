@@ -22,6 +22,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :create_marker, @map
     @map_id = @map.id
     @marker.creator_profile_id = current_user.profile.id
+    @marker.destination = Gameui::Map.find_by( slug: @marker.slug )
 
     if params[:image]
       @marker.image = ::Ish::ImageAsset.new :image => params[:image]

@@ -31,6 +31,10 @@ RSpec.configure do |config|
 
 end
 
+def create_admin
+  User.where( email: 'piousbox@gmail.com' ).first || create(:user, email: 'piousbox@gmail.com')
+end
+
 ##
 ## Cannot be alphabetized!
 ##
@@ -93,6 +97,11 @@ def setup_tags
 end
 
 def setup_users
+  @admin = create_admin
+  sign_in @admin, scope: :user
+
+  @user = create(:user, role_name: 'guy')
+  @profile = @user.profile
 end
 
 Paperclip.options[:log] = false
