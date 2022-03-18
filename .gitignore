@@ -8,6 +8,7 @@ test/dummy/db/*.sqlite3-journal
 test/dummy/log/*.log
 test/dummy/tmp/
 test/dummy/vendor
+test/dummy/spec/factories/ish_models_factories.rb
 
 *~
 \#*
@@ -18,4 +19,3 @@ ish_manager-*.gem
 
 .byebug_history
 vendor/bundle
-ish_models_factories.rb
