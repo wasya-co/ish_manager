@@ -18,3 +18,4 @@ ish_manager-*.gem
 
 .byebug_history
 vendor/bundle
+ish_models_factories.rb
