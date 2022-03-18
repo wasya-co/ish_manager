@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 8067401e2788e4b07dc55a4bccfc332436911fa9
-  branch: 1.5.0
+  revision: d8c8ffdee4faf5cc7f88a11b3b1dd797c6634169
+  branch: master
   specs:
     ish_models (0.0.33.158)
       aws-sdk
