@@ -16,6 +16,7 @@ describe IshManager::ApplicationController, :type => :controller do
 
   it '#home - header for admin' do
     @manager = create(:user, email: 'manager@gmail.com')
+    @manager.profile.update_attributes({ role_name: :manager })
     sign_in @manager, scope: :user
 
     get :home

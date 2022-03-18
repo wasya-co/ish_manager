@@ -40,6 +40,6 @@
       .container
         = yield
     = render 'ish_manager/application/main_footer'
-    = render 'analytics' unless Rails.env.development?
-    = render 'debug' if Rails.env.development?
+    = render 'analytics' if Rails.env.production?
+    = render 'debug' if !Rails.env.production?
 

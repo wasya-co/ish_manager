@@ -35,10 +35,10 @@ describe IshManager::SitesController, :type => :controller do
   end
 
   describe 'edit' do
-    it 'manager - restricted' do
+    it 'manager - unauthorized' do
       sign_in @manager, :scope => :user
       get :edit, :params => { :id => @site.id }
-      response.should be_redirect
+      response.should be_successful
     end
 
     it 'admin - success' do

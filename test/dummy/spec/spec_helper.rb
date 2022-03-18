@@ -70,17 +70,6 @@ def do_setup
 
 end
 
-def setup_profiles
-  emails = %w( one@gmail.com two@gmail.com three@gmail.com )
-  @profiles = {}
-  Ish::UserProfile.all.destroy
-  emails.each_with_index do |email, index|
-    u = FactoryBot.create :user, :email => email
-    p = FactoryBot.create :profile, :email => email, :user => u, :name => 'some-name'
-    @profiles[index] = p
-  end
-end
-
 def setup_reports
   Report.all.destroy
   @report = FactoryBot.create :report

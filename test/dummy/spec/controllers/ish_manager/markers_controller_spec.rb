@@ -14,9 +14,16 @@ describe IshManager::MarkersController do
   describe '#create' do
     it 'sets creator_profile' do
       slug = 'this-here-slug'
-      post :create, params: { map_id: map.id, gameui_marker: {
-        name: slug, item_type: Gameui::Marker::ITEM_TYPE_MAP, slug: slug
+      create(:map, slug: slug)
+      @user.profile.update_attributes({ role_name: :admin })
+      sign_in @user, scope: :user
+
+      response = post :create, params: { map_id: map.id, gameui_marker: {
+        name: slug,
+        item_type: Gameui::Marker::ITEM_TYPE_MAP,
+        slug: slug,
       } }
+
       result = Gameui::Marker.find_by slug: slug
       result.creator_profile_id.should eql @user.profile.id
     end

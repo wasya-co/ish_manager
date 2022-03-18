@@ -39,14 +39,16 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where( :is_done.in => [false, nil], :is_trash.in => [false, nil],
-      :user_profile => current_user.profile ).order_by( :created_at => :desc )
+    @galleries = Gallery.unscoped.where(
+      :is_done.in => [false, nil],
+      :is_trash.in => [false, nil],
+      :user_profile => current_user.profile
+    ).order_by( :created_at => :desc )
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })
       @galleries.selector.delete('is_done')
     end
     @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
-
     render params[:render_type]
   end
 

@@ -2,5 +2,6 @@
 
 %ul{ style: "margin: 2em;" }
   %li= params.inspect
+  %li= "Cached?: #{Rails.application.config.action_controller.perform_caching}"
   %li= "Cache key: #{@cache_key.inspect}"     if @cache_key
-  %li= "Cached? #{Rails.application.config.action_controller.perform_caching}"
+  %li= "Env: #{Rails.env}"
