@@ -1,6 +1,6 @@
 
 
-.application--main-header-admin.manager--main-header{ class: ENV['RAILS_ENV'] }
+.application--main-header-admin.manager--main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
   .container
     %i.fa.fa-compress.collapse-expand#collapseHeader
     .content
@@ -35,6 +35,8 @@
         -# %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches (old m3)', stock_watches_path
         %li= link_to 'Stock Watches', '/iron_warbler/stock_watches'
         %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Profiles',  user_profiles_path
+        %li
+          = link_to "Ish::ImageAsset's", image_assets_path
         %li= link_to 'GuydMe', 'https://localhost:3002'
   %hr
 

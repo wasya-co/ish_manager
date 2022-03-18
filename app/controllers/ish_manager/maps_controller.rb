@@ -1,7 +1,7 @@
 
 class IshManager::MapsController < IshManager::ApplicationController
 
-  before_action :set_map, only: [ :destroy, :edit, :map_editor, :show, :update, ] # alphabetized
+  before_action :set_map, only: [ :destroy, :edit, :export, :map_editor, :show, :update, ] # alphabetized
   before_action :set_lists
 
   # alphabetized
@@ -41,6 +41,82 @@ class IshManager::MapsController < IshManager::ApplicationController
     authorize! :edit, @map
   end
 
+  def export
+    authorize! :edit, @map
+    result = @map.export_subtree
+    send_data result
+  end
+
+  def import
+    authorize! :create, Map
+
+    file_data = params[:input]
+    if file_data.respond_to?(:read)
+      contents = file_data.read
+    elsif file_data.respond_to?(:path)
+      contents = File.read(file_data.path)
+    else
+      logger.error "Bad file_data: #{file_data.class.name}: #{file_data.inspect}"
+    end
+    contents = JSON.parse contents
+    contents.deep_symbolize_keys!
+    puts! contents, 'contents'
+
+    ##
+    ## process content
+    ##
+    errors = []
+
+    # profiles
+    profiles = contents[:profiles]
+    contents.delete :profiles
+    profiles.each do |profile|
+      puts! profile, 'a profile'
+      if Ish::UserProfile.where( _id: profile[:_id] ).first
+        errors.push({ message: "profile #{profile[:email]} already exists." })
+      else
+        p = Profile.new({ email: profile[:email], _id: profile[:_id] })
+        u = User.where( email: profile[:email] ).first
+        if u
+          u.profile = p
+        else
+          u = User.new( email: profile[:email], password: rand.to_s, profile: p )
+        end
+        flag = u.save && p.save
+        if flag
+          errors.push({ message: "Profile created for #{profile[:email]}." })
+        else
+          errors.push({ message: u.errors.full_messages.join(", ") })
+          errors.push({ message: p.errors.full_messages.join(", ") })
+        end
+      end
+    end
+
+    # everything else
+    contents.each do |k, v|
+      puts! [k,v], 'k-v'
+      item = Map.export_key_to_class[k].constantize
+      v.map do |inn|
+        n = item.new inn
+        puts! n, 'n'
+        begin
+          flag = n.save
+        rescue Mongo::Error::OperationFailure => e
+          errors.push({ class: k, id: inn[:_id], messages: "Mongo::Error::OperationFailure :: |#{e.to_s}|" })
+        end
+        if flag
+          errors.push({ class: k, id: inn[:_id], messages: 'ok' })
+        else
+          puts! n.errors.full_messages.join(", ")
+          errors.push({ class: k, id: inn[:_id], messages: "Could not save: |#{n.errors.full_messages.join(", ")}|." })
+        end
+      end
+    end
+
+    flash[:notice] = errors
+    redirect_to action: :index
+  end
+
   def index
     authorize! :index, ::Gameui::Map
 
@@ -76,6 +152,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     if params[:image]
       image = ::Ish::ImageAsset.new :image => params[:image]
       @map.image = image
+      image.save
     end
 
     @map.config = JSON.parse map_params[:config]

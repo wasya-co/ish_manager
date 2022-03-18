@@ -34,6 +34,9 @@ class IshManager::Ability
         can [ :edit, :update ], ::Gallery do |g|
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
+        can [ :edit, :index, :show, :update,
+          :new_marker, :edit_marker, :create_marker, :update_marker,
+        ], Gameui::Map
 
         can [ :cities_index, :home, :sites_index ], ::Manager
 

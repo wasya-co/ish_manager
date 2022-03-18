@@ -33,6 +33,8 @@ IshManager::Engine.routes.draw do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
   end
 
+  get 'image_assets', to: 'image_assets#index', as: :image_assets
+
   resources :invoices do
     # resources :payments
   end
@@ -48,7 +50,10 @@ IshManager::Engine.routes.draw do
       resources 'markers'
       resources 'newsitems'
     end
+    post 'maps/import', to: 'maps#import', as: :import_map
     get 'maps/:id', to: 'maps#edit'
+    post 'maps/:id/export', to: 'maps#export', as: :export_map
+
     resources 'markers'
   end
 
