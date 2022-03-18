@@ -15,7 +15,7 @@ describe IshManager::FeaturesController, :type => :controller do
   describe 'new in city' do
     it 'renders' do
       get :new, :params => { :city_id => @city.id }
-      response.should be_success
+      response.should be_successful
     end
   end
 

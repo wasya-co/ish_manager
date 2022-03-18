@@ -3,7 +3,14 @@
 -#
 
 .maps-index
-  %h1 Maps (#{@maps.length}) #{link_to '[+]', new_map_path}
+  %h1
+    Maps (#{@maps.length})
+    = link_to '[+]', new_map_path
+  .red-border
+    = form_tag import_map_path, :multipart => true do
+      = file_field_tag :input
+      = submit_tag 'Import Map'
+
   - @maps.each do |map|
     = render 'index_item', map: map
 

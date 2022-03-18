@@ -16,14 +16,14 @@ describe IshManager::VideosController, :type => :controller do
     vv.should eql nil
 
     get :show, params: { id: v.id }
-    response.should be_success
+    response.should be_successful
     assigns(:video).name.should eql 'some-name'
   end
 
   describe '#edit' do
     it 'sets variables' do
       get :edit, params: { id: @video.id }
-      response.should be_success
+      response.should be_successful
       assigns(:user_profiles_list).should_not eql nil
     end
   end

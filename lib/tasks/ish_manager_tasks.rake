@@ -18,6 +18,13 @@ namespace :ish_manager do
     puts 'OK'
   end
 
+  desc 'assign my creator_profile to Gameui::Marker where missing'
+  task :gameui_markers_creator_profile => :environment do
+    ms = Gameui::Marker.where( creator_profile_id: nil )
+    profile = User.find_by( email: 'piousbox@gmail.com' ).profile
+    ms.update_all( creator_profile_id: profile.id )
+  end
+
   desc 'watch the stocks, and trigger actions - not alphavantage, tda now. 2021-08-08'
   task watch_stocks: :environment do
     while true

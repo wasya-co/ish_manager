@@ -18,6 +18,7 @@ describe IshManager::PhotosController, :type => :controller do
 
   context '#destroy' do
     it '#destroy - access denied' do
+      sign_out :user
       sign_in @guy, scope: :user
       n = Photo.count
 

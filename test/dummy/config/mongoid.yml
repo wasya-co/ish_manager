@@ -1,4 +1,11 @@
 
+development_production: &dev2
+  clients:
+    default:
+      database: ish_production
+      hosts:
+        - 127.0.0.1
+dev2: *dev2
 
 development:
   clients:

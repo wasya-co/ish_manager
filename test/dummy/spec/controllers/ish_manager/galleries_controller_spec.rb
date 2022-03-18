@@ -6,10 +6,7 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-
-    @gallery = create :gallery,
-      :name => 'xx-test-gallery-xx', :user_profile => controller.current_user.profile,
-      slug: 'xxSlugxx'
+    @gallery = create :gallery
   end
 
   # alphabetized
@@ -47,11 +44,9 @@ describe IshManager::GalleriesController, :type => :controller do
 
     it 'searches done galleries as well as active ones' do
       gallery_name = 'abba1233'
-      g = Gallery.create({ is_done: true,
-        name: gallery_name,
-        user_profile_id: @profile.id })
-      get :index, params: { q: gallery_name, render_type: Gallery::RENDER_THUMBS }
-      assert assigns(:galleries).map(&:name).include?(gallery_name)
+      g = create(:gallery, is_done: true, user_profile_id: @admin.profile.id )
+      get :index, params: { q: g.name, render_type: Gallery::RENDER_THUMBS }
+      assert assigns(:galleries).map(&:name).include?(g.name)
     end
 
   end
@@ -59,7 +54,7 @@ describe IshManager::GalleriesController, :type => :controller do
   describe '#new' do
     it 'renders' do
       get :new
-      response.should be_success
+      response.should be_successful
       assigns( :gallery ).should_not eql nil
       assigns( :cities_list ).should_not eql nil
       assigns( :tags_list ).should_not eql nil
@@ -87,7 +82,9 @@ describe IshManager::GalleriesController, :type => :controller do
 
   describe '#update' do
     it 'sends email to new shared profiles' do
-      setup_profiles
+      @profiles = [ 1, 2, 3 ].map do |i|
+        create(:profile)
+      end
       @gallery.shared_profiles = [ @profiles[0], @profiles[1] ]
       @gallery.save
 

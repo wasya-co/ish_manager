@@ -22,6 +22,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :create_marker, @map
     @map_id = @map.id
     @marker.creator_profile_id = current_user.profile.id
+    @marker.destination = Gameui::Map.find_by( slug: @marker.slug )
 
     if params[:image]
       @marker.image = ::Ish::ImageAsset.new :image => params[:image]
@@ -55,9 +56,11 @@ class IshManager::MarkersController < IshManager::ApplicationController
       @marker.title_image.save
     end
 
+    old_map = @marker.map
     respond_to do |format|
       if @marker.update(marker_params)
         @marker.map.touch
+        old_map.touch
         format.html { redirect_to location_map_editor_path(@map.id), notice: 'Marker was successfully updated.' }
       else
         format.html { render :edit }

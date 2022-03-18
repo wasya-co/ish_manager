@@ -16,13 +16,19 @@
     - @markers.each do |marker|
       -# @TODO: this should be a partial
       .marker{ style: "position: absolute; left: #{marker.x - marker.centerOffsetX}px; top: #{marker.y - marker.centerOffsetY}px;" }
-        = image_tag marker.image.image.url(:original)
+        - if marker.image
+          = image_tag marker.image.image.url(:original)
+        - else
+          = image_missing_tag
 
   %p.addToggle Markers (#{@markers.count}) [<>]
   .markers-list
     - @markers.each do |marker|
       .flex-row.bordered
-        = image_tag marker.title_image.image.url(:original)
+        - if marker.title_image
+          = image_tag marker.title_image.image.url(:original)
+        - else
+          = image_missing_tag
         .flat-row
           .a= marker.slug
           .a= button_to '~', edit_marker_path(marker), method: :get
@@ -44,3 +50,5 @@
 
 %hr
 = render 'form'
+
+= button_to 'Export Subtree', export_map_path(@map.id, format: :json)
