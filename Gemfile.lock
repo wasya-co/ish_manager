@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.284)
+    ish_manager (0.1.8.288)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -26,7 +26,7 @@ PATH
       kaminari-actionview (~> 1.0)
       kaminari-mongoid (~> 1.0)
       mongoid-autoinc (~> 6.0)
-      mongoid-paperclip
+      mongoid-paperclip (~> 0.1.0)
       rails (~> 6.0.0)
       uglifier
 

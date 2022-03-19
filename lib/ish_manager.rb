@@ -4,6 +4,7 @@ require 'haml'
 require 'cancancan'
 require 'kaminari/mongoid'
 require 'kaminari/actionview'
+require 'mongoid_paperclip'
 
 module IshManager
   # Your code goes here...
