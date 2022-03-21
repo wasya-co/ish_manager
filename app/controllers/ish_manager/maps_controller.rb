@@ -51,6 +51,9 @@ class IshManager::MapsController < IshManager::ApplicationController
     send_data result
   end
 
+  ##
+  ## @TODO: move to models, yes?
+  ##
   def import
     authorize! :create, Map
 
@@ -65,11 +68,17 @@ class IshManager::MapsController < IshManager::ApplicationController
     contents = JSON.parse contents
     contents.deep_symbolize_keys!
 
+    ## Delete existing
     if params[:delete_existing]
       map_ids = contents[:maps].map { |m| m[:_id] }
-      Map.where( :_id.in => map_ids ).destroy_all
-
       marker_ids = contents[:markers].map { |m| m[:_id] }
+
+      maps = Map.where( :_id.in => map_ids )
+      maps.each do |m|
+        marker_ids += m.markers.map(&:_id)
+      end
+      maps.destroy_all
+
       Marker.where( :_id.in => marker_ids ).destroy_all
     end
 

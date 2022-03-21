@@ -14,6 +14,7 @@ describe IshManager::MapsController do
       Map.all.destroy_all
       Marker.all.destroy_all
       @map = create :map, _id: '<map-id>', slug: 'import-slug-0'
+      @map_marker = create :marker, map: @map, slug: 'another-one'
       @marker = create :marker, map: @map, _id: '<marker-id>', slug: 'import-slug-0'
     end
 
@@ -23,6 +24,7 @@ describe IshManager::MapsController do
       # puts! session[:flash], 'Flash'
       @map.reload.slug.should eql 'import-slug-1'
       @marker.reload.slug.should eql 'import-slug-1'
+      Marker.where( _id: @map_marker.id ).length.should eql 0
     end
 
     it 'does not delete existing' do
