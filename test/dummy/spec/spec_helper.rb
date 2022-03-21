@@ -49,9 +49,12 @@ def do_setup
   Report.unscoped.destroy_all
   @report = FactoryBot.create :report
 
-  # M
-  ::Gameui::Marker.unscoped.destroy_all
-  ::Gameui::Map.unscoped.destroy_all
+  ## M
+
+  ## db cleaner should do this for me, yes?
+  # ::Gameui::Marker.unscoped.destroy_all
+  # ::Gameui::Map.unscoped.destroy_all
+
   @map = create :map
   @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
   @map.save

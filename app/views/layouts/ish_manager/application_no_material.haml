@@ -1,0 +1,43 @@
+!!!
+%html
+  %head
+    %title Ish Manager
+    %link{ :rel => 'icon', :href => "/favicon_#{ENV['RAILS_ENV']}.gif" }
+    %meta{ :name => :viewport, :content => 'width=device-width, initial-scale=1.0' }
+    %meta{ :charset => 'UTF-8' }
+    %meta{ :description => 'some description' }
+    %script{ :src => "//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" }
+    %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/jquery.tinymce.min.js" }
+    %script{ :src => "//cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.3/tinymce.min.js" }
+    %script{ :src => "//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" }
+    = stylesheet_link_tag "//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"
+    = stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css", :media => 'all'
+    = stylesheet_link_tag "//fonts.googleapis.com/icon?family=Material+Icons"
+
+    = stylesheet_link_tag "ish_manager/application", media: "all"
+
+    = javascript_include_tag "ish_manager/application"
+
+    = csrf_meta_tags
+  %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }
+    .bg-white
+      = render :partial => "ish_manager/application/main_header_#{current_user.profile.role_name}"
+      .container
+        .row
+          .col.s12
+            - if notice
+              - if notice.class == Array
+                %ul
+                  - notice.map do |n|
+                    %li
+                      - n.map do |k,v|
+                        <b>#{k} :</b> #{v}
+              %p.notice= notice
+            - if alert
+              %p.alert= alert
+      .container
+        = yield
+    = render 'ish_manager/application/main_footer'
+    = render 'analytics' if Rails.env.production?
+    = render 'debug' if !Rails.env.production?
+

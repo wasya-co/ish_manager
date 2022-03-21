@@ -6,9 +6,13 @@
   %h1
     Maps (#{@maps.length})
     = link_to '[+]', new_map_path
+
   .red-border
     = form_tag import_map_path, :multipart => true do
       = file_field_tag :input
+      .a
+        = label_tag :delete_existing
+        = check_box_tag :delete_existing
       = submit_tag 'Import Map'
 
   - @maps.each do |map|

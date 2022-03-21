@@ -4,6 +4,8 @@ class IshManager::MapsController < IshManager::ApplicationController
   before_action :set_map, only: [ :destroy, :edit, :export, :map_editor, :show, :update, ] # alphabetized
   before_action :set_lists
 
+  layout 'ish_manager/application_no_material', only: %w| index |
+
   # alphabetized
 
   def create
@@ -62,7 +64,15 @@ class IshManager::MapsController < IshManager::ApplicationController
     end
     contents = JSON.parse contents
     contents.deep_symbolize_keys!
-    puts! contents, 'contents'
+
+    if params[:delete_existing]
+      map_ids = contents[:maps].map { |m| m[:_id] }
+      Map.where( :_id.in => map_ids ).destroy_all
+
+      marker_ids = contents[:markers].map { |m| m[:_id] }
+      Marker.where( :_id.in => marker_ids ).destroy_all
+    end
+
 
     ##
     ## process content
@@ -73,7 +83,6 @@ class IshManager::MapsController < IshManager::ApplicationController
     profiles = contents[:profiles]
     contents.delete :profiles
     profiles.each do |profile|
-      puts! profile, 'a profile'
       if Ish::UserProfile.where( _id: profile[:_id] ).first
         errors.push({ message: "profile #{profile[:email]} already exists." })
       else
@@ -96,11 +105,10 @@ class IshManager::MapsController < IshManager::ApplicationController
 
     # everything else
     contents.each do |k, v|
-      puts! [k,v], 'k-v'
+      # puts! [k, v], "Importing"
       item = Map.export_key_to_class[k].constantize
       v.map do |inn|
         n = item.new inn
-        puts! n, 'n'
         begin
           flag = n.save
         rescue Mongo::Error::OperationFailure => e
@@ -109,7 +117,6 @@ class IshManager::MapsController < IshManager::ApplicationController
         if flag
           errors.push({ class: k, id: inn[:_id], messages: 'ok' })
         else
-          puts! n.errors.full_messages.join(", ")
           errors.push({ class: k, id: inn[:_id], messages: "Could not save: |#{n.errors.full_messages.join(", ")}|." })
         end
       end
