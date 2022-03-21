@@ -51,7 +51,7 @@ IshManager::Engine.routes.draw do
       resources 'newsitems'
     end
     post 'maps/import', to: 'maps#import', as: :import_map
-    get 'maps/:id', to: 'maps#edit'
+    get 'maps/:id', to: 'maps#show'
     post 'maps/:id/export', to: 'maps#export', as: :export_map
 
     resources 'markers'
@@ -84,8 +84,7 @@ IshManager::Engine.routes.draw do
     resources :tags
   end
 
-  # resources :stock_actions
-  # resources :stock_options
+  ## @TODO: move these to iron warbler
   resources :stock_watches
   resources :option_watches
 

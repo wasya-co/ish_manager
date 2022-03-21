@@ -10,14 +10,12 @@
         = f.label :name
         = f.text_field :name
       .field
-        = f.label :created_at
-        = f.text_field :created_at
+        = label_tag :photo
+        = file_field_tag :photo
       .field
         = f.label :descr
         = f.text_area :descr, :class => :tinymce
-      .field
-        = label_tag :photo
-        = file_field_tag :photo
+
 
     .col.s6
       .field
@@ -29,11 +27,6 @@
       .field
         = f.label :city
         = f.select :city_id, options_for_select( @cities_list, :selected => ( newsitem[:city_id] || params[:city_id] ) )
-      -# @TODO: tags must be multi-select, not 1x1
-      .field
-        = f.label :user_profile
-        = f.select :user_profile_id, options_for_select( @user_profiles_list, selected: ( newsitem[:user_profile_id] || params[:user_profile_id] ) )
-
 
   %hr
   .row

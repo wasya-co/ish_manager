@@ -37,8 +37,10 @@ class IshManager::MapsController < IshManager::ApplicationController
     end
   end
 
+  ## @TODO: @obsolete, remove
   def edit
     authorize! :edit, @map
+    redirect_to action: 'show'
   end
 
   def export
