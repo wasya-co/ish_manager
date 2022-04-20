@@ -35,6 +35,10 @@
       = f.check_box :is_trash
       = f.label :is_trash
   .row
+    = f.label :maps, 'Maps'
+    = f.select :map_ids, @maps_list, {}, { multiple: true }
+
+  .row
     .actions
       %br
       = f.submit

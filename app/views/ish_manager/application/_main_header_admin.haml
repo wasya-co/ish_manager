@@ -30,6 +30,8 @@
             = form_tag videos_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_video_path
+        %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }
+          = link_to 'Tags',      tags_path
       %ul
         %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
         -# %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches (old m3)', stock_watches_path

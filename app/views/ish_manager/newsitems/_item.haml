@@ -1,9 +1,16 @@
+
+-#
+-# ish_manager / newsitems / _item.haml
+-#
+
 - n ||= newsitem
-.newsitems--item
-  -# - if n.profile_id
-  -#   = button_to '[x]', profile_newsitem_path(n.profile_id, n.id), method: :delete, data: { confirm: 'Are you sure?' }
-  - if !n.photo.blank?
-    .Nphoto.panel
+
+.card.newsitems--item{ class: n.item_type }
+  .card-content
+    .float-left= link_to '[~]', edit_newsitem_path(n)
+    .float-left= button_to '[x]', newsitem_path( n ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+    - if !n.photo.blank?
       .the-photo
         - if n.photo.gallery.blank?
           = link_to image_tag( n.photo.photo.url(:small) ), n.photo.photo.url(:large), :rel => 'lightbox[newsitem]'
@@ -11,8 +18,7 @@
           = link_to image_tag( n.photo.photo.url(:small) ), gallery_path( n.photo.gallery.slug, n.photo.gallery.photos.index(n.photo) )
       .meta= render 'ish_manager/photos/meta', :photo => n.photo
 
-  - if n.report
-    .Nreport.newsitem-report
+    - if n.report
       %ul
         %li <b>Report</b> #{n.report.id}
         %li Premium Tier #{n.report.premium_tier}
@@ -26,9 +32,7 @@
       .subhead= n.report.subhead
       .c
 
-  - if !n.gallery.blank?
-    .Ngallery
-
+    - if !n.gallery.blank?
       %h3= link_to n.gallery.name, gallery_path(n.gallery.slug, 0)
       .meta
         #{t('newsitems.gallery', :username => n.gallery.username, :date => pretty_date(n.gallery.created_at))}
@@ -43,20 +47,20 @@
         .thumbnails
           - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|
             = link_to image_tag( photo.photo.url(:thumb), :alt => photo.name ), photo.photo.url(:small), :rel => "lightbox[#{n.gallery.slug}]"
-      .c
 
-  - if n.video_id
-    - video = Video.unscoped.find n.video_id
-    .Nvideo
-      = link_to video.video.url, video.video.url
-      -# %h3= link_to (video.name.blank? ? t('videos.no_title') : video.name), video_path(video.youtube_id)
-      = render 'ish_manager/application/meta', :item => video
-      = render 'ish_manager/videos/embed_half', :video => video
-      .c
 
-  - if !n.descr.blank? && n.gallery.blank? && n.report.blank?
-    .Ndescr.panel
-      .meta= pretty_date n.created_at
-      .subhead= simple_format n.descr
-      .c
+    - if n.video_id
+      - video = Video.unscoped.find n.video_id
+      .a
+        = link_to video.video.url, video.video.url
+        -# %h3= link_to (video.name.blank? ? t('videos.no_title') : video.name), video_path(video.youtube_id)
+        = render 'ish_manager/application/meta', :item => video
+        = render 'ish_manager/videos/embed_half', :video => video
+        .c
+
+    - if !n.descr.blank? && n.gallery.blank? && n.report.blank?
+      .Ndescr.panel
+        .meta= pretty_date n.created_at
+        .subhead= simple_format n.descr
+        .c
 

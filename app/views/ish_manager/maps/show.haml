@@ -4,13 +4,12 @@
 
 .maps-show
   = render 'map_meta_row', map: @map
-  %p.addToggle Description [<>]
+  %p.addToggle Description
   .descr= raw @map.description
 
   %p.addToggle
     The Map (#{@map.w}x#{@map.h})
     = link_to 'Map Editor', location_map_editor_path(@map.id)
-    [<>]
   .the-map
     = image_tag @map.image.image.url(:original) rescue nil
     - @markers.each do |marker|
@@ -21,28 +20,13 @@
         - else
           = image_missing_tag
 
-  %p.addToggle Markers (#{@markers.count}) [<>]
-  .markers-list
-    - @markers.each do |marker|
-      .flex-row.bordered
-        - if marker.title_image
-          = image_tag marker.title_image.image.url(:original)
-        - else
-          = image_missing_tag
-        .flat-row
-          .a= marker.slug
-          .a= button_to '~', edit_marker_path(marker), method: :get
-          .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
-          .a= link_to '[api]', api_marker_path(marker)
-          .a= link_to '[this map]', edit_map_path(marker.slug)
-      .hide
-        %ul.bullets
-          %li <b>item_type:</b> #{marker.item_type}
+  = render 'ish_manager/markers/header', markers: @markers, map: @map
+  = render 'ish_manager/markers/index', markers: @markers, map: @map
 
-  %p.addToggle Newsitems (#{@map.newsitems.count}) [<>]
+  %p.addToggle= render 'ish_manager/newsitems/header', newsitems: @map.newsitems
   = render 'ish_manager/newsitems/index', newsitems: @map.newsitems
 
-  %p.addToggle Maps (#{@maps.count}) [<>]
+  %p.addToggle Maps (#{@maps.count})
   .maps-list
     - @maps.each do |m|
       .item

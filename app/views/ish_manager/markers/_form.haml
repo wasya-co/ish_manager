@@ -5,18 +5,12 @@
 
 -# @TODO: can I not have this url at all?
 - url = %w|new create|.include?(params[:action]) ? markers_path : marker_path(@marker.id)
+
 .markers--form
   = form_for @marker, :html => { :multipart => true }, url: url do |f|
-    -# @TODO: yeah move the map id into this hidden field.
-    -# = f.hidden_field :map_id, value: (params['map_id']||@map_id)
-
-    - if @marker.errors.any?
-      #error_explanation
-        %p= "#{pluralize(@marker.errors.count, "error")} prohibited this map from being saved:"
-        %ul.errors
-          - @marker.errors.full_messages.each do |message|
-            %li= message
-
+    = render 'ish_manager/application/form_errors', item: @marker
+    .actions
+      = f.submit 'Save'
     .row
       .col.s1
         = f.label :map

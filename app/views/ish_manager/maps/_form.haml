@@ -4,7 +4,11 @@
 
 - url = params[:action] == 'new' ? maps_path : map_path(@map.id)
 
-= form_for @map, :html => { :multipart => true, class: 'maps--form' }, url: url do |f|
+
+= form_for @map, :html => { :multipart => true, class: '--form maps--form' }, url: url do |f|
+  .actions
+    = f.submit 'Save'
+
   - if @map.errors.any?
     #error_explanation
       %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"
@@ -49,6 +53,11 @@
 
   = render 'ish_manager/application/form_nonpublic', f: f, model: @map
 
+
+  .row
+    = f.label :tags
+    = f.select :tag_ids, @tags_list, {}, { multiple: true }
+
   .field
     = f.label :description
     = f.text_area :description, class: 'tinymce'
@@ -66,7 +75,10 @@
       = f.label "Config"
       = f.text_area :config, class: 'large'
       %pre.small
-        description.collapsible: bool
-        map_panel_type: "Equirectangular" | "MapPanel" | "MapPanelNoZoom" | "ThreePanelV1" | "ThreePanelV4"
+        :plain
+          description.collapsible: bool
+          map_panel_type: "Equirectangular" |
+            "MapPanel" | "MapPanelNoZoom" |
+            "ThreePanelV1" | "ThreePanelV4"
   .actions
     = f.submit 'Save'

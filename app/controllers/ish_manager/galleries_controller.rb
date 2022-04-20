@@ -1,6 +1,7 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
+  before_action :set_gallery, only: %w|destroy edit j_show show update|
 
   # alphabetized! : )
 
@@ -24,7 +25,6 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def destroy
-    @gallery = Gallery.unscoped.find params[:id]
     authorize! :destroy, @gallery
     @gallery.is_trash = true
     @gallery.save
@@ -33,27 +33,25 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def edit
-    @gallery = Gallery.unscoped.find params[:id]
     authorize! :edit, @gallery
   end
 
   def index
     authorize! :index, Gallery
     @galleries = Gallery.unscoped.where(
-      :is_done.in => [false, nil],
-      :is_trash.in => [false, nil],
-      :user_profile => current_user.profile
+      # :is_done.in => [false, nil],
+      # :is_trash.in => [false, nil],
+      # :user_profile => current_user.profile
     ).order_by( :created_at => :desc )
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })
-      @galleries.selector.delete('is_done')
+      # @galleries.selector.delete('is_done')
     end
     @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
     render params[:render_type]
   end
 
   def j_show
-    @gallery = Gallery.unscoped.find( params[:id] )
     authorize! :show, @gallery
     respond_to do |format|
       format.json do
@@ -82,18 +80,12 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def show
-    begin
-      @gallery = Gallery.unscoped.find_by :slug => params[:id]
-    rescue
-      @gallery = Gallery.unscoped.find params[:id]
-    end
     authorize! :show, @gallery
     @photos = @gallery.photos.unscoped.where({ :is_trash => false })
     @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
   end
 
   def update
-    @gallery = Gallery.unscoped.find params[:id]
     old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
@@ -113,6 +105,16 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       puts! @gallery.errors.messages, 'cannot save gallery'
       flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s
       render :action => :edit
+    end
+  end
+
+  private
+
+  def set_gallery
+    begin
+      @gallery = Gallery.unscoped.find_by :slug => params[:id]
+    rescue
+      @gallery = Gallery.unscoped.find params[:id]
     end
   end
 

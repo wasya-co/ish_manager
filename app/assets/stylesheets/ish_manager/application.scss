@@ -62,8 +62,13 @@ ul:not(.browser-default).bullets, {
 
 /* A */
 
-.addToggle + * {
-  display: none;
+.addToggle::after {
+  content: " [<>]";
+}
+.addToggle {
+  + * {
+    display: none;
+  }
 }
 .alert {
   border: 1px solid yellow;
@@ -92,10 +97,18 @@ ul:not(.browser-default).bullets, {
   padding: .5em;
   border-radius: 8px;
   margin-bottom: .5em;
+  padding: 0.5em;
 }
 
 
 /* C */
+
+.Card {
+  border: 1px solid gray;
+  border-radius: 8px;
+  display: inline-block;
+  margin-bottom: .5em;
+}
 
 .center {
   text-align: center;
@@ -111,7 +124,16 @@ ul:not(.browser-default).bullets, {
 
 /* D */
 /* E */
+.error_explanation {
+  border: 1px solid red;
+  padding: .8em;
+}
+
 /* F */
+
+.--form {
+  margin-bottom: 2em;
+}
 
 .flat-row {
   display: flex;
@@ -226,6 +248,13 @@ textarea.large {
   display: inline;
 }
 
+/* N */
+
+.notice {
+  border: 1px solid green;
+  padding: .8em;
+}
+
 /* P */
 .panel-content {
   padding: .5em;
@@ -246,10 +275,7 @@ ul.inline li {
   padding-right: 1em;
 }
 
-.notice {
-  border: 1px solid green;
-  padding: .8em;
-}
+
 
 .youtube_img {
   width: 100px;
