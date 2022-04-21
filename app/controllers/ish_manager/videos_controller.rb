@@ -91,7 +91,7 @@ class IshManager::VideosController < IshManager::ApplicationController
   end
 
   def show
-    @video = Video.unscoped.where( :youtube_id => params[:youtube_id] ).first
+    @video = Video.unscoped.where( :youtube_id => params[:youtube_id] ).first if params[:youtube_id].present?
     @video ||= Video.unscoped.find params[:id]
     authorize! :show, @video
 

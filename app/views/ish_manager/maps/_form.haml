@@ -79,6 +79,18 @@
           description.collapsible: bool
           map_panel_type: "Equirectangular" |
             "MapPanel" | "MapPanelNoZoom" |
-            "ThreePanelV1" | "ThreePanelV4"
+            "ThreePanelV1" | "ThreePanelV4" |
+            "GoogleMaps"
+  .row
+    .col.s6
+      .google-maps.row
+        .col.s4
+          = f.label "x, y"
+        .col.s4
+          = f.text_field :x
+        .col.s4
+          = f.text_field :y
+    .col.s6
+      unused
   .actions
     = f.submit 'Save'
