@@ -13,6 +13,7 @@ describe IshManager::MapsController do
     before do
       Map.all.destroy_all
       Marker.all.destroy_all
+      do_setup
       @map = create :map, _id: '<map-id>', slug: 'import-slug-0'
       @map_marker = create :marker, map: @map
       @marker = create :marker, map: @map, _id: '<marker-id>'
