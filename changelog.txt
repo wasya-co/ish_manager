@@ -23,4 +23,5 @@ master - 20200208 - adding map, marker management
 0.4.0 - 2022-02-01 warbler can place options orders?
         2022-02-27 - cc's please
         2022-03-12 - import/export of maps
+0.5.0 - 2022-04-30 - wiring in active admin for leads
 

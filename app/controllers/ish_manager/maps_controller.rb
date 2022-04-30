@@ -175,6 +175,17 @@ class IshManager::MapsController < IshManager::ApplicationController
 
     @map.config = JSON.parse map_params[:config]
 
+    # And update markers
+    # @TODO: rewrite and make this one query!
+    if map_marker_params.present?
+      markers = Marker.where( destination: @map )
+      markers.each do |m|
+        map_marker_params.each do |k, v|
+          m.update_attribute(k, v)
+        end
+      end
+    end
+
     respond_to do |format|
       if map_params[:parent_slug].present?
         @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
@@ -202,11 +213,17 @@ class IshManager::MapsController < IshManager::ApplicationController
     out
   end
 
+  def map_marker_params
+    out = map_params.slice( :shared_profiles, :is_public )
+    puts! out, 'map_marker_params'
+    out
+  end
+
   ## @TODO: remove all instances of unscoped, everywhere.
   def set_map
     @map = ::Gameui::Map.unscoped.where(id: params[:id]).first
     @map ||= Gameui::Map.unscoped.find_by(slug: params[:id])
-    @markers = @map.markers.unscoped
+    @markers = @map.markers.unscoped.includes( :destination )
   end
 
 end

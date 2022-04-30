@@ -2,9 +2,10 @@
 .manager--leads-index
   %h5
     = link_to 'Leads', leads_path
+    (#{Ish::Lead.all.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
     = link_to '[done]', done_leads_path
-    
+
   %table#dataTable
     %thead
       %tr

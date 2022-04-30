@@ -12,17 +12,17 @@
     .actions
       = f.submit 'Save'
     .row
-      .col.s1
+      .col.s4
         = f.label :map
-        = f.text_field :map_id, value: @marker.map_id || params[:map_id]
-      .col.s5
+        = f.select :map_id, options_for_select(@maps_list, selected: @marker.map_id || params[:map_id])
+      .col.s4
         .field
           = f.label :name
           = f.text_field :name
-      .col.s6
+      .col.s4
         .field
-          = f.label :slug
-          = f.text_field :slug
+          = f.label :destination
+          = f.select :destination_id, options_for_select(@maps_list, selected: @marker.destination_id)
     .row
       .col.s3
         .field
@@ -81,17 +81,12 @@
               = f.check_box :is_active
               = f.label :is_active
           .col.s6
-            unused
-    .row
-      .col.s6
-        .google-maps.row
-          .col.s4
-            = f.label "x, y"
-          .col.s4
-            = f.text_field :x
-          .col.s4
-            = f.text_field :y
-      .col.s6
-        unused
+            .google-maps.row
+              .col.s4
+                = f.label "x, y"
+              .col.s4
+                = f.text_field :x
+              .col.s4
+                = f.text_field :y
     .actions
       = f.submit 'Save'

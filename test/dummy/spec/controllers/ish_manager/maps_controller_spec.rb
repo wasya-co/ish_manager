@@ -14,25 +14,22 @@ describe IshManager::MapsController do
       Map.all.destroy_all
       Marker.all.destroy_all
       @map = create :map, _id: '<map-id>', slug: 'import-slug-0'
-      @map_marker = create :marker, map: @map, slug: 'another-one'
-      @marker = create :marker, map: @map, _id: '<marker-id>', slug: 'import-slug-0'
+      @map_marker = create :marker, map: @map
+      @marker = create :marker, map: @map, _id: '<marker-id>'
     end
 
     it 'deletes existing' do
       input_file = Rack::Test::UploadedFile.new(Rails.root.join 'data', 'map_import_1.json' )
       post :import, params: { delete_existing: '1', input: input_file }
-      # puts! session[:flash], 'Flash'
       @map.reload.slug.should eql 'import-slug-1'
-      @marker.reload.slug.should eql 'import-slug-1'
       Marker.where( _id: @map_marker.id ).length.should eql 0
     end
 
     it 'does not delete existing' do
       input_file = Rack::Test::UploadedFile.new(Rails.root.join 'data', 'map_import_1.json' )
       post :import, params: { input: input_file }
-      # puts! session[:flash], 'Flash'
       @map.reload.slug.should eql 'import-slug-0'
-      @marker.reload.slug.should eql 'import-slug-0'
+      Marker.where( _id: @map_marker.id ).length.should eql 1
     end
   end
 

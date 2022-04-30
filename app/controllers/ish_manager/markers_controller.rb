@@ -22,7 +22,6 @@ class IshManager::MarkersController < IshManager::ApplicationController
     authorize! :create_marker, @map
     @map_id = @map.id
     @marker.creator_profile_id = current_user.profile.id
-    @marker.destination = Gameui::Map.find_by( slug: @marker.slug )
 
     if params[:image]
       @marker.image = ::Ish::ImageAsset.new :image => params[:image]
@@ -38,6 +37,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
         @marker.map.touch
         format.html { redirect_to map_path(@map), notice: 'Marker was successfully created.' }
       else
+        puts! @marker.errors.full_messages.join(", "), "Could not create marker"
         flash[:alert] = @marker.errors.full_messages
         format.html { render :new }
       end
