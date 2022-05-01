@@ -1,23 +1,23 @@
 
-.manager--leads-index
+.manager-leads-index
   %h5
     = link_to 'Leads', leads_path
     (#{Ish::Lead.all.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
     = link_to '[done]', done_leads_path
 
-  %table#dataTable
+  %table#dataTable.display.compact
     %thead
       %tr
         %th &nbsp;
-        %th Created At
+        %th.created-at Created At
         %th Company
         %th Tag
         %th Phone
         %th Email
         %th Job Url
-        %th Company Url
-        %th Yelp Url
+        %th.company-url Company Url
+        %th.yelp-url Yelp Url
         %th Location
         %th Description
         %th Address
@@ -25,14 +25,19 @@
       - @leads.each do |lead|
         %tr
           %td= link_to raw('<i class="fa fa-play"></i>'), lead_path( lead )
-          %td= pretty_date lead.created_at
+          %td.created-at= pretty_date lead.created_at
           %td= lead.company
           %td= lead.tag
           %td= lead.phone
-          %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}"
-          %td= link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank'
-          %td= lead.company_url
-          %td= lead.yelp_url
+          %td
+            = link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}" if lead.email.present?
+          %td
+            = link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank' if lead.job_url.present?
+          %td
+            = link_to 'B', lead.company_url if lead.company_url.present?
+          %td
+            = link_to raw('<i class="fa fa-user-md"></i>'), lead.yelp_url if lead.yelp_url.present?
           %td= lead.location
           %td= lead.description
-          %td= lead.address
+          %td
+            = 'Y' if lead.address.present?

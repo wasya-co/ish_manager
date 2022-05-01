@@ -1,20 +1,6 @@
 class IshManager::LeadsController < IshManager::ApplicationController
 
-  def index
-    authorize! :index, Ish::Lead
-    @leads = Ish::Lead.where( :profile => current_user.profile, :is_trash => false )
-    if params[:is_done]
-      @leads = @leads.where( :is_done => true )
-    else
-      @leads = @leads.where( :is_done => false )
-    end
-    # render :layout => 'ish_manager/application_no_material'
-  end
-
-  def new
-    @new_lead = Ish::Lead.new
-    authorize! :new, @new_lead
-  end
+  ## alphabetized : )
 
   def create
     @lead = Ish::Lead.new params[:lead].permit!
@@ -28,14 +14,30 @@ class IshManager::LeadsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
-  def show
-    authorize! :redirect, IshManager::Ability
-    redirect_to :action => :edit, :id => params[:id]
-  end
-
   def edit
     @lead = Ish::Lead.find params[:id]
     authorize! :edit, @lead
+  end
+
+  def index
+    authorize! :index, Ish::Lead
+    @leads = Ish::Lead.all # where( :profile => current_user.profile, :is_trash => false )
+    if params[:is_done]
+      @leads = @leads.where( :is_done => true )
+    else
+      @leads = @leads.where( :is_done => false )
+    end
+    render :layout => 'ish_manager/application_no_material'
+  end
+
+  def new
+    @new_lead = Ish::Lead.new
+    authorize! :new, @new_lead
+  end
+
+  def show
+    authorize! :redirect, IshManager::Ability
+    redirect_to :action => :edit, :id => params[:id]
   end
 
   def update

@@ -10,12 +10,15 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ * alphabetized : )
+ *
  *= require_self
- *= require ish_manager/tags
- *= require ish_manager/maps
- *= require ish_manager/jquery-ui
  *= require ish_manager/galleries
+ *= require ish_manager/jquery-ui
+ *= require ish_manager/maps
+ *= require ish_manager/leads
  *= require ish_manager/photos
+ *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
  */

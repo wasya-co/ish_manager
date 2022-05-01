@@ -19,6 +19,7 @@
 
     = javascript_include_tag "ish_manager/application"
     = javascript_include_tag "ish_manager/materialize"
+    = javascript_include_tag "ish_manager/application_materialize"
 
     = csrf_meta_tags
   %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }

@@ -30,6 +30,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rails", "~> 6.0.0"
   s.add_runtime_dependency 'uglifier'
   s.add_runtime_dependency "mongoid_paranoia"
-  s.add_runtime_dependency 'activeadmin-mongoid', '~> 1.0.0'
-  # s.add_runtime_dependency 'ransack-mongoid' # , '~> 1.0.0', github: 'activerecord-hackery/ransack-mongoid'
 end
