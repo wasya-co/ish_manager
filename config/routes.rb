@@ -1,4 +1,8 @@
+
 IshManager::Engine.routes.draw do
+
+  post 'email_test', to: 'application#email_test', as: :email_test
+
   root :to => 'application#home'
 
   resources :campaigns
@@ -57,6 +61,8 @@ IshManager::Engine.routes.draw do
     resources 'markers'
   end
 
+  resources :meetings
+
   resources :newsitems
 
   resources :orders
@@ -97,6 +103,7 @@ IshManager::Engine.routes.draw do
     resources :videos
   end
 
+  resources :unsubscribes
   resources :user_profiles do
     resources :newsitems
   end

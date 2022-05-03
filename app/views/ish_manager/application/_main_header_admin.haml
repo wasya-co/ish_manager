@@ -41,6 +41,10 @@
           = link_to "Ish::ImageAsset's", image_assets_path
       %ul
         %li= link_to 'Leads', leads_path
-
+        %li
+          = link_to 'Meetings', meetings_path
+          = link_to '[+]', new_meeting_path
+        %li
+          = button_to 'Test Email', email_test_path, { form_class: 'inline-block' }
   %hr
 

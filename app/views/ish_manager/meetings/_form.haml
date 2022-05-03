@@ -1,0 +1,51 @@
+
+- url = meeting.persisted? ? meeting_path( meeting.id ) : meetings_path
+
+= form_for meeting, :as => :meeting, :url => url do |f|
+
+  .input-field
+    = f.label :invitee_email
+    = f.text_field :invitee_email
+  .input-field
+    = f.label :invitee_name
+    = f.text_field :invitee_name
+
+  .input-field
+    = f.label :datetime
+    = f.text_field :datetime
+
+  .input-field
+    = f.check_box :send_reminder_morning
+    = f.label :send_reminder_morning
+
+  .input-field
+    = f.check_box :send_reminder_15min
+    = f.label :send_reminder_15min
+
+  .input-field
+    = f.select :template_name, options_for_select(Ish::Meeting.template_name_options)
+    = f.label :template_name
+
+  -# .input-field
+  -#   = f.label :company
+  -#   = f.text_field :company
+  -# .input-field
+  -#   = f.label :tag
+  -#   = f.text_field :tag
+  -# .input-field
+  -#   = f.label :location
+  -#   = f.text_field :location
+  -# .input-field
+  -#   = f.label :description
+  -#   = f.text_area :description
+  -# .input-field
+  -#   = f.label :address
+  -#   = f.text_area :address
+
+  -# .field
+  -#   = f.check_box :is_trash
+  -#   = f.label :is_trash
+
+  .actions{ :style => "margin-top: 1em;" }
+    = f.submit
+

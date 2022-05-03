@@ -1,0 +1,13 @@
+
+%p Hello #{@meeting.invitee_name},
+
+%p
+  This is a reminder that you have an upcoming meeting with #{@meeting.host_name},
+  today at #{@meeting.datetime.strftime('%l:%M %P')}.
+
+%p
+  %small --<br />
+  %small The Piousbox Notifier<br />
+  %small If you are unable to attend or would like to reschedule, please notify #{@meeting.host_email}.
+  %small To submit an unsubscribe request, #{link_to 'click here', new_unsubscribe_url, style: 'color: gray'}
+

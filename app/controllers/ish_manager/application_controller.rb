@@ -6,6 +6,20 @@ module IshManager
     check_authorization
     rescue_from ::CanCan::AccessDenied, :with => :access_denied
 
+    def email_test
+      authorize! :home, IshManager::Ability
+      IshManager::ApplicationMailer.test_email(' 3dva ').deliver_later
+
+      # wait_until = "2022-05-03T15:09".to_datetime.in_time_zone
+      # puts! wait_until, 'wait untl'
+
+      # # IshManager::TestEmailJob.set({ wait_until: wait_until }).perform_later
+      # IshManager::TestEmailJob.perform_later
+
+      flash[:notice] = 'Scheduled delivery.'
+      redirect_to request.referrer
+    end
+
     def home
       authorize! :home, IshManager::Ability
       render 'home'
