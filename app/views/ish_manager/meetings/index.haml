@@ -1,0 +1,13 @@
+
+.manager-meeetings-index
+
+  %table#dataTable.display.compact
+    %thead
+      %tr
+        %th Invitee
+        %th Date Time
+    %tbody
+      - @meetings.each do |meeting|
+        %tr
+          %td= meeting.invitee_email
+          %td= meeting.datetime.to_s

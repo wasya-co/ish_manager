@@ -39,6 +39,7 @@ end
 ## Cannot be alphabetized!
 ##
 def do_setup
+  DatabaseCleaner.clean
   setup_users
 
   # C
@@ -50,11 +51,6 @@ def do_setup
   @report = FactoryBot.create :report
 
   ## M
-
-  ## db cleaner should do this for me, yes?
-  # ::Gameui::Marker.unscoped.destroy_all
-  # ::Gameui::Map.unscoped.destroy_all
-
   @map = create :map
   @map.image = Ish::ImageAsset.new({ image: File.new(File.join(Rails.root, 'data', 'image.jpg')) })
   @map.save
