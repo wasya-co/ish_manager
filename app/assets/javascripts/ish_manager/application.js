@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require ish_manager/vendor/jquery-3.2.1.min
+// require ish_manager/vendor/jquery-3.6.0.min
 // require ish_manager/vendor/bootstrap.min
 //= require ish_manager/vendor/jquery.iframe-transport
 //= require ish_manager/vendor/jquery.ui.widget
