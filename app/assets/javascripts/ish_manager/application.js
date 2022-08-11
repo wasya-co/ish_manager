@@ -53,7 +53,7 @@ $(function () {
     if ('function' === typeof $('body').material_select ) {
       $('select').material_select()
     }
-    $('.select2').select2()
+    if (!!$('body').select2) { $('.select2').select2() }
   }
 
 
