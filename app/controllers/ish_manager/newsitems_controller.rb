@@ -88,6 +88,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def new
+
     @newsitem = Newsitem.new
 
     if params[:city_id]
@@ -103,6 +104,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       @newsitem.tag = @tag
     end
     authorize! :new, @newsitem
+    render layout: 'ish_manager/application_no_material'
   end
 
   def update
