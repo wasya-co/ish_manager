@@ -32,6 +32,10 @@ class IshManager::MarkersController < IshManager::ApplicationController
       @marker.title_image = ::Ish::ImageAsset.new :image => params[:title_image]
       @marker.title_image.save
     end
+    if params[:asset3d]
+      @marker.asset3d = ::Gameui::Asset3d.new object: params[:asset3d]
+      @marker.asset3d.save
+    end
 
     respond_to do |format|
       if @marker.save
@@ -54,6 +58,10 @@ class IshManager::MarkersController < IshManager::ApplicationController
     if params[:title_image]
       @marker.title_image = ::Ish::ImageAsset.new :image => params[:title_image]
       @marker.title_image.save
+    end
+    if params[:asset3d]
+      @marker.asset3d = ::Gameui::Asset3d.new object: params[:asset3d]
+      @marker.asset3d.save
     end
 
     old_map = @marker.map
