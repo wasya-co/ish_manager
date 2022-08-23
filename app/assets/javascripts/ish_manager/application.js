@@ -10,7 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require ish_manager/vendor/jquery-3.2.1.min
+// require ish_manager/vendor/jquery-3.6.0.min
 // require ish_manager/vendor/bootstrap.min
 //= require ish_manager/vendor/jquery.iframe-transport
 //= require ish_manager/vendor/jquery.ui.widget
@@ -47,12 +47,20 @@ $(function () {
   })
 
 
+
+
+
+
+
+
+
+
   // material_select & select2
   if ($('body').length > 0) {
     if ('function' === typeof $('body').material_select ) {
       $('select').material_select()
     }
-    $('.select2').select2()
+    if (!!$('body').select2) { $('.select2').select2() }
   }
 
 

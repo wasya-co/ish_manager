@@ -22,12 +22,10 @@ class IshManager::MapsController < IshManager::ApplicationController
     end
     authorize! :create, @map
 
-    respond_to do |format|
-      if @map.save
-        format.html { redirect_to map_path(@map), notice: 'Map was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @map.save
+      redirect_to map_path(@map), notice: 'Map was successfully created.'
+    else
+      render :new
     end
   end
 

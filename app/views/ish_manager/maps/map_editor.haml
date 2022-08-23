@@ -10,5 +10,5 @@
         = image_tag m.image ? m.image.image.url(:original) : image_missing
         = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{m.centerOffsetY-10}px; left: #{m.centerOffsetX-10}px;" )
 
-  = render 'ish_manager/markers/index_small', markers: @markers, map: @map
+  = render 'ish_manager/markers/index', markers: @markers, map: @map
 

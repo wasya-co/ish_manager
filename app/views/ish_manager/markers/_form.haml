@@ -31,6 +31,9 @@
           .image-thumb
             = image_tag(@marker.image.image.url(:original)) rescue nil
             = image_tag('icons/10x10_red-cross.png', class: 'red-cross', style: "top: #{@marker.centerOffsetY-10}px; left: #{@marker.centerOffsetX-10}px;" )
+        .field
+          = f.label :asset3d
+          = file_field_tag :asset3d
       .col.s3
         .field
           = f.label :centerOffsetX

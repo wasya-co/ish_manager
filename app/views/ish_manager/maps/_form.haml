@@ -2,7 +2,7 @@
 -# ish_manager / maps / _form
 -#
 
-- url = params[:action] == 'new' ? maps_path : map_path(@map.id)
+- url = %w| new create |.include?( params[:action] ) ? maps_path : map_path(@map.id)
 
 
 = form_for @map, :html => { :multipart => true, class: '--form maps--form' }, url: url do |f|
