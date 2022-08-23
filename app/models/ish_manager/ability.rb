@@ -113,5 +113,7 @@ class IshManager::Ability
       report.is_public
     end
 
+    can [ :new, :create ], Ish::Unsubscribe
+
   end
 end

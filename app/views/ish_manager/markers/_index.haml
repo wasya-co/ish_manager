@@ -7,7 +7,7 @@
       - else
         = image_missing_tag
       .flex-row
-        .a= marker.slug
+        .a= marker.destination.name
         .a= button_to '~', edit_marker_path(marker), method: :get
         .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
       .flex-row

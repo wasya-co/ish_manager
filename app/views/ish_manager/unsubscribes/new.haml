@@ -1,0 +1,10 @@
+
+= form_for @unsubscribe, url: unsubscribes_path do |f|
+  .input-field
+    = f.label :email
+    = f.text_field :email
+  .input-field
+    = f.label :reason
+    = f.text_field :reason
+  .actions
+    = f.submit 'Submit Unsubscribe Request'

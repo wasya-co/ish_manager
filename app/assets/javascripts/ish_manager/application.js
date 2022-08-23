@@ -42,10 +42,17 @@ $(function () {
     });
   }
 
-
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')
   })
+
+
+
+
+
+
+
+
 
 
   // material_select & select2
