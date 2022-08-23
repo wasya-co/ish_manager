@@ -10,12 +10,12 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-// require ish_manager/jquery-3.2.1.min
-// require ish_manager/bootstrap.min
-//= require ish_manager/jquery.iframe-transport
-//= require ish_manager/jquery.ui.widget
-//= require ish_manager/jquery.fileupload
-//= require ish_manager/jquery-ui.min
+// require ish_manager/vendor/jquery-3.2.1.min
+// require ish_manager/vendor/bootstrap.min
+//= require ish_manager/vendor/jquery.iframe-transport
+//= require ish_manager/vendor/jquery.ui.widget
+//= require ish_manager/vendor/jquery.fileupload
+//= require ish_manager/vendor/jquery-ui.min
 //= require ish_manager/shared
 //= require ish_manager/maps
 
@@ -45,6 +45,22 @@ $(function () {
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')
   })
+
+
+  // material_select & select2
+  if ($('body').length > 0) {
+    if ('function' === typeof $('body').material_select ) {
+      $('select').material_select()
+    }
+    $('.select2').select2()
+  }
+
+
+
+
+
+
+
 
   var mainHeaderContext = $(".manager--main-header")
   $(".manager--main-header #collapseHeader").click(function (_e) {
@@ -87,18 +103,22 @@ $(function () {
     $(".content", mainFooterContext).css("display", 'none')
   }
 
-  $('#dataTable').DataTable({
-      pageLength: 10,
-      lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
-      lengthChange: true,
-      "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
-  });
+  if ('function' === typeof $('body').DataTable) {
+    $('#dataTable').DataTable({
+        pageLength: 10,
+        lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
+        lengthChange: true,
+        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    })
+  }
 
   $(".addToggle").on('click', function () {
     $(this).next().toggle(500)
   })
 
-  $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+  if ('function' === typeof $('body').datepicker) {
+    $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' })
+  }
 
 });
 
