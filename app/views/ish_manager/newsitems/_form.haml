@@ -5,7 +5,7 @@
 = form_for newsitem, :html => { :multipart => true } do |f|
   .row
 
-    .col.s6
+    .col-sm-6
       .field
         = f.label :name
         = f.text_field :name
@@ -17,13 +17,13 @@
         = f.text_area :descr, :class => :tinymce
 
 
-    .col.s6
+    .col-sm-6
       .field
         = f.label :map
-        = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) )
-      .field
-        = f.label :site
-        = f.select :site_id, options_for_select( @sites_list, :selected => ( newsitem[:site_id] || params[:site_id] ) )
+        = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) ), {}, class: 'select2'
+      -# .field
+      -#   = f.label :site
+      -#   = f.select :site_id, options_for_select( @sites_list, :selected => ( newsitem[:site_id] || params[:site_id] ) )
       .field
         = f.label :city
         = f.select :city_id, options_for_select( @cities_list, :selected => ( newsitem[:city_id] || params[:city_id] ) )
