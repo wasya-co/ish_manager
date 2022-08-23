@@ -42,7 +42,6 @@ $(function () {
     });
   }
 
-
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')
   })
