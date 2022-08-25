@@ -25,7 +25,6 @@ class IshManager::Ability
 
         can [ :create_newsitem, :show, :new_feature, :create_feature,
          :index, :new, :create, :edit, :update ], City
-        can [ :manage ], ::CoTailors
 
         can [ :new ], ::Feature
         can [ :friends_index, :friends_new ], ::Ish::UserProfile
