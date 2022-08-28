@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: c6f51b97a44109e9031ed51fa1b456c55187f453
-  branch: 0.5.2
+  revision: 1720ccde3f11f3a6fe7feabbcbc0c56b56865017
+  branch: 0.6.0
   specs:
-    ish_manager (0.1.8.299)
+    ish_manager (0.1.8.304)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -15,15 +15,17 @@ GIT
       kaminari-mongoid (~> 1.0)
       mongoid-autoinc (~> 6.0)
       mongoid-paperclip
+      mongoid_paranoia
       rails (~> 6.0.0)
+      sidekiq
       uglifier
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 613529f0ad26fd7c210a0d934ed6374ad401e5d2
-  branch: master
+  revision: d33e6efd92b47a77acd409faf7e2400ba6bc32e0
+  branch: 1.8.0
   specs:
-    ish_models (0.0.33.167)
+    ish_models (0.0.33.168)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -1366,6 +1368,7 @@ GEM
       xpath (~> 3.2)
     climate_control (0.2.0)
     concurrent-ruby (1.1.10)
+    connection_pool (2.2.5)
     crass (1.0.6)
     database_cleaner-core (2.0.1)
     database_cleaner-mongoid (2.0.1)
@@ -1487,6 +1490,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.6)
+    redis (4.8.0)
     regexp_parser (2.5.0)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -1511,6 +1515,10 @@ GEM
     ruby2_keywords (0.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
+    sidekiq (6.5.5)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.5.0)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
