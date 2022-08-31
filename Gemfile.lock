@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.304)
+    ish_manager (0.1.8.305)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -27,9 +27,7 @@ PATH
       kaminari-mongoid (~> 1.0)
       mongoid-autoinc (~> 6.0)
       mongoid-paperclip
-      mongoid_paranoia
       rails (~> 6.0.0)
-      sidekiq
       uglifier
 
 GEM
@@ -1362,7 +1360,6 @@ GEM
     cancancan (2.3.0)
     climate_control (0.2.0)
     concurrent-ruby (1.1.10)
-    connection_pool (2.2.5)
     crass (1.0.6)
     devise (4.8.1)
       bcrypt (~> 3.0)
@@ -1460,15 +1457,10 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.6)
-    redis (4.8.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
     ruby2_keywords (0.0.5)
-    sidekiq (6.5.6)
-      connection_pool (>= 2.2.5)
-      rack (~> 2.0)
-      redis (>= 4.5.0, < 5)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
