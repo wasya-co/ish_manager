@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 1720ccde3f11f3a6fe7feabbcbc0c56b56865017
+  revision: b175cd04468f0611082b3a8ebdff1c6047b81ed6
   branch: 0.6.0
   specs:
     ish_manager (0.1.8.304)
@@ -22,10 +22,10 @@ GIT
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: d33e6efd92b47a77acd409faf7e2400ba6bc32e0
-  branch: 1.8.0
+  revision: 2ca65e8aa112804314a85611995da7281fb81ebf
+  branch: master
   specs:
-    ish_models (0.0.33.168)
+    ish_models (0.0.33.169)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -1515,10 +1515,10 @@ GEM
     ruby2_keywords (0.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sidekiq (6.5.5)
-      connection_pool (>= 2.2.2)
+    sidekiq (6.5.6)
+      connection_pool (>= 2.2.5)
       rack (~> 2.0)
-      redis (>= 4.5.0)
+      redis (>= 4.5.0, < 5)
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)

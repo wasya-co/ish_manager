@@ -1,3 +1,5 @@
 
-%h5 Editing profile of user #{@profile.user.email}
+%h5 Editing profile of user `#{@profile.user&.email}`
+- if !@profile.user
+  .alert <b>Note:</b> This profile doesn't have an associated user.
 = render 'form', :profile => @profile
