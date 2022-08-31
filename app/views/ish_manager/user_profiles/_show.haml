@@ -1,0 +1,35 @@
+- profile ||= user_profile
+
+.row
+  .col.s4
+    %ul
+      %li
+        <b>Email:</b> #{link_to profile.email, user_profile_path(profile)}
+        = link_to '[edit]', edit_user_profile_path( profile )
+      %li <b>Name:</b> #{profile.name}
+      %li <b>Role:</b> #{profile.role_name}
+      %li <b>User.email:</b> #{profile.user ? profile.user.email : nil}
+      %li <b>City:</b> #{profile.current_city ? profile.current_city.name : nil}
+      %li
+        <b>Profile Photo:</b>
+        = image_tag profile.profile_photo.photo.url(:thumb) rescue nil
+
+  .col.s8
+    %h5 Shared galleries
+    - profile.shared_galleries.unscoped.where( :is_trash => false ).each do |g|
+      &gt; #{link_to g.name, gallery_path(g.slug)} <br />
+      = render 'meta', :item => g
+    <hr />
+
+    %h5 Newsitems
+    - profile.newsitems.each do |n|
+      = render 'ish_manager/newsitems/item', n: n, profile_id: profile.id
+    <hr />
+
+    %h5 Bookmarked Locations (#{profile.bookmarked_locations.length})
+    %ul.browser-default
+      - profile.bookmarked_locations.each do |n|
+        %li
+          = n.slug
+
+

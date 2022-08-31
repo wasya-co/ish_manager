@@ -100,7 +100,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
         ).select { |p| !old_shared_profile_ids.include?( p.id ) }
       ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
       flash[:notice] = 'Success.'
-      redirect_to gallery_path(@gallery)
+      redirect_to edit_gallery_path(@gallery)
     else
       puts! @gallery.errors.messages, 'cannot save gallery'
       flash[:alert] = 'No Luck. ' + @gallery.errors.messages.to_s

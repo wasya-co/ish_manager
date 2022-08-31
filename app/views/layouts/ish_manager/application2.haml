@@ -38,7 +38,7 @@
               %p.notice= notice
             - if alert
               %p.alert= alert
-      .container
+
         = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?

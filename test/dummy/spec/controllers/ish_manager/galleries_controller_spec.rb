@@ -81,6 +81,11 @@ describe IshManager::GalleriesController, :type => :controller do
   end
 
   describe '#update' do
+    it 'All: redirects to edit, ' do
+      post :update, :params => { :id => @gallery.id, :gallery => { name: 'xxNewNamexx', shared_profiles: [ "" ] } }
+      response.should redirect_to edit_gallery_path(@gallery.id)
+    end
+
     it 'sends email to new shared profiles' do
       @profiles = [ 1, 2, 3 ].map do |i|
         create(:profile)
