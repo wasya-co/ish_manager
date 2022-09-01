@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: f2d3279164f4a367508b2d2cee2dcc28ddf0b81c
+  revision: 41846194d4b3ec9b30e6b1af58ae219a4265ae41
   branch: master
   specs:
-    ish_manager (0.1.8.305)
+    ish_manager (0.1.8.306)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)

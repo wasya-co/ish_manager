@@ -1,5 +1,9 @@
 .manager-users--index
   %h2
-    People
-    (#{@city.current_users.length})
+    Users (#{users.count})
+
+  %ul.browser-default
+    - users.map do |user|
+      %li= user.email
+
   %hr

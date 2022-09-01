@@ -5,26 +5,19 @@ IshManager::Engine.routes.draw do
 
   root :to => 'application#home'
 
-  resources :campaigns
-
+  ## @deprecated: use Locations
   resources :cities do
     resources :features
     resources :newsitems
     resources :reports
     resources :galleries
-    resources :users
     resources :videos
     resources :events
     resources :venues
     resources :tags
   end
-
-  resources :covered_calls
-
-  resources :email_templates
   resources :events
 
-  resources :features
   resources :friends
 
   get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
@@ -39,14 +32,17 @@ IshManager::Engine.routes.draw do
 
   get 'image_assets', to: 'image_assets#index', as: :image_assets
 
-  resources :invoices do
-    # resources :payments
-  end
-  resources :iron_condors
+  # resources :invoices do
+  #   resources :payments
+  # end
+  # resources :orders
 
-  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }
-  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
-  resources :leads
+  # namespace :iron_warbler do
+  #   resources :iron_condors
+  #   resources :stock_watches
+  #   resources :option_watches
+  #   resources :covered_calls
+  # end
 
   scope 'gameui' do
     get 'maps/:id/map-editor', to: 'maps#map_editor', as: :location_map_editor
@@ -61,21 +57,25 @@ IshManager::Engine.routes.draw do
     resources 'markers'
   end
 
+  ## @TODO: move into a namespace, eg :office_suite
+  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }
+  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
+  resources :leads
   resources :meetings
+  namespace :office_suite do
+    resources :campaigns
+    resources :email_templates
+    resources :unsubscribes
+  end
 
   resources :newsitems
 
-  resources :orders
-  get 'co_tailors',                :to => 'co_tailors#home'
-  post 'co_tailors/products',      :to => 'co_tailors#create_product'
-  patch 'co_tailors/products/:id', :to => 'co_tailors#update_product', :as => :co_tailors_product
-
   resources :photos
   resources :payments
-  ## profiles, see user_profiles
 
   resources :reports
 
+  ## @deprecated: use Locations
   resources :sites do
     resources :features
     resources :newsitems
@@ -90,10 +90,6 @@ IshManager::Engine.routes.draw do
     resources :tags
   end
 
-  ## @TODO: move these to iron warbler
-  resources :stock_watches
-  resources :option_watches
-
   resources :tags do
     resources :features
     resources :newsitems
@@ -103,14 +99,16 @@ IshManager::Engine.routes.draw do
     resources :videos
   end
 
-  resources :unsubscribes
+  resources :users
   resources :user_profiles do
     resources :newsitems
   end
   resources :user_profiles, :as => :profiles do
-    resources :newsitems
+    # resources :newsitems
   end
 
+  ## @TODO: venues can only be in cities, right?
+  ## @deprecated: use Locations
   resources :venues
   resources :videos
 
