@@ -6,11 +6,10 @@
 
 .newsitems-edit
   %h1 Edit Newsitem
-  - if @site
-    For site: #{@site.domain} #{@site.lang} <br />
-  - if @city
-    For city: #{@city.name} <br />
-
+    - if @site
+      For site: #{@site.domain} #{@site.lang} <br />
+    - if @city
+      For city: #{@city.name} <br />
   = render 'form', :newsitem => @newsitem, :url => url
 
 .debug

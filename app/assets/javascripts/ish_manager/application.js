@@ -47,27 +47,19 @@ $(function () {
   })
 
 
-
-
-
-
-
-
-
-
-  // material_select & select2
+  /*
+   * material_select & select2
+  **/
   if ($('body').length > 0) {
     if ('function' === typeof $('body').material_select ) {
       $('select').material_select()
     }
-    if (!!$('body').select2) { $('.select2').select2() }
+    if (!!$('body').select2) {
+      $('.select2').select2({
+        width: 'element'
+      })
+    }
   }
-
-
-
-
-
-
 
 
   var mainHeaderContext = $(".manager--main-header")
