@@ -1,27 +1,24 @@
 
 .manager--main-footer
   .container
-    .row
-      %i.fa.fa-compress.collapse-expand#collapseFooter
-      .content
-        .col.s5
-          - if defined?( current_user ) && current_user
+
+    %i.fa.fa-compress.collapse-expand#collapseFooter
+    .a
+      .row
+        .col-sm-6
+          - if @current_user
             %ul
-              %li >[ #{current_user.email} ]<
-              %li >[ #{current_user.profile.role_name} ]<
+              %li >[ #{@current_user.email} ]<
+              %li >[ #{@current_user.profile&.role_name} ]<
           - else
             Please log in
             = link_to '[+]', main_app.new_user_session_path
 
-        .col.s5
+        .col-sm-4
           %br
           \~__^
           = @version
           -# <pre>#{@changelog}</pre>
-          %br
-          %br
-          %br
-          %br
-          %br
-        .col.s2
+
+        .col-sm--2
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete

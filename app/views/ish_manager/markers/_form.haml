@@ -75,21 +75,8 @@
           = f.label :ordering
           = f.text_field :ordering
       .col.s4
-    .row
-      .col.s3 &nbsp;
-      .col.s6
-        .row
-          .col.s6
-            .field
-              = f.check_box :is_active
-              = f.label :is_active
-          .col.s6
-            .google-maps.row
-              .col.s4
-                = f.label "x, y"
-              .col.s4
-                = f.text_field :x
-              .col.s4
-                = f.text_field :y
+        .field
+          = f.check_box :is_active
+          = f.label :is_active
     .actions
       = f.submit 'Save'

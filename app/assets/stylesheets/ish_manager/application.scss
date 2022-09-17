@@ -13,6 +13,11 @@
  * alphabetized : )
  *
  *= require_self
+ *
+ ** Utils
+ ** Newsitems
+ ** Reports
+ *
  *= require ish_manager/galleries
  *= require ish_manager/jquery-ui
  *= require ish_manager/maps
@@ -22,6 +27,12 @@
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
  */
+
+
+
+/*
+ * Utils
+**/
 
 body {
   background: #dedede;
@@ -40,10 +51,6 @@ ul:not(.browser-default).bullets, {
     margin-left: 1em;
   }
 }
-
-/**
- * utils
- */
 
 .-index {
   .item {
@@ -123,6 +130,9 @@ ul:not(.browser-default).bullets, {
 
 .collapse-expand {
   cursor: pointer;
+}
+#collapseFooter {
+  float: left;
 }
 
 /* D */
@@ -292,20 +302,23 @@ ul.inline li {
   padding: .2em;
 }
 
-/**
- * reports
- */
-.descr,
-.description {
-  border: 1px solid red;
-  padding: 1em;
-  font-size: 1.6em;
+/* S */
+.select2-container {
+  max-width: 100%;
+  display: block;
 }
 
+/* T */
+
+/* U */
+
+/* V */
+
+/* W */
 
 /*
- * newsitems
- */
+ * Newsitems
+**/
 .newsitems--item {
   border: 1px solid green;
   padding: 5px;
@@ -315,3 +328,13 @@ ul.inline li {
   border-bottom: 5px solid black;
 }
 
+
+/**
+ * Reports
+**/
+ .descr,
+ .description {
+   border: 1px solid red;
+   padding: 1em;
+   font-size: 1.6em;
+ }

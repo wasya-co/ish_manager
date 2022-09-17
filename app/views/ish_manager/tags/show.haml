@@ -8,12 +8,7 @@
   .col.s12
     = render 'meta', tag: @tag
     .descr= @tag.descr # I don't wanna show this every time to everyone, they know what they are here for.
-    = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features], resource: @tag
-
-- proc do # nothing
-  .row
-    .col.s12
-      = render 'ish_manager/newsitems/index', :newsitems => @tag.newsitems, :resource => @tag, :tag => @tag
+    -# = render 'ish_manager/features/index', :features => @tag.features[0, Tag.n_features], resource: @tag
 
 .row
   .col.s12

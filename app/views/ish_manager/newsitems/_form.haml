@@ -4,7 +4,21 @@
 
 = form_for newsitem, :html => { :multipart => true } do |f|
   .row
+    .col-sm-6
+      .field
+        = f.label :map
+        = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) ), {}, class: 'select2'
+      -# .field
+      -#   = f.label :site
+      -#   = f.select :site_id, options_for_select( @sites_list, :selected => ( newsitem[:site_id] || params[:site_id] ) )
+      -# .field
+      -#   = f.label :city
+      -#   = f.select :city_id, options_for_select( @cities_list, :selected => ( newsitem[:city_id] || params[:city_id] ) )
+    .col-sm-6
+      = f.submit :submit
 
+  %hr
+  .row
     .col-sm-6
       .field
         = f.label :name
@@ -16,31 +30,16 @@
         = f.label :descr
         = f.text_area :descr, :class => :tinymce
 
-
     .col-sm-6
       .field
-        = f.label :map
-        = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) ), {}, class: 'select2'
-      -# .field
-      -#   = f.label :site
-      -#   = f.select :site_id, options_for_select( @sites_list, :selected => ( newsitem[:site_id] || params[:site_id] ) )
-      .field
-        = f.label :city
-        = f.select :city_id, options_for_select( @cities_list, :selected => ( newsitem[:city_id] || params[:city_id] ) )
-
-  %hr
-  .row
-    .col.s6
-      .field
         = f.label :video
-        = f.select :video_id, options_for_select( @videos_list, :selected => @newsitem.video_id )
+        = f.select :video_id, options_for_select( @videos_list, :selected => @newsitem.video_id ), {}, class: 'select2'
       .field
         = f.label :gallery
-        = f.select :gallery_id, options_for_select( @galleries_list, :selected => @newsitem.gallery_id )
+        = f.select :gallery_id, options_for_select( @galleries_list, :selected => @newsitem.gallery_id ), {}, class: 'select2'
       .field
         = f.label :report
-        = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id )
+        = f.select :report_id, options_for_select( @reports_list, :selected => @newsitem.report_id ), {}, class: 'select2'
 
-    .col.s6
-      = f.submit :submit
+
 
