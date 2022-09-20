@@ -80,7 +80,7 @@
           description.collapsible: bool
           map_panel_type: "Equirectangular" | "Panoramic" |
             "MapPanel" | "MapPanelNoZoom" |
-            "ThreePanelV1" | "ThreePanelV4" |
+            "ThreePanelV1" | "ThreePanelV1Fullscreen" |
             "GoogleMaps" | "TabiversePlanet"
   .row
     .col.s6
@@ -92,6 +92,9 @@
         .col.s4
           = f.text_field :y
     .col.s6
-      unused
+      .field
+        = f.label :newsitems_page_size
+        = f.number_field :newsitems_page_size
+
   .actions
     = f.submit 'Save'

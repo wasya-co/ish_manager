@@ -12,19 +12,19 @@
     .actions
       = f.submit 'Save'
     .row
-      .col.s4
+      .col-sm-4
         = f.label :map
-        = f.select :map_id, options_for_select(@maps_list, selected: @marker.map_id || params[:map_id])
-      .col.s4
+        = f.select :map_id, options_for_select(@maps_list, selected: @marker.map_id || params[:map_id]), {}, class: 'select2'
+      .col-sm-4
         .field
           = f.label :name
           = f.text_field :name
-      .col.s4
+      .col-sm-4
         .field
           = f.label :destination
-          = f.select :destination_id, options_for_select(@maps_list, selected: @marker.destination_id)
+          = f.select :destination_id, options_for_select(@maps_list, selected: @marker.destination_id), {}, class: 'select2'
     .row
-      .col.s3
+      .col-sm-3
         .field
           = f.label :image
           = file_field_tag :image
@@ -34,21 +34,21 @@
         .field
           = f.label :asset3d
           = file_field_tag :asset3d
-      .col.s3
+      .col-sm-3
         .field
           = f.label :centerOffsetX
           = f.text_field :centerOffsetX
         .field
           = f.label :centerOffsetY
           = f.text_field :centerOffsetY
-      .col.s3
+      .col-sm-3
         .field
           = f.label :x
           = f.text_field :x
         .field
           = f.label :y
           = f.text_field :y
-      .col.s3
+      .col-sm-3
         .field
           = f.label :title_image
           = file_field_tag :title_image
@@ -60,21 +60,21 @@
       = f.label :url, "URL (if any)"
       = f.text_field :url
     .row
-      .col.s3 &nbsp;
-      .col.s6
+      .col-sm-3 &nbsp;
+      .col-sm-5
         .field
           = f.label :description
           = f.text_area :description
     .row
-      .col.s4
+      .col-sm-4
         .field
           = f.label :item_type
           = f.select :item_type, options_for_select( ::Gameui::Marker::ITEM_TYPES, selected: @marker.item_type )
-      .col.s4
+      .col-sm-4
         .field
           = f.label :ordering
           = f.text_field :ordering
-      .col.s4
+      .col-sm-4
         .field
           = f.check_box :is_active
           = f.label :is_active

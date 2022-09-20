@@ -137,7 +137,7 @@ class IshManager::MapsController < IshManager::ApplicationController
     authorize! :index, ::Gameui::Map
 
     if params[:q]
-      @maps = ::Gameui::Map.where({ slug: /#{params[:q]}/i })
+      @maps = ::Gameui::Map.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}/i })
       if @maps.length == 1
         redirect_to map_path(@maps[0])
         return
