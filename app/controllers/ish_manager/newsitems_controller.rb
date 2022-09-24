@@ -57,9 +57,10 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :destroy, @newsitem
 
     if @newsitem.destroy
-      City.find(@newsitem.city_id).touch if @newsitem.city_id
-      Site.find(@newsitem.site_id).touch if @newsitem.site_id
+      # City.find(@newsitem.city_id).touch if @newsitem.city_id
+      # Site.find(@newsitem.site_id).touch if @newsitem.site_id
       Tag.find(@newsitem.tag_id).touch if @newsitem.tag_id
+      Map.find(@newsitem.map_id).touch if @newsitem.map_id
 
       flash[:notice] = "Destroyed the newsitem."
     else

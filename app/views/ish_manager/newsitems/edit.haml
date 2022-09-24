@@ -5,7 +5,8 @@
   - url = site_newsitem_path( @site, @newsitem ) if @site
 
 .newsitems-edit
-  %h1 Edit Newsitem
+  %h1
+    Edit Newsitem
     - if @site
       For site: #{@site.domain} #{@site.lang} <br />
     - if @city
