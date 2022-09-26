@@ -1,8 +1,6 @@
 
 class IshManager::MeetingsController < IshManager::ApplicationController
 
-  layout 'ish_manager/application_no_material'
-
   # alphabetized
 
   def create

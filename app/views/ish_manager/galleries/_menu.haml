@@ -1,15 +1,14 @@
 
 .galleries--menu
-  .flex-row
-    .title Galleries (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
-    = render 'search', path: galleries_path
-  %ul.menu-secondary
-    %li{ class: "#{params[:render_type] == 'index_titles' ? 'active' : ''}" }
-      = link_to 'titles list', galleries_index_titles_path( :render_type => Gallery::RENDER_THUMBS )
-    %li{ class: "#{params[:render_type] == 'index_thumbs' ? 'active' : ''}" }
-      = link_to 'thumbs list', galleries_index_thumbs_path( :render_type => Gallery::RENDER_TITLES )
-    %li{ class: "#{params[:render_type] == 'index_thumbs' ? 'active' : ''}" }
-      = link_to 'shared with me (thumbs)', galleries_shared_path( :render_type => Gallery::RENDER_THUMBS )
-    %li{ class: "#{params[:render_type] == 'index_titles' ? 'active' : ''}" }
-      = link_to 'shared with me (titles)', galleries_shared_titles_path
 
+  -# .title Galleries (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
+  = link_to 'Galleries', galleries_path
+  - if defined?(count)
+    (#{count})
+
+  -# = render 'search', path: galleries_path
+  .inline-search
+    = form_tag galleries_path, method: :get do
+      = text_field_tag :q
+
+  = link_to '[+]', new_gallery_path

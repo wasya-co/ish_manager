@@ -5,8 +5,6 @@ class IshManager::MarkersController < IshManager::ApplicationController
   before_action :set_marker, only: [ :edit, :update ]
   before_action :set_lists
 
-  layout 'ish_manager/application_no_material'
-
   def new
     authorize! :new_marker, ::Gameui::Map
     @marker = ::Gameui::Marker.new

@@ -4,8 +4,6 @@ class IshManager::MapsController < IshManager::ApplicationController
   before_action :set_map, only: [ :destroy, :edit, :export, :map_editor, :show, :update, ] # alphabetized
   before_action :set_lists
 
-  layout 'ish_manager/application_no_material', only: %w| index |
-
   # alphabetized
 
   def create

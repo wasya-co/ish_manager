@@ -5,16 +5,15 @@
 -#
 
 - n_thumbs   ||= 8
-- param_name ||= :galleries_page
 
-.galleries--index.-index
+.galleries--index
 
-  = render 'ish_manager/galleries/menu'
+  = render 'ish_manager/galleries/menu', count: @galleries.count
 
   - if @galleries.length > 0
 
     - if @galleries.respond_to? :total_pages
-      = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+      = paginate @galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
 
     .row
       - @galleries.each do |g|
@@ -33,7 +32,7 @@
                   = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
 
     - if @galleries.respond_to? :total_pages
-      = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'
+      = paginate @galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
 
   - else
     %h5 No Galleries

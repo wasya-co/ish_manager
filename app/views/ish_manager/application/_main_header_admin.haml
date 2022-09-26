@@ -1,11 +1,11 @@
 
 
-.application--main-header-admin.manager--main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
+.application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
   .container
     %i.fa.fa-compress.collapse-expand#collapseHeader
     .content
       %ul
-        %li{ :class => params[:controller] == 'ish_manager/maps' ? 'active' : '' }
+        %li{ :class => params[:controller] == 'ish_manager/maps'          ? 'active' : '' }
           = link_to 'Maps', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
@@ -13,11 +13,7 @@
           = link_to '[+]', new_map_path
 
         %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }
-          = link_to 'Galleries', galleries_path
-          .inline-search
-            = form_tag galleries_path, method: :get do
-              = text_field_tag :q
-          = link_to '[+]', new_gallery_path
+          = render 'ish_manager/galleries/menu'
         %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }
           = link_to 'Reports',   reports_path
           .inline-search

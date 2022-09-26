@@ -1,0 +1,7 @@
+
+.photos--index-thumbs
+  .flex-row
+    - photos.each do |photo|
+      .item
+        = render 'ish_manager/photos/meta_manager', photo: photo
+        = image_tag photo.photo.url( :thumb )

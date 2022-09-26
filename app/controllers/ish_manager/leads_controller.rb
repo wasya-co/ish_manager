@@ -27,7 +27,6 @@ class IshManager::LeadsController < IshManager::ApplicationController
     else
       @leads = @leads.where( :is_done => false )
     end
-    render :layout => 'ish_manager/application_no_material'
   end
 
   def new

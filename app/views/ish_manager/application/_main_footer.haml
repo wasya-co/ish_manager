@@ -20,4 +20,6 @@
 
         .col-sm-2
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
-.c
+
+    .c
+    = render 'debug' if !Rails.env.production?

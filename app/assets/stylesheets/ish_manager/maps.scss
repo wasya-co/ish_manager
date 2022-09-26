@@ -1,13 +1,30 @@
-/**
- * utils first
- */
+/*
+ * Alphabetized : )
+**/
+
+
+.flat-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  height: 2.4em;
+  line-height: 3em;
+
+  width: 100%;
+  margin: 1em 0 0 0;
+  padding: 0;
+
+  > * {
+    padding-right: 1em;
+  }
+}
+
 .red-cross {
   position: absolute;
 }
 
-/*
- * Main - Maps
- */
 .maps--map-meta-row {
   border-left: 10px solid #e3e3e3;
   padding-left: 10px;
@@ -18,11 +35,6 @@
 }
 
 .maps-index {
-
-  // h1 {
-  //   padding-bottom: 10px;
-  //   border-bottom: 10px solid #cecece;
-  // }
 
   .item {
     display: flex;
@@ -56,6 +68,27 @@
   }
 }
 
+
+.maps-map-editor {
+  .map-editor {
+    border: 1px solid red;
+    position: relative;
+
+    .marker {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      border: 1px solid yellow;
+    }
+  }
+  .markers-list {
+    .item {
+      border: 1px solid green;
+    }
+  }
+}
+
 .maps-show {
   .the-map {
     position: relative;
@@ -80,25 +113,5 @@
     display: inline-block;
 
 
-  }
-}
-
-.maps-map-editor {
-  .map-editor {
-    border: 1px solid red;
-    position: relative;
-
-    .marker {
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      border: 1px solid yellow;
-    }
-  }
-  .markers-list {
-    .item {
-      border: 1px solid green;
-    }
   }
 }

@@ -1,5 +1,13 @@
 
-.--meta-manager {
+.photos--index-thumbs {
+  .item {
+    border: 1px solid red;
+    padding: 10px;
+
+    max-width: 125px;
+  }
+}
+.photos--meta-manager {
   display: flex;
   justify-content: space-between;
 
@@ -8,5 +16,11 @@
   .right-hand a:not(:last-child):after {
     content: "|";
     padding: 0 10px 0 15px;
+  }
+}
+.photos--multinew {
+  input[type='file'] {
+    overflow-x: auto;
+    max-width: max( 300px, 50vw );
   }
 }
