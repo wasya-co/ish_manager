@@ -1,7 +1,9 @@
 
-
-%ul{ style: "margin: 2em;" }
-  %li= params.inspect
-  %li= "Cached?: #{Rails.application.config.action_controller.perform_caching}"
-  %li= "Cache key: #{@cache_key.inspect}"     if @cache_key
-  %li= "Env: #{Rails.env}"
+%i.fa.fa-compress.collapse-expand#debug
+.application--debug
+  %ul.browser-default
+    %li= params.inspect
+    %li= "Cached?: #{Rails.application.config.action_controller.perform_caching}"
+    %li Cache key: #{@cache_key.inspect}
+    %li Layout: #{current_layout}
+    %li= "Env: #{Rails.env}"

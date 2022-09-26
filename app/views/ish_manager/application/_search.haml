@@ -1,11 +1,6 @@
 
-- # @TODO: definitely more abstract
-- path ||= galleries_path
-
-= form_tag path, :method => :get, :class => :search do
-  .field.search_words
-    .hide [x]
-    = text_field_tag 'q', nil, :placeholder => 'Search'
-  .actions.hide
-    = submit_tag 'Search'
-  .c
+.application--search
+  = form_tag path, :method => :get, :class => :search do
+    .field.search_words
+      = text_field_tag 'q', nil, :placeholder => 'Search'
+    .c

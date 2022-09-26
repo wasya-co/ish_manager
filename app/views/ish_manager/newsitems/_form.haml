@@ -27,6 +27,9 @@
         = label_tag :photo
         = file_field_tag :photo
       .field
+        = f.label :subhead
+        = f.text_area :subhead
+      .field
         = f.label :descr
         = f.text_area :descr, :class => :tinymce
 

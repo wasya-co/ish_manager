@@ -2,23 +2,22 @@
 .manager--main-footer
   .container
 
-    %i.fa.fa-compress.collapse-expand#collapseFooter
+    %i.fa.fa-compress.collapse-expand#mainFooter
     .a
       .row
         .col-sm-6
           - if @current_user
-            %ul
-              %li >[ #{@current_user.email} ]<
-              %li >[ #{@current_user.profile&.role_name} ]<
+            %div >[ #{@current_user.email} ]<
+            %div >[ #{@current_user.profile&.role_name} ]<
           - else
             Please log in
             = link_to '[+]', main_app.new_user_session_path
 
         .col-sm-4
-          %br
           \~__^
           = @version
           -# <pre>#{@changelog}</pre>
 
-        .col-sm--2
+        .col-sm-2
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
+.c

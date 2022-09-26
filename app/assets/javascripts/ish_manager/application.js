@@ -62,46 +62,24 @@ $(function () {
   }
 
 
-  var mainHeaderContext = $(".manager--main-header")
-  $(".manager--main-header #collapseHeader").click(function (_e) {
-    if ($(this).hasClass('fa-compress')) {
-      $(this).addClass('fa-expand')
-      $(this).removeClass('fa-compress')
-      localStorage.setItem('mainHeaderCollapsed', 'true')
-      $('.content', $(this).parent()).css('display', 'none')
-    } else {
-      $(this).removeClass('fa-expand')
-      $(this).addClass('fa-compress')
-      localStorage.setItem('mainHeaderCollapsed', 'false')
-      $('.content', $(this).parent()).css('display', 'block')
+  $(".collapse-expand").each(function(idx, obj) {
+    const thisId = $(this).attr('id')
+    const state = localStorage.getItem("collapse-expand#"+thisId)
+    if (state === 'collapsed') {
+      $(this).next().slideToggle();
     }
   })
-  if (localStorage.getItem('mainHeaderCollapsed') === 'true') {
-    $("#collapseHeader").addClass('fa-expand')
-    $("#collapseHeader").removeClass('fa-compress')
-    $(".content", mainHeaderContext).css("display", 'none')
-  }
+  $(".collapse-expand").click(function (_e) {
+    const thisId = $(this).attr('id')
+    const state = localStorage.getItem("collapse-expand#"+thisId)
+    if (state === 'collapsed') {
+      localStorage.removeItem("collapse-expand#"+thisId)
+    } else {
+      localStorage.setItem("collapse-expand#"+thisId, "collapsed")
+    }
+    $(this).next().slideToggle();
+  })
 
-  var mainFooterContext = $(".manager--main-footer")
-  $(".manager--main-footer #collapseFooter").click(function (_e) {
-    const el = $(this).next()
-    if ($(this).hasClass('fa-compress')) {
-      $(this).addClass('fa-expand')
-      $(this).removeClass('fa-compress')
-      localStorage.setItem('mainFooterCollapsed', 'true')
-      $(el, $(this).parent()).css('display', 'none')
-    } else {
-      $(this).removeClass('fa-expand')
-      $(this).addClass('fa-compress')
-      localStorage.setItem('mainFooterCollapsed', 'false')
-      $(el, $(this).parent()).css('display', 'block')
-    }
-  })
-  if (localStorage.getItem('mainFooterCollapsed') === 'true') {
-    $("#collapseFooter").addClass('fa-expand')
-    $("#collapseFooter").removeClass('fa-compress')
-    $(".content", mainFooterContext).css("display", 'none')
-  }
 
   if ('function' === typeof $('body').DataTable) {
     $('#dataTable').DataTable({

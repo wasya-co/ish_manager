@@ -1,9 +1,10 @@
 
-Welcome home! Your role is `#{current_user.profile.role_name}`.
+.application-home
+  Welcome home! Your role is `#{current_user.profile.role_name}`.
 
-.bordered{ style: 'width: 400px;' }
-  = form_tag "https://www.cgtrader.com/free-3d-models", method: :get do
-    %p Search CGTrader:
-    = hidden_field_tag "polygons", "lt_5k"
-    = text_field_tag "keywords"
-    = submit_tag 'search'
+  .bordered-card
+    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get do
+      %p Search CGTrader:
+      = hidden_field_tag "polygons", "lt_5k"
+      = text_field_tag "keywords"
+      = submit_tag 'search'

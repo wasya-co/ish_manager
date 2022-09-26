@@ -1,6 +1,17 @@
 module IshManager
   module ApplicationHelper
 
+    def current_layout
+      layout = controller.class.send(:_layout)
+      if layout.nil?
+        '<default>'
+      elsif layout.instance_of? String or layout.instance_of? Symbol
+        layout
+      else
+        File.basename(layout.identifier).split('.').first
+      end
+    end
+
     def pretty_date input
       return input.strftime("%Y-%m-%d")
     end

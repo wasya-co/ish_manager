@@ -1,6 +1,8 @@
 -#
 -# ish_manager / galleries / _index.haml
 -#
+-# _vp_ 2022-09-25 :: Small styling revision
+-#
 
 - n_thumbs   ||= 8
 - param_name ||= :galleries_page
@@ -16,20 +18,19 @@
 
     .row
       - @galleries.each do |g|
-        .col.s6
-          .item.panel
-            .panel-body
-              %h4
-                = link_to '[~]', edit_gallery_path( g )
-                = link_to g.name, gallery_path(g.slug)
-                (#{g.photos.length})
-              = render 'meta', item: g
-              - if g.photos.length == 0
-                = image_missing
-              - else
-                .thumbnails.flex-row
-                  - g.photos.limit( n_thumbs ).each do |photo|
-                    = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
+        .col-sm-12.col-md-6
+          .bordered-card
+            %h5
+              = link_to '[~]', edit_gallery_path( g )
+              = link_to g.name, gallery_path(g.slug)
+              (#{g.photos.length})
+            = render 'meta', item: g
+            - if g.photos.length == 0
+              No Photos
+            - else
+              .flex-row
+                - g.photos.limit( n_thumbs ).each do |photo|
+                  = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
 
     - if @galleries.respond_to? :total_pages
       = paginate @galleries, :param_name => param_name, :views_prefix => 'ish_manager'

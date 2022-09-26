@@ -26,6 +26,7 @@
  *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
+ *= require ish_manager/pagination
  */
 
 
@@ -85,6 +86,17 @@ ul:not(.browser-default).bullets, {
   padding: .8em;
 }
 
+.application--debug {
+  width: 100vwh;
+  overflow-x: auto;
+}
+.application-home {
+  .bordered-card {
+    max-width: 400px;
+  }
+}
+
+
 /* B */
 
 .bg-white {
@@ -102,7 +114,7 @@ ul:not(.browser-default).bullets, {
   padding: 1em;
 }
 
-.bordered {
+.bordered-card {
   border: 1px solid grey;
   padding: .5em;
   border-radius: 8px;
@@ -124,7 +136,7 @@ ul:not(.browser-default).bullets, {
   text-align: center;
 }
 
-.clearfix {
+.c {
   clear: both;
 }
 
@@ -170,6 +182,7 @@ ul:not(.browser-default).bullets, {
 .flex-row {
   display: flex;
   flex-wrap: wrap; /* @TODO: why does it wrap? in ish_manager/show , I'd prefer it didn't. */
+
 }
 
 .float-left {
@@ -257,13 +270,17 @@ textarea.large {
   border-bottom: 1px solid blue;
 }
 
-.menu-secondary li {
-  display: inline;
+.menu-secondary {
+  margin: 20px 0;
+  padding: 0;
+  li {
+    display: inline;
+    a {
+      background: white;
+    }
+  }
 }
-.menu-secondary li a {
-  padding: 1rem;
-  background: white;
-}
+
 .meta-edit {
   display: inline;
 }

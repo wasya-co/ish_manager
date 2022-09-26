@@ -1,6 +1,5 @@
 class IshManager::NewsitemsController < IshManager::ApplicationController
   before_action :set_lists
-  layout 'ish_manager/application2'
 
   ## Alphabetized : )
 
@@ -20,7 +19,10 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :create_newsitem, @resource
 
     if params[:photo]
-      photo = Photo.create :photo => params[:photo], :user_profile => current_user.profile
+      photo = Photo.create( :photo => params[:photo],
+        :user_profile => current_user.profile,
+        descr: params[:descr],
+        subhead: params[:subhead] )
       @newsitem.photo = photo
     end
 

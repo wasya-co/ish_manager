@@ -48,7 +48,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       # @galleries.selector.delete('is_done')
     end
     @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
-    render params[:render_type]
+    render params[:render_type], layout: 'ish_manager/application_no_material'
   end
 
   def j_show
