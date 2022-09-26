@@ -201,9 +201,17 @@ textarea.large {
 
 
   ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+
     li {
-      display: inline;
-      padding: 1em;
+      margin: 0 0 10px 0;
+      display: inline-block;
+      // padding-right: 2em;
+      // border: 1px solid red;
+      min-width: min(200px, calc(50vw - 22px));
 
       > div { /* for example .galleries--menu */
         display: inline-block;
