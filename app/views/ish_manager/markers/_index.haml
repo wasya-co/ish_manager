@@ -12,7 +12,7 @@
         .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
       .flex-row
         .a= link_to '[api]', api_marker_path(marker)
-        .a= link_to '[this map]', edit_map_path(marker.slug)
+        .a= link_to '[this map]', edit_map_path(marker.destination.slug)
     .hide
       %ul.bullets
         %li <b>item_type:</b> #{marker.item_type}

@@ -9,7 +9,7 @@ describe IshManager::NewsitemsController, :type => :controller do
   before :each do
     do_setup
 
-    [ @city, @site, @tag ].each do |res|
+    [ @tag ].each do |res|
       @newsitem = create :newsitem, :report_id => 'abba-1'
       res.newsitems << @newsitem
       res.updated_at = '2020-01-01'
@@ -18,8 +18,8 @@ describe IshManager::NewsitemsController, :type => :controller do
   end
 
   describe 'destroy' do
-    it 'touches city, site, tag on destroy' do
-      [ @city, @site, @tag ].each do |res|
+    it 'touches tag on destroy' do
+      [ @tag ].each do |res|
         res.newsitems.length.should eql 1
         timestamp = res.updated_at
         delete :destroy, params: { id: res.newsitems.first.id }

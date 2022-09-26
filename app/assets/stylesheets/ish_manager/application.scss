@@ -204,17 +204,18 @@ textarea.large {
     li {
       margin: 0 0 10px 0;
       display: inline-block;
-      // padding-right: 2em;
-      // border: 1px solid red;
-      min-width: min(200px, calc(50vw - 22px));
+      min-width: 200px;
 
       > div { /* for example .galleries--menu */
         display: inline-block;
       }
     }
   }
-
-
+}
+@media only screen and (max-width: 400px) {
+  .main-header ul li {
+    min-width: 45vw;
+  }
 }
 
 .main-header.development,

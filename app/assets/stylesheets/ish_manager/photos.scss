@@ -6,7 +6,7 @@
     border: 1px solid red;
     padding: 10px;
 
-    max-width: min(125px, 30vw);
+    max-width: Min(125px, 30vw);
   }
 }
 .photos--meta-manager {
@@ -32,7 +32,7 @@
 
   input[type='file'] {
     overflow-x: auto;
-    max-width: max( 300px, 50vw );
+    max-width: Max( 300px, 50vw );
   }
 }
 

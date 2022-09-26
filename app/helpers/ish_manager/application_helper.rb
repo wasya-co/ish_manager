@@ -62,7 +62,7 @@ module IshManager
     end
 
     def api_marker_path marker
-      "/api/markers/view/#{marker.slug}"
+      "/api/markers/view/#{marker.id}"
     end
 
   end
