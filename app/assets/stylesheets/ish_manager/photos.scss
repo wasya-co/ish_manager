@@ -1,26 +1,49 @@
 
+.photos--index-mini {
+}
 .photos--index-thumbs {
   .item {
     border: 1px solid red;
     padding: 10px;
 
-    max-width: 125px;
+    max-width: min(125px, 30vw);
   }
 }
 .photos--meta-manager {
   display: flex;
   justify-content: space-between;
 
-  .right-hand a {
+  .right-hand {
+    text-align: right;
   }
-  .right-hand a:not(:last-child):after {
+  .right-hand a {
+
+  }
+  .right-hand a:not(:first-child):before {
     content: "|";
     padding: 0 10px 0 15px;
   }
 }
 .photos--multinew {
+  border: 1px dashed #356;
+  display: inline-block;
+  margin-bottom: 2em;
+  padding: 10px;
+
   input[type='file'] {
     overflow-x: auto;
     max-width: max( 300px, 50vw );
+  }
+}
+
+.row-deleted {
+  .goto,
+  .x {
+    display: none;
+  }
+}
+.row-mini {
+  .flex-row {
+    margin-bottom: 500px;
   }
 }

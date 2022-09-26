@@ -90,10 +90,6 @@ $(function () {
     })
   }
 
-  $(".addToggle").on('click', function () {
-    $(this).next().toggle(500)
-  })
-
   if ('function' === typeof $('body').datepicker) {
     $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' })
   }

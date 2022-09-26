@@ -39,13 +39,8 @@ ul:not(.browser-default).bullets, {
 
 /* A */
 
-.addToggle::after {
+.collapse-expand::after {
   content: " [<>]";
-}
-.addToggle {
-  + * {
-    display: none;
-  }
 }
 .alert {
   border: 1px solid red;

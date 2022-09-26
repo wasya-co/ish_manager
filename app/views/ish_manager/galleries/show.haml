@@ -2,30 +2,31 @@
 -# ish_manager / galleries / show
 -#
 
-= render 'title', :gallery => @gallery
+.galleries-show
+  = render 'title', :gallery => @gallery
 
-= render 'ish_manager/photos/multinew', :gallery => @gallery
+  = render 'ish_manager/photos/multinew', :gallery => @gallery
 
-%p.addToggle Deleted
-= render 'ish_manager/photos/index_thumbs', photos: @deleted_photos
-%hr
+  .row.row-deleted
+    %p.collapse-expand#rowDeleted Deleted
+    = render 'ish_manager/photos/index_thumbs', photos: @deleted_photos
 
-.flex-row.row-mini
-  %ul
-    - @photos.each do |photo|
-      %li.col.s1
-        = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
+  .row.row-mini
+    %p.collapse-expand#rowMinis Mini's
+    .flex-row
+      - @photos.each do |photo|
+        .item
+          = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
 
-.spacer{ :style => 'height: 500px' }
+  .row.row-thumbs
+    %p.collapse-expand#rowThumbs Thumbs
+    = render 'ish_manager/photos/index_thumbs', photos: @photos
 
-.flex-row.row-thumbs
-  = render 'ish_manager/photos/index_thumbs', photos: @photos
-
-.spacer{ :style => 'height: 100px' }
-
-.flex-row.row-large
-  - @photos.each do |photo|
-    .item
-      %a{id: "large_#{photo.id}" }
-      = render 'ish_manager/photos/meta_manager', photo: photo
-      .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
+  .row.row-large
+    %p.collapse-expand#rowLarge Large
+    .a
+      - @photos.each do |photo|
+        .item
+          %a{id: "large_#{photo.id}" }
+          = render 'ish_manager/photos/meta_manager', photo: photo
+          .wrapper{ style: "background-image: url('#{photo.photo.url( :large )}')" }
