@@ -2,7 +2,7 @@
 
 .application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
   .container
-    %i.fa.fa-compress.collapse-expand#collapseHeader
+    %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
     .content
       %ul
         %li{ :class => params[:controller] == 'ish_manager/maps'          ? 'active' : '' }
@@ -36,6 +36,10 @@
         %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Ish::UserProfiles',  user_profiles_path
         %li
           = link_to "Ish::ImageAsset's", image_assets_path
+    .c
+    %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
+    .namespace
+      -# %h5 Office
       %ul
         %li= link_to 'Leads', leads_path
         %li
