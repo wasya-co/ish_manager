@@ -57,16 +57,28 @@ IshManager::Engine.routes.draw do
     resources 'markers'
   end
 
-  ## @TODO: move into a namespace, eg :office_suite
-  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }
-  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
+
+  #
+  # office, below
+  #
+  get 'leads',      :to => 'office/leads#index', :defaults => { :is_done => false }, as: :leads
+  get 'leads/done', :to => 'office/leads#index', :defaults => { :is_done => true }, :as => :done_leads
   resources :leads
+
   resources :meetings
-  namespace :office_suite do
-    resources :campaigns
-    resources :email_templates
-    resources :unsubscribes
+  resources :email_campaigns, as: :email_campaigns
+
+  # get 'email_templates', to: 'office/email_templates#index', as: 'email_templates'
+  scope :office do
+    resources :email_templates, module: 'office' # as: :email_templates
   end
+  resources :unsubscribes
+  resources :sent_emails
+
+  #
+  # office, above
+  #
+
 
   resources :newsitems
 

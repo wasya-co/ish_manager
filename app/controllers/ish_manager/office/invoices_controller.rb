@@ -1,5 +1,5 @@
 
-class IshManager::InvoicesController < IshManager::ApplicationController
+class ::IshManager::Office::InvoicesController < IshManager::ApplicationController
 
   before_action :set_lists
 
@@ -39,7 +39,7 @@ class IshManager::InvoicesController < IshManager::ApplicationController
   # private
   #
   private
-  
+
   def set_lists
     @invoice_number = Ish::Invoice.order_by( :number => :desc ).first
     @invoice_number = @invoice_number ? @invoice_number.number + 1 : 1

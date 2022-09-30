@@ -1,5 +1,5 @@
 
-class IshManager::MeetingsController < IshManager::ApplicationController
+class ::IshManager::Office::MeetingsController < IshManager::ApplicationController
 
   # alphabetized
 

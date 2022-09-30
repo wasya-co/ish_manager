@@ -41,6 +41,13 @@
         %li
           = link_to 'Meetings', meetings_path
           = link_to '[+]', new_meeting_path
+      %ul
+        %li
+          = link_to 'Email Templates', email_templates_path
+        %li
+          = link_to 'Email Campaigns', email_campaigns_path
+        %li
+          = link_to 'Sent Emails', sent_emails_path
         %li
           = button_to 'Test Email', email_test_path, { form_class: 'inline-block' }
   %hr
