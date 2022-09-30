@@ -94,5 +94,3 @@ module IshManager
 
   end
 end
-
-::Ish::EMAIL_TEMPLATES = %w| piousbox_roundborders marketing_ror_1 |
