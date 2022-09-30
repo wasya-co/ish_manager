@@ -29,4 +29,4 @@ master - 20200208 - adding map, marker management
 0.5.1 - UNUSED
 0.5.2 - 2022-08-10 - fixing bugs and minor styling
 0.6.0 - 2022-08-23 - Lets merge everything, votable, bugfixing
-
+1.0.0 - 2022-09-29 - lets reintroduce email templates, marketing_ror_1 specifically.

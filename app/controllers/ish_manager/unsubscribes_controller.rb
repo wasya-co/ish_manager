@@ -1,5 +1,5 @@
 
-class IshManager::UnsubscribesController < IshManager::ApplicationController
+class ::IshManager::UnsubscribesController < IshManager::ApplicationController
 
   layout false
 

@@ -1,4 +1,5 @@
-class IshManager::LeadsController < IshManager::ApplicationController
+
+class ::IshManager::LeadsController < IshManager::ApplicationController
 
   ## alphabetized : )
 

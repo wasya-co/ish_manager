@@ -1,0 +1,21 @@
+
+.email-contexts-index
+
+  %h2
+    Paginated Email Contexts (aka emails)
+    = link_to '+', new_email_context_path
+
+  %ul
+    - @email_ctxs.each do |ctx|
+      %li
+        - if ctx.sent_at
+          \----
+        - else
+          = link_to '~', edit_email_context_path(ctx)
+        = link_to email_context_path(ctx) do
+          view
+          -# %i.fa.fa-external-link
+        = link_to email_context_iframe_path(ctx), target: :_blank do
+          iframe
+          %i.fa.fa-external-link
+        To #{ctx.to_email}: #{ctx.subject}

@@ -16,7 +16,7 @@ gem 'kaminari-mongoid'
 gem 'cancancan'
 
 gem 'ish_models',   :github => 'piousbox/ish_models',   :branch => 'master'
-gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => 'master'
+gem 'ish_manager',  :github => 'piousbox/ish_manager',  :branch => '1.0.0'
 
 group :test, :development do
   gem 'byebug'

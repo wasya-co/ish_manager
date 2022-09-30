@@ -2,7 +2,7 @@
 
 .application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
   .container
-    %i.fa.fa-compress.collapse-expand#collapseHeader
+    %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
     .content
       %ul
         %li{ :class => params[:controller] == 'ish_manager/maps'          ? 'active' : '' }
@@ -36,11 +36,23 @@
         %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Ish::UserProfiles',  user_profiles_path
         %li
           = link_to "Ish::ImageAsset's", image_assets_path
+    .c
+    %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
+    .namespace
       %ul
         %li= link_to 'Leads', leads_path
         %li
           = link_to 'Meetings', meetings_path
           = link_to '[+]', new_meeting_path
+      %ul
+        %li
+          = link_to 'Email Templates', email_templates_path
+        %li
+          = link_to 'Email Contexts', email_contexts_path
+        %li
+          = link_to 'Email Campaigns', email_campaigns_path
+        %li
+          = link_to 'Sent Emails', sent_emails_path
         %li
           = button_to 'Test Email', email_test_path, { form_class: 'inline-block' }
   %hr

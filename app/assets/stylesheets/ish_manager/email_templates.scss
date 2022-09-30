@@ -1,0 +1,47 @@
+
+
+.email-contexts-new {
+  .actions {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.email-contexts-show {
+
+  iframe {
+    min-height: 500px;
+  }
+
+}
+
+.email-templates-index ul li,
+.email-contexts-index {
+
+   a {
+    margin-right: 0.5em;
+
+    &::before {
+      content: "[";
+    }
+
+    &::after {
+      content: "]";
+    }
+  }
+
+}
+
+.email-templates--form {
+  border: 1px solid red;
+  padding: 1em;
+
+  form {
+    display: flex;
+
+    > * {
+      padding-right: 20px;
+    }
+  }
+
+}
