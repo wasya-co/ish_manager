@@ -3,6 +3,10 @@
  *
  *= require ish_manager/jquery-ui
  *= require_self
+ *
+ * includes email contexts:
+ *= require ish_manager/email_templates
+ *
  *= require ish_manager/galleries
  *= require ish_manager/maps
  *= require ish_manager/markers

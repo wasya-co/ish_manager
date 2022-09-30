@@ -1,0 +1,16 @@
+
+.email-contexts-show
+
+  %ul
+    %li <b>To:</b> #{@email_ctx.to_email}
+    %li <b>Subject:</b> #{@email_ctx.subject}
+    %li <b>Template:</b> #{@email_ctx.email_template.slug}
+    - if @email_ctx.sent_at
+      %li <b>Sent at:</b> #{@email_ctx.sent_at.strftime('%Y-%m-%d %l:%M%P')}
+    - else
+      %li= button_to 'Send', email_context_send_path(@email_ctx)
+
+  - if @email_ctx.sent_at
+    =raw @email_ctx.rendered_str
+  - else
+    %iframe{ src: email_context_iframe_path(@email_ctx), width: '100%', height: '100%' }

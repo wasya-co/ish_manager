@@ -32,20 +32,20 @@
   %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }
     .bg-white
       = render :partial => "ish_manager/application/main_header_#{current_user.profile.role_name}"
-      - if notice || alert
-        .row
-          .col.s12
-            - if notice
-              - if notice.class == Array
-                %ul
-                  - notice.map do |n|
-                    %li
-                      - n.map do |k,v|
-                        <b>#{k} :</b> #{v}
-              %p.notice= notice
-            - if alert
-              %p.alert= alert
       .container
+        - if notice || alert
+          .row
+            .col.s12
+              - if notice
+                - if notice.class == Array
+                  %ul
+                    - notice.map do |n|
+                      %li
+                        - n.map do |k,v|
+                          <b>#{k} :</b> #{v}
+                %p.notice= notice
+              - if alert
+                %p.alert= alert
         = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?

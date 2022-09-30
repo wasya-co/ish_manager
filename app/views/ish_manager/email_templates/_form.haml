@@ -1,0 +1,11 @@
+
+- url = %w| index new create |.include?( params[:action] ) ? email_templates_path : email_template_path(email_template.id)
+
+.email-templates--form
+  = form_for email_template, url: url do |f|
+    %h3 New Email Template
+    .field
+      = f.label :slug
+      = f.text_field :slug
+    .actions
+      = f.submit 'Submit'

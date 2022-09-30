@@ -1,5 +1,5 @@
 
-class ::IshManager::Office::InvoicesController < IshManager::ApplicationController
+class ::IshManager::InvoicesController < IshManager::ApplicationController
 
   before_action :set_lists
 

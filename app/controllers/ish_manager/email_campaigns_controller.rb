@@ -1,5 +1,5 @@
 
-class ::IshManager::Office::EmailCampaignsController < IshManager::ApplicationController
+class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Campaign

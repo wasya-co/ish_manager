@@ -1,0 +1,26 @@
+
+.email-contexts--form
+  %h2
+    New Email Context
+    -# with template `#{email_ctx.email_template&.slug}`
+
+  - url = %w| index new create |.include?( params[:action] ) ? email_contexts_path : email_context_path(email_ctx)
+  = form_for email_ctx, url: url do |f|
+    .field
+      = f.label :email_template_id
+      = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_ctx.email_template&.id )
+
+    .field
+      = f.label :to_email
+      = f.text_field :to_email
+    .field
+      = f.label :subject
+      = f.text_field :subject
+    .field
+      = f.label :body
+      = f.text_area :body, class: 'tinymce'
+    .actions
+      .left
+        = f.submit 'Preview'
+      .right
+        -# = f.submit 'Schedule/Send'
