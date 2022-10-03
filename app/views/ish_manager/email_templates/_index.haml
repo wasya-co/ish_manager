@@ -1,0 +1,15 @@
+
+%h3.collapse-expand#emailTemplatesIndex
+  Email Templates
+.email-templates-index
+
+  = render 'ish_manager/email_templates/form', email_template: ::Ish::EmailTemplate.new
+  %ul
+    - @templates.each do |tmpl|
+      %li
+        = link_to 'Use', new_email_context_path({ email_template_id: tmpl.id })
+        = link_to 'View', email_template_path({ id: tmpl })
+        = link_to 'iFrame', email_template_iframe_path({ id: tmpl }), target: :_blank
+        = tmpl.slug
+        = button_to '[x]', email_template_path({ id: tmpl }), method: :delete, :data => { :confirm => 'Are you sure?' }, form_class: 'inline'
+

@@ -38,6 +38,8 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
 
   def show
     authorize! :show, Ish::EmailTemplate
+    @templates = Ish::EmailTemplate.all.page( params[:templates_page] )
+
     @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
     @email_ctx = EmailContext.new({ body: Ish::LoremIpsum.html })

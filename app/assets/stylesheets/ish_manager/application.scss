@@ -20,8 +20,8 @@
 
 a[target='_blank'] {
   &::after {
-    content: 'external';
-    font-size: .5em;
+    content: ' ^]' !important;
+    // font-size: .5em;
   }
 }
 
