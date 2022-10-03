@@ -32,8 +32,6 @@ class IshManager::ReportsController < IshManager::ApplicationController
         format.html do
           flash[:alert] = @report.errors.full_messages
           @tags_list = Tag.all.list
-          @sites_list = Site.all.list
-          @cities_list = City.all.list
 
           render :action => "new"
         end
@@ -60,13 +58,6 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @reports = Report.unscoped.order_by( :created_at => :desc
       ).where( :is_trash => false, :user_profile => current_user.profile
       ).page( params[:reports_page] ).per( Report::PER_PAGE )
-    if false === params[:site]
-      @reports = @reports.where( :site_id => nil )
-    end
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @reports = @reports.where( :site_id => params[:site_id] )
-    end
     if params[:q]
       @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
       if @reports.length == 1
@@ -80,9 +71,6 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @report = Report.new
     authorize! :new, @report
     @tags_list = Tag.all.where( :is_public => true ).list
-    @sites_list = Site.all.list
-    @cities_list = City.list
-    @venues_list = Venue.all.list
 
     respond_to do |format|
       format.html do

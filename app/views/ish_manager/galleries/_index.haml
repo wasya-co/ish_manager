@@ -6,10 +6,9 @@
 
 - n_thumbs   ||= 8
 
-.galleries--index
-
+.collapse-expand#galleriesIndex
   = render 'ish_manager/galleries/menu', count: @galleries.count
-
+.galleries--index
   - if @galleries.length > 0
 
     - if @galleries.respond_to? :total_pages

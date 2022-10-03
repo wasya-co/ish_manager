@@ -44,9 +44,6 @@
   .row
     .col.s4
       .field
-        %label City
-        = select :report, :city_id, @cities_list, :class=>"btn"
-      .field
         = f.label :Coordinates
         .panel.panel-default
           .panel-body
@@ -70,9 +67,6 @@
       unused
 
   .row
-    .col.s6
-      = f.label :site
-      = f.select :site_id, options_for_select(@sites_list, :selected => report.site_id || params[:site_id] )
     .col.s6
       = f.label :tags
       = f.select :tag_ids, @tags_list, {}, { multiple: true }

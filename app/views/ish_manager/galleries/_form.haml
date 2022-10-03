@@ -13,17 +13,6 @@
     .col.s6
       = f.label :slug
       = f.text_field :slug
-
-  .row
-    .col.s4
-      = f.label :site
-      = select :gallery, :site_id, @sites_list
-    .col.s4
-      = f.label :city
-      = select :gallery, :city_id, @cities_list
-    .col.s4
-      = f.label :venue
-      = select :gallery, :venue_id, @venues_list
   .row
     .col.s4
       = f.label :tags

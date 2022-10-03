@@ -23,10 +23,6 @@ class IshManager::Ability
       #
       if user.profile && [ :admin ].include?( user.profile.role_name )
 
-        can [ :create_newsitem, :show, :new_feature, :create_feature,
-         :index, :new, :create, :edit, :update ], City
-
-        can [ :new ], ::Feature
         can [ :friends_index, :friends_new ], ::Ish::UserProfile
 
         can [ :index, :new, :create, :create_photo ], ::Gallery
@@ -37,7 +33,7 @@ class IshManager::Ability
           :new_marker, :edit_marker, :create_marker, :update_marker,
         ], Gameui::Map
 
-        can [ :cities_index, :home, :sites_index ], ::Manager
+        can [ :home, :sites_index ], ::Manager
 
         can [ :new ], Newsitem
 
@@ -46,9 +42,6 @@ class IshManager::Ability
           !g.is_trash && ( g.is_public || g.user_profile == user.profile )
         end
 
-        can [ :show, :edit, :update, :create_newsitem, :new_feature, :create_feature, :newsitems_index ], ::Site do |site|
-          !site.is_private && !site.is_trash
-        end
         # can [ :manage ], ::Warbler::StockWatch
 
         can [ :index, :new, :create ], ::Tag
@@ -58,16 +51,12 @@ class IshManager::Ability
           !v.is_trash && ( v.is_public || v.user_profile == user.profile )
         end
 
-        can [ :index, :add, :create, :edit, :update, :show ], Venue
-
       end
 
       #
       # role manager
       #
       if user.profile && :manager == user.profile.role_name
-        can [ :create_newsitem, :show, :new_feature, :create_feature,
-         :index, :new, :create, :edit, :update ], City
 
          can [ :edit, :index, :show, :update,
                :new_marker, :edit_marker, :create_marker, :update_marker,

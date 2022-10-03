@@ -7,7 +7,7 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def create
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
-      tags city site user_profile premium_tier premium_purchases thumb video |)
+      tags site user_profile premium_tier premium_purchases thumb video |)
     @video.user_profile = current_user.profile
     if !params[:video][:site_id].blank?
       @video.site = Site.find params[:video][:site_id]
@@ -26,7 +26,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     else
       flash[:alert] = 'No luck'
       @tags_list = Tag.list
-      @cities_list = City.list
       render :action => 'new'
     end
   end
@@ -35,7 +34,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     authorize! :destroy, @video
     flag = @video.delete
-    @video.city.touch if @video.city
     @video.site.touch if @video.site
     @video.tags.map &:touch
     if flag
@@ -52,17 +50,11 @@ class IshManager::VideosController < IshManager::ApplicationController
     authorize! :edit, @video
 
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    @cities_list = City.list
   end
 
   def index
     authorize! :index, Video.new
     @videos = Video.unscoped.where( is_trash: false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
-
-    if params[:city_id]
-      city = City.find params[:city_id]
-      @videos = @videos.where( :city => city )
-    end
 
     if params[:tag_id]
       tag = Tag.find params[:tag_id]
@@ -108,7 +100,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     authorize! :new, @video
 
     @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    @cities_list = City.list
   end
 
   def update

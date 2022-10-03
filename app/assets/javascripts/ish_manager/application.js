@@ -78,6 +78,8 @@ $(function () {
       localStorage.setItem("collapse-expand#"+thisId, "collapsed")
     }
     $(this).next().slideToggle();
+  }).children().click(function (e) {
+    e.stopPropagation()
   })
 
 

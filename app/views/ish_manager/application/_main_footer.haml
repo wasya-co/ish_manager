@@ -7,8 +7,9 @@
       .row
         .col-sm-6
           - if @current_user
-            %div >[ #{@current_user.email} ]<
-            %div >[ #{@current_user.profile&.role_name} ]<
+            %ul
+              %li <b>Email:</b> #{@current_user.email}
+              %li <b>Role name:</b> #{@current_user.profile&.role_name}
           - else
             Please log in
             = link_to '[+]', main_app.new_user_session_path

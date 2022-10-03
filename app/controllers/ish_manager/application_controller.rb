@@ -40,15 +40,12 @@ module IshManager
 
     def set_lists
       # alphabetized! : )
-      @cities_list = City.list
       @galleries_list = Gallery.all.list
       @locations_list = ::Gameui::Map.list
       @maps_list = ::Gameui::Map.list # @TODO: missing nonpublic!
       @reports_list = Report.all.list
-      @sites_list = Site.all.list
       @tags_list = Tag.list
       @user_profiles_list = Ish::UserProfile.list
-      @venues_list = Venue.all.list
       @videos_list = Video.all.list
     end
 
@@ -83,12 +80,8 @@ module IshManager
 
     def resource_path resource
       case resource.class.name
-      when 'City'
-        city_path( resource.id )
       when 'Event'
         event_path( resource.id )
-      when 'Venue'
-        venue_path( resource.id )
       end
     end
 

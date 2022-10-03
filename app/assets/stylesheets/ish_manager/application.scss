@@ -117,8 +117,13 @@ ul:not(.browser-default).bullets, {
   text-align: center;
 }
 
+
 .collapse-expand {
   cursor: pointer;
+
+  > * {
+    display: inline-block;
+  }
 }
 
 /* D */
