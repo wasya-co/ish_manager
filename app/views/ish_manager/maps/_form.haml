@@ -5,96 +5,97 @@
 
 - url = %w| new create |.include?( params[:action] ) ? maps_path : map_path(@map.id)
 
+.maps--form
+  %hr
+  = form_for @map, :html => { :multipart => true, class: '--form maps--form' }, url: url do |f|
+    .actions
+      = f.submit 'Save'
 
-= form_for @map, :html => { :multipart => true, class: '--form maps--form' }, url: url do |f|
-  .actions
-    = f.submit 'Save'
+    - if @map.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"
+        %ul
+          - @map.errors.full_messages.each do |message|
+            %li= message
 
-  - if @map.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@map.errors.count, "error")} prohibited this map from being saved:"
-      %ul
-        - @map.errors.full_messages.each do |message|
-          %li= message
+    .row
+      .col-sm-4
+        .field
+          = f.label :name
+          = f.text_field :name
+        .field
+          = f.label :slug
+          = f.text_field :slug
+        .field
+          = f.label :parent_slug
+          = f.text_field :parent_slug
+        .field
+          = f.label :map_slug, "Map slug (if any)"
+          = f.text_field :map_slug
 
-  .row
-    .col.s3
-      .field
-        = f.label :name
-        = f.text_field :name
-      .field
-        = f.label :map_slug, "Map slug (if any)"
-        = f.text_field :map_slug
-    .col.s3
-      .field
-        = f.label :slug
-        = f.text_field :slug
-      .field
-        = f.label :parent_slug
-        = f.text_field :parent_slug
-    .col.s2
-      .field
-        = f.label :ordering_type
-        = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES, selected: @map.ordering_type)
-      .field
-        = f.label :rated
-        = f.select :rated, options_for_select(Location::RATED_OPTIONS, selected: @map.rated)
-      .field
-        = f.label :premium_tier
-        = f.number_field :premium_tier
-    .col.s4
-      .field
-        = f.label :image
-        = file_field_tag :image
-        = image_tag @map.image.image.url(:thumb) rescue nil
-    .col.s4
-      .field
-        = f.label :creator_profile
-        = f.select :creator_profile, options_for_select(@user_profiles_list, selected: @current_user.profile.id)
+      .col-sm-4
+        .field
+          = f.label :ordering_type
+          = f.select :ordering_type, options_for_select(::Gameui::Map::ORDERING_TYPES, selected: @map.ordering_type)
+        .field
+          = f.label :rated
+          = f.select :rated, options_for_select(Location::RATED_OPTIONS, selected: @map.rated)
+        .field
+          = f.label :creator_profile
+          = f.select :creator_profile, options_for_select(@user_profiles_list, selected: @current_user.profile.id)
 
-  = render 'ish_manager/application/form_nonpublic', f: f, model: @map
+      .col-sm-4
+        .field
+          = f.label :premium_tier
+          = f.number_field :premium_tier
 
-
-  .row
-    = f.label :tags
-    = f.select :tag_ids, @tags_list, {}, { multiple: true }
-
-  .field
-    = f.label :description
-    = f.text_area :description, class: 'tinymce'
-
-  .row
-    .col.s6
-      = f.label "Labels"
-      = f.text_area :labels, class: 'large'
-      %pre.small
-        description
-        map
-        markers
-        newsitems
-    .col.s6
-      = f.label "Config"
-      = f.text_area :config, class: 'large'
-      %pre.small
-        :plain
-          description.collapsible: bool
-          map_panel_type: "Equirectangular" | "Panoramic" |
-            "MapPanel" | "MapPanelNoZoom" |
-            "ThreePanelV1" | "ThreePanelV1Fullscreen" |
-            "GoogleMaps" | "TabiversePlanet"
-  .row
-    .col.s6
-      .google-maps.row
-        .col.s4
+        .google-maps
           = f.label "x, y"
-        .col.s4
-          = f.text_field :x
-        .col.s4
-          = f.text_field :y
-    .col.s6
-      .field
-        = f.label :newsitems_page_size
-        = f.number_field :newsitems_page_size
+          = f.text_field :x, style: 'width: 20px;'
+          = f.text_field :y, style: 'width: 20px;'
 
-  .actions
-    = f.submit 'Save'
+        .field
+          = f.label :newsitems_page_size
+          = f.number_field :newsitems_page_size
+
+      .col-sm-4
+        .field
+          = f.label :image
+          = file_field_tag :image
+          = image_tag @map.image.image.url(:thumb) rescue nil
+
+      .col-sm-4
+        = f.label :tags
+        = f.select :tag_ids, @tags_list, {}, { multiple: true }
+
+      .col-sm-12
+        = render 'ish_manager/application/form_nonpublic', f: f, model: @map
+
+
+    .field
+      = f.label :description
+      = f.text_area :description, class: 'tinymce'
+
+    .row
+      .col.s6
+        = f.label "Labels"
+        = f.text_area :labels, class: 'large'
+        %pre.small
+          description
+          map
+          markers
+          newsitems
+      .col.s6
+        = f.label "Config"
+        = f.text_area :config, class: 'large'
+        %pre.small
+          :plain
+            description.collapsible: bool
+            map_panel_type: "Equirectangular" | "Panoramic" |
+              "MapPanel" | "MapPanelNoZoom" |
+              "ThreePanelV1" | "ThreePanelV1Fullscreen" |
+              "GoogleMaps" | "TabiversePlanet"
+
+
+    .actions
+      = f.submit 'Save'

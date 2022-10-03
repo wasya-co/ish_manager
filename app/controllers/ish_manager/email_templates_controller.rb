@@ -25,6 +25,10 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
 
   def iframe_src
     authorize! :iframe_src, Ish::EmailTemplate
+    @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
+      Ish::EmailTemplate.find_by({ slug: params[:id] })
+    @email_ctx = EmailContext.new({ body: Ish::LoremIpsum.html })
+    render layout: false
   end
 
   def index
@@ -34,9 +38,9 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
 
   def show
     authorize! :show, Ish::EmailTemplate
-    @email_ctx = EmailContext.new
-    @template = Ish::EmailTemplate.where({ id: params[:id] }).first || Ish::EmailTemplate.find_by({ slug: params[:id] })
-    # render params[:id], layout: false
+    @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
+      Ish::EmailTemplate.find_by({ slug: params[:id] })
+    @email_ctx = EmailContext.new({ body: Ish::LoremIpsum.html })
   end
 
 

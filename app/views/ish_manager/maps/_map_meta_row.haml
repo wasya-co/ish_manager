@@ -7,5 +7,7 @@
     .a= button_to '+marker', new_map_marker_path(map), method: :get
     .a= button_to '+newsitem', new_map_newsitem_path(map), method: :get
     .a= link_to '[api]', api_map_path(map), target: :_blank
+    .a= button_to 'Export Subtree', export_map_path(map.id, format: :json)
     .a= button_to 'x', map_path(map), method: :delete, data: { confirm: 'Are you sure?' }
-  .a slug:#{map.slug}
+
+  .a slug: #{map.slug}

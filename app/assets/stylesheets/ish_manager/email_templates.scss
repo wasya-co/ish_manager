@@ -7,10 +7,11 @@
   }
 }
 
-.email-contexts-show {
+.email-contexts-show,
+.email-templates-show {
 
   iframe {
-    min-height: 500px;
+    min-height: 80vh;
   }
 
 }

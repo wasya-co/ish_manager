@@ -1,4 +1,4 @@
 
-%p This view of an email_template has an empty context:
+.email-templates-show
 
-= render @template.slug
+  %iframe{ src: email_template_iframe_path(@email_template.slug), width: '100%', height: '100%' }

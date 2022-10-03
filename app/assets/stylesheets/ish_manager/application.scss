@@ -18,6 +18,12 @@
  *= require ish_manager/pagination
 **/
 
+a[target='_blank'] {
+  &::after {
+    content: 'external';
+    font-size: .5em;
+  }
+}
 
 body {
   background: #dedede;
@@ -27,6 +33,12 @@ hr {
   background: red;
   height: 1px !important;
 }
+
+input[type='file'] {
+  overflow: auto;
+  max-width: 100%;
+}
+
 pre {
   background: #e0e0e0;
   padding: 1em;
@@ -295,6 +307,14 @@ textarea.large {
 /* V */
 
 /* W */
+
+.WBordered {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 1em;
+}
+
+/* Y */
 
 .youtube_img {
   width: 100px;

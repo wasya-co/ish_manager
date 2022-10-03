@@ -73,7 +73,7 @@ IshManager::Engine.routes.draw do
   post 'email_contexts/send/:id', to: 'email_contexts#do_send', as: :email_context_send
   resources :email_contexts
 
-  get 'email_templates/iframe_src/:slug', to: 'email_templates#iframe_src'
+  get 'email_templates/iframe_src/:id', to: 'email_templates#iframe_src', as: :email_template_iframe
   get 'email_templates/show/:id', to: 'email_templates#show', as: :email_template
   delete 'email_templates/show/:id', to: 'email_templates#destroy'
   resources :email_templates

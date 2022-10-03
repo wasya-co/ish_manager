@@ -8,7 +8,9 @@
     - if @email_ctx.sent_at
       %li <b>Sent at:</b> #{@email_ctx.sent_at.strftime('%Y-%m-%d %l:%M%P')}
     - else
-      %li= button_to 'Send', email_context_send_path(@email_ctx)
+      %li
+        = button_to 'Send', email_context_send_path(@email_ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
+        = link_to '[~]', edit_email_context_path(@email_ctx)
 
   - if @email_ctx.sent_at
     =raw @email_ctx.rendered_str

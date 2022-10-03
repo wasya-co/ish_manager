@@ -32,7 +32,8 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def iframe_src
     authorize! :iframe_src, Ish::EmailContext
     @email_ctx = EmailContext.find params[:id]
-    render layout: false
+    @email_template = @email_ctx.email_template
+    render 'ish_manager/email_templates/iframe_src', layout: false
   end
 
   def index

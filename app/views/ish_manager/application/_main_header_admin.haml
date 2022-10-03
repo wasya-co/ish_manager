@@ -2,42 +2,54 @@
 
 .application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
   .container
+
+    %i.fa.fa-compress.collapse-expand#collapseHeaderPiCMS
+      PiousboxCMS
+    %ul
+      %li
+        = link_to 'Photos', photos_path
+        = link_to '[+]', new_photo_path
+      %li
+        = render 'ish_manager/galleries/menu'
+      %li
+        = link_to 'Reports',   reports_path
+        .inline-search
+          = form_tag reports_path, method: :get do
+            = text_field_tag :q
+        = link_to '[+]', new_report_path
+      %li
+        = link_to 'Videos',    videos_path
+        .inline-search
+          = form_tag videos_path, method: :get do
+            = text_field_tag :q
+        = link_to '[+]', new_video_path
+    .c
+
     %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
+      Gameui
     .content
       %ul
-        %li{ :class => params[:controller] == 'ish_manager/maps'          ? 'active' : '' }
+        %li
           = link_to 'Maps', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_map_path
 
-        %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }
-          = render 'ish_manager/galleries/menu'
-        %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }
-          = link_to 'Reports',   reports_path
-          .inline-search
-            = form_tag reports_path, method: :get do
-              = text_field_tag :q
-          = link_to '[+]', new_report_path
-        %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }
-          = link_to 'Videos',    videos_path
-          .inline-search
-            = form_tag videos_path, method: :get do
-              = text_field_tag :q
-          = link_to '[+]', new_video_path
-        %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }
+        %li
           = link_to 'Tags',      tags_path
       %ul
-        %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
+        %li= link_to '+Newsitem', new_newsitem_path
         -# %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches (old m3)', stock_watches_path
         -# %li= link_to 'Stock Watches', '/iron_warbler/stock_watches'
-        %li{ :class => params[:controller] == 'ish_manager/users' ? 'active' : '' }= link_to 'Users',  users_path
-        %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Ish::UserProfiles',  user_profiles_path
+        %li= link_to 'Users',  users_path
+        %li= link_to 'Ish::UserProfiles',  user_profiles_path
         %li
           = link_to "Ish::ImageAsset's", image_assets_path
     .c
+
     %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
+      Office
     .namespace
       %ul
         %li= link_to 'Leads', leads_path
@@ -51,9 +63,5 @@
           = link_to 'Email Contexts', email_contexts_path
         %li
           = link_to 'Email Campaigns', email_campaigns_path
-        %li
-          = link_to 'Sent Emails', sent_emails_path
-        %li
-          = button_to 'Test Email', email_test_path, { form_class: 'inline-block' }
   %hr
 
