@@ -8,10 +8,6 @@ else
   ssh-add ~/.ssh/mac_id_rsa_2
 fi
 
-git checkout master 
-# echo "ish_manager is only on master. as compatibility with microsites3"
-# branch=`git branch | grep -e "^*" | cut -d' ' -f 2`
-
 ./scripts/version_bump
 
 bundle > /dev/null &&
