@@ -38,6 +38,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Gallery
+    @page_title = 'Galleries'
     @galleries = Gallery.unscoped.where( ## This must be so for role `guy`. _vp_ 2022-10-03
       :is_done.in => [false, nil],
       :is_trash.in => [false, nil],
@@ -70,11 +71,13 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def new
     @gallery = Gallery.new
+    @page_title = 'New Gallery'
     authorize! :new, @gallery
   end
 
   def shared_with_me
     authorize! :index, Gallery
+    @page_title = 'Galleries Shared With Me'
     @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
       ).order_by( :created_at => :desc
       ).page( params[:shared_galleries_page] ).per( 10 )
@@ -118,6 +121,8 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     rescue
       @gallery = Gallery.unscoped.find params[:id]
     end
+    @page_title = "#{@gallery.name} Gallery"
+    @page_description = @gallery.subhead
   end
 
 end

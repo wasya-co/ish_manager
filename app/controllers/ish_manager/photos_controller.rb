@@ -5,9 +5,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
   skip_authorization_check :only => [ :j_create ]
   protect_from_forgery :except => [ :j_create]
 
-  def without_gallery
-    @photos = Photo.unscoped.where( :gallery => nil, :is_trash => false )
-  end
+  ## Alphabetized : )
 
   def destroy
     @photo = Photo.unscoped.find params[:id]
@@ -23,9 +21,9 @@ class IshManager::PhotosController < IshManager::ApplicationController
     redirect_to request.referrer || root_path
   end
 
-  def show
-    @photo = Photo.unscoped.find params[:id]
-    authorize! :show, @photo
+  def index
+    authorize! :index, Photo
+    @photos = Photo.all.page( params[:photos_page] )
   end
 
   def j_create
@@ -61,6 +59,20 @@ class IshManager::PhotosController < IshManager::ApplicationController
     else
       render :json => { "errors" => @photo.errors }
     end
+  end
+
+  def new
+    authorize! :new, Photo
+    @photo = Photo.new
+  end
+
+  def show
+    @photo = Photo.unscoped.find params[:id]
+    authorize! :show, @photo
+  end
+
+  def without_gallery
+    @photos = Photo.unscoped.where( :gallery => nil, :is_trash => false )
   end
 
 end

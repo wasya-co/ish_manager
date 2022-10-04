@@ -3,26 +3,28 @@
 -#
 
 .galleries-show
-  = render 'title', :gallery => @gallery
+  .row
+    .col-sm-12.col-md-6
+      = render 'title', :gallery => @gallery
+    .col-sm-12.col-md-6
+      = render 'ish_manager/photos/multinew', :gallery => @gallery
 
-  = render 'ish_manager/photos/multinew', :gallery => @gallery
-
-  .row.row-deleted
+  .row-deleted
     %p.collapse-expand#rowDeleted Deleted
     = render 'ish_manager/photos/index_thumbs', photos: @deleted_photos
 
-  .row.row-mini
+  .row-mini
     %p.collapse-expand#rowMinis Mini's
     .flex-row
       - @photos.each do |photo|
         .item
           = link_to image_tag(photo.photo.url( :mini ), :alt => ''), "#large_#{photo.id}"
 
-  .row.row-thumbs
+  .row-thumbs
     %p.collapse-expand#rowThumbs Thumbs
     = render 'ish_manager/photos/index_thumbs', photos: @photos
 
-  .row.row-large
+  .row-large
     %p.collapse-expand#rowLarge Large
     .a
       - @photos.each do |photo|

@@ -1,11 +1,11 @@
 !!!
 %html
   %head
-    %title Ish Manager
+    %title #{@page_title} | PiousboxCMS
     %link{ :rel => 'icon', :href => "/favicon_#{ENV['RAILS_ENV']}.gif" }
     %meta{ :name => :viewport, :content => 'width=device-width, initial-scale=1.0' }
     %meta{ :charset => 'UTF-8' }
-    %meta{ :description => 'some description' }
+    %meta{ :description => @page_description }
 
     = javascript_include_tag "//code.jquery.com/jquery-3.3.1.min.js"
 
@@ -32,10 +32,10 @@
   %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }
     .bg-white
       = render :partial => "ish_manager/application/main_header_#{current_user.profile.role_name}"
-      .container
+      .container.W0
         - if notice || alert
           .row
-            .col.s12
+            .col-sm-12
               - if notice
                 - if notice.class == Array
                   %ul

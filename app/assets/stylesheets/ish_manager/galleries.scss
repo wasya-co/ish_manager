@@ -5,14 +5,16 @@
 }
 
 .galleries--title {
-  text-align: center;
+  // text-align: center;
 }
 
 .galleries-show {
-  .row {
-    display: block;
+  > * {
     border-bottom: 2px solid red;
+  }
 
+  > *:last-child {
+    border-bottom: none;
   }
 
   .row-large .goto {
@@ -30,7 +32,8 @@
 // }
 
 .row-large .item {
-  border: 1px solid red;
+  // border: 1px solid red;
+  border-radius: 20px;
 
   display: block;
   margin-bottom: 1em;
