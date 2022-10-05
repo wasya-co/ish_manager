@@ -1,9 +1,9 @@
 GIT
-  remote: https://github.com/piousbox/ish_models.git
-  revision: a26d80c151bcea1cde67ec3fe1353634931e9ad6
+  remote: https://github.com/wasya-co/ish_models.git
+  revision: 78ac229dfe94bf1b43258e7d6566d8884ce65182
   branch: 2.0.0
   specs:
-    ish_models (0.0.33.175)
+    ish_models (0.0.33.178)
       aws-sdk
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.318)
+    ish_manager (0.1.8.321)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -487,7 +487,7 @@ GEM
     aws-sdk-globalaccelerator (1.40.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-glue (1.119.0)
+    aws-sdk-glue (1.120.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-gluedatabrew (1.22.0)
@@ -754,7 +754,7 @@ GEM
     aws-sdk-neptune (1.46.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-networkfirewall (1.18.0)
+    aws-sdk-networkfirewall (1.19.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-networkmanager (1.25.0)
@@ -775,7 +775,7 @@ GEM
     aws-sdk-organizations (1.70.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-outposts (1.35.0)
+    aws-sdk-outposts (1.36.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
     aws-sdk-panorama (1.8.0)
