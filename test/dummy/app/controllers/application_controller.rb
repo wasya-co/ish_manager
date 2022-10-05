@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_current_ability
-    @current_ability ||= ::IshManager::Ability.new( current_user )
+    @current_ability ||= ::IshManager::Ability.new( @current_profile )
   end
 
 end

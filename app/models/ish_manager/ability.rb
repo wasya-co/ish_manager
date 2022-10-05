@@ -2,17 +2,17 @@
 class IshManager::Ability
   include ::CanCan::Ability
 
-  def initialize user
+  def initialize user_profile
 
     #
     # signed in user
     #
-    if !user.blank?
+    if !user_profile.blank?
 
       #
       # only sudoer... total power
       #
-      if user.profile && user.profile.sudoer?
+      if user_profile.sudoer?
         can :manage, :all
       end
 
@@ -21,13 +21,13 @@ class IshManager::Ability
       #
       # role admin
       #
-      if user.profile && [ :admin ].include?( user.profile.role_name )
+      if user_profile && [ :admin ].include?( user_profile.role_name )
 
         can [ :friends_index, :friends_new ], ::Ish::UserProfile
 
         can [ :index, :new, :create, :create_photo ], ::Gallery
         can [ :edit, :update ], ::Gallery do |g|
-          !g.is_trash && ( g.is_public || g.user_profile == user.profile )
+          !g.is_trash && ( g.is_public || g.user_profile == user_profile )
         end
         can [ :edit, :index, :show, :update,
           :new_marker, :edit_marker, :create_marker, :update_marker,
@@ -39,7 +39,7 @@ class IshManager::Ability
 
         can [ :index, :new, :create ], Report
         can [ :edit, :update, :destroy ], Report do |g|
-          !g.is_trash && ( g.is_public || g.user_profile == user.profile )
+          !g.is_trash && ( g.is_public || g.user_profile == user_profile )
         end
 
         # can [ :manage ], ::Warbler::StockWatch
@@ -48,7 +48,7 @@ class IshManager::Ability
 
         can [ :index, :new, :create ], ::Video
         can [ :edit, :update, :destroy ], ::Video do |v|
-          !v.is_trash && ( v.is_public || v.user_profile == user.profile )
+          !v.is_trash && ( v.is_public || v.user_profile == user_profile )
         end
 
       end
@@ -56,7 +56,7 @@ class IshManager::Ability
       #
       # role manager
       #
-      if user.profile && :manager == user.profile.role_name
+      if user_profile && :manager == user_profile.role_name
 
          can [ :edit, :index, :show, :update,
                :new_marker, :edit_marker, :create_marker, :update_marker,
@@ -68,14 +68,14 @@ class IshManager::Ability
       #
       # role guy (and manager)
       #
-      if user.profile && [ :manager, :guy ].include?( user.profile.role_name )
+      if user_profile && [ :manager, :guy ].include?( user_profile.role_name )
 
         can [ :index, :new, :create ], ::Gallery
         can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
-          gallery.user_profile == user.profile
+          gallery.user_profile == user_profile
         end
         can [ :show ], ::Gallery do |gallery|
-          gallery.shared_profiles.include? user.profile
+          gallery.shared_profiles.include? user_profile
         end
 
         # can [ :index ], ::Report
@@ -89,7 +89,7 @@ class IshManager::Ability
     #
     # anonymous user
     #
-    user ||= ::User.new
+    user_profile ||= ::Ish::UserProfile.new
 
     can [ :open_permission ], IshManager::Ability
 

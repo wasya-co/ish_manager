@@ -4,7 +4,7 @@
  *= require ish_manager/jquery-ui
  *= require_self
  *
- * includes email contexts:
+ * includes email context:
  *= require ish_manager/email_templates
  *
  *= require ish_manager/galleries
@@ -12,7 +12,6 @@
  *= require ish_manager/markers
  *= require ish_manager/leads
  *= require ish_manager/photos
- *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
  *= require ish_manager/pagination
@@ -203,7 +202,7 @@ textarea.large {
 
 
 .main-header {
-  background: url('/assets/bg/weather.png');
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
 
   a {
     background: white;
@@ -239,9 +238,8 @@ textarea.large {
   }
 }
 
-.main-header.development,
-.main-header.development_production {
-  background: url('/assets/bg/weather-development.png');
+.main-header.development {
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192822/weather-bg-development.png');
 }
 
 .menu-secondary {

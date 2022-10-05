@@ -1,24 +1,7 @@
 
 IshManager::Engine.routes.draw do
 
-  post 'email_test', to: 'application#email_test', as: :email_test
-
   root :to => 'application#home'
-
-  ## @deprecated: use Locations
-  resources :cities do
-    resources :features
-    resources :newsitems
-    resources :reports
-    resources :galleries
-    resources :videos
-    resources :events
-    resources :venues
-    resources :tags
-  end
-  resources :events
-
-  resources :friends
 
   get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
@@ -61,11 +44,7 @@ IshManager::Engine.routes.draw do
   #
   # office, below
   #
-  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }, as: :leads
-  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
-  resources :leads
 
-  resources :meetings
   resources :email_campaigns, as: :email_campaigns
 
   get 'email_contexts/iframe_src/:id', to: 'email_contexts#iframe_src', as: :email_context_iframe
@@ -77,13 +56,13 @@ IshManager::Engine.routes.draw do
   get 'email_templates/show/:id', to: 'email_templates#show', as: :email_template
   delete 'email_templates/show/:id', to: 'email_templates#destroy'
   resources :email_templates
+  resources :email_unsubscribes
 
-  resources :unsubscribes
-  resources :sent_emails
-  #
-  # office, above
-  #
+  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }, as: :leads
+  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
+  resources :leads
 
+  resources :meetings
 
   resources :newsitems
 
@@ -92,31 +71,6 @@ IshManager::Engine.routes.draw do
 
   resources :reports
 
-  ## @deprecated: use Locations
-  resources :sites do
-    resources :features
-    resources :newsitems
-
-    get 'reports', :to => 'sites#reports'
-    resources :reports
-
-    get 'galleries', :to => 'sites#galleries'
-
-    resources :galleries
-    resources :videos
-    resources :tags
-  end
-
-  resources :tags do
-    resources :features
-    resources :newsitems
-
-    resources :reports
-    resources :galleries
-    resources :videos
-  end
-
-  resources :users
   resources :user_profiles do
     resources :newsitems
   end
@@ -124,9 +78,6 @@ IshManager::Engine.routes.draw do
     # resources :newsitems
   end
 
-  ## @TODO: venues can only be in cities, right?
-  ## @deprecated: use Locations
-  resources :venues
   resources :videos
 
 end

@@ -31,7 +31,7 @@
     = csrf_meta_tags
   %body{ class: [ params[:controller].gsub("ish_manager/",""), "#{params[:controller].gsub("ish_manager/","")}-#{params[:action]}", params[:action]] }
     .bg-white
-      = render :partial => "ish_manager/application/main_header_#{current_user.profile.role_name}"
+      = render :partial => "ish_manager/application/main_header_#{@current_profile.role_name}"
       .container.W0
         - if notice || alert
           .row

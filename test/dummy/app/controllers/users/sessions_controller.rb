@@ -9,10 +9,10 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @current_profile = Ish::UserProfile.find_by({ email: current_user.email })
+  end
 
   # DELETE /resource/sign_out
   # def destroy

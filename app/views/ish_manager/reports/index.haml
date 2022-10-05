@@ -1,9 +1,6 @@
 
 -# ish_manager / reports / index
 
-- if @site
-  = render 'ish_manager/sites/header', :site => @site
-
 .row
   .large-12.columns
     %h3
@@ -24,10 +21,6 @@
           = link_to report.name, report_path( report )
           %br
           .gray
-            - if report.site
-              Site <b>#{report.site.domain}/#{report.site.lang}</b>
-            - if report.city
-              City <b>#{report.city.name}</b>
             = pp_date report.created_at
           - if report.photo
             = image_tag report.photo.photo.url :thumb

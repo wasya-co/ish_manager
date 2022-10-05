@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 6d3ecaa509258288f95a3fa01bb3791bfa8f505c
-  branch: master
+  revision: b6aaa2a2a5b20c4ab224a514f5389c9f205719c0
+  branch: 2.0.0
   specs:
-    ish_manager (0.1.8.316)
+    ish_manager (0.1.8.318)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -20,8 +20,8 @@ GIT
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 0affe8e0c55b1937985905d420fc88c86156fc78
-  branch: master
+  revision: a26d80c151bcea1cde67ec3fe1353634931e9ad6
+  branch: 2.0.0
   specs:
     ish_models (0.0.33.175)
       aws-sdk
@@ -1396,6 +1396,9 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
+    io-console (0.5.11)
+    irb (1.4.2)
+      reline (>= 0.3.0)
     jmespath (1.6.1)
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -1488,6 +1491,8 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rake (13.0.6)
     regexp_parser (2.5.0)
+    reline (0.3.1)
+      io-console (~> 0.5)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -1550,6 +1555,7 @@ DEPENDENCIES
   devise
   factory_bot_rails
   haml
+  irb (>= 1.2.8)
   ish_manager!
   ish_models!
   kaminari

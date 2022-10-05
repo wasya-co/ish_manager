@@ -3,9 +3,11 @@ require 'spec_helper'
 RSpec.describe 'Videos system', type: :feature do
 
   it 'youtube thumb' do
-    profile = Ish::UserProfile.create role_name: 'admin'
-    user = User.create profile: profile
-    video = Video.create youtube_id: 'a', user_profile: profile
+    email = 'some@email.com'
+    user = create(:user, email: email)
+    profile = create(:profile, email: email, role_name: 'admin')
+    video = create(:video, user_profile: profile)
+
     login_as(user, scope: :user)
 
     visit "/manager/videos"

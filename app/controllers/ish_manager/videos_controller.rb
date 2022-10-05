@@ -7,7 +7,7 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def create
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
-      tags site user_profile premium_tier premium_purchases thumb video |)
+      site user_profile premium_tier premium_purchases thumb video |)
     @video.user_profile = current_user.profile
     if !params[:video][:site_id].blank?
       @video.site = Site.find params[:video][:site_id]
