@@ -44,7 +44,7 @@ class IshManager::Ability
 
         # can [ :manage ], ::Warbler::StockWatch
 
-        can [ :index, :new, :create ], ::Tag
+        # can [ :index, :new, :create ], ::Tag
 
         can [ :index, :new, :create ], ::Video
         can [ :edit, :update, :destroy ], ::Video do |v|

@@ -1,4 +1,5 @@
 
+require 'aws-sdk'
 require "ish_manager/engine"
 require 'haml'
 require 'cancancan'
