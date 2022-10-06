@@ -5,6 +5,7 @@
     %h2.header
       Paginated Email Contexts (aka emails)
       = link_to '+', new_email_context_path
+      = link_to 'to-send', notsent_email_contexts_path
 
   .W0
     = render 'paginate', resource: @email_ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
@@ -18,6 +19,7 @@
             = link_to '~', edit_email_context_path(ctx)
           = link_to email_context_path(ctx) do
             view
+          = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
           -# = link_to 'iframe', email_context_iframe_path(ctx), target: :_blank do
 
           To #{ctx.to_email}: #{ctx.subject}
