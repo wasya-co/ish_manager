@@ -1,6 +1,8 @@
 
 class ::IshManager::EmailContextsController < ::IshManager::ApplicationController
 
+  # alphabetized : )
+
   before_action :set_lists
 
   def create
@@ -38,7 +40,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def index
     authorize! :index, ::Ish::EmailContext
-    @email_ctxs = ::Ish::EmailContext.all.page( params[:contexts_page] )
+    @email_ctxs = ::Ish::EmailContext.all.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )
   end
 
   def new

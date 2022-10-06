@@ -42,7 +42,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @galleries = Gallery.unscoped.where( ## This must be so for role `guy`. _vp_ 2022-10-03
       :is_done.in => [false, nil],
       :is_trash.in => [false, nil],
-      :user_profile => current_user.profile
+      :user_profile => current_user.profile,
     ).order_by( :created_at => :desc )
 
     if params[:q]
