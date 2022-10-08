@@ -5,12 +5,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def create
     @newsitem = Newsitem.new params[:newsitem].permit!
-    @resource ||= City.find params[:city_id]              if params[:city_id]
-    @resource ||= City.find params[:newsitem][:city_id]   if !params[:newsitem][:city_id].blank? # blank? required
-    @resource ||= Site.find params[:site_id]              if params[:site_id]
-    @resource ||= Site.find params[:newsitem][:site_id]   if !params[:newsitem][:site_id].blank?
-    @resource ||= Tag.find params[:tag_id]                if params[:tag_id]
-    @resource ||= Tag.find params[:newsitem][:tag_id]     if !params[:newsitem][:tag_id].blank?
     @resource ||= Ish::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
     @resource ||= ::Gameui::Map.find params[:newsitem][:map_id] if !params[:newsitem][:map_id].blank?
     @resource.newsitems << @newsitem
@@ -33,9 +27,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       user_profiles_path
     when "Site"
       edit_site_path( @resource.id )
-    when "Tag"
-      @resource.site.touch
-      tag_path( @resource.id )
     else
       root_path
     end
@@ -59,9 +50,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :destroy, @newsitem
 
     if @newsitem.destroy
-      Tag.find(@newsitem.tag_id).touch if @newsitem.tag_id
-      Map.find(@newsitem.map_id).touch if @newsitem.map_id
-
       flash[:notice] = "Destroyed the newsitem."
     else
       flash[:alert] = "Cannot destroy the newsitem: #{@newsitem.errors.full_messages}."
@@ -99,10 +87,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     if params[:site_id]
       @site = Site.find params[:site_id]
       @newsitem.site = @site
-    end
-    if params[:tag_id]
-      @tag = Tag.unscoped.find params[:tag_id]
-      @newsitem.tag = @tag
     end
     authorize! :new, @newsitem
   end

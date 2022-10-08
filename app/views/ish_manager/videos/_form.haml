@@ -20,9 +20,6 @@
       .field
         = f.label :thumb
         = f.file_field :thumb
-      .field
-        = f.label :tags
-        = f.select :tag_ids, @tags_list, {}, { multiple: true }
   .row
     .col.s3
       = f.label :premium_tier

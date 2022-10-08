@@ -25,7 +25,6 @@ class IshManager::VideosController < IshManager::ApplicationController
       redirect_to videos_path
     else
       flash[:alert] = 'No luck'
-      @tags_list = Tag.list
       render :action => 'new'
     end
   end
@@ -35,7 +34,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     authorize! :destroy, @video
     flag = @video.delete
     @video.site.touch if @video.site
-    @video.tags.map &:touch
     if flag
       flash[:notice] = "deleted video"
     else
@@ -48,18 +46,11 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     @user_profiles_list = Ish::UserProfile.list
     authorize! :edit, @video
-
-    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
   end
 
   def index
     authorize! :index, Video.new
     @videos = Video.unscoped.where( is_trash: false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
-
-    if params[:tag_id]
-      tag = Tag.find params[:tag_id]
-      @videos = @videos.where( :tag => tag )
-    end
 
     if params[:site_id]
       @site = Site.find params[:site_id]
@@ -98,8 +89,6 @@ class IshManager::VideosController < IshManager::ApplicationController
   def new
     @video = Video.new
     authorize! :new, @video
-
-    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
   end
 
   def update

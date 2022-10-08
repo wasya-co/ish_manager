@@ -1,9 +1,0 @@
--#
--# ish_manager / tags / _meta
--#
-
-%h5.center
-  Tag
-  = tag.name
-  = link_to image_edit, edit_tag_path( tag )
-  .inline= button_to 'X', tag_path( tag ), :method => :delete, :data => { :confirm => 'Are you sure?' }

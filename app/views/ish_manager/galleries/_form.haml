@@ -13,10 +13,6 @@
     .col.s6
       = f.label :slug
       = f.text_field :slug
-  .row
-    .col.s4
-      = f.label :tags
-      = f.select :tag_ids, @tags_list, {}, { multiple: true }
 
   = render 'ish_manager/application/form_nonpublic', f: f, model: gallery
 

@@ -64,10 +64,6 @@
           = file_field_tag :image
           = image_tag @map.image.image.url(:thumb) rescue nil
 
-      .col-sm-4
-        = f.label :tags
-        = f.select :tag_ids, @tags_list, {}, { multiple: true }
-
       .col-sm-12
         = render 'ish_manager/application/form_nonpublic', f: f, model: @map
 
