@@ -42,8 +42,6 @@ class IshManager::PhotosController < IshManager::ApplicationController
     @photo.gallery = gallery
 
     # cache
-    @photo.gallery.site.touch if @photo.gallery.site
-    @photo.gallery.city.touch if @photo.gallery.city
     @photo.gallery.touch
 
     if @photo.save
