@@ -17,7 +17,7 @@ describe IshManager::MarkersController do
 
       @map = create(:map, slug: slug)
 
-      @user.profile.update_attributes({ role_name: :admin })
+      @admin_profile.update_attributes({ role_name: :admin })
       sign_in @user, scope: :user
 
       response = post :create, params: { map_id: map.id, gameui_marker: {
@@ -27,7 +27,7 @@ describe IshManager::MarkersController do
       } }
 
       result = Gameui::Marker.find_by name: slug
-      result.creator_profile_id.should eql @user.profile.id
+      result.creator_profile_id.should eql @admin_profile.id
     end
   end
 
@@ -41,7 +41,7 @@ describe IshManager::MarkersController do
     before do
       @map = create(:map)
       @map_2 = create(:map)
-      @marker = create(:marker, creator_profile: create(:user).profile, map: @map )
+      @marker = create(:marker, creator_profile: @admin_profile, map: @map )
     end
 
     it 'works' do

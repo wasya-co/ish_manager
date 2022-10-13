@@ -28,10 +28,6 @@
         %label role name
 
       .input-field
-        = f.select :current_city, options_for_select( @cities_list, :selected => profile.current_city_id )
-        %label City
-
-      .input-field
         = f.label :fb_access_token
         = f.text_field :fb_access_token
       .input-field

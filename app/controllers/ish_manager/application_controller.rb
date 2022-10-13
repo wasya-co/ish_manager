@@ -63,14 +63,6 @@ module IshManager
       else
         flash[:alert] = "No Luck. #{@photo.errors.messages} #{@resource.errors.messages}"
       end
-      # redirect_to resource_path( @resource )
-    end
-
-    def resource_path resource
-      case resource.class.name
-      when 'Event'
-        event_path( resource.id )
-      end
     end
 
   end

@@ -6,7 +6,7 @@
     = paginate videos, :param_name => :videos_page, :views_prefix => 'templates'
     - videos.each do |video|
       .callout
-        %h5= link_to (video.name.blank? ? t('videos.no_title') : video.name), sites_video_path( @site.domain, video.youtube_id )
+        %h5= link_to (video.name.blank? ? t('videos.no_title') : video.name), video_path( video.youtube_id )
         .text-center= render 'videos/embed', :video => video
         = video.descr
     = paginate videos, :param_name => :videos_page, :views_prefix => 'templates'

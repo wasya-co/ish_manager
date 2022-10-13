@@ -1,16 +1,7 @@
 
-- if defined? @city
-  - url = city_newsitem_path( @city, @newsitem ) if @city
-- if defined? @site
-  - url = site_newsitem_path( @site, @newsitem ) if @site
-
 .newsitems-edit
   %h1
     Edit Newsitem
-    - if @site
-      For site: #{@site.domain} #{@site.lang} <br />
-    - if @city
-      For city: #{@city.name} <br />
   = render 'form', :newsitem => @newsitem, :url => url
 
 .debug

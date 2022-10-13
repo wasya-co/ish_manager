@@ -24,7 +24,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     authorize! :destroy, @video
     flag = @video.delete
-    @video.site.touch if @video.site
     if flag
       flash[:notice] = "deleted video"
     else
@@ -83,7 +82,6 @@ class IshManager::VideosController < IshManager::ApplicationController
 
     @video.update params[:video].permit!
     if @video.save
-      @video.site.touch if @video.site
       flash[:notice] = 'Success.'
       redirect_to videos_path
     else

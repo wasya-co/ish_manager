@@ -93,11 +93,7 @@ class IshManager::MapsController < IshManager::ApplicationController
       else
         p = Profile.new({ email: profile[:email], _id: profile[:_id] })
         u = User.where( email: profile[:email] ).first
-        if u
-          u.profile = p
-        else
-          u = User.new( email: profile[:email], password: rand.to_s, profile: p )
-        end
+        u ||= User.new( email: profile[:email], password: rand.to_s )
         flag = u.save && p.save
         if flag
           errors.push({ message: "Profile created for #{profile[:email]}." })

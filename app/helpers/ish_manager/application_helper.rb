@@ -39,24 +39,9 @@ module IshManager
       "$ #{'%.2f' % a}"
     end
 
-    def resource_path resource
-      case resource.class.name
-      when 'City'
-        city_path( resource.id )
-      when 'Event'
-        event_path( resource.id )
-      when 'Venue'
-        venue_path( resource.id )
-      end
-    end
-
     #
     # api paths
     #
-    def api_city_path city
-      "/api/cities/view/#{city.cityname}.json"
-    end
-
     def api_map_path map
       "/api/maps/view/#{map.slug}"
     end

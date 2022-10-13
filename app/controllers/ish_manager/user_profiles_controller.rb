@@ -4,7 +4,7 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   before_action :set_lists
 
   def index
-    @user_profiles = Ish::UserProfile.all.includes( :user )
+    @user_profiles = Ish::UserProfile.all
     authorize! :index, Ish::UserProfile
   end
 
@@ -49,21 +49,21 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   def create
     @user = User.find_or_create_by( :email => params[:profile][:email] )
     @user.password ||= (0...12).map { rand(100) }.join
-    @user.profile = Ish::UserProfile.new params[:profile].permit!
-    authorize! :create, @user.profile
+    @user_profile = Ish::UserProfile.new params[:profile].permit!
+    authorize! :create, @user_profile
 
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
-      @profile.profile_photo = photo
+      @user_profile.profile_photo = photo
     end
 
     if !@user.save
-      raise "cannot save profile.user: #{@profile.user.errors.full_messages} profile errors: #{@profile.errors.full_messages}"
+      raise "cannot save profile.user: #{@user.errors.full_messages} profile errors: #{@user_profile.errors.full_messages}"
     end
-    if @user.profile.save
+    if @user_profile.save
       flash[:notice] = "Created profile"
     else
-      flash[:alert] = "Cannot create profile: #{@profile.errors.messages}"
+      flash[:alert] = "Cannot create profile: #{@user_profile.errors.messages}"
     end
     redirect_to :action => :index
   end

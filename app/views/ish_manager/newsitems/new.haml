@@ -2,9 +2,5 @@
 .newsitems-new
   %h1
     New Newsitem
-    - if @site
-      For Site #{@site.domain}
-    - if @city
-      For City #{@city.name}
   = render 'form', :newsitem => @newsitem
 
