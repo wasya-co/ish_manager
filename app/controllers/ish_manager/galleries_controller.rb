@@ -10,7 +10,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     params[:gallery][:shared_profiles].delete('')
     params[:gallery][:shared_profiles] = Ish::UserProfile.find params[:gallery][:shared_profiles]
     @gallery = Gallery.new params[:gallery].permit!
-    @gallery.user_profile = current_user.profile
+    @gallery.user_profile = current_profile
     authorize! :create, @gallery
 
     if @gallery.save
@@ -42,7 +42,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     @galleries = Gallery.unscoped.where( ## This must be so for role `guy`. _vp_ 2022-10-03
       :is_done.in => [false, nil],
       :is_trash.in => [false, nil],
-      :user_profile => current_user.profile,
+      :user_profile => current_profile,
     ).order_by( :created_at => :desc )
 
     if params[:q]
@@ -78,7 +78,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   def shared_with_me
     authorize! :index, Gallery
     @page_title = 'Galleries Shared With Me'
-    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
+    @galleries = current_profile.shared_galleries.unscoped.where( :is_trash => false
       ).order_by( :created_at => :desc
       ).page( params[:shared_galleries_page] ).per( 10 )
     render params[:render_type]

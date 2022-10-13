@@ -3,7 +3,7 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Campaign
-    @campaigns = Ish::Campaign.where( :profile => current_user.profile, :is_trash => false )
+    @campaigns = Ish::Campaign.where( :profile => current_profile, :is_trash => false )
     if params[:is_done]
       @campaigns = @campaigns.where( :is_done => true )
     else
@@ -18,7 +18,7 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   def create
     @campaign = Ish::Campaign.new params[:campaign].permit!
-    @campaign.profile = current_user.profile
+    @campaign.profile = current_profile
     authorize! :create, @campaign
     if @campaign.save
       flash[:notice] = "created campaign"
