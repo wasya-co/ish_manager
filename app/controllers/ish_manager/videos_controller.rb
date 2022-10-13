@@ -9,15 +9,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
       site user_profile premium_tier premium_purchases thumb video |)
     @video.user_profile = current_user.profile
-    if !params[:video][:site_id].blank?
-      @video.site = Site.find params[:video][:site_id]
-      @video.site.touch
-    else
-      if @site
-        @video.site = @site
-        @site.touch
-      end
-    end
     authorize! :create, @video
 
     if @video.save
@@ -51,11 +42,6 @@ class IshManager::VideosController < IshManager::ApplicationController
   def index
     authorize! :index, Video.new
     @videos = Video.unscoped.where( is_trash: false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
-
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @videos = @site.videos
-    end
 
     if params[:q]
       @videos = @videos.where({ :name => /#{params[:q]}/i })

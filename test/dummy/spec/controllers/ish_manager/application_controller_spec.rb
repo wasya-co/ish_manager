@@ -6,6 +6,7 @@ describe IshManager::ApplicationController, :type => :controller do
 
   it '#home - header for guy' do
     @guy = create( :user, :email => 'guy@gmail.com' )
+    @guy_profile = create( :profile, email: @guy.email, role_name: 'guy' )
     sign_in @guy, scope: :user
 
     get :home
@@ -16,12 +17,12 @@ describe IshManager::ApplicationController, :type => :controller do
 
   it '#home - header for admin' do
     @manager = create(:user, email: 'manager@gmail.com')
-    @manager.profile.update_attributes({ role_name: :manager })
+    @manager_profile = create(:profile, email: @manager.email, role_name: 'admin' )
     sign_in @manager, scope: :user
 
     get :home
 
     response.should be_successful
-    response.should render_template( :partial => '_main_header_manager' )
+    response.should render_template( :partial => '_main_header_admin' )
   end
 end

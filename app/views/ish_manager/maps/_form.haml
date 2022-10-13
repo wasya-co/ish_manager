@@ -42,7 +42,7 @@
           = f.select :rated, options_for_select(Location::RATED_OPTIONS, selected: @map.rated)
         .field
           = f.label :creator_profile
-          = f.select :creator_profile, options_for_select(@user_profiles_list, selected: @current_user.profile.id)
+          = f.select :creator_profile, options_for_select(@user_profiles_list, selected: @current_profile.id)
 
       .col-sm-4
         .field

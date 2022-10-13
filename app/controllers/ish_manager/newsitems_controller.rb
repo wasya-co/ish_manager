@@ -21,12 +21,8 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     end
 
     url = case @resource.class.name
-    when "City"
-      edit_city_path( @resource.id )
     when "Ish::UserProfile"
       user_profiles_path
-    when "Site"
-      edit_site_path( @resource.id )
     else
       root_path
     end
@@ -39,8 +35,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     else
       error = 'No Luck. ' + @newsitem.errors.messages.to_s  + " :: " + photo.errors.messages.to_s
       flash[:alert] = error
-      @sites = Site.list
-      @cities = City.list
       render :action => :new
     end
   end
@@ -69,9 +63,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def index
-    @resource = Site.find( params[:site_id] ) if params[:site_id]
-    @resource = City.find( params[:site_id] ) if params[:city_id]
-
     authorize! :newsitems_index, @resource
     @newsitems = @resource.newsitems
   end
@@ -80,14 +71,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
     @newsitem = Newsitem.new
 
-    if params[:city_id]
-      @city = City.find params[:city_id]
-      @newsitem.city = @city
-    end
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @newsitem.site = @site
-    end
     authorize! :new, @newsitem
   end
 
@@ -96,12 +79,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :update, @newsitem
 
     ## @TODO: re-add site management here, probably.
-
-    if params[:city_id]
-      @city = City.find params[:city_id]
-      @newsitem = @city.newsitems.find params[:id]
-      url = edit_city_path( @city )
-    end
 
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
