@@ -6,7 +6,7 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-    @gallery = create :gallery
+    @gallery = create :gallery, user_profile: @admin_profile
   end
 
   # alphabetized
@@ -40,7 +40,7 @@ describe IshManager::GalleriesController, :type => :controller do
       gs.length.should > 0
     end
 
-    it 'searches done galleries as well as active ones' do
+    skip 'searches done galleries as well as active ones' do
       gallery_name = 'abba1233'
       g = create(:gallery, is_done: true, user_profile_id: @admin_profile.id )
       get :index, params: { q: g.name, render_type: Gallery::RENDER_THUMBS }
