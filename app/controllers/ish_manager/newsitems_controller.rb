@@ -14,7 +14,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
     if params[:photo]
       photo = Photo.create( :photo => params[:photo],
-        :user_profile => current_profile,
+        :user_profile => @current_profile,
         descr: params[:descr],
         subhead: params[:subhead] )
       @newsitem.photo = photo
@@ -57,7 +57,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :edit, @newsitem
 
     ## @TODO: what on earth is this?
-    out = Gallery.unscoped.where( :is_trash => false, :user_profile => current_profile ).order_by( :created_at => :desc )
+    out = Gallery.unscoped.where( :is_trash => false, :user_profile => @current_profile ).order_by( :created_at => :desc )
     @galleries_list = [['', nil]] + out.map { |item| [ "#{item.created_at.strftime('%Y%m%d')} #{item.name}", item.id ] }
 
   end
@@ -82,7 +82,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
-      photo.user_profile = current_profile
+      photo.user_profile = @current_profile
       @newsitem.photo = photo
     end
 

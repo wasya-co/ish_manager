@@ -5,7 +5,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   def create
     @lead = Ish::Lead.new params[:lead].permit!
-    @lead.profile = current_profile
+    @lead.profile = @current_profile
     authorize! :create, @lead
     if @lead.save
       flash[:notice] = "created lead"
@@ -22,7 +22,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::Lead
-    @leads = Ish::Lead.all # where( :profile => current_profile, :is_trash => false )
+    @leads = Ish::Lead.all # where( :profile => @current_profile, :is_trash => false )
     if params[:is_done]
       @leads = @leads.where( :is_done => true )
     else

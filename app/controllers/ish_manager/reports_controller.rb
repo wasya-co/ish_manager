@@ -7,7 +7,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
 
   def create
     @report = Report.new params[:report].permit!
-    @report.user_profile = current_profile # @TODO: this should not be hard-coded
+    @report.user_profile = @current_profile # @TODO: this should not be hard-coded
     authorize! :create, @report
 
     flag = @report.save
@@ -56,7 +56,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
   def index
     authorize! :index, Report
     @reports = Report.unscoped.order_by( :created_at => :desc
-      ).where( :is_trash => false, :user_profile => current_profile
+      ).where( :is_trash => false, :user_profile => @current_profile
       ).page( params[:reports_page] ).per( Report::PER_PAGE )
     if params[:q]
       @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?

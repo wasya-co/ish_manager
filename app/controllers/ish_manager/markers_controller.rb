@@ -21,7 +21,7 @@ class IshManager::MarkersController < IshManager::ApplicationController
     @marker.map = @map
     authorize! :create_marker, @map
     @map_id = @map.id
-    @marker.creator_profile_id = current_profile.id
+    @marker.creator_profile_id = @current_profile.id
 
     if params[:image]
       @marker.image = ::Ish::ImageAsset.new :image => params[:image]
