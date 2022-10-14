@@ -68,17 +68,13 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   end
 
   def new
-
     @newsitem = Newsitem.new
-
     authorize! :new, @newsitem
   end
 
   def update
     @newsitem = Newsitem.find params[:id]
     authorize! :update, @newsitem
-
-    ## @TODO: re-add site management here, probably.
 
     if params[:photo]
       photo = Photo.new :photo => params[:photo]
@@ -93,7 +89,12 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
       flash[:alert] = "No Luck: #{@newsitem.errors.messages}"
     end
 
-    redirect_to edit_newsitem_path(@newsitem)
+    if (@newsitem.map)
+      redirect_to map_path(@newsitem.map)
+    else
+      redirect_to edit_newsitem_path(@newsitem)
+    end
+
   end
 
 end
