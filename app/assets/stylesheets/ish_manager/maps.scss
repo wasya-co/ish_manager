@@ -2,6 +2,16 @@
  * Alphabetized : )
 **/
 
+.is_active {
+}
+.not_is_active {
+  color: #ccc;
+}
+
+.not_is_3d {
+  text-decoration: line-through;
+}
+
 .maps--map-meta-row {
   .flat-row {
     display: flex;

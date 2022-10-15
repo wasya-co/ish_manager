@@ -84,9 +84,16 @@
       .col.s6
         = f.label "Config"
         = f.text_area :config, class: 'large'
+
         %pre.small
           :plain
-            description.collapsible: bool
+            studio.hasFloor: bool
+            studio.studioLength: centimeters
+            studio.studioWidth: centimeters
+
+            <label>.collapsible: bool
+            eg: description.collapsible: bool
+
             map_panel_type: "Equirectangular" | "Panoramic" |
               "MapPanel" | "MapPanelNoZoom" |
               "ThreePanelV1" | "ThreePanelV1Fullscreen" |

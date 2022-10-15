@@ -178,16 +178,21 @@ class IshManager::MapsController < IshManager::ApplicationController
       end
     end
 
+    if map_params[:parent_slug].present?
+      @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
+    else
+      @map.parent = nil
+    end
+
     respond_to do |format|
-      if map_params[:parent_slug].present?
-        @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
-      else
-        @map.parent = nil
-      end
       if @map.update(map_params)
-        format.html { redirect_to map_path(@map), notice: 'Map was successfully updated.' }
+        format.html do # format is required
+          redirect_to edit_map_path(@map), notice: 'Map was successfully updated.'
+        end
       else
-        format.html { render :edit }
+        format.html do
+          render :edit
+        end
       end
     end
   end
