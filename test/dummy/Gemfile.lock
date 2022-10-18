@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 385571959343be63728ceaf69ff3742f3e9468d5
+  revision: 63c68a3df7c695b409392289b13ed417bf97f4ff
   branch: 2.1.0
   specs:
     ish_manager (0.1.8.323)
@@ -1379,6 +1379,10 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     execjs (2.8.1)
     factory_bot (6.2.1)
@@ -1554,6 +1558,7 @@ DEPENDENCIES
   capybara
   database_cleaner-mongoid
   devise
+  dotenv-rails
   factory_bot_rails
   haml
   irb (>= 1.2.8)

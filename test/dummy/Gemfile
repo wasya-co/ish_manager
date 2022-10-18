@@ -8,6 +8,7 @@ gem 'sassc'
 gem 'aws-sdk-s3'
 gem 'aws-sdk'
 gem 'irb', '>= 1.2.8'
+gem 'dotenv-rails'
 
 gem 'mongoid' # @TODO: I tried removing this dependency from here but could not.
 gem 'mongoid-paperclip'

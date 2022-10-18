@@ -6,7 +6,7 @@ development:
       hosts:
         - mongodb.wasya.co
       options:
-        user: <%= ENV['MONGODB_USER'] %>
+        user: <%= ENV['MONGODB_USERNAME'] %>
         password: <%= ENV['MONGODB_PASSWORD'] %>
         auth_source: admin
 
@@ -17,6 +17,6 @@ test:
       hosts:
         - mongodb.wasya.co
       options:
-        user: <%= ENV['MONGODB_USER'] %>
+        user: <%= ENV['MONGODB_USERNAME'] %>
         password: <%= ENV['MONGODB_PASSWORD'] %>
         auth_source: admin

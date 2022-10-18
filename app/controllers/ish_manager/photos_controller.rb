@@ -23,7 +23,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
 
   def index
     authorize! :index, Photo
-    @photos = Photo.all.page( params[:photos_page] )
+    @photos = Photo.where( user_profile: @current_profile ).page( params[:photos_page] )
   end
 
   def j_create

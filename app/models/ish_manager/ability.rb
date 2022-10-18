@@ -66,9 +66,9 @@ class IshManager::Ability
 
 
       #
-      # role guy (and manager)
+      # role guy
       #
-      if user_profile && [ :manager, :guy ].include?( user_profile.role_name )
+      if user_profile && :guy == user_profile.role_name
 
         can [ :index, :new, :create ], ::Gallery
         can [ :show, :edit, :update, :create_photo ], ::Gallery do |gallery|
@@ -77,6 +77,8 @@ class IshManager::Ability
         can [ :show ], ::Gallery do |gallery|
           gallery.shared_profiles.include? user_profile
         end
+
+        # can [ :create, :index, :new ], Photo
 
         # can [ :index ], ::Report
 
