@@ -8,7 +8,8 @@ module IshManager
       elsif layout.instance_of? String or layout.instance_of? Symbol
         layout
       else
-        File.basename(layout.identifier).split('.').first
+        layout.inspect
+        # File.basename(layout.identifier).split('.').first
       end
     end
 

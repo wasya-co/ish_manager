@@ -33,3 +33,4 @@ master - 20200208 - adding map, marker management
 1.1.0 - 2022-10-03 - iterating on email contexts/templates, groking email campaigns
 2.0.0 - 2022-10-04 - major cleanup. No cities, sites, venues, users. but there is mysql and `guy`.
 2.1.0 - 2022-10-05 - continue major cleanup, not ready for release. tags should be WpTag's
+                     this version can be handed off to contractors

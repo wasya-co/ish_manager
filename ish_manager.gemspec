@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'aws-sdk'
   s.add_runtime_dependency 'aws-sdk-s3'
-  s.add_runtime_dependency "cancancan", [ "~> 2.0" ]
+  s.add_runtime_dependency "cancancan", [ "~> 3.2" ]
   s.add_runtime_dependency "devise", [ "~> 4.3" ]
   s.add_runtime_dependency 'ffi', '1.11.3'
   s.add_runtime_dependency "haml", [ '~> 5.0' ]
