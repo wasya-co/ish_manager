@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.317)
+    ish_manager (0.1.8.318)
       aws-sdk
       cancancan (~> 2.0)
       devise (~> 4.3)
@@ -1434,7 +1434,7 @@ GEM
       mongoid (~> 7.3)
     multi_xml (0.6.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8)
+    nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
