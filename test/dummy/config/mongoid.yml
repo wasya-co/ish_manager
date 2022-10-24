@@ -4,7 +4,7 @@ development:
     default:
       database: ish_manager_development
       hosts:
-        - mongodb.wasya.co
+        - <%= ENV['MONGODB_HOSTNAME'] %>
       options:
         user: <%= ENV['MONGODB_USERNAME'] %>
         password: <%= ENV['MONGODB_PASSWORD'] %>
@@ -15,8 +15,15 @@ test:
     default:
       database: ish_manager_test
       hosts:
-        - mongodb.wasya.co
+        - <%= ENV['MONGODB_HOSTNAME'] %>
       options:
         user: <%= ENV['MONGODB_USERNAME'] %>
         password: <%= ENV['MONGODB_PASSWORD'] %>
         auth_source: admin
+
+test_local:
+  clients:
+    default:
+      database: ish_manager_test
+      hosts:
+        - 127.0.0.1
