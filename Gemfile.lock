@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.326)
+    ish_manager (0.1.8.327)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise (~> 4.3)
@@ -222,7 +222,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    temple (0.8.2)
+    temple (0.9.1)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
