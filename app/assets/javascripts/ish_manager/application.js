@@ -17,7 +17,9 @@
 //= require ish_manager/vendor/jquery.fileupload
 //= require ish_manager/vendor/jquery-ui.min
 //= require ish_manager/shared
+//
 //= require ish_manager/maps
+//= require ish_manager/email_contexts
 
 $(function () {
 

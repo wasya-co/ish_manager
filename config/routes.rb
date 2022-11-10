@@ -47,17 +47,19 @@ IshManager::Engine.routes.draw do
 
   resources :email_campaigns, as: :email_campaigns
 
-  get 'email_contexts/iframe_src/:id', to: 'email_contexts#iframe_src', as: :email_context_iframe
-  get 'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
-  post 'email_contexts/send/:id', to: 'email_contexts#do_send', as: :email_context_send
-  get 'email_contexts', to: 'email_contexts#index', defaults: { notsent: false }, as: :email_contexts
-  get 'email_contexts/notsent', to: 'email_contexts#index', defaults: { notsent: true }, as: :notsent_email_contexts
+  get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
+  get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
+  post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :email_context_send
+  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: false }
+  get  'email_contexts/notsent',                 to: 'email_contexts#index',      as: :notsent_email_contexts, defaults: { notsent: true }
   resources :email_contexts
 
-  get 'email_templates/iframe_src/:id', to: 'email_templates#iframe_src', as: :email_template_iframe
-  get 'email_templates/show/:id', to: 'email_templates#show', as: :email_template
-  delete 'email_templates/show/:id', to: 'email_templates#destroy'
+  get    'email_templates/iframe_src/:id', to: 'email_templates#iframe_src', as: :email_template_iframe
+  get    'email_templates/show/:id',       to: 'email_templates#show',       as: :email_template
+  patch  'email_templates/show/:id',       to: 'email_templates#update'
+  delete 'email_templates/show/:id',       to: 'email_templates#destroy'
   resources :email_templates
+
   resources :email_unsubscribes
 
   get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }, as: :leads

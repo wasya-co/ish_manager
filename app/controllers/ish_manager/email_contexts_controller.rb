@@ -47,7 +47,16 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     @email_ctx = EmailContext.find params[:id]
     authorize! :iframe_src, @email_ctx
     @email_template = @email_ctx.email_template
-    render 'ish_manager/email_templates/iframe_src', layout: false
+    case @email_template.type
+    when 'partial'
+      render 'ish_manager/email_templates/iframe_src', layout: false
+      return
+    when 'plain'
+      @body = @email_template.body
+      @body.gsub!('{name}', @email_ctx.name)
+      render 'ish_manager/email_templates/plain', layout: false
+      return
+    end
   end
 
   def index
@@ -61,7 +70,13 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def new
     authorize! :new, ::Ish::EmailContext
-    @email_ctx = ::Ish::EmailContext.new email_template: @template
+    @template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first
+    @template ||= Ish::EmailTemplate.where( id: params[:template_slug] ).first
+    attrs = {}
+    if @template
+      attrs = @template.attributes.slice( :subject, :body, :from_email )
+    end
+    @email_ctx = ::Ish::EmailContext.new( { email_template: @template }.merge(attrs) )
   end
 
   def show

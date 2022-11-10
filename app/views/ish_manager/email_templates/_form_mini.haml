@@ -1,0 +1,9 @@
+
+.email-templates--form-mini
+  = form_for ::Ish::EmailTemplate.new, url: email_templates_path do |f|
+    %h3 New Email Template
+    .field
+      = f.label :slug
+      = f.text_field :slug
+    .actions
+      = f.submit 'Create'

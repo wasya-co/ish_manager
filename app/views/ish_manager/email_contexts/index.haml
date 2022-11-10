@@ -22,4 +22,6 @@
           = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
           -# = link_to 'iframe', email_context_iframe_path(ctx), target: :_blank do
 
-          To #{ctx.to_email}: #{ctx.subject}
+          [ <b>tmpl:</b> #{ctx.email_template.slug} ]
+          [ <b>To:</b> #{ctx.to_email} ]
+          <u>#{ctx.subject}</u>

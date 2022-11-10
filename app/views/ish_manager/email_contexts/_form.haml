@@ -2,23 +2,39 @@
 .email-contexts--form
   %h2
     New Email Context
-    -# with template `#{email_ctx.email_template&.slug}`
+    - if email_ctx.email_template
+      with template `#{email_ctx.email_template.slug}` type:#{email_ctx.email_template.type}.
 
   - url = %w| index new create |.include?( params[:action] ) ? email_contexts_path : email_context_path(email_ctx)
   = form_for email_ctx, url: url do |f|
-    .field
-      = f.label :email_template_id
-      = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_ctx.email_template&.id )
+    .row
+      .col.s6
+        .field
+          = f.label :email_template_id
+          = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_ctx.email_template&.id )
 
-    .field
-      = f.label :to_email
-      = f.text_field :to_email
-    .field
+        .field
+          = f.label :from_email
+          = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_ctx.from_email)
+        .field
+          = f.label :to_email
+          = f.text_field :to_email
+
+      .col.s6
+        %h5 Templating
+        .field
+          = f.label :name
+          = f.text_field :name
+    .field.field-subject
       = f.label :subject
       = f.text_field :subject
-    .field
-      = f.label :body
-      = f.text_area :body, class: 'tinymce'
+    - if 'plain' == email_ctx.email_template&.type
+      .body
+        = raw email_ctx.email_template.body
+    - else
+      .field
+        = f.label :body
+        = f.text_area :body, class: 'tinymce'
     .actions
       .left
         = f.submit 'Preview'

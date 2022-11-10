@@ -35,7 +35,7 @@
 }
 
 
-.email-templates--form {
+.email-templates--form-mini {
   border: 1px solid red;
   padding: 1em;
 
@@ -47,4 +47,27 @@
     }
   }
 
+}
+
+.email-contexts--form,
+.email-templates--form {
+
+  .field-subject {
+    display: flex;
+    width: calc( 100% - 20px );
+
+    input[name='ish_email_context[subject]'],
+    input[name='ish_email_template[subject]'] {
+      margin-left: 5px;
+      flex-grow: 1;
+    }
+  }
+
+
+
+  .body {
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px;
+  }
 }
