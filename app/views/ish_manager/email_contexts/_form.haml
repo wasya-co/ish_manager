@@ -8,23 +8,32 @@
   - url = %w| index new create |.include?( params[:action] ) ? email_contexts_path : email_context_path(email_ctx)
   = form_for email_ctx, url: url do |f|
     .row
+
       .col.s6
         .field
           = f.label :email_template_id
           = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_ctx.email_template&.id )
+        .field
+          = f.label :title
+          = f.text_field :title
 
         .field
           = f.label :from_email
           = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_ctx.from_email)
-        .field
-          = f.label :to_email
-          = f.text_field :to_email
 
       .col.s6
-        %h5 Templating
         .field
-          = f.label :name
-          = f.text_field :name
+          = f.label :type
+          = f.select :type, options_for_select(Ish::EmailContext.types_list, selected: email_ctx.type)
+        .TYPE_SINGLE
+          .field
+            = f.label :to_email
+            = f.text_field :to_email
+          %h5 Templating
+          .field
+            = f.label :tmpl_name
+            = f.text_field :tmpl_name
+
     .field.field-subject
       = f.label :subject
       = f.text_field :subject

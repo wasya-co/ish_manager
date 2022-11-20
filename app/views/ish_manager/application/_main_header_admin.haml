@@ -53,7 +53,7 @@
       Office
     .namespace
       %ul
-        %li= link_to 'Leads', leads_path
+        %li= link_to 'Leads', '/admin/leads'
         %li
           = link_to 'Meetings', meetings_path
           = link_to '[+]', new_meeting_path
@@ -62,7 +62,6 @@
           = link_to 'Email Templates', email_templates_path
         %li
           = link_to 'Email Contexts', email_contexts_path
-        %li
-          = link_to 'Email Campaigns', email_campaigns_path
+        -# %li= link_to 'Email Campaigns', email_campaigns_path
   %hr
 

@@ -53,7 +53,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       return
     when 'plain'
       @body = @email_template.body
-      @body.gsub!('{name}', @email_ctx.name)
+      @body.gsub!('{name}', @email_ctx.tmpl_name)
       render 'ish_manager/email_templates/plain', layout: false
       return
     end

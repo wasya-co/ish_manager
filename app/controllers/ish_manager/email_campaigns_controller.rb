@@ -2,8 +2,8 @@
 class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   def index
-    authorize! :index, Ish::Campaign
-    @campaigns = Ish::Campaign.where( :profile => @current_profile, :is_trash => false )
+    authorize! :index, Ish::EmailCampaign
+    @campaigns = Ish::EmailCampaign.where( :profile => @current_profile, :is_trash => false )
     if params[:is_done]
       @campaigns = @campaigns.where( :is_done => true )
     else
@@ -12,12 +12,12 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
   end
 
   def new
-    @new_campaign = Ish::Campaign.new
+    @new_campaign = Ish::EmailCampaign.new
     authorize! :new, @new_campaign
   end
 
   def create
-    @campaign = Ish::Campaign.new params[:campaign].permit!
+    @campaign = Ish::EmailCampaign.new params[:campaign].permit!
     @campaign.profile = @current_profile
     authorize! :create, @campaign
     if @campaign.save
@@ -34,12 +34,12 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
   end
 
   def edit
-    @campaign = Ish::Campaign.find params[:id]
+    @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :edit, @campaign
   end
 
   def update
-    @campaign = Ish::Campaign.find params[:id]
+    @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :update, @campaign
     if @campaign.update_attributes params[:campaign].permit!
       flash[:notice] = 'Successfully updated campaign.'
