@@ -32,9 +32,17 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   end
 
   def do_send
-    authorize! :send, ::Ish::EmailContext
-    IshManager::OfficeMailer.send_context_email(params[:id]).deliver_later
-    flash[:notice] = 'Scheduled send'
+    @ctx = ::Ish::EmailContext.find params[:id]
+    authorize! :send, @ctx
+    case @ctx.type
+    when ::Ish::EmailContext::TYPE_SINGLE
+      flash[:notice] = 'Scheduled a single send'
+      IshManager::OfficeMailer.send_context_email(params[:id]).deliver_later
+    when ::Ish::EmailContext::TYPE_CAMPAIGN
+      flash[:notice] = 'Scheduled campaign send'
+      IshManager::OfficeMailer.send_campaign(params[:id]).deliver_later
+    end
+
     redirect_to action: 'index'
   end
 
