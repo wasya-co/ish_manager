@@ -40,7 +40,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       IshManager::OfficeMailer.send_context_email(params[:id]).deliver_later
     when ::Ish::EmailContext::TYPE_CAMPAIGN
       flash[:notice] = 'Scheduled campaign send'
-      IshManager::EmailCampaignJob.perform_later(params[:id])
+      IshManager::EmailCampaignJob.new.perform(params[:id])
     end
 
     redirect_to action: 'index'
