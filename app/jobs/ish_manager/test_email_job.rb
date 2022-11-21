@@ -1,7 +1,7 @@
 
 class IshManager::TestEmailJob < ApplicationJob
-  include Sidekiq::Worker
-  Sidekiq_options queue: "mailers"
+
+  queue_as :mailers
 
   def perform
     puts! 'performing test job'

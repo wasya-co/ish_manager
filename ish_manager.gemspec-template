@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "haml", [ '~> 5.0' ]
   s.add_runtime_dependency 'httparty'
   s.add_runtime_dependency "ish_models"
+  s.add_runtime_dependency "sidekiq", [ '~> 7.0.0' ]
   s.add_runtime_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_runtime_dependency "kaminari-actionview", [ "~> 1.0" ]
   s.add_runtime_dependency "mongoid-autoinc", [ "~> 6.0" ]

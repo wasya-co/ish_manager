@@ -6,7 +6,7 @@ require "ish_manager/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "ish_manager"
-  s.version     = '0.1.8.331'
+  s.version     = '0.1.8.332'
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
   s.homepage    = "http://wasya.co"
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "haml", [ '~> 5.0' ]
   s.add_runtime_dependency 'httparty'
   s.add_runtime_dependency "ish_models"
+  s.add_runtime_dependency "sidekiq", [ '~> 7.0.0' ]
   s.add_runtime_dependency "kaminari-mongoid", [ "~> 1.0" ]
   s.add_runtime_dependency "kaminari-actionview", [ "~> 1.0" ]
   s.add_runtime_dependency "mongoid-autoinc", [ "~> 6.0" ]
