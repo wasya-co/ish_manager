@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.332)
+    ish_manager (0.1.8.333)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise (~> 4.3)

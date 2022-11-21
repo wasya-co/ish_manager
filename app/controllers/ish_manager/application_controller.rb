@@ -22,6 +22,9 @@ module IshManager
     end
 
     def set_current_ability
+      if !current_user
+        raise ::CanCan::AccessDenied
+      end
       @current_profile ||= ::Ish::UserProfile.find_by({ email: current_user.email })
       @current_ability ||= ::IshManager::Ability.new( @current_profile )
     end

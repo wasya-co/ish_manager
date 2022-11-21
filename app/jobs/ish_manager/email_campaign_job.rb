@@ -2,7 +2,8 @@
 ##
 ## EmailContext is mongoid
 ##
-class IshManager::EmailCampaignJob < ApplicationJob
+class IshManager::EmailCampaignJob
+  include Sidekiq::Job
   queue_as :mailers
 
   def perform campaign_id

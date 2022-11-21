@@ -1,6 +1,6 @@
 
-class IshManager::TestEmailJob < ApplicationJob
-
+class IshManager::TestEmailJob
+  include Sidekiq::Job
   queue_as :mailers
 
   def perform
