@@ -3,7 +3,8 @@
 ## EmailContext is mongoid
 ##
 class IshManager::EmailCampaignJob < ApplicationJob
-  queue_as :mailers
+  include Sidekiq::Worker
+  Sidekiq_options queue: "default"
 
   def perform campaign_id
     @ctx = @campaign = ::Ish::EmailContext.find campaign_id
