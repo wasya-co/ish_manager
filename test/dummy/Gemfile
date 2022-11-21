@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', "~> 6.1"
 gem 'rake'
 gem 'devise'
-gem 'haml'
+gem 'haml-rails'
 gem 'sassc'
 gem 'aws-sdk-s3'
 gem 'irb', '>= 1.2.8'

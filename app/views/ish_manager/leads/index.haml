@@ -1,43 +1,33 @@
 
 .manager-leads-index
   %h5
-    = link_to 'Leads', leads_path
-    (#{Ish::Lead.all.count})
+    SQL #{link_to 'Leads', leads_path} (#{::Lead.all.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
-    = link_to '[done]', done_leads_path
 
-  %table#dataTable.display.compact
-    %thead
-      %tr
-        %th &nbsp;
-        %th.created-at Created At
-        %th Company
-        %th Tag
-        %th Phone
-        %th Email
-        %th Job Url
-        %th.company-url Company Url
-        %th.yelp-url Yelp Url
-        %th Location
-        %th Description
-        %th Address
-    %tbody
-      - @leads.each do |lead|
+  = form_tag leads_bulkop_path do
+    = label_tag 'Act on Selected:'
+    = select_tag :a, options_for_select( %w| delete add_to_campaign | )
+    = select_tag :email_campaign_id, options_for_select( @email_campaigns_list )
+    = submit_tag 'Go'
+
+    %table#dataTable.display.compact
+      %thead
         %tr
-          %td= link_to raw('<i class="fa fa-play"></i>'), lead_path( lead )
-          %td.created-at= pretty_date lead.created_at
-          %td= lead.company
-          %td= lead.tag
-          %td= lead.phone
-          %td
-            = link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}" if lead.email.present?
-          %td
-            = link_to raw('<i class="fa fa-user-md"></i>'), lead.job_url, :target => '_blank' if lead.job_url.present?
-          %td
-            = link_to 'B', lead.company_url if lead.company_url.present?
-          %td
-            = link_to raw('<i class="fa fa-user-md"></i>'), lead.yelp_url if lead.yelp_url.present?
-          %td= lead.location
-          %td= lead.description
-          %td
-            = 'Y' if lead.address.present?
+          %th &nbsp;
+          %th Name
+          %th Company
+          %th Email
+          %th Tag
+
+      %tbody
+        - @leads.each do |lead|
+          %tr
+            %td= check_box_tag 'lead_ids[]', lead.id
+            %td= link_to lead.name, lead_path( lead )
+            %td= lead.leadset&.name
+            %td= lead.email
+            -# %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}" if lead.email.present?
+
+
+            %td= lead.tag
+

@@ -1,11 +1,29 @@
 
 class ::IshManager::LeadsController < IshManager::ApplicationController
 
+  before_action :set_lists
+
   ## alphabetized : )
 
+  def bulkop
+    authorize! :bulkop, ::Lead
+    case params[:a]
+    when 'add_to_campaign'
+      c = EmailCampaign.find params[:email_campaign_id]
+      params[:lead_ids].each do |lead_id|
+        c_lead = EmailCampaignLead.new( lead_id: lead_id, email_campaign_id: c.id )
+        flag = c_lead.save
+        if !flag
+          puts! c_lead.errors.full_messages.join(", ")
+        end
+      end
+      flash[:notice] = 'Done acted; See logs.'
+      redirect_to action: :index
+    end
+  end
+
   def create
-    @lead = Ish::Lead.new params[:lead].permit!
-    @lead.profile = @current_profile
+    @lead = ::Lead.new params[:lead].permit!
     authorize! :create, @lead
     if @lead.save
       flash[:notice] = "created lead"
@@ -16,22 +34,17 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def edit
-    @lead = Ish::Lead.find params[:id]
+    @lead = ::Lead.find params[:id]
     authorize! :edit, @lead
   end
 
   def index
-    authorize! :index, Ish::Lead
-    @leads = Ish::Lead.all # where( :profile => @current_profile, :is_trash => false )
-    if params[:is_done]
-      @leads = @leads.where( :is_done => true )
-    else
-      @leads = @leads.where( :is_done => false )
-    end
+    authorize! :index, ::Lead
+    @leads = ::Lead.all.includes( :leadset )
   end
 
   def new
-    @new_lead = Ish::Lead.new
+    @new_lead = ::Lead.new
     authorize! :new, @new_lead
   end
 
@@ -41,7 +54,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def update
-    @lead = Ish::Lead.find params[:id]
+    @lead = ::Lead.find params[:id]
     authorize! :update, @lead
     if @lead.update_attributes params[:lead].permit!
       flash[:notice] = 'Successfully updated lead.'
@@ -49,6 +62,13 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
       flash[:alert] = "Cannot update lead: #{@lead.errors.messages}"
     end
     redirect_to :action => 'index'
+  end
+
+  private
+
+  def set_lists
+    @leadsets_list = [ [nil,nil] ] + ::Leadset.all.map { |k| [ k.name, k.id ] }
+    @email_campaigns_list = [ [nil,nil] ] + Ish::EmailContext.all_campaigns.map { |k| [ k.slug, k.id ] }
   end
 
 end

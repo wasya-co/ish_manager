@@ -52,16 +52,18 @@
     %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
       Office
     .namespace
+      -# %ul
+      -#   %li= link_to 'Admin', '/admin'
+      -#   %li= link_to 'A/Leads', '/admin/leads'
+      -#   %li= link_to 'A/CampaignLeads', '/admin/email_campaign_leads'
       %ul
-        %li= link_to 'Leads', '/admin/leads'
         %li
           = link_to 'Meetings', meetings_path
           = link_to '[+]', new_meeting_path
       %ul
-        %li
-          = link_to 'Email Templates', email_templates_path
-        %li
-          = link_to 'Email Contexts', email_contexts_path
-        -# %li= link_to 'Email Campaigns', email_campaigns_path
+        %li= link_to 'Leads', leads_path
+        %li= link_to 'Leadsets', leadsets_path
+        %li= link_to 'Email Templates', email_templates_path
+        %li= link_to 'Contexts/Campaigns', email_contexts_path
   %hr
 

@@ -62,9 +62,13 @@ IshManager::Engine.routes.draw do
 
   resources :email_unsubscribes
 
-  get 'leads',      :to => 'leads#index', :defaults => { :is_done => false }, as: :leads
-  get 'leads/done', :to => 'leads#index', :defaults => { :is_done => true }, :as => :done_leads
+  get 'leads',      :to => 'leads#index'
+  post 'leads/bulkop', to: 'leads#bulkop'
   resources :leads
+
+  resources :leadsets
+
+  resources :email_campaign_leads, as: :campaign_leads
 
   resources :meetings
 

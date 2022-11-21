@@ -26,16 +26,6 @@ module IshManager
       @current_ability ||= ::IshManager::Ability.new( @current_profile )
     end
 
-    # @TODO: obsolete, remove _vp_ 2022-10-15
-    def set_lists
-      # alphabetized! : )
-      @galleries_list = Gallery.all.list
-      @maps_list = ::Gameui::Map.list # @TODO: missing nonpublic!
-      @reports_list = Report.all.list
-      @user_profiles_list = Ish::UserProfile.list
-      @videos_list = Video.all.list
-    end
-
     def access_denied exception
       store_location_for :user, request.path
       redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message

@@ -1,4 +1,7 @@
-module IshManager
-  class ApplicationJob < ActiveJob::Base
-  end
+
+class IshManager::ApplicationJob < ActiveJob::Base
+
+  include Sidekiq::Job
+
 end
+

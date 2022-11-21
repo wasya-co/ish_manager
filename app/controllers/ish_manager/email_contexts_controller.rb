@@ -20,7 +20,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   end
 
   def destroy
-    @email_ctx = EmailContext.find params[:id]
+    @email_ctx = Ish::EmailContext.find params[:id]
     authorize! :destroy, @email_ctx
     flag = @email_ctx.destroy
     if flag
@@ -33,14 +33,14 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def do_send
     @ctx = ::Ish::EmailContext.find params[:id]
-    authorize! :send, @ctx
+    authorize! :do_send, @ctx
     case @ctx.type
     when ::Ish::EmailContext::TYPE_SINGLE
       flash[:notice] = 'Scheduled a single send'
       IshManager::OfficeMailer.send_context_email(params[:id]).deliver_later
     when ::Ish::EmailContext::TYPE_CAMPAIGN
       flash[:notice] = 'Scheduled campaign send'
-      IshManager::OfficeMailer.send_campaign(params[:id]).deliver_later
+      IshManager::EmailCampaignJob.perform_later(params[:id])
     end
 
     redirect_to action: 'index'
@@ -52,7 +52,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   end
 
   def iframe_src
-    @email_ctx = EmailContext.find params[:id]
+    @email_ctx = Ish::EmailContext.find params[:id]
     authorize! :iframe_src, @email_ctx
     @email_template = @email_ctx.email_template
     case @email_template.type
