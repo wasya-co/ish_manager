@@ -7,8 +7,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def create
     authorize! :create, ::Ish::EmailContext
-    @email_ctx = ::Ish::EmailContext.new params[:ish_email_context].permit!
-    @email_ctx.tmpl = JSON.parse(@email_ctx.tmpl)
+    pparams = params[:ish_email_context].permit!
+    pparams[:tmpl] = JSON.parse(pparams[:tmpl])
+    @email_ctx = ::Ish::EmailContext.new pparams
     if @email_ctx.save
       flash[:notice] = 'Saved.'
       redirect_to action: 'show', id: @email_ctx.id
