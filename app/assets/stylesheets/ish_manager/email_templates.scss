@@ -52,6 +52,11 @@
 .email-contexts--form,
 .email-templates--form {
 
+  textarea {
+    width: 100%;
+    min-height: 200px;
+  }
+
   .field-subject {
     display: flex;
     width: calc( 100% - 20px );
@@ -62,8 +67,6 @@
       flex-grow: 1;
     }
   }
-
-
 
   .body {
     border: 1px solid red;

@@ -30,9 +30,9 @@
             = f.label :to_email
             = f.text_field :to_email
           %h5 Templating
+          %div Commonly: name, companyName
           .field
-            = f.label :tmpl_name
-            = f.text_field :tmpl_name
+            = f.text_area :tmpl, value: JSON.pretty_generate( email_ctx.tmpl )
 
     .field.field-subject
       = f.label :subject

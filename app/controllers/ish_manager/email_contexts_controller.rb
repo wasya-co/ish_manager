@@ -8,6 +8,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def create
     authorize! :create, ::Ish::EmailContext
     @email_ctx = ::Ish::EmailContext.new params[:ish_email_context].permit!
+    @email_ctx.tmpl = JSON.parse(@email_ctx.tmpl)
     if @email_ctx.save
       flash[:notice] = 'Saved.'
       redirect_to action: 'show', id: @email_ctx.id
@@ -60,8 +61,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       render 'ish_manager/email_templates/iframe_src', layout: false
       return
     when 'plain'
-      @body = @email_template.body
-      @body.gsub!('{name}', @email_ctx.tmpl_name)
+      @body = @email_ctx.body_templated
       render 'ish_manager/email_templates/plain', layout: false
       return
     end
@@ -95,7 +95,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def update
     @email_ctx = ::Ish::EmailContext.find params[:id]
     authorize! :update, @email_ctx
-    if @email_ctx.update_attributes params[:ish_email_context].permit!
+    pparams = params[:ish_email_context].permit!
+    pparams[:tmpl] = JSON.parse(pparams[:tmpl])
+    if @email_ctx.update_attributes pparams
       flash[:notice] = 'Saved.'
       redirect_to action: 'show', id: @email_ctx.id
       return

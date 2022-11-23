@@ -59,8 +59,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
       template = "render/_#{@email_ctx.email_template.slug}"
       rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@email_ctx.email_template.slug}")
     when 'plain'
-      @body = @email_ctx.email_template.body
-      @body.gsub!('{name}', @email_ctx.name)
+      @body = @email_ctx.body_templated
       template = "render/plain"
       rendered_str = ac.render_to_string("ish_manager/email_templates/plain")
     end
