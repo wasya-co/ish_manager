@@ -17,6 +17,11 @@ module IshManager
     #
     private
 
+    def access_denied exception
+      store_location_for :user, request.path
+      redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message
+    end
+
     def set_changelog
       @version = Gem.loaded_specs['ish_manager'].version.to_s
     end
@@ -29,9 +34,8 @@ module IshManager
       @current_ability ||= ::IshManager::Ability.new( @current_profile )
     end
 
-    def access_denied exception
-      store_location_for :user, request.path
-      redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message
+    def set_lists
+      ;
     end
 
     def pp_errors err
