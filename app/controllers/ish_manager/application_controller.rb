@@ -35,7 +35,12 @@ module IshManager
     end
 
     def set_lists
-      ;
+      @galleries_list = Gallery.all.list
+      @locations_list = ::Gameui::Map.list
+      @maps_list = ::Gameui::Map.list # @TODO: missing nonpublic!
+      @reports_list = Report.all.list
+      @user_profiles_list = Ish::UserProfile.list
+      @videos_list = Video.all.list
     end
 
     def pp_errors err
