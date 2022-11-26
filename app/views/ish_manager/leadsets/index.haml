@@ -10,7 +10,7 @@
     %thead
       %tr
         %th &nbsp;
-
+        %th created at
         %th Name
         %th Tag
         %th.company-url Company Url
@@ -19,8 +19,8 @@
       - @leadsets.each do |leadset|
         %tr
           %td= check_box_tag leadset.id
-
+          %td= leadset.created_at.strftime("%Y-%m-%d %H:%M")
           %td= link_to leadset.name, leadset_path( leadset )
           %td= leadset.tag
-          %td= link_to 'B', leadset.company_url if leadset.company_url.present?
+          %td= link_to leadset.company_url, leadset.company_url
           %td= leadset.location

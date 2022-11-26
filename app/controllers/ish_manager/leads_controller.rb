@@ -46,9 +46,9 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     flags = []
     errors = []
     CSV.read(file.path, headers: true).each do |row|
-      puts! row, 'row'
-      puts! row[3], 'email?'
-      company = ::Leadset.find_or_create_by({ company_url: row[4] })
+      company_url = row[4].presence
+      company_url ||= "https://#{row[3].split('@')[1]}"
+      company = ::Leadset.find_or_create_by({ company_url: company_url })
       lead = ::Lead.new({
         name: row[2] || 'there',
         full_name: row[2] || 'there',

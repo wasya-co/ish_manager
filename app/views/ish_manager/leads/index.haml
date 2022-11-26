@@ -27,7 +27,7 @@
           %tr
             %td= check_box_tag 'lead_ids[]', lead.id
             %td= link_to lead.name, lead_path( lead )
-            %td= lead.leadset&.name
+            %td= lead.leadset&.id
             %td= lead.email
             %td= lead.tag
             %td= lead.created_at.to_s[0..10]
