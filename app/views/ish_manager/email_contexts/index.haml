@@ -7,6 +7,9 @@
       = link_to '+', new_email_context_path
       = link_to 'to-send', notsent_email_contexts_path
 
+    %ul.meta
+      %li= params[:type]
+
   .W0
     = render 'paginate', resource: @email_ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
 

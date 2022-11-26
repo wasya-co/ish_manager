@@ -45,12 +45,13 @@ IshManager::Engine.routes.draw do
   # office, below
   #
 
-  resources :email_campaigns, as: :email_campaigns
+  # resources :email_campaigns, as: :email_campaigns
 
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
   post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :email_context_send
-  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: false }
+  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: false, type: Ish::EmailContext::TYPE_SINGLE   }
+  get  'email_contexts/campaigns',               to: 'email_contexts#index',      as: :email_campaigns,        defaults: { notsent: false, type: Ish::EmailContext::TYPE_CAMPAIGN }
   get  'email_contexts/notsent',                 to: 'email_contexts#index',      as: :notsent_email_contexts, defaults: { notsent: true }
   resources :email_contexts
 
@@ -64,6 +65,7 @@ IshManager::Engine.routes.draw do
 
   get 'leads',      :to => 'leads#index'
   post 'leads/bulkop', to: 'leads#bulkop'
+  post 'leads/import', to: 'leads#import', as: :leads_import
   resources :leads
 
   resources :leadsets

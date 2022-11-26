@@ -38,9 +38,62 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     authorize! :edit, @lead
   end
 
+  ##          0     1     2      3            4           5      6         7        8
+  ## fields: id, date, name, email, company url, source tag, phone, linkedin, comment
+  def import
+    authorize! :import, ::Lead
+    file = params[:csv_file]
+    flags = []
+    errors = []
+    CSV.read(file.path, headers: true).each do |row|
+      puts! row, 'row'
+      puts! row[3], 'email?'
+      company = ::Leadset.find_or_create_by({ company_url: row[4] })
+      lead = ::Lead.new({
+        name: row[2] || 'there',
+        full_name: row[2] || 'there',
+        email: row[3],
+        m3_leadset_id: company.id,
+        phone: row[6],
+      })
+      flag = lead.save
+      flags << flag
+      if !flag
+        errors << lead.errors.full_messages.join(", ")
+      end
+    end
+    flash[:notice] = "Result: #{flags.inspect} ."
+    flash[:alert] = errors
+    redirect_to action: 'new'
+  end
+
   def index
     authorize! :index, ::Lead
-    @leads = ::Lead.all.includes( :leadset )
+    @leads = ::Lead.all.includes( :leadset, :email_campaign_leads )
+    lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
+
+    map = %Q{
+      function() {
+        emit(this.to_email, {count: 1})
+      }
+    }
+    reduce = %Q{
+      function(key, values) {
+        var result = {count: 0};
+        values.forEach(function(value) {
+          result.count += value.count;
+        });
+        return result;
+      }
+    }
+    @email_contexts = {}
+    tmp_contexts = Ish::EmailContext.all.where( :to_email.in => lead_emails
+      ).map_reduce( map, reduce
+      ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/
+      ).to_a
+    tmp_contexts.map { |x| @email_contexts[x[:_id]] = x[:value][:count].to_i }
+    # puts! @email_contexts, '@email_contexts'
+
   end
 
   def new
@@ -67,8 +120,9 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   private
 
   def set_lists
+    super
     @leadsets_list = [ [nil,nil] ] + ::Leadset.all.map { |k| [ k.name, k.id ] }
-    @email_campaigns_list = [ [nil,nil] ] + Ish::EmailContext.all_campaigns.map { |k| [ k.slug, k.id ] }
+    @email_campaigns_list = [ [nil,nil] ] + Ish::EmailContext.unsent_campaigns.map { |k| [ k.slug, k.id ] }
   end
 
 end

@@ -71,9 +71,15 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def index
     authorize! :index, ::Ish::EmailContext
     @email_ctxs = ::Ish::EmailContext.all
+
     if params[:notsent]
       @email_ctxs = @email_ctxs.where( sent_at: nil )
     end
+
+    if params[:type]
+      @email_ctxs = @email_ctxs.where( type: params[:type] )
+    end
+
     @email_ctxs = @email_ctxs.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )
   end
 

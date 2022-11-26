@@ -18,6 +18,9 @@
           %th Company
           %th Email
           %th Tag
+          %th created_at
+          %th n campaign sends
+          %th n single sends
 
       %tbody
         - @leads.each do |lead|
@@ -26,8 +29,9 @@
             %td= link_to lead.name, lead_path( lead )
             %td= lead.leadset&.name
             %td= lead.email
-            -# %td= link_to raw('<i class="fa fa-envelope"></i>'), "mailto:#{lead.email}" if lead.email.present?
-
-
             %td= lead.tag
+            %td= lead.created_at.to_s[0..10]
+            %td= lead.email_campaign_leads.count
+            %td= @email_contexts[lead.email] || '-'
+
 
