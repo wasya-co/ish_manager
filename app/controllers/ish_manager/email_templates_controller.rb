@@ -32,7 +32,7 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
     authorize! :iframe_src, Ish::EmailTemplate
     @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
-    @email_ctx = EmailContext.new({ body: Ish::LoremIpsum.html })
+    @email_ctx = Ish::EmailContext.new({ body: Ish::LoremIpsum.html })
     render layout: false
   end
 
@@ -47,7 +47,7 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
 
     @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
-    @email_ctx = EmailContext.new({ body: Ish::LoremIpsum.html })
+    @email_ctx = ::Ish::EmailContext.new({ body: Ish::LoremIpsum.html })
   end
 
   def update

@@ -16,9 +16,13 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
       'v'   => 1,
       'tid' => 'UA-53077236-2',
       'cid' => @lead.cid,
+      'uid' => @lead.uid,
       't'   => 'event',
       'ec'  => 'email',
       'ea'  => 'open',
+      'cn'  => @campaign.slug,
+      'ci'  => @campaign.slug,
+      'cm'  => 'email',
       'utm_source'   => @campaign.slug,
       'utm_medium'   => 'email',
       'utm_campaign' => @campaign.slug,
@@ -27,12 +31,13 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     @click_tracking = {
       'cid' => @lead.cid,
+      'uid' => @lead.uid,
       't'   => 'event',
       'ec'  => 'email',
       'ea'  => 'clk-ctct', # clicked contact us
-      'utm_source'   => 'eror1',
+      'utm_source'   => @campaign.slug,
       'utm_medium'   => 'email',
-      'utm_campaign' => 'eror1',
+      'utm_campaign' => @campaign.slug,
     }.map { |k, v| "#{k}=#{v}" }.join("&")
     actl.instance_variable_set( :@click_tracking, @click_tracking )
 
