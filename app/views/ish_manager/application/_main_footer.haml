@@ -11,9 +11,11 @@
             %li <b>Role name:</b> #{@current_profile.role_name}
 
         .col-sm-4
-          \~__^
-          = @version
-          -# <pre>#{@changelog}</pre>
+          %ul
+            %li \~__^
+            %li= @version
+            %li= Time.now.to_s
+            -# <pre>#{@changelog}</pre>
 
         .col-sm-2
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete

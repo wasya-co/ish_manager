@@ -15,7 +15,8 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       redirect_to action: 'show', id: @email_ctx.id
       return
     else
-      flash[:alert] = "Could not save: #{@email_ctx.errors.full_messages.join(', ')}"
+      # flash[:alert] = "Could not save: #{@email_ctx.errors.full_messages.join(', ')}"
+      flash[:alert] = ['Could not save:'] + @email_ctx.errors.full_messages
       render action: :new
       return
     end
@@ -38,8 +39,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :do_send, @ctx
     case @ctx.type
     when ::Ish::EmailContext::TYPE_SINGLE
-      flash[:notice] = 'Scheduled a single send'
-      IshManager::OfficeMailer.send_context_email(params[:id]).deliver_later
+      flash[:notice] = 'Scheduled a single send - v2'
+      @ctx.send_at = Time.now
+      @ctx.save
     when ::Ish::EmailContext::TYPE_CAMPAIGN
       flash[:notice] = 'Scheduled campaign send'
       IshManager::EmailCampaignJob.new.perform(params[:id])

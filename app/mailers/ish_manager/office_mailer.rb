@@ -69,7 +69,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
       rendered_str = ac.render_to_string("ish_manager/email_templates/plain")
     end
 
-    @email_ctx.update( rendered_str: rendered_str, sent_at: Time.now )
+    @email_ctx.update( rendered_str: rendered_str, sent_at: Time.now.to_s )
 
     mail( from: @email_ctx.from_email,
           to: @email_ctx.to_email,

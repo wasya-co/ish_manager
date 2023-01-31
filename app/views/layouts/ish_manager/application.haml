@@ -38,14 +38,18 @@
             .col-sm-12
               - if notice
                 - if notice.class == Array
-                  %ul
+                  %ul.notice
                     - notice.map do |n|
-                      %li
-                        - n.map do |k,v|
-                          <b>#{k} :</b> #{v}
-                %p.notice= notice
+                      %li= n
+                - else
+                  %p.notice= notice
               - if alert
-                %p.alert= alert
+                - if alert.class == Array
+                  %ul.alert
+                    - alert.map do |n|
+                      %li= n
+                - else
+                  %p.alert= alert
         = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?

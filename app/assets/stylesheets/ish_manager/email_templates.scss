@@ -1,7 +1,10 @@
 
 
-.email-contexts-new {
+.email-contexts-new,
+.email-contexts-edit {
   .actions {
+    margin-top: 10px;
+    margin-bottom: 50px;
     display: flex;
     justify-content: space-between;
   }
