@@ -1,0 +1,20 @@
+[Unit]
+Description=sidekiq
+
+[Service]
+# not type forking
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/projects/microsites3a/current
+ExecStart=/home/ubuntu/.rbenv/shims/bundle exec sidekiq -q mailers default >> /var/log/ish_sidekiq.log 2>> /var/log/ish_sidekiq_err.log
+ExecStop=/bin/echo nothing
+Restart=on-failure
+Environment=RAILS_ENV=production
+Environment=GITHUB_TOKEN=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
+Environment=GMAIL_DOMAIN=email-smtp.us-east-1.amazonaws.com
+Environment=GMAIL_USERNAME=AKIA4DHE3QS74O74KEXG
+Environment=GMAIL_PASSWORD=BIdanfOIGD1bkHhHykRtEHBu1uf97xXIHbZ6xASWAtGG
+
+[Install]
+WantedBy=multi-user.target
+
