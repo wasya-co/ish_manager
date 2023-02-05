@@ -64,12 +64,16 @@
         %li
           = link_to 'Leads', leads_path
           = link_to '[+]', new_lead_path
-        %li= link_to 'Leadsets', leadsets_path
+        %li
+          = link_to 'Leadsets', leadsets_path
+          = link_to '[+]', new_leadset_path
         %li= link_to 'Email Templates', email_templates_path
         %li
           = link_to 'Contexts', email_contexts_path
-          = link_to 'Campaigns', email_campaigns_path
           = link_to '[+]', new_email_context_path
-          = link_to '[to-send]', notsent_email_contexts_path
+          = link_to 'unsent', notsent_email_contexts_path
+        %li
+          = link_to 'Campaigns', email_campaigns_path
+          = link_to '[+]', new_email_campaign_path
   %hr
 
