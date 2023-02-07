@@ -98,5 +98,8 @@ $(function () {
     $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' })
   }
 
+  // From: https://materializecss.com/select.html
+  $('select').formSelect();
+
 });
 

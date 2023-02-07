@@ -45,6 +45,8 @@ IshManager::Engine.routes.draw do
   # office, below
   #
 
+  resources :office_actions
+
   resources :email_campaigns
 
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
