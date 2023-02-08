@@ -27,6 +27,10 @@ IshManager::Engine.routes.draw do
   #   resources :covered_calls
   # end
 
+  namespace :iro do
+    get 'watches', to: 'iro_watches#index'
+  end
+
   scope 'gameui' do
     get 'maps/:id/map-editor', to: 'maps#map_editor', as: :location_map_editor
     resources 'maps' do
@@ -48,12 +52,12 @@ IshManager::Engine.routes.draw do
   resources :office_actions
 
   resources :email_campaigns
+  resources :email_campaign_leads, as: :campaign_leads
 
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
   post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :email_context_send
-  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: false, type: Ish::EmailContext::TYPE_SINGLE   }
-  # get  'email_contexts/campaigns',               to: 'email_contexts#index',      as: :email_campaigns,        defaults: { notsent: false, type: Ish::EmailContext::TYPE_CAMPAIGN }
+  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: false }
   get  'email_contexts/notsent',                 to: 'email_contexts#index',      as: :notsent_email_contexts, defaults: { notsent: true }
   resources :email_contexts
 
@@ -72,7 +76,6 @@ IshManager::Engine.routes.draw do
 
   resources :leadsets
 
-  resources :email_campaign_leads, as: :campaign_leads
 
   resources :meetings
 
