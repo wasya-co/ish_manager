@@ -6,7 +6,7 @@ require "ish_manager/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "ish_manager"
-  s.version     = '0.1.8.350'
+  s.version     = '0.1.8.351'
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
   s.homepage    = "http://wasya.co"
@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_runtime_dependency "rails", "~> 6.1.0"
-  # s.add_runtime_dependency 'aws-sdk' ## Too much stuff! I only need s3. _vp_ 2022-10-19
   s.add_runtime_dependency 'aws-sdk-s3'
   s.add_runtime_dependency "cancancan", [ "~> 3.2" ]
   s.add_runtime_dependency "devise", [ "~> 4.3" ]

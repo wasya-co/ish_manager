@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: dd60f574c41d0a664bde19e760717f2bb8d8990f
+  revision: 5f5897fc674bd744cb57946a6d248fa8aa3a1625
   branch: 2.1.0
   specs:
-    ish_models (0.0.33.191)
+    ish_models (0.0.33.194)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.350)
+    ish_manager (0.1.8.351)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise (~> 4.3)
@@ -94,7 +94,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.701.0)
+    aws-partitions (1.707.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -154,7 +154,7 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    mail (2.8.0.1)
+    mail (2.8.1)
       mini_mime (>= 0.1.1)
       net-imap
       net-pop
@@ -228,9 +228,9 @@ GEM
     rake (13.0.6)
     redis-client (0.12.1)
       connection_pool
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     ruby2_keywords (0.0.5)
     sidekiq (7.0.3)
       concurrent-ruby (< 2)
