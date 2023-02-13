@@ -2,35 +2,16 @@
 .email-contexts-show
 
   %ul
-    %li <b>Type:</b> #{@email_ctx.type}
     %li <b>Title:</b> #{@email_ctx.title}
     %li <b>From:</b> #{@email_ctx.from_email}
     %li <b>Subject:</b> #{@email_ctx.subject}
-    - if @email_ctx.type == Ish::EmailContext::TYPE_SINGLE
-      %li <b>To:</b> #{@email_ctx.to_email}
-      %li <b>Template:</b> #{@email_ctx.email_template.slug} <b>Type:</b> #{@email_ctx.email_template.type}
+    %li <b>To:</b> #{@email_ctx.to_email}
+    %li <b>Template:</b> #{@email_ctx.email_template.slug} <b>Type:</b> #{@email_ctx.email_template.type}
     %li <b>Send at:</b> #{@email_ctx.send_at&.strftime('%Y-%m-%d %l:%M%P')}
     %li <b>Sent at:</b> #{@email_ctx.sent_at&.strftime('%Y-%m-%d %l:%M%P')}
-
-    -#
-    -# Yes sent
-    -#
-    - if @email_ctx.sent_at
-      - if @email_ctx.type == Ish::EmailContext::TYPE_CAMPAIGN
-        %li
-          <b>C_Leads (#{@email_ctx.campaign_leads.length}):</b>
-          - @email_ctx.campaign_leads&.each do |c_lead|
-            = c_lead.lead.email
-            = link_to '[view]', campaign_lead_path( c_lead )
-            ,
-
-    - else # Draft
-      - if @email_ctx.type == Ish::EmailContext::TYPE_CAMPAIGN
-        %li <b>Leads (#{@email_ctx.leads.length}):</b> #{@email_ctx.leads.map { |p| p&.email }.join(", ") }
-
-      %li
-        = button_to 'Send', email_context_send_path(@email_ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
-        = link_to '[~]', edit_email_context_path(@email_ctx)
+    %li
+      = button_to 'Send', email_context_send_path(@email_ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
+      = link_to '[~]', edit_email_context_path(@email_ctx)
 
   - if @email_ctx.sent_at
     = raw @email_ctx.rendered_str

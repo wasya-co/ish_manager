@@ -14,8 +14,8 @@
           = f.label :email_template_id
           = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_ctx.email_template&.id )
         .field
-          = f.label :title
-          = f.text_field :title
+          = f.label :slug
+          = f.text_field :slug
 
         .field
           = f.label :from_email
