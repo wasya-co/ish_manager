@@ -22,9 +22,7 @@
           = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_ctx.from_email)
 
       .col.s6
-        .field
-          = f.label :type
-          = f.select :type, options_for_select(Ish::EmailContext.types_list, selected: email_ctx.type)
+        -# @TODO: clean this up. _vp_ 2023-02-13
         .TYPE_SINGLE
           .field
             = f.label :to_email
