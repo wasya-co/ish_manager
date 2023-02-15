@@ -1,0 +1,8 @@
+
+%h2 Email Messages
+
+%ol
+  - @email_messages.each do |msg|
+    %li
+      From: #{msg.from}
+      = link_to 'view', email_message_path(msg)

@@ -54,6 +54,8 @@ IshManager::Engine.routes.draw do
   resources :email_campaigns
   resources :email_campaign_leads, as: :campaign_leads
 
+  resources :email_messages
+
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
   post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :email_context_send
