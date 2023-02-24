@@ -4,6 +4,7 @@ module IshManager
     protect_from_forgery :with => :exception, :prepend => true
     before_action :set_current_ability
     before_action :set_changelog
+    before_action :set_title
     check_authorization
     rescue_from ::CanCan::AccessDenied, :with => :access_denied
 
@@ -20,6 +21,15 @@ module IshManager
     def access_denied exception
       store_location_for :user, request.path
       redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message
+    end
+
+    def pp_errors err
+      err
+    end
+
+    def puts! a, b=''
+      puts "+++ +++ #{b}"
+      puts a.inspect
     end
 
     def set_changelog
@@ -43,13 +53,8 @@ module IshManager
       @videos_list = Video.all.list
     end
 
-    def pp_errors err
-      err
-    end
-
-    def puts! a, b=''
-      puts "+++ +++ #{b}"
-      puts a.inspect
+    def set_title
+      @page_title = "#{ params[:controller].gsub('ish_manager/', '') } #{params[:action]} #{params[:slug]||params[:id]}"
     end
 
     # @TODO: obsolete, remove _vp_ 2022-10-15
