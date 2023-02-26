@@ -54,7 +54,7 @@ module IshManager
     end
 
     def set_title
-      @page_title = "#{ params[:controller].gsub('ish_manager/', '') } #{params[:action]} #{params[:slug]||params[:id]}"
+      @page_title = "#{ params[:controller].gsub('ish_manager/', '') } #{params[:action]} #{params[:slug]||params[:id]} ".gsub("  ", " ")
     end
 
     # @TODO: obsolete, remove _vp_ 2022-10-15

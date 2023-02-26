@@ -6,9 +6,9 @@
     %i.fa.fa-compress.collapse-expand#collapseHeaderPiCMS
       PiousboxCMS
     %ul
-      %li
-        = link_to 'Photos', photos_path
-        = link_to '[+]', new_photo_path
+      -# %li
+      -#   = link_to 'Photos', photos_path
+      -#   = link_to '[+]', new_photo_path
       %li
         = render 'ish_manager/galleries/menu'
       %li
@@ -23,6 +23,8 @@
           = form_tag videos_path, method: :get do
             = text_field_tag :q
         = link_to '[+]', new_video_path
+      %li
+        = link_to 'Categories', categories_path
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderIsh

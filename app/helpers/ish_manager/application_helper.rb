@@ -1,6 +1,19 @@
 module IshManager
   module ApplicationHelper
 
+
+    #
+    # api paths
+    #
+    def api_map_path map
+      "/api/maps/view/#{map.slug}"
+    end
+
+    def api_marker_path marker
+      "/api/markers/view/#{marker.id}"
+    end
+
+
     def current_layout
       layout = controller.class.send(:_layout)
       if layout.nil?
@@ -38,17 +51,6 @@ module IshManager
 
     def pp_amount a
       "$ #{'%.2f' % a}"
-    end
-
-    #
-    # api paths
-    #
-    def api_map_path map
-      "/api/maps/view/#{map.slug}"
-    end
-
-    def api_marker_path marker
-      "/api/markers/view/#{marker.id}"
     end
 
   end

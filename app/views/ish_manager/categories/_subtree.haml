@@ -1,0 +1,12 @@
+
+-## provides local vars: subtree, config
+
+- puts! config, 'config'
+- puts! subtree, 'subtree'
+
+%ul
+  - subtree.select { |c| c[5] == config[:parent_id] }.each do |c|
+    %li
+      = c[1]
+      - if config[:parent_ids].include?( c[0] )
+        = render 'ish_manager/categories/subtree', subtree: subtree, config: { parent_id: c[0], parent_ids: config[:parent_ids] }

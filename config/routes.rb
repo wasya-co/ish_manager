@@ -3,6 +3,8 @@ IshManager::Engine.routes.draw do
 
   root :to => 'application#home'
 
+  get 'categories', to: 'categories#index'
+
   get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
   get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }

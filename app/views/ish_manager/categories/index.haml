@@ -1,0 +1,3 @@
+
+%h1 Categories
+= render 'ish_manager/categories/subtree', subtree: @categories_flat, config: { parent_id: nil, parent_ids: @categories_flat.map { |c| c[5] }.uniq }
