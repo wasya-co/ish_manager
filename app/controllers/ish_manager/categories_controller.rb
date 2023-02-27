@@ -7,6 +7,7 @@ class ::IshManager::CategoriesController < IshManager::ApplicationController
     authorize! :categories_index, IshManager::Ability
     # @categories = Category.all_hierarchical
     @categories_flat = Category.all_flat
+    @tags = Category.all_tags
   end
 
 end

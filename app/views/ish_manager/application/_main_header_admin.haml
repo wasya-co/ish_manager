@@ -24,7 +24,7 @@
             = text_field_tag :q
         = link_to '[+]', new_video_path
       %li
-        = link_to 'Categories', categories_path
+        = link_to 'Categories & Tags', categories_path
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
@@ -63,7 +63,9 @@
           = link_to 'Meetings', meetings_path
           = link_to '[+]', new_meeting_path
         %li
-          = link_to 'EmailMessages', email_messages_path
+          -## superceded by conversations, below _vp_ 2023-02-26
+          -# = link_to "Email Messages (#{Office::EmailMessage.count})", email_messages_path
+          = link_to "Email Conv's (#{Office::EmailConversation.count})", email_conversations_path
       %ul
         %li
           = link_to 'Leads', leads_path
@@ -85,7 +87,7 @@
 
     .c
     %i.fa.fa-compress.collapse-expand#collapseHeaderIro
-      Iro
+      Iro Wor
     .content
       %ul
         %li

@@ -1,0 +1,65 @@
+
+.email-conversations-index,
+.email-conversations-show {
+
+  .messages {
+    // border: 1px solid red;
+
+    padding-left: 0;
+
+    list-style-type: none;
+
+    li {
+
+      margin-bottom: 0.2em;
+
+      // clear: both;
+
+      .date {
+        // border: 1px solid orange;
+
+        width: 120px;
+        float: left;
+      }
+
+      .preview {
+        // border: 1px solid gold;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+      }
+    }
+  }
+
+  .participants {
+    border: 1px solid #999900;
+    background: #ffffcc;
+    border-radius: 5px;
+    padding: 5px;
+    display: inline;
+
+    ul {
+      display: inline;
+      padding-left: 0;
+      li {
+        display: inline;
+      }
+    }
+  }
+
+}
+
+.email-conversations-show {
+  .header {
+    display: flex;
+    align-items: baseline;
+
+    .label {
+      padding-right: 0.2em;
+    }
+  }
+
+
+}

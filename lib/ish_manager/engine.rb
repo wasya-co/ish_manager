@@ -13,6 +13,7 @@ module IshManager
       app.config.assets.precompile << %w( ish_manager/application.js ish_manager/application.css )
       app.config.assets.precompile << %w( ish_manager/materialize.js ish_manager/materialize.css )
       app.config.assets.precompile << %w( missing.png )
+      app.config.assets.precompile << %w( ish_manager/email_iframe.css )
     end
   end
 end

@@ -56,7 +56,13 @@ IshManager::Engine.routes.draw do
   resources :email_campaigns
   resources :email_campaign_leads, as: :campaign_leads
 
+  get 'email_messages/iframe/:id',   to: 'email_messages#show_iframe',   as: :email_message_iframe
+  get 'email_messages/source/:id',   to: 'email_messages#show_source',   as: :email_message_source
+  get 'email_messages/stripped/:id', to: 'email_messages#show_stripped', as: :email_message_stripped
   resources :email_messages
+
+  get 'email_conversations', to: 'email_conversations#index'
+  get 'email_conversations/:id', to: 'email_conversations#show', as: :email_conversation
 
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'

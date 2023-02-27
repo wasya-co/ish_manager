@@ -52,6 +52,11 @@
 
 }
 
+.email-templates--form-reply-mini,
+.email-templates--form-schedule-mini {
+
+}
+
 .email-contexts--form,
 .email-templates--form {
 
@@ -75,5 +80,25 @@
     border: 1px solid red;
     padding: 10px;
     margin: 10px;
+  }
+
+
+}
+
+.form-mini {
+  margin-left: 20px;
+  display: inline-block;
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+  background: #eee;
+
+  * {
+    display: inline;
+  }
+  .send-at {
+    input {
+      width: 150px;
+    }
   }
 }

@@ -4,8 +4,9 @@
  *= require ish_manager/jquery-ui
  *= require_self
  *
- * includes email context:
- *= require ish_manager/email_templates
+ *= require ish_manager/email_contexts_templates
+ *= require ish_manager/email_conversations
+ *= require ish_manager/email_messages
  *
  *= require ish_manager/galleries
  *= require ish_manager/maps
@@ -19,8 +20,12 @@
 **/
 
 a[target='_blank'] {
+  &::before {
+    content: '[ '
+  }
   &::after {
-    content: ' ^]' !important;
+    content: ' ^]';
+    // content: ' ^]' !important;
     // font-size: .5em;
   }
 }
@@ -164,6 +169,10 @@ ul:not(.browser-default).bullets, {
   float: right;
 }
 
+/* H */
+.hide, .hidden {
+  display: none;
+}
 
 /* I */
 img.img-400 {

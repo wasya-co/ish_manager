@@ -1,0 +1,15 @@
+
+.email-messages-show {
+
+  .main-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .body {
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 1em;
+  }
+
+}

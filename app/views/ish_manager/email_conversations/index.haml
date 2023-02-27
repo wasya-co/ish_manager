@@ -1,0 +1,12 @@
+
+.email-conversations-index
+  %h1 Email Conversations
+
+  %ul
+    - @email_conversations.each do |c|
+      %li
+        = c.latest_date.to_s[0...10]
+        .participants= c.participants.join(", ")
+        = link_to c.subject, email_conversation_path( c )
+        (#{c.email_messages.count})
+

@@ -1,0 +1,27 @@
+
+.email-conversations-show
+  .actions.hide
+    = link_to '[<- all conv]', email_conversations_path
+
+  .header
+    .label
+      = link_to '[<-]', email_conversations_path
+      Conversation:
+    %h1
+      #{@email_conversation.subject}
+      (#{@email_conversation.email_messages.all.count})
+
+  .participants
+    %ul
+      - @email_conversation.participants.each do |p|
+        %li
+          = p
+          = render 'ish_manager/email_templates/form_reply_mini'
+          = render 'ish_manager/email_templates/form_schedule_mini'
+
+  %ul.messages
+    - @email_messages.each do |m|
+      %li
+        .date= link_to m.date.to_s[0...10], email_message_path( m )
+        .preview
+          = (ActionView::Base.full_sanitizer.sanitize( m.part_html )||'<no-info>')[0..300]
