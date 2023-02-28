@@ -1,0 +1,21 @@
+
+.manager-leads-index {
+  th.company-url {
+    width: 10px;
+  }
+  th.created-at,
+  td.created-at {
+    width: 200px;
+  }
+}
+
+.manager-leadsets-index {
+  padding: 1em;
+
+  .actions label {
+    border: 1px solid gold;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    background: #999900;
+  }
+}

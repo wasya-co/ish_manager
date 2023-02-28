@@ -86,12 +86,14 @@ $(function () {
 
 
   if ('function' === typeof $('body').DataTable) {
-    $('#dataTable').DataTable({
-        pageLength: 10,
-        lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
-        lengthChange: true,
-        "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
-    })
+    const _props = {
+      pageLength: 10,
+      lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
+      lengthChange: true,
+      "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
+    }
+    $('#dataTable').DataTable(_props)
+    $('.data-table').DataTable(_props)
   }
 
   if ('function' === typeof $('body').datepicker) {
@@ -99,7 +101,48 @@ $(function () {
   }
 
   // From: https://materializecss.com/select.html
-  $('select').formSelect();
+  if ('function' === typeof $('select').formSelect) {
+    $('select').formSelect();
+  }
+
+  if ($(".data-table").length) {
+    $("input[type='checkbox'].i-sel").change(() => {
+      $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
+    })
+  }
+
+  $("button.delete-btn").click(e => {
+    let out = []
+
+    $( $("input[type='checkbox'].i-sel:checked") ).each( idx => {
+      let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
+      out.push(val)
+    })
+
+    $.ajax({
+      url: '/api/leadsets',
+      type: 'DELETE',
+      data: { leadset_ids: out },
+      success: e => {
+        logg(e, 'deleted Ok')
+      },
+      error: e => {
+        logg(e, 'deleted Err')
+      },
+    })
+
+  })
+
+  $(".select-all input[type='checkbox']").change((e) => {
+    const count = $("input[type='checkbox'].i-sel:checked").length
+    const new_state = count ? false : true
+
+    $( $("input[type='checkbox'].i-sel") ).each( i => {
+      $( $("input[type='checkbox'].i-sel")[i] ).prop('checked', new_state)
+    })
+
+    $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
+  })
 
 });
 

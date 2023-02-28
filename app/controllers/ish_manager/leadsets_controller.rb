@@ -15,6 +15,18 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
+  def destroy
+    puts! params, 'params'
+
+    leadsets = Leadset.find( params[:leadset_ids] )
+    @results = []
+    leadsets.each do |leadset|
+      @results.push leadset.discard
+    end
+    flash[:notice] = "Discard outcome: #{@results.inspect}."
+    redirect_to action: 'index'
+  end
+
   def edit
     @leadset = Leadset.find params[:id]
     authorize! :edit, @leadset
@@ -22,12 +34,14 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Leadset
-    @leadsets = Leadset.all # where( :profile => @current_profile, :is_trash => false )
+    @leadsets = Leadset.all.kept # where( :profile => @current_profile, :is_trash => false )
     # if params[:is_done]
     #   @leadsets = @leadsets.where( :is_done => true )
     # else
     #   @leadsets = @leadsets.where( :is_done => false )
     # end
+
+    render layout: 'ish_manager/application_fullwidth'
   end
 
   def new

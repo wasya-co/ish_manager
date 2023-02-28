@@ -10,7 +10,7 @@ module IshManager
 
     def home
       authorize! :home, IshManager::Ability
-      render 'home'
+      render 'home', layout: 'ish_manager/application_fullwidth'
     end
 
     #
