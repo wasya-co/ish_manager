@@ -2,56 +2,59 @@
 .email-conversations-index,
 .email-conversations-show {
 
-  .messages {
-    // border: 1px solid red;
+  font-size: 14px;
 
-    padding-left: 0;
+  margin: 0 1em;
 
-    list-style-type: none;
+  > .actions {
+    border: 1px solid cyan;
 
-    li {
-
-      margin-bottom: 0.2em;
-
-      // clear: both;
-
-      .date {
-        // border: 1px solid orange;
-
-        width: 120px;
-        float: left;
-      }
-
-      .preview {
-        // border: 1px solid gold;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-      }
-    }
-  }
-
-  .participants {
-    border: 1px solid #999900;
-    background: #ffffcc;
-    border-radius: 5px;
-    padding: 5px;
     display: inline;
 
-    ul {
+    > * {
       display: inline;
-      padding-left: 0;
-      li {
-        display: inline;
+      margin-right: .3em;
+    }
+  }
+
+  .conversations {
+    .item:first-child {
+      border-top: 1px solid yellow;
+    }
+    .item:hover {
+      background: #eee;
+    }
+
+    .item {
+      border-bottom: 1px solid yellow;
+
+      margin-bottom: 0.3em;
+
+      display: flex;
+
+      .subject {
+        // background: #ccc;
+
+        flex-grow: 1;
       }
     }
   }
 
-}
+  // refers to number of messages in a conversation
+  .count {
+    display: inline;
+    width: 30px;
+    text-align: right;
+  }
 
-.email-conversations-show {
+  .datetime {
+    // background: #999;
+    width: 150px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
   .header {
     display: flex;
     align-items: baseline;
@@ -61,5 +64,65 @@
     }
   }
 
+  // these are inside a conversation. _vp_ 2023-02-28
+  .messages {
+    // border: 1px solid red;
+
+    padding-left: 0;
+    list-style-type: none;
+
+    .item:first-child {
+      border-top: 1px solid yellow;
+    }
+    .item {
+      border-bottom: 1px solid yellow;
+      margin-bottom: 0.2em;
+
+      .expand {
+        border: 1px solid red;
+        max-height: 500px;
+        overflow: auto;
+      }
+
+      .my-actions {
+        display: flex;
+      }
+
+      .preview {
+        // border: 1px solid gold;
+
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .row-1 {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+  .participants {
+    width: 250px;
+    padding-left: .3em;
+
+    // border: 1px solid #999900;
+    // background: #ffffcc;
+    // border-radius: 5px;
+    // padding: 5px;
+
+    // display: inline;
+
+    ul {
+      display: inline;
+      padding-left: 0;
+      li {
+        display: inline;
+      }
+    }
+  }
 
 }

@@ -12,6 +12,7 @@
 //
 // require ish_manager/vendor/jquery-3.6.0.min
 // require ish_manager/vendor/bootstrap.min
+//
 //= require ish_manager/vendor/jquery.iframe-transport
 //= require ish_manager/vendor/jquery.ui.widget
 //= require ish_manager/vendor/jquery.fileupload
@@ -105,29 +106,39 @@ $(function () {
     $('select').formSelect();
   }
 
-  if ($(".data-table").length) {
-    $("input[type='checkbox'].i-sel").change(() => {
-      $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
-    })
-  }
+  //
+  // select-all
+  // _vp_ 2023-02-28
 
-  $("button.delete-btn").click(e => {
-    let out = []
+  $("input[type='checkbox'].i-sel").change(() => {
+    $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
+  })
+
+  $(".delete-btn").click(function(e) {
+    logg(e, 'deleting...')
+
+    const action_path = $(this).data('url')
+    const out = []
 
     $( $("input[type='checkbox'].i-sel:checked") ).each( idx => {
       let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
       out.push(val)
     })
+    logg(out, 'out')
 
     $.ajax({
-      url: '/api/leadsets',
+      url: action_path,
       type: 'DELETE',
-      data: { leadset_ids: out },
+      data: {
+        ids: out,
+        jwt_token: localStorage.getItem('jwt_token'),
+      },
       success: e => {
-        logg(e, 'deleted Ok')
+        logg((e||{}).responseText, 'deleted Ok')
+        location.reload()
       },
       error: e => {
-        logg(e, 'deleted Err')
+        logg((e||{}).responseText, 'deleted Err')
       },
     })
 
@@ -135,13 +146,47 @@ $(function () {
 
   $(".select-all input[type='checkbox']").change((e) => {
     const count = $("input[type='checkbox'].i-sel:checked").length
-    const new_state = count ? false : true
+    const new_state = count ? false : true // all will be checked?
+
+    $(".select-all input[type='checkbox']").prop('checked', new_state)
 
     $( $("input[type='checkbox'].i-sel") ).each( i => {
       $( $("input[type='checkbox'].i-sel")[i] ).prop('checked', new_state)
     })
 
     $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
+  })
+
+  //
+  // email conversations
+  //
+  $("body.email_conversations-show a.preview").click(function(e) {
+    // logg(e, 'clicked')
+
+    if ($(this).data('expanded')) {
+      $(this).parent().find(".expand").html('')
+      $(this).parent().find(".my-actions").addClass('hide')
+      $(this).data('expanded', false)
+      return
+    }
+
+    const action_path = "/api/email_messages/" + $(this).data('id')
+
+    $.ajax({
+      url: action_path,
+      type: 'GET',
+      data: {
+        jwt_token: localStorage.getItem('jwt_token'),
+      },
+      success: e => {
+        $(this).parent().find(".expand").html(e.item.part_html)
+        $(this).parent().find(".my-actions").removeClass('hide')
+        $(this).data('expanded', true)
+      },
+      error: e => {
+        logg((e||{}).responseText, 'cannot get email_message')
+      },
+    })
   })
 
 });

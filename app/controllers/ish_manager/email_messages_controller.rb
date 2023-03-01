@@ -3,7 +3,7 @@ class ::IshManager::EmailMessagesController < IshManager::ApplicationController
 
   def index
     authorize! :email_messages_index, IshManager::Ability
-    @email_messages = Office::EmailMessage.all
+    @email_messages = Office::EmailMessage.all.order_by( date: :desc )
   end
 
   def show

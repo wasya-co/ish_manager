@@ -2,7 +2,8 @@
 .manager-leadsets-index
   %h5
     = link_to 'Leadsets', leadsets_path
-    (#{Leadset.all.count})
+    (#{Leadset.kept.length})
+    (trash: #{Leadset.discarded.length})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_leadset_path
 
   .actions

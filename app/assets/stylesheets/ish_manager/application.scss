@@ -111,6 +111,11 @@ body.application-fullwidth {
   padding: 0.5em;
 }
 
+/* B */
+
+.btn {
+  border: 1px solid red;
+}
 
 /* C */
 
@@ -187,7 +192,7 @@ table.dataTable {
 
 /* H */
 .hide, .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* I */
@@ -305,12 +310,13 @@ textarea.large {
 
 /* N */
 
-label.n-selected {
-  border: 1px solid red;
-  padding: 0.5em;
+.n-selected {
 
+  &::before {
+    content: "(";
+  }
   &::after {
-    content: " Selected";
+    content: ")";
   }
 }
 

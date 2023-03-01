@@ -5,6 +5,7 @@ module IshManager
     before_action :set_current_ability
     before_action :set_changelog
     before_action :set_title
+    before_action :set_jwt
     check_authorization
     rescue_from ::CanCan::AccessDenied, :with => :access_denied
 
@@ -42,6 +43,15 @@ module IshManager
       end
       @current_profile ||= ::Ish::UserProfile.find_by({ email: current_user.email })
       @current_ability ||= ::IshManager::Ability.new( @current_profile )
+    end
+
+    def set_jwt
+      @jwt_token = encode(user_profile_id: @current_user.profile.id.to_s)
+    end
+
+    def encode(payload, exp = 48.hours.from_now) # @TODO: definitely change, right now I expire once in 2 days.
+      payload[:exp] = exp.to_i
+      JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
     end
 
     def set_lists

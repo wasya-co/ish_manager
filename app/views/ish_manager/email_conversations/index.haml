@@ -1,12 +1,37 @@
 
 .email-conversations-index
-  %h1 Email Conversations
 
-  %ul
+  .header
+    %i.material-icons mail
+    Inbox (#{Office::EmailConversation.all.length})
+
+
+  .actions
+
+    .select-all= check_box_tag :select_all
+    .n-selected -
+    %a.btn.delete-btn{ href: "javascript: void(0)", data: { url: '/api/email_conversations' } }
+      %i.material-icons delete
+    %a.btn.reload-btn{ href: "javascript: location.reload()" }
+      %i.material-icons refresh
+
+
+
+  .conversations
     - @email_conversations.each do |c|
-      %li
-        = c.latest_date.to_s[0...10]
-        .participants= c.participants.join(", ")
-        = link_to c.subject, email_conversation_path( c )
-        (#{c.email_messages.count})
+      .item
+        = check_box_tag 'email_conversation_ids[]', c.id.to_s, nil, { class: 'i-sel' }
+        .count
+          (#{c.email_messages.count})
+        .participants
+          = c.participants.join(", ")
+
+
+        .subject
+          = link_to c.subject, email_conversation_path( c )
+
+        .datetime
+          .date= c.latest_date.strftime('%Y-%m-%d')
+          .time= c.latest_date.strftime('%l:%M%P')
+
 
