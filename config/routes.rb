@@ -64,6 +64,7 @@ IshManager::Engine.routes.draw do
   get 'email_conversations', to: 'email_conversations#index'
   get 'email_conversations/:id', to: 'email_conversations#show', as: :email_conversation
 
+  get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index', as: :email_contexts_for_lead
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with/:template_slug', to: 'email_contexts#new'
   post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :email_context_send
@@ -79,12 +80,16 @@ IshManager::Engine.routes.draw do
 
   resources :email_unsubscribes
 
+  resources :lead_leadsets
+
   get 'leads',      :to => 'leads#index'
   post 'leads/bulkop', to: 'leads#bulkop'
   post 'leads/import', to: 'leads#import', as: :leads_import
   resources :leads
 
   resources :leadsets
+
+  resources :leadset_tags
 
 
   resources :meetings
@@ -95,6 +100,8 @@ IshManager::Engine.routes.draw do
   resources :payments
 
   resources :reports
+
+  resources :scheduled_emails
 
   resources :user_profiles do
     resources :newsitems

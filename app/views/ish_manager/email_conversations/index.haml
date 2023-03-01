@@ -18,20 +18,20 @@
 
 
   .conversations
-    - @email_conversations.each do |c|
+    - @email_conversations.each do |conv|
       .item
-        = check_box_tag 'email_conversation_ids[]', c.id.to_s, nil, { class: 'i-sel' }
+        = check_box_tag 'email_conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
         .count
-          (#{c.email_messages.count})
+          (#{conv.email_messages.count})
         .participants
-          = c.participants.join(", ")
+          = conv.participants.join(", ")
 
 
         .subject
-          = link_to c.subject, email_conversation_path( c )
+          = link_to conv.subject, email_conversation_path( conv )
 
         .datetime
-          .date= c.latest_date.strftime('%Y-%m-%d')
-          .time= c.latest_date.strftime('%l:%M%P')
+          .date= conv.latest_date.strftime('%Y-%m-%d')
+          .time= conv.latest_date.strftime('%l:%M%P')
 
 

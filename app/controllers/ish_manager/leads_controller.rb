@@ -3,6 +3,8 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   before_action :set_lists
 
+  layout 'ish_manager/application_fullwidth'
+
   ## alphabetized : )
 
   def bulkop
@@ -69,7 +71,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   def index
     authorize! :index, ::Lead
-    @leads = ::Lead.all.includes( :leadset, :email_campaign_leads )
+    @leads = ::Lead.all # .includes( :leadset, :email_campaign_leads )
     lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
 
     map = %Q{

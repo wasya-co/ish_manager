@@ -10,24 +10,71 @@
     %label.select-all
       = check_box_tag :select_all
       select all
-    %label.n-selected -
+      .n-selected -
     = button_tag 'Delete', method: :delete, class: 'delete-btn'
 
-  %table.data-table.compact
+  %table
     %thead
       %tr
         %th &nbsp;
-        %th created at
-        %th Name
-        %th Tag
+        -# %th created at
+        -# %th Name
         %th.company-url Company Url
-        %th Location
+        %th Tags
+        %th +
+        %th.leads Leads
     %tbody
-      - @leadsets.each do |leadset|
+      - @leadsets.each_with_index do |leadset, idx1|
         %tr
           %td= check_box_tag 'leadset_ids[]', leadset.id, nil, { class: 'i-sel' }
-          %td= leadset.created_at.strftime("%Y-%m-%d %H:%M")
-          %td= link_to leadset.name, leadset_path( leadset )
-          %td= leadset.tag
+          -# %td= leadset.created_at.strftime("%Y-%m-%d %H:%M%P")
+          -# %td= link_to leadset.name, leadset_path( leadset )
           %td= link_to leadset.company_url, leadset.company_url
-          %td= leadset.location
+          %td.tags
+
+            - leadset.wp_tags.each_with_index do |tag, idx2|
+              .chip
+                = tag.name
+
+          %td.tags-add
+            %i.fa.fa-plus.expand-next
+            = form_tag leadset_tags_path, { class: 'tags--form-mini form-mini', style: 'display: none' } do
+              .header
+                %h5 Add a Tag
+              = hidden_field_tag :leadset_id, leadset.id.to_s
+              = select_tag :term_id, options_for_select( @tags_list ), class: [ 'select2' ]
+              .actions
+                = submit_tag 'Add'
+
+          %td.leads
+            -# = leadset.leads.count
+            - leadset.leads.each do |lead|
+              .item
+
+                .chip
+                  -# = lead.email
+                  = link_to lead.name, lead_path( lead )
+
+                .relative
+                  %a.chip{ href: email_contexts_for_lead_path( lead ) }
+                    \(
+                    = lead.email_contexts.count
+                    %i.fa.fa-envelope
+                    \)
+
+                .relative
+                  %i.fa.fa-pencil.expand-next
+                  %form.form-mini{ style: 'display: none' }
+                    Editing...
+
+                .relative
+                  %i.fa.fa-clock-o.expand-next
+                  = render 'ish_manager/scheduled_emails/form', scheduled_email: Sch.new({ lead_id: lead.id })
+
+                .scheduled
+                  - lead.scheduled_emails.each do |sch|
+                    .chip
+                      .interval= sch.interval
+                      .tmpl= sch.email_template.slug
+
+

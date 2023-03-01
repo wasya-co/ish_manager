@@ -20,12 +20,29 @@
 
   .messages.max-width
     - @email_messages.each do |m|
+      - lead = m.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
+
       .item
         .row-1
-          .from= m.from
+
+          .chip.from
+            -# = m.from
+            = lead.email
+
+          .relative
+            %a.chip{ href: email_contexts_for_lead_path( lead ) }
+              \(
+              = lead.email_contexts.count
+              %i.fa.fa-envelope
+              \)
+
+          .relative
+            %i.fa.fa-clock-o.expand-next
+            = render 'ish_manager/scheduled_emails/form', scheduled_email: Sch.new({ lead_id: lead.id })
+
           .datetime
-            .date= m.date.strftime('%Y-%m-%d')
-            .time= m.date.strftime('%l:%M%P')
+            .date= m.date&.strftime('%Y-%m-%d')
+            .time= m.date&.strftime('%l:%M%P')
         .row-2
           %a.preview{ href: "javascript: void(0)", data: { id: m.id.to_s } }
             = (ActionView::Base.full_sanitizer.sanitize( m.part_html )||'<no-info>')[0..300]

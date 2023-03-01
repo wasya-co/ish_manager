@@ -9,14 +9,17 @@
  *= require ish_manager/email_messages
  *
  *= require ish_manager/galleries
+ *= require ish_manager/leads_leadsets
  *= require ish_manager/maps
  *= require ish_manager/markers
- *= require ish_manager/leads_leadsets
+ *= require ish_manager/office
+ *= require ish_manager/pagination
  *= require ish_manager/photos
+ *= require ish_manager/scheduled_emails
+ *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
- *= require ish_manager/pagination
- *= require ish_manager/office
+ *
 **/
 
 a[target='_blank'] {
@@ -65,6 +68,11 @@ ul:not(.browser-default).bullets, {
 .collapse-expand::after {
   content: " [<>]";
 }
+.expand-next + form {
+  // border: 1px solid red !important;
+  // display: none !important;
+}
+
 .alert {
   border: 1px solid red;
   padding: .8em;
@@ -339,6 +347,10 @@ textarea.large {
 .red-border {
   border: 1px solid red;
   padding: .2em;
+}
+
+.relative {
+  position: relative;
 }
 
 /* S */

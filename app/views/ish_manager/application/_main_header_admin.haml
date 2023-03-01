@@ -65,7 +65,10 @@
         %li
           -## superceded by conversations, below _vp_ 2023-02-26
           -# = link_to "Email Messages (#{Office::EmailMessage.count})", email_messages_path
-          = link_to "Email Conv's (#{Office::EmailConversation.count})", email_conversations_path
+          = link_to "Inbox (#{Office::EmailConversation.count})", email_conversations_path
+        %li
+          = link_to 'Scheduled Emails', scheduled_emails_path
+          = link_to '[+]', new_scheduled_email_path
       %ul
         %li
           = link_to 'Leads', leads_path

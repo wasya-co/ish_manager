@@ -78,8 +78,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       @email_ctxs = @email_ctxs.where( sent_at: nil )
     end
 
-    if params[:type]
-      @email_ctxs = @email_ctxs.where( type: params[:type] )
+    if params[:lead_id]
+      @lead = Lead.find params[:lead_id]
+      @email_ctxs = @email_ctxs.where( to_email: @lead.email )
     end
 
     @email_ctxs = @email_ctxs.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )

@@ -3,6 +3,8 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
 
   layout 'ish_manager/application_fullwidth'
 
+  before_action :set_lists
+
   def index
     authorize! :email_conversations_index, IshManager::Ability
     @email_conversations = ::Office::EmailConversation.all.order_by( latest_date: :desc )

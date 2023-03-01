@@ -1,6 +1,8 @@
 
 class ::IshManager::LeadsetsController < IshManager::ApplicationController
 
+  before_action :set_lists
+
   ## alphabetized : )
 
   def create
@@ -63,6 +65,17 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
       flash[:alert] = "Cannot update leadset: #{@leadset.errors.messages}"
     end
     redirect_to :action => 'index'
+  end
+
+  ##
+  ## private
+  ##
+  private
+
+  def set_lists
+    @tags_list = WpTag.all.map { |t| [ t.name, t.id ] }
+    @leads_list = Lead.all.map { |lead| [ lead.email, lead.id ] }
+    @templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
   end
 
 end

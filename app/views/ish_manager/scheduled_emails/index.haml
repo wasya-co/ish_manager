@@ -1,0 +1,15 @@
+
+.scheduled-emails-index.max-width
+  .header
+    %h2
+      Index
+      -# (#{Sch.kept.count})
+      (#{Sch.all.count})
+    = link_to '[+]', new_scheduled_email_path
+
+  .items
+    - @scheduled_emails.each do |sch|
+      .item
+        = sch.interval
+        = sch.email_template.slug
+        = sch.lead.email

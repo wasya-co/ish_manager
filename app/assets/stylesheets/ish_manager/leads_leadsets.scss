@@ -12,10 +12,103 @@
 .manager-leadsets-index {
   padding: 1em;
 
-  .actions label {
-    border: 1px solid gold;
+  > .actions label {
+    border: 1px solid #fff;
     padding: 0.5em;
     border-radius: 0.5em;
-    background: #999900;
+    background: #eee;
+
+    > * {
+      display: inline;
+    }
   }
+
+  tr {
+    border-bottom: 1px solid yellow;
+
+    // :hover {
+    //   background: #eee;
+    // }
+  }
+
+  th.leads {
+    margin-left: 1em;
+  }
+  td.leads {
+    margin-left: 1em;
+    vertical-align: top;
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+
+      .actions {
+        display: flex;
+      }
+    }
+  }
+
+  form.form-mini {
+    border: 1px solid red;
+    border-radius: .5em;
+    padding: 1em;
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    width: 300px;
+    right: -300px;
+
+    z-index: 2;
+
+    .field {
+      display: flex;
+    }
+
+    .actions {
+      margin-top: .5em;
+      width: 100%;
+      text-align: right;
+    }
+  }
+
+  .scheduled {
+    position: relative;
+    display: flex;
+
+    .chip {
+      border: 2px solid cyan;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .tags {
+    // background: #eee;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    max-width: 400px;
+  }
+
+  .tags-add {
+    position: relative;
+    vertical-align: top;
+  }
+
+  .chip {
+    display: inline;
+
+    border: 1px solid #eee;
+    border-radius: 0.5em;
+    padding: 0.1em .3em;
+    background: #fff;
+  }
+
 }
+

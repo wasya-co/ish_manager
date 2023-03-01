@@ -58,14 +58,16 @@ $(function () {
       $('select').material_select()
     }
     if (!!$('body').select2) {
-      $('.select2').select2({
-        width: 'element'
+      $('.select2').each(function() {
+        $( this ).select2({
+          width: '100%'
+        })
       })
     }
   }
 
 
-  $(".collapse-expand").each(function(idx, obj) {
+  $(".collapse-expand").each(function() {
     const thisId = $(this).attr('id')
     const state = localStorage.getItem("collapse-expand#"+thisId)
     if (state === 'collapsed') {
@@ -85,6 +87,10 @@ $(function () {
     e.stopPropagation()
   })
 
+  $(".expand-next").click(function (_e) {
+    // logg($(this).next(), 'expand?')
+    $(this).next().slideToggle()
+  })
 
   if ('function' === typeof $('body').DataTable) {
     const _props = {

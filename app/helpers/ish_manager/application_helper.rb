@@ -26,6 +26,10 @@ module IshManager
       end
     end
 
+    # def email_contexts_for_lead_path lead
+    #   "/manager/email_contexts/for_lead/#{lead.id.to_s}"
+    # end
+
     def pretty_date input
       return input.strftime("%Y-%m-%d")
     end

@@ -1,7 +1,7 @@
 
 .manager-leads-index
   %h5
-    SQL #{link_to 'Leads', leads_path} (#{::Lead.all.count})
+    #{link_to 'Leads', leads_path} (#{::Lead.all.count})
     = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
 
   = form_tag leads_bulkop_path do
@@ -27,7 +27,7 @@
           %tr
             %td= check_box_tag 'lead_ids[]', lead.id
             %td= link_to lead.name, lead_path( lead )
-            %td= lead.leadset&.id
+            %td= lead.leadsets.map &:id
             %td= lead.email
             %td= lead.tag
             %td= lead.created_at.to_s[0..10]
