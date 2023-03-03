@@ -1,83 +1,46 @@
 
 
 .application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
+  %i.fa.fa-compress.collapse-expand#collapseHeaderMain
+    Piousbox Suite
   .container
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderPiCMS
       PiousboxCMS
-    %ul
-      -# %li
-      -#   = link_to 'Photos', photos_path
-      -#   = link_to '[+]', new_photo_path
-      %li
-        = render 'ish_manager/galleries/menu'
-      %li
-        = link_to 'Reports',   reports_path
-        .inline-search
-          = form_tag reports_path, method: :get do
-            = text_field_tag :q
-        = link_to '[+]', new_report_path
-      %li
-        = link_to 'Videos',    videos_path
-        .inline-search
-          = form_tag videos_path, method: :get do
-            = text_field_tag :q
-        = link_to '[+]', new_video_path
-      %li
-        = link_to 'Categories & Tags', categories_path
-    .c
-
-    %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
-      Gameui
-    .content
+    .a
       %ul
+        %li
+          = render 'ish_manager/galleries/menu'
+        %li
+          = link_to 'Reports',   reports_path
+          .inline-search
+            = form_tag reports_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_report_path
+        %li
+          = link_to 'Videos',    videos_path
+          .inline-search
+            = form_tag videos_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_video_path
+        %li= link_to 'Categories & Tags', categories_path
+      %ul
+        %li= link_to '+Newsitem', new_newsitem_path
+        %li= link_to 'Ish::UserProfiles',  user_profiles_path
+        %li= link_to "Ish::ImageAsset's", image_assets_path
         %li
           = link_to 'Maps', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_map_path
-
-        -# %li
-        -#   = link_to 'Tags',      tags_path
-
-      %ul
-        %li= link_to '+Newsitem', new_newsitem_path
-        -# %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches (old m3)', stock_watches_path
-        -# %li= link_to 'Stock Watches', '/iron_warbler/stock_watches'
-        -# %li= link_to 'Users',  users_path
-        %li= link_to 'Ish::UserProfiles',  user_profiles_path
-        %li
-          = link_to "Ish::ImageAsset's", image_assets_path
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
-      Office
-    .namespace
-      -# %ul
-      -#   %li= link_to 'Admin', '/admin'
-      -#   %li= link_to 'A/Leads', '/admin/leads'
-      -#   %li= link_to 'A/CampaignLeads', '/admin/email_campaign_leads'
+      PiousboxCRM
+    .a
       %ul
-        %li
-          = link_to 'Meetings', meetings_path
-          = link_to '[+]', new_meeting_path
-        %li
-          -## superceded by conversations, below _vp_ 2023-02-26
-          -# = link_to "Email Messages (#{Office::EmailMessage.count})", email_messages_path
-          = link_to "Inbox (#{Office::EmailConversation.count})", email_conversations_path
-        %li
-          = link_to 'Scheduled Emails', scheduled_emails_path
-          = link_to '[+]', new_scheduled_email_path
-      %ul
-        %li
-          = link_to 'Leads', leads_path
-          = link_to '[+]', new_lead_path
-        %li
-          = link_to "Leadsets (#{Leadset.kept.length})", leadsets_path
-
-          = link_to '[+]', new_leadset_path
-        %li= link_to 'Email Templates', email_templates_path
+        %li= link_to "Inbox (#{Office::EmailConversation.count})", email_conversations_path
         %li
           = link_to 'Contexts', email_contexts_path
           = link_to '[+]', new_email_context_path
@@ -85,17 +48,38 @@
         %li
           = link_to 'Campaigns', email_campaigns_path
           = link_to '[+]', new_email_campaign_path
-        %li
-          = link_to 'Actions', office_actions_path
-          = link_to '[+]', new_office_action_path
 
+        -# %li
+        -#   = link_to 'Meetings', meetings_path
+        -#   = link_to '[+]', new_meeting_path
+
+        %li
+          = link_to 'Scheduled Emails', scheduled_emails_path
+          = link_to '[+]', new_scheduled_email_path
+      %ul
+        %li= link_to 'Email Templates', email_templates_path
+
+      %ul
+        %li
+          = link_to "Leadsets (#{Leadset.kept.length})", leadsets_path
+          = link_to '[+]', new_leadset_path
+        %li
+          = link_to "Leads (#{Lead.kept.length})", leads_path
+          = link_to '[+]', new_lead_path
+
+
+        -# %li
+        -#   = link_to 'Actions', office_actions_path
+        -#   = link_to '[+]', new_office_action_path
     .c
+
     %i.fa.fa-compress.collapse-expand#collapseHeaderIro
       Iro Wor
-    .content
+    .a
       %ul
         %li
           = link_to 'Watches', iro_watches_path
         %li
           = link_to 'Plots', 'http://localhost:3000/iron_warbler/NOPE-1', target: '_blank'
+    .c
 

@@ -5,33 +5,42 @@
     %i.material-icons mail
     Inbox (#{Office::EmailConversation.all.length})
 
-
   .actions
 
-    .select-all= check_box_tag :select_all
-    .n-selected -
     %a.btn.delete-btn{ href: "javascript: void(0)", data: { url: '/api/email_conversations' } }
       %i.material-icons delete
     %a.btn.reload-btn{ href: "javascript: location.reload()" }
       %i.material-icons refresh
 
+  %table.conversations
+    %tr
+      %th
+        .chip.select-all
+          = check_box_tag :select_all
+          .n-selected -
+      %th Msgs
+      %th Leads
+      %th Subject
+      %th Datetime
+      %th Tags
 
-
-  .conversations
     - @email_conversations.each do |conv|
-      .item
-        = check_box_tag 'email_conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
-        .count
-          (#{conv.email_messages.count})
-        .participants
-          = conv.participants.join(", ")
+      %tr{ class: [ conv.state ] }
+        .item
+          %td= check_box_tag 'email_conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
+          %td.count
+            (#{conv.email_messages.count})
 
+          %td.leads
+            = conv.leads.map { |lead| lead.email }.join(", ")
 
-        .subject
-          = link_to conv.subject, email_conversation_path( conv )
+          %td.subject
+            = link_to conv.subject, email_conversation_path( conv )
 
-        .datetime
-          .date= conv.latest_date.strftime('%Y-%m-%d')
-          .time= conv.latest_date.strftime('%l:%M%P')
+          %td.datetime
+            .date= conv.latest_at.strftime('%Y-%m-%d')
+            .time= conv.latest_at.strftime('%l:%M%P')
 
+          %td.misc
+            = conv.tags.length
 

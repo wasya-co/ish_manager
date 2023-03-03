@@ -10,9 +10,10 @@
     #{@email_conversation.subject}
     (#{@email_conversation.email_messages.all.count})
 
-  .participants.hide
+  .leads.max-width
+    Leads (#{@email_conversation.leads.length}):
     %ul
-      - @email_conversation.participants.each do |p|
+      - @email_conversation.leads.each do |p|
         %li
           = p
           = render 'ish_manager/email_templates/form_reply_mini'
@@ -24,6 +25,7 @@
 
       .item
         .row-1
+          .gray= m.id
 
           .chip.from
             -# = m.from

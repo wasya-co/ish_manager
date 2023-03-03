@@ -18,25 +18,26 @@
   }
 
   .conversations {
-    .item:first-child {
-      border-top: 1px solid yellow;
-    }
-    .item:hover {
+
+    tr:hover {
       background: #eee;
     }
 
-    .item {
+    tr {
       border-bottom: 1px solid yellow;
-
       margin-bottom: 0.3em;
 
-      display: flex;
+      // display: flex;
 
       .subject {
         // background: #ccc;
 
         flex-grow: 1;
       }
+    }
+
+    tr.state_unread {
+      background: #fffdd2;
     }
   }
 
@@ -123,6 +124,11 @@
         display: inline;
       }
     }
+  }
+
+  .select-all.chip {
+    display: flex;
+    border: 1px solid cyan;
   }
 
 }

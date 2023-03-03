@@ -14,6 +14,7 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     authorize! :email_conversations_show, IshManager::Ability
     @email_conversation = ::Office::EmailConversation.find( params[:id] )
     @email_messages = @email_conversation.email_messages.order_by( date: :asc )
+    @email_conversation.update_attributes({ state: Conv::STATE_READ })
   end
 
 end
