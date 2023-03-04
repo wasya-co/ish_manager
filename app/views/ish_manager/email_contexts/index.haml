@@ -1,30 +1,36 @@
 
-.email-contexts-index
+.email-contexts-index.padded
 
   .collapse-expand#emailContextsIndex
     %h2.header
-      Paginated Email Contexts (#{@email_ctxs.length})
+      Paginated Email Contexts (#{@ctxs.length})
       - if @lead
         For lead `#{@lead.name}`
       = link_to '+', new_email_context_path
-      = link_to 'to-send', notsent_email_contexts_path
+      = link_to 'unsent', notsent_email_contexts_path
 
   .W0
-    = render 'paginate', resource: @email_ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
+    = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
 
-    %ul.main
-      - @email_ctxs.each do |ctx|
-        %li
-          - if ctx.sent_at
-            \----
-          - else
-            = link_to '~', edit_email_context_path(ctx)
-          = link_to email_context_path(ctx) do
-            view
-          = ctx.title
-          = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
-          -# = link_to 'iframe', email_context_iframe_path(ctx), target: :_blank do
+    %table.bordered
+      %tr
+        %th.actions Actions
+        %th.to To
+        %th.subject Subject
+        %th.template Template
+      - @ctxs.each do |ctx|
+        %tr
+          %td
+            - if ctx.sent_at
+              [~]
+            - else
+              = link_to '[~]', edit_email_context_path(ctx)
+            = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
+          %td= ctx.to_email
+          %td
+            = link_to ctx.subject, email_context_path(ctx)
+            -# = link_to 'iframe', email_context_iframe_path(ctx), target: :_blank do
+          %td= ctx.email_template.slug
 
-          [ <b>tmpl:</b> #{ctx.email_template.slug} ]
-          [ <b>To:</b> #{ctx.to_email} ]
-          <u>#{ctx.subject}</u>
+
+    = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager

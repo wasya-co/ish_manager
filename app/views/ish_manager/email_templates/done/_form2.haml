@@ -2,10 +2,6 @@
 - url = email_template.new_record? ? email_templates_path : email_template_path(email_template.id)
 
 .email-templates--form
-
-  .header
-    %h2 Email Template
-
   = form_for email_template, url: url do |f|
     .row
       .col-md-4
@@ -23,16 +19,8 @@
     .field.field-subject
       = f.label :subject
       = f.text_field :subject
-
-    .tab-labels
-      %a.label-raw{ href: "javascript: void(0)", data: { ref: '.tab-raw' } } Raw
-      %a.label-preview.active{ href: "javascript: void(0)", data: { ref: '.tab-preview' } } Preview
-      .label-save-preview= f.submit 'Save & Preview'
-    .tabs
-      .tab-raw
-        = f.text_area :body
-      .tab-preview
-        -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
-        %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
+    .field
+      -# = f.label :body
+      = f.text_area :body, class: 'tinymce'
     .actions
-      = f.submit 'Save'
+      = f.submit 'Submit'

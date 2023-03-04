@@ -1,6 +1,7 @@
 
 .scheduled-emails-new {
 
+
   border: 1px solid red;
   border-radius: .5em;
   padding: .5em;
@@ -13,3 +14,12 @@
 
 }
 
+.scheduled-actions--form-mini {
+  display: inline-block;
+
+  form {
+    border: 1px solid blue;
+
+    display: flex;
+  }
+}

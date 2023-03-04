@@ -1,4 +1,7 @@
 
+##
+## Trash, right? use Office::Action instead
+##
 class IshManager::ScheduledEmailsController < IshManager::ApplicationController
 
   before_action :set_lists

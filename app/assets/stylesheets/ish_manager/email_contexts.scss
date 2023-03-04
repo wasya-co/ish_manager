@@ -1,0 +1,84 @@
+
+
+.email-contexts-new,
+.email-contexts-edit {
+  .actions {
+    margin-top: 10px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.email-contexts-show,
+.email-templates-show {
+
+  iframe {
+    min-height: 80vh;
+  }
+
+}
+
+.email-contexts--form,
+.email-templates--form {
+
+  .field-template {
+    display: flex;
+
+    a.action-view {
+      width: 150px;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .field-subject {
+    display: flex;
+    width: calc( 100% - 20px );
+
+    input[name='ish_email_context[subject]'],
+    input[name='ish_email_template[subject]'] {
+      margin-left: 5px;
+      flex-grow: 1;
+    }
+  }
+
+  .body {
+    border: 1px solid red;
+    padding: 10px;
+    margin: 10px;
+  }
+
+}
+
+.email-contexts-index {
+
+  > .collapse-expand {
+    display: flex;
+    justify-content: center;
+
+    .header {
+      a {
+        &:before {
+          content: '[';
+        }
+        &:after {
+          content: ']';
+        }
+      }
+    }
+  }
+
+
+
+  table {
+    th.actions {
+      min-width: 100px;
+    }
+  }
+
+}
+

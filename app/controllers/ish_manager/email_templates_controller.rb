@@ -1,6 +1,8 @@
 
 class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationController
 
+  # before_action :set_lists, only: %i| new |
+
   def create
     authorize! :create, ::Ish::EmailTemplate
     template = ::Ish::EmailTemplate.create params[:ish_email_template].permit!
@@ -24,30 +26,37 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
   end
 
   def edit
-    @template = Ish::EmailTemplate.where({ id: params[:id] }).first
-    authorize! :edit, @template
+    @tmpl = @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first
+    authorize! :edit, @tmpl
+
+    # @ctx = @email_context = Ish::EmailContext.new
+    render layout: 'ish_manager/application_fullwidth'
   end
 
   def iframe_src
-    authorize! :iframe_src, Ish::EmailTemplate
-    @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
+    @tmpl = @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
-    @email_ctx = Ish::EmailContext.new({ body: Ish::LoremIpsum.html })
+    authorize! :iframe_src, @email_template
     render layout: false
   end
 
   def index
     authorize! :index, Ish::EmailTemplate
-    @templates = Ish::EmailTemplate.all.page( params[:templates_page] )
+    @templates = Ish::EmailTemplate.all.order_by( slug: :asc ).page( params[:templates_page] )
+  end
+
+  def new
+    @new_email_template = Ish::EmailTemplate.new
+    authorize! :new, Ish::EmailTemplate
   end
 
   def show
     authorize! :show, Ish::EmailTemplate
     @templates = Ish::EmailTemplate.all.page( params[:templates_page] )
 
-    @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
+    @tmpl = @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
-    @email_ctx = ::Ish::EmailContext.new({ body: Ish::LoremIpsum.html })
+    @ctx = @email_context = ::Ish::EmailContext.new({ body: Ish::LoremIpsum.html })
   end
 
   def update
@@ -56,11 +65,15 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
     flag = @template.update_attributes( params[:ish_email_template].permit! )
     if flag
       flash[:notice] = 'Success.'
-      redirect_to action: 'index'
     else
       flash[:alert] = "No luck. #{@template.errors.full_messages.join(', ')}"
-      render :edit
     end
+    redirect_to action: :edit
   end
+
+  ##
+  ## private
+  ##
+  private
 
 end

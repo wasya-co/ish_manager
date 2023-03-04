@@ -41,6 +41,9 @@
             .date= conv.latest_at.strftime('%Y-%m-%d')
             .time= conv.latest_at.strftime('%l:%M%P')
 
-          %td.misc
-            = conv.tags.length
+          %td
+            .tags
+              - conv.tags.each do |tag|
+                .chip
+                  = tag.name
 

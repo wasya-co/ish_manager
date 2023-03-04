@@ -4,9 +4,11 @@
  *= require ish_manager/jquery-ui
  *= require_self
  *
- *= require ish_manager/email_contexts_templates
+ *= require ish_manager/email_contexts
  *= require ish_manager/email_conversations
  *= require ish_manager/email_messages
+ *= require ish_manager/email_templates
+ *= require ish_manager/email
  *
  *= require ish_manager/galleries
  *= require ish_manager/leads_leadsets
@@ -15,7 +17,7 @@
  *= require ish_manager/office
  *= require ish_manager/pagination
  *= require ish_manager/photos
- *= require ish_manager/scheduled_emails
+ *= require ish_manager/scheduled_actions_emails
  *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
@@ -111,6 +113,12 @@ body.application-fullwidth {
   padding: 1em;
 }
 
+table.bordered {
+  td {
+    border: 1px solid black;
+  }
+}
+
 .bordered-card {
   border: 1px solid grey;
   padding: .5em;
@@ -198,6 +206,20 @@ table.dataTable {
   float: right;
 }
 
+
+.form-mini {
+  margin-left: 20px;
+  display: inline-block;
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+  background: #eee;
+
+  * {
+    display: inline;
+  }
+}
+
 /* G */
 .gray,
 .grey {
@@ -233,6 +255,9 @@ ul.inline li {
   }
 }
 
+.input-date {
+  width: 100px;
+}
 
 /* L */
 textarea.large {
@@ -345,6 +370,10 @@ textarea.large {
 }
 
 /* P */
+.padded {
+  padding: 0.5em;
+}
+
 .panel-content {
   padding: .5em;
 }

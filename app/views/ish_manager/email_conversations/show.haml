@@ -15,9 +15,11 @@
     %ul
       - @email_conversation.leads.each do |p|
         %li
-          = p
-          = render 'ish_manager/email_templates/form_reply_mini'
-          = render 'ish_manager/email_templates/form_schedule_mini'
+          = p.email
+          [existing actions?]
+          = render 'ish_manager/email_templates/form_reply_2_mini'
+          = render 'ish_manager/scheduled_actions/form_mini'
+
 
   .messages.max-width
     - @email_messages.each do |m|
@@ -45,12 +47,16 @@
           .datetime
             .date= m.date&.strftime('%Y-%m-%d')
             .time= m.date&.strftime('%l:%M%P')
+
         .row-2
           %a.preview{ href: "javascript: void(0)", data: { id: m.id.to_s } }
             = (ActionView::Base.full_sanitizer.sanitize( m.part_html )||'<no-info>')[0..300]
           .expand
+
           .my-actions.hide
-            = button_to 'Reply'
-            = button_to 'Reply All'
-            = button_to 'New Template'
-            = button_to 'Schedule Reply'
+            = render 'ish_manager/email_templates/form_reply_2_mini'
+            -# = button_to 'Reply'
+            -# = button_to 'Reply All'
+            -# = button_to 'New Template'
+            -# = button_to 'Schedule Reply'
+            -# = render 'ish_manager/email_templates/form_schedule_mini'

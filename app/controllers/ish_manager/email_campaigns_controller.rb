@@ -1,6 +1,19 @@
 
 class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
+  def do_send
+
+    # case @ctx.type
+    # when ::Ish::EmailContext::TYPE_SINGLE
+    #   flash[:notice] = 'Scheduled a single send - v2'
+    #   @ctx.send_at = Time.now
+    #   @ctx.save
+    # when ::Ish::EmailContext::TYPE_CAMPAIGN
+    #   flash[:notice] = 'Scheduled campaign send'
+    #   IshManager::EmailCampaignJob.new.perform(params[:id])
+    # end
+  end
+
   def index
     authorize! :index, Ish::EmailCampaign
     @campaigns = Ish::EmailCampaign.where( :profile => @current_profile, :is_trash => false )

@@ -131,4 +131,13 @@
     border: 1px solid cyan;
   }
 
+  .tags {
+    display: flex;
+    flex-direction: column;
+
+    .chip {
+      border: 1px solid cyan;
+    }
+  }
+
 }

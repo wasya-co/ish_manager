@@ -1,6 +1,6 @@
 
 AppRouter = {
-  new_email_context_with: (slug) => `/manager/email_contexts/new_with/${slug}`
+  new_email_context_with: (slug) => `/manager/email_contexts/new_with_template/${slug}`
 }
 
 $(document).ready(() => {

@@ -62,8 +62,8 @@ module IshManager
       @user_profiles_list = Ish::UserProfile.list
       @videos_list = Video.all.list
 
-      @leads_list = Lead.all.map { |lead| [ lead.email, lead.id ] }
-      @templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
+      @leads_list = Lead.list # Lead.all.map { |lead| [ lead.email, lead.id ] }
+      @email_templates_list = @templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     end
 
     def set_title

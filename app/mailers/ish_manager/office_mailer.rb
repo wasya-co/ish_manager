@@ -59,15 +59,16 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     ac = ActionController::Base.new
     ac.instance_variable_set( :@email_ctx, @email_ctx )
 
-    case @email_ctx.email_template.type
-    when 'partial'
-      template = "render/_#{@email_ctx.email_template.slug}"
-      rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@email_ctx.email_template.slug}")
-    when 'plain'
-      @body = @email_ctx.body_templated
-      template = "render/plain"
-      rendered_str = ac.render_to_string("ish_manager/email_templates/plain")
-    end
+    raise '@TODO: re-implement. _vp_ 2023-03-04'
+    # case @email_ctx.email_template.type
+    # when 'partial'
+    #   template = "render/_#{@email_ctx.email_template.slug}"
+    #   rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@email_ctx.email_template.slug}")
+    # when 'plain'
+    #   @body = @email_ctx.body_templated
+    #   template = "render/plain"
+    #   rendered_str = ac.render_to_string("ish_manager/email_templates/plain")
+    # end
 
     @email_ctx.update( rendered_str: rendered_str, sent_at: Time.now.to_s )
 

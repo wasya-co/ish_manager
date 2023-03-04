@@ -9,23 +9,23 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :create, ::Ish::EmailContext
     pparams = params[:ish_email_context].permit!
     pparams[:tmpl] = JSON.parse(pparams[:tmpl])
-    @email_ctx = ::Ish::EmailContext.new pparams
-    if @email_ctx.save
+    @ctx = ::Ish::EmailContext.new pparams
+    if @ctx.save
       flash[:notice] = 'Saved.'
-      redirect_to action: 'show', id: @email_ctx.id
+      redirect_to action: 'show', id: @ctx.id
       return
     else
-      # flash[:alert] = "Could not save: #{@email_ctx.errors.full_messages.join(', ')}"
-      flash[:alert] = ['Could not save:'] + @email_ctx.errors.full_messages
+      # flash[:alert] = "Could not save: #{@ctx.errors.full_messages.join(', ')}"
+      flash[:alert] = ['Could not save:'] + @ctx.errors.full_messages
       render action: :new
       return
     end
   end
 
   def destroy
-    @email_ctx = Ish::EmailContext.find params[:id]
-    authorize! :destroy, @email_ctx
-    flag = @email_ctx.destroy
+    @ctx = Ish::EmailContext.find params[:id]
+    authorize! :destroy, @ctx
+    flag = @ctx.destroy
     if flag
       flash[:notice] = 'Destroyed the email context'
     else
@@ -37,53 +37,44 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def do_send
     @ctx = ::Ish::EmailContext.find params[:id]
     authorize! :do_send, @ctx
-    case @ctx.type
-    when ::Ish::EmailContext::TYPE_SINGLE
-      flash[:notice] = 'Scheduled a single send - v2'
-      @ctx.send_at = Time.now
-      @ctx.save
-    when ::Ish::EmailContext::TYPE_CAMPAIGN
-      flash[:notice] = 'Scheduled campaign send'
-      IshManager::EmailCampaignJob.new.perform(params[:id])
-    end
+
+    flash[:notice] = 'Scheduled a single send - v2'
+    @ctx.send_at = Time.now
+    @ctx.save
 
     redirect_to action: 'index'
   end
 
   def edit
-    @email_ctx = ::Ish::EmailContext.find params[:id]
-    authorize! :edit, @email_ctx
+    @ctx = ::Ish::EmailContext.find params[:id]
+    authorize! :edit, @ctx
   end
 
   def iframe_src
-    @email_ctx = Ish::EmailContext.find params[:id]
-    authorize! :iframe_src, @email_ctx
-    @email_template = @email_ctx.email_template
-    case @email_template.type
-    when 'partial'
-      render 'ish_manager/email_templates/iframe_src', layout: false
-      return
-    when 'plain'
-      @body = @email_ctx.body_templated
-      render 'ish_manager/email_templates/plain', layout: false
-      return
-    end
+    @ctx = @email_context = Ish::EmailContext.find params[:id]
+    authorize! :iframe_src, @ctx
+    @tmpl = @email_template = @ctx.email_template
+    @lead = @ctx.lead
+    # @body = @ctx.body_templated
+    render "ish_manager/email_templates/_#{@tmpl.layout}", layout: false
   end
 
   def index
     authorize! :index, ::Ish::EmailContext
-    @email_ctxs = ::Ish::EmailContext.all
+    @ctxs = ::Ish::EmailContext.all
 
     if params[:notsent]
-      @email_ctxs = @email_ctxs.where( sent_at: nil )
+      @ctxs = @ctxs.where( sent_at: nil )
     end
 
     if params[:lead_id]
       @lead = Lead.find params[:lead_id]
-      @email_ctxs = @email_ctxs.where( to_email: @lead.email )
+      @ctxs = @ctxs.where( to_email: @lead.email )
     end
 
-    @email_ctxs = @email_ctxs.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )
+    @ctxs = @ctxs.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )
+
+    render layout: 'ish_manager/application_fullwidth'
   end
 
   def new
@@ -94,37 +85,38 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     if @template
       attrs = @template.attributes.slice( :subject, :body, :from_email )
     end
-    @email_ctx = ::Ish::EmailContext.new( { email_template: @template }.merge(attrs) )
+    @ctx = ::Ish::EmailContext.new( { email_template: @template }.merge(attrs) )
   end
 
   def show
-    @email_ctx = ::Ish::EmailContext.find( params[:id] )
-    authorize! :show, @email_ctx
+    @ctx = @email_context = ::Ish::EmailContext.find( params[:id] )
+    authorize! :show, @ctx
   end
 
   def update
-    @email_ctx = ::Ish::EmailContext.find params[:id]
-    authorize! :update, @email_ctx
+    @ctx = ::Ish::EmailContext.find params[:id]
+    authorize! :update, @ctx
     pparams = params[:ish_email_context].permit!
-    pparams[:tmpl] = JSON.parse(pparams[:tmpl])
-    if @email_ctx.update_attributes pparams
+
+    if @ctx.update_attributes pparams
       flash[:notice] = 'Saved.'
-      redirect_to action: 'show', id: @email_ctx.id
+      redirect_to action: 'show', id: @ctx.id
       return
     else
-      flash[:alert] = "Could not save: #{@email_ctx.errors.full_messages.join(', ')}"
+      flash[:alert] = "Could not save: #{@ctx.errors.full_messages.join(', ')}"
       render action: :edit
       return
     end
   end
 
-  #
-  # private
-  #
+  ##
+  ## Private
+  ##
   private
 
   def set_lists
     @email_templates_list = [ [nil, nil] ] + ::Ish::EmailTemplate.all.map { |tmpl| [ tmpl.slug, tmpl.id ] }
+    @leads_list = Lead.list
   end
 
 end

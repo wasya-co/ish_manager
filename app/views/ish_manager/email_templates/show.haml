@@ -1,7 +1,13 @@
 
-= render 'index'
-%hr
+-# = render 'index'
+
 .email-templates-show
-  %h4.center= @email_template.slug
+  .header
+    %h2.title
+      = @email_template.slug
+      = link_to '[~]', edit_email_template_path( @email_template )
+      = link_to '[src ^]', '#'
+      = link_to '[preview ^]', '#'
+      = link_to '[use]', '#'
 
   %iframe{ src: email_template_iframe_path(@email_template.slug), width: '100%', height: '100%' }

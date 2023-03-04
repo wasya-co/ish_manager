@@ -3,6 +3,6 @@
   = form_for ::Ish::EmailContext.new, url: email_contexts_path do |f|
     .field
       -# = f.label :template
-      = f.select :email_template_id, options_for_select([ ['abba', 'abba'], ['zetta', 'zetta'] ])
+      = f.select :email_template_id, options_for_select( @email_templates_list )
     .actions
       = f.submit 'Reply'

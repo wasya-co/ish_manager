@@ -21,6 +21,7 @@
 //
 //= require ish_manager/maps
 //= require ish_manager/email_contexts
+//= require ish_manager/email_templates
 
 $(function () {
 
