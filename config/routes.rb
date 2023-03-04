@@ -51,10 +51,11 @@ IshManager::Engine.routes.draw do
   # office, below
   #
 
-  resources :office_actions
+  resources :email_actions
 
   resources :email_campaigns
   resources :email_campaign_leads, as: :campaign_leads
+  resources :email_filters
 
   get 'email_messages/iframe/:id',   to: 'email_messages#show_iframe',   as: :email_message_iframe
   get 'email_messages/source/:id',   to: 'email_messages#show_source',   as: :email_message_source
@@ -101,7 +102,7 @@ IshManager::Engine.routes.draw do
 
   resources :reports
 
-  resources :scheduled_emails
+  resources :scheduled_email_actions
 
   resources :user_profiles do
     resources :newsitems

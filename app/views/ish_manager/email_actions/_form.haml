@@ -1,0 +1,42 @@
+
+- act = email_action
+- url = email_action.new_record? ? email_actions_path : email_action_path( email_action )
+
+.email-actions--form
+
+  = form_for email_action, url: url, as: :email_action, :html => { :multipart => true } do |f|
+    .row
+      .col-sm-6
+        = f.submit :submit
+
+    .row
+      .col-md-6
+        .field
+          %label Slug
+          = f.text_field :slug
+        -# .field
+        -#   %label Lead
+        -#   = f.select :lead_id, options_for_select( @leads_list, selected: act.lead_id ), {}, class: 'select2'
+        .field
+          %label Template
+          = f.select :email_template_id, options_for_select( @email_templates_list, selected: act.email_template_id ), {}, class: 'select2'
+        -# .field
+        -#   %label State
+        -#   = f.select :state, options_for_select( ::Office::EmailAction::STATES, selected: act.state )
+
+      .col-md-6
+        .field
+          %label Next in Days
+          .eg eg: rand(1..5)
+          = f.text_field :next_in_days
+        .field
+          %label Next at Time
+          .eg eg: rand(8..16).hours + rand(1..59).minutes
+          = f.text_field :next_at_time
+        .field
+          %label Next Email Actions
+          = f.select :next_email_actions, options_for_select( @email_actions_list, selected: act.next_email_actions.map(&:id) ), { }, { class: 'select2', multiple: true }
+
+    .row
+      .col-sm-6
+        = f.submit :submit

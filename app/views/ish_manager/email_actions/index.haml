@@ -1,0 +1,24 @@
+
+.email-actions-index
+
+  .header
+    %h2.title
+      Email Actions
+      = link_to '[+]', new_email_action_path
+
+  %table.bordered
+    %tr
+      %th &nbsp;
+      %th actions
+      %th slug
+      %th next actions
+    - @email_actions.each do |act|
+      %tr
+        %td [_]
+        %td= link_to '[~]', edit_email_action_path( act )
+        %td= act.slug
+        -# %td= act.lead&.email
+        %td
+          %ul
+            - act.next_email_actions.map do |next_a|
+              %li= link_to next_a.slug, edit_email_action_path( next_a )

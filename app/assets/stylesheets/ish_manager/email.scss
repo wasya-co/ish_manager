@@ -1,11 +1,42 @@
 
+.email-actions-edit,
+.email-actions-index,
+.email-filters-index,
 .email-templates-edit,
 .email-templates-show,
 .email-contexts-edit,
-.email-contexts-show {
+.email-contexts-show,
+.leads-edit,
+.leads-index {
   .header {
     display: flex;
     justify-content: center;
+  }
+}
+
+
+.form-mini {
+
+  display: inline-block;
+
+  // display: flex;
+  // flex-direction: column;
+
+  max-width: 400px;
+
+  margin-left: 20px;
+
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+  background: #eee;
+
+  * {
+    display: inline;
+  }
+
+  .header {
+    display: block;
   }
 }
 

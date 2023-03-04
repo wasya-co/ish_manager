@@ -119,12 +119,4 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
-  private
-
-  def set_lists
-    super
-    @leadsets_list = [ [nil,nil] ] + ::Leadset.all.map { |k| [ k.name, k.id ] }
-    @email_campaigns_list = [ [nil,nil] ] # + Ish::EmailContext.unsent_campaigns.map { |k| [ k.slug, k.id ] }
-  end
-
 end

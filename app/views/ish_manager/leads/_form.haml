@@ -1,19 +1,24 @@
 
-- url = lead.persisted? ? lead_path( lead.id ) : leads_path
+- url = lead.new_record? ? leads_path : lead_path( lead.id )
 
 = form_for lead, :as => :lead, :url => url do |f|
+
   .field
     = f.label :name
     = f.text_field :name
+
   .field
     = f.label :email
     = f.text_field :email
+
   .field
-    = f.label :company
-    = f.select :m3_leadset_id, options_for_select(@leadsets_list, selected: lead.m3_leadset_id), { include_blank: true }, {class: 'select2' }
-  .field
-    = f.label :tag
-    = f.text_field :tag
+    = f.label "Leadset (company)"
+    = f.select :m3_leadset_id, options_for_select(@leadsets_list, selected: lead.m3_leadset_id), { include_blank: true }, { class: 'select2' }
+
+  -# .field
+  -#   = f.label "Tags"
+  -#   = f.text_field :wp_tags
+
   .actions
     = f.submit
 

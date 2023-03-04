@@ -1,0 +1,34 @@
+
+.email-filters-index
+  .header
+    %h2.title
+      Email Filters
+      = link_to '[+]', new_email_filter_path
+
+  %table.bordered
+    %tr
+      %th Actions
+      %th Match From
+      %th Match Body
+      %th Action
+
+    %tr
+      %td= link_to '[~]', '#'
+      %td *@cbinsights.com
+      %td &nbsp;
+      %td
+        = link_to 'skip-inbox', '#'
+        %br
+        = link_to 'par-been-helped', '#'
+
+    %tr
+      %td
+      %td @ehub.global
+      %td
+      %td
+        = link_to 'skip-inbox', '#'
+        %br
+        = link_to 're-no-soliciting', '#'
+
+
+

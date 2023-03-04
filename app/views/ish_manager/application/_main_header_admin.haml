@@ -52,8 +52,8 @@
           = link_to '[+]', new_email_campaign_path
 
         %li
-          = link_to 'Scheduled Emails', scheduled_emails_path
-          = link_to '[+]', new_scheduled_email_path
+          = link_to 'Scheduled Emails', scheduled_email_actions_path
+          = link_to '[+]', new_scheduled_email_action_path
       %ul
         %li
           = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
@@ -65,8 +65,11 @@
           = link_to "Leads (#{Lead.kept.length})", leads_path
           = link_to '[+]', new_lead_path
         %li
-          = link_to "Actions (#{Office::Action.all.length})", office_actions_path
-          = link_to '[+]', new_office_action_path
+          = link_to "Email Actions (#{Office::EmailAction.all.length})", email_actions_path
+          = link_to '[+]', new_email_action_path
+        %li
+          = link_to "Filters (#{Office::EmailFilter.all.length})", email_filters_path
+          = link_to '[+]', new_email_filter_path
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderIro
