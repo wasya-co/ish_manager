@@ -42,7 +42,7 @@
 
           .relative
             %i.fa.fa-clock-o.expand-next
-            = render 'ish_manager/scheduled_emails/form', scheduled_email: Sch.new({ lead_id: lead.id })
+            = render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
           .datetime
             .date= m.date&.strftime('%Y-%m-%d')

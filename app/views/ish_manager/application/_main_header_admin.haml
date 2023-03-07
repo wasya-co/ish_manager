@@ -68,7 +68,7 @@
           = link_to "Email Actions (#{Office::EmailAction.all.length})", email_actions_path
           = link_to '[+]', new_email_action_path
         %li
-          = link_to "Filters (#{Office::EmailFilter.all.length})", email_filters_path
+          = link_to "Filters (#{Office::EmailFilter.active.length})", email_filters_path
           = link_to '[+]', new_email_filter_path
     .c
 

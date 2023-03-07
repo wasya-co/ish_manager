@@ -1,0 +1,12 @@
+
+- url = email_filter.new_record? ? email_filters_path : email_filter_path( email_filter )
+.email-filters--from
+  = form_for email_filter, url: url, as: :email_filter do |f|
+    .field
+      %label From Regex
+      = f.text_field :from_regex
+    .field
+      %label Kind
+      = f.select :kind, options_for_select( ::Office::EmailFilter::KINDS, selected: email_filter.kind )
+    .actions
+      = f.submit
