@@ -8,15 +8,17 @@
 
   %table.bordered
     %tr
-      %th &nbsp;
+      %th= check_box_tag 'abba'
       %th actions
       %th slug
+      %th descr
       %th next actions
     - @email_actions.each do |act|
       %tr
-        %td [_]
+        %td= check_box_tag 'abba'
         %td= link_to '[~]', edit_email_action_path( act )
         %td= act.slug
+        %td= act.descr
         -# %td= act.lead&.email
         %td
           %ul

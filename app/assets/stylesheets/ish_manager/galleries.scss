@@ -55,3 +55,13 @@ div.galleries-show {
     }
   }
 }
+
+
+.orderable-items {
+  .item {
+    border: 1px solid red;
+    padding: 10px;
+
+    max-width: Min(125px, 30vw);
+  }
+}

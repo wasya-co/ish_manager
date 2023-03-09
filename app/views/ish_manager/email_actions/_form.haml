@@ -14,15 +14,12 @@
         .field
           %label Slug
           = f.text_field :slug
-        -# .field
-        -#   %label Lead
-        -#   = f.select :lead_id, options_for_select( @leads_list, selected: act.lead_id ), {}, class: 'select2'
+        .field
+          %label Descr
+          = f.text_area :descr
         .field
           %label Template
           = f.select :email_template_id, options_for_select( @email_templates_list, selected: act.email_template_id ), {}, class: 'select2'
-        -# .field
-        -#   %label State
-        -#   = f.select :state, options_for_select( ::Office::EmailAction::STATES, selected: act.state )
 
       .col-md-6
         .field
@@ -40,3 +37,16 @@
     .row
       .col-sm-6
         = f.submit :submit
+
+
+
+
+
+
+
+        -# .field
+        -#   %label State
+        -#   = f.select :state, options_for_select( ::Office::EmailAction::STATES, selected: act.state )
+        -# .field
+        -#   %label Lead
+        -#   = f.select :lead_id, options_for_select( @leads_list, selected: act.lead_id ), {}, class: 'select2'

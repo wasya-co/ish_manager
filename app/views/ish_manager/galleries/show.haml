@@ -22,7 +22,16 @@
 
   .row-thumbs
     %p.collapse-expand#rowThumbs Thumbs
-    = render 'ish_manager/photos/index_thumbs', photos: @photos
+    .orderable-items{ data: { id: @gallery.id.to_s, slug: @gallery.slug, token: form_authenticity_token } }
+      .flex-row.items
+        - @photos.each do |photo|
+          .itemW
+            %a.mvLeft &lt;
+            %a.mvRight &gt;
+            .item{ data: { id: photo.id.to_s } }
+              = render 'ish_manager/photos/meta_manager', photo: photo
+              = image_tag photo.photo.url( :thumb )
+      = button_tag 'Save ordering', class: 'save-ordering'
 
   .row-large
     %p.collapse-expand#rowLarge Large

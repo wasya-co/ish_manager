@@ -1,6 +1,6 @@
 
 .photos--index-thumbs
-  .flex-row
+  .flex-row.items
     - photos.each do |photo|
       .item
         = render 'ish_manager/photos/meta_manager', photo: photo

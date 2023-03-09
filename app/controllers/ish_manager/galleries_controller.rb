@@ -1,7 +1,7 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
-  before_action :set_gallery, only: %w|destroy edit j_show show update|
+  before_action :set_gallery, only: %w|destroy edit j_show show update update_ordering|
 
   # alphabetized! : )
 
@@ -86,22 +86,37 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def show
     authorize! :show, @gallery
-    @photos = @gallery.photos.unscoped.where({ :is_trash => false })
-    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
+    @photos = @gallery.photos.unscoped.where({ :is_trash => false }).order_by( ordering: :asc )
+    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true }).order_by( ordering: :asc )
+  end
+
+  def update_ordering
+    authorize! :update, @gallery
+    out = []
+    params[:gallery][:sorted_photo_ids].each_with_index do |id, idx|
+      out.push Photo.find( id ).update_attribute( :ordering, idx )
+    end
+    flash[:notice] = "Outcomes: #{out}."
+    redirect_to action: 'show', id: @gallery.id
   end
 
   def update
     old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
-    params[:gallery][:shared_profiles].delete('')
+    if params[:gallery][:shared_profiles].present?
+      params[:gallery][:shared_profiles].delete('')
+    end
     params[:gallery][:shared_profile_ids] = params[:gallery][:shared_profiles]
     params[:gallery].delete :shared_profiles
 
-    if @gallery.update_attributes( params[:gallery].permit! )
-      new_shared_profiles = Ish::UserProfile.find( params[:gallery][:shared_profile_ids]
-        ).select { |p| !old_shared_profile_ids.include?( p.id ) }
-      ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
+    flag = @gallery.update_attributes( params[:gallery].permit! )
+    if flag
+      if params[:gallery][:shared_profile_ids].present?
+        new_shared_profiles = Ish::UserProfile.find( params[:gallery][:shared_profile_ids]
+          ).select { |p| !old_shared_profile_ids.include?( p.id ) }
+        ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
+      end
       flash[:notice] = 'Success.'
       redirect_to edit_gallery_path(@gallery)
     else
