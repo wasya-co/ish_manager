@@ -19,10 +19,16 @@
 //= require ish_manager/vendor/jquery-ui.min
 //= require ish_manager/shared
 //
+//= require_self
 //= require ish_manager/maps
 //= require ish_manager/email_contexts
 //= require ish_manager/email_templates
 //= require ish_manager/galleries
+
+const AppRouter = {
+  gallery_update_ordering_path: ({ id, slug }) => `/manager/galleries/${slug || id}/update_ordering`,
+  new_email_context_with_template_path: (slug) => `/manager/email_contexts/new_with_template/${slug}`,
+}
 
 $(function () {
 

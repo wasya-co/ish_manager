@@ -1,7 +1,4 @@
 
-const AppRouter = {
-  new_email_context_with_template_path: (slug) => `/manager/email_contexts/new_with_template/${slug}`
-}
 
 $(document).ready(() => {
 

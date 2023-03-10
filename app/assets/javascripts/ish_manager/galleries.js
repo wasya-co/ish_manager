@@ -1,7 +1,4 @@
 
-const AppRouter = {
-  gallery_update_ordering_path: ({ id, slug }) => `/manager/galleries/${slug || id}/update_ordering`,
-}
 $(document).ready(function () {
 
   if ( $(".orderable-items").length ) {
