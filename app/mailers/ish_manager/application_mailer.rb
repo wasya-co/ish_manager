@@ -1,7 +1,7 @@
 
 module IshManager
   class ApplicationMailer < ActionMailer::Base
-    default from: '314658@gmail.com'
+    default from: 'WasyaCo Consulting <no-reply@wasya.co>'
     layout 'mailer'
 
     def shared_galleries profiles, gallery

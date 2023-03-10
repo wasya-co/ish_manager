@@ -7,7 +7,7 @@
     .col-md-4
       %ul
         %li <b>From:</b> #{@ctx.from_email}
-        %li <b>To Lead:</b> #{@ctx.lead.email}
+        %li <b>To Lead:</b> #{@ctx.lead_id ? @ctx.lead.email : '-'}
         %li <b>Subject:</b> #{@ctx.subject}
 
     .col-md-4

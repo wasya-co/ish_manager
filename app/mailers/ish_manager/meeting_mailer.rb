@@ -1,6 +1,7 @@
 
 class IshManager::MeetingMailer < IshManager::ApplicationMailer
-  default from: 'piousbox@gmail.com'
+  default from: 'WasyaCo Consulting <no-reply@wasya.co>'
+
   # layout 'mailer'
 
   def morning_reminder meeting_id:

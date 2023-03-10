@@ -1,5 +1,6 @@
 
 class IshManager::OfficeMailer < IshManager::ApplicationMailer
+  default from: 'WasyaCo Consulting <no-reply@wasya.co>'
 
   def send_campaign_email campaign_id, c_lead_id
     @ctx = @campaign = ::Ish::EmailContext.find campaign_id
@@ -82,7 +83,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 end
 
 
-## 2022-11-10 backup
+## 2022-11-10 _vp_ backup
 # def send_context_email ctx_id
 #   @email_ctx = ::Ish::EmailContext.find ctx_id
 #   template = "render/_#{@email_ctx.email_template.slug}"
