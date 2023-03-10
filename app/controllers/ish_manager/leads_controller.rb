@@ -9,8 +9,8 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   def bulkop
     authorize! :bulkop, ::Lead
-    case params[:a]
-    when 'add_to_campaign'
+    case params[:op]
+    when Lead::OP_ADD_TO_CAMPAIGN
       c = EmailCampaign.find params[:email_campaign_id]
       params[:lead_ids].each do |lead_id|
         c_lead = EmailCampaignLead.new( lead_id: lead_id, email_campaign_id: c.id )
@@ -21,6 +21,19 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
       end
       flash[:notice] = 'Done acted; See logs.'
       redirect_to action: :index
+
+    when Lead::OP_DELETE
+      outs = []
+      params[:lead_ids].each do |lead_id|
+        lead = Lead.find( lead_id )
+        outs.push lead.discard
+      end
+      flash[:notice] = "Outcomes: #{outs.inspect}."
+      redirect_to action: :index
+
+    else
+      throw "Unknown op: #{params[:op]}."
+
     end
   end
 
@@ -40,38 +53,48 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     authorize! :edit, @lead
   end
 
-  ##          0     1     2      3            4           5      6         7        8
-  ## fields: id, date, name, email, company url, source tag, phone, linkedin, comment
+  ##          0     1     2      3    4      5         6        7
+  ## Fields: id, date, name, email, tag, phone, linkedin, comment
   def import
     authorize! :import, ::Lead
-    file = params[:csv_file]
-    flags = []
+    file   = params[:csv_file]
+    flags  = []
     errors = []
     CSV.read(file.path, headers: true).each do |row|
-      company_url = row[4].presence
-      company_url ||= "https://#{row[3].split('@')[1]}"
-      company = ::Leadset.find_or_create_by({ company_url: company_url })
+
+      leadset = ::Leadset.find_or_create_by({ company_url: row[3].split('@')[1] })
       lead = ::Lead.new({
-        name: row[2] || 'there',
-        full_name: row[2] || 'there',
+        name: row[2].presence || row[3].split('@')[0],
+        full_name: row[2].presence || row[3].split('@')[0],
         email: row[3],
-        m3_leadset_id: company.id,
-        phone: row[6],
+        m3_leadset_id: leadset.id,
+        phone: row[5],
       })
       flag = lead.save
       flags << flag
       if !flag
         errors << lead.errors.full_messages.join(", ")
       end
+
+      if row[4].present?
+        tags = row[4].split(",").map do |tag_name|
+          WpTag.my_find_or_create({ name: tag_name })
+        end
+        puts! tags, 'tags'
+        tags.each do |tag|
+          LeadTag.create({ wp_tag: tag, lead: lead })
+        end
+      end
+
     end
-    flash[:notice] = "Result: #{flags.inspect} ."
+    flash[:notice] = "Result: #{flags.inspect}."
     flash[:alert] = errors
     redirect_to action: 'new'
   end
 
   def index
     authorize! :index, ::Lead
-    @leads = ::Lead.all # .includes( :leadset, :email_campaign_leads )
+    @leads = ::Lead.kept.includes( :company )
     lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
 
     map = %Q{

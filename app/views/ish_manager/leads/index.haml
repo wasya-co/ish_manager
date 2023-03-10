@@ -2,12 +2,12 @@
 .leads-index
   .header
     %h2.title
-      #{link_to 'Leads', leads_path} (#{::Lead.all.count})
+      #{link_to 'Kept Leads', leads_path} (#{::Lead.kept.count}, #{::Lead.all.count})
       = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
 
   = form_tag leads_bulkop_path do
     = label_tag 'Act on Selected:'
-    = select_tag :a, options_for_select( %w| delete add_to_campaign | )
+    = select_tag :op, options_for_select( [[nil,nil]] + Lead::OPS )
     -# = select_tag :email_campaign_id, options_for_select( @email_campaigns_list )
     = submit_tag 'Go'
 
@@ -27,7 +27,7 @@
           %tr
             %td= check_box_tag 'lead_ids[]', lead.id
             %td= link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
-            %td= lead.leadsets.first&.name
+            %td= lead.company.company_url
             %td= lead.wp_tags.map(&:name).join(", ")
             %td= lead.created_at.to_s[0..10]
             %td #{lead.email_campaign_leads.count || '-'}, #{@email_contexts[lead.email] || '-'}
