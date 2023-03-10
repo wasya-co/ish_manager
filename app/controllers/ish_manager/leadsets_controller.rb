@@ -73,6 +73,7 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
   private
 
   def set_lists
+    super
     @tags_list = WpTag.all.map { |t| [ t.name, t.id ] }
     @leads_list = Lead.all.map { |lead| [ lead.email, lead.id ] }
     @templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
