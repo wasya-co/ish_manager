@@ -9,6 +9,11 @@ gem 'aws-sdk-s3'
 gem 'irb', '>= 1.2.8'
 gem 'dotenv-rails'
 
+gem 'jwt'
+gem 'json-jwt'
+gem 'mysql2'
+gem 'discard', '~> 1.2'
+
 gem 'mongoid' # @TODO: I tried removing this dependency from here but could not.
 gem 'mongoid-paperclip'
 gem 'mongoid_paranoia'

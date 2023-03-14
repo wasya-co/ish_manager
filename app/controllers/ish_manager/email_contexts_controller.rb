@@ -79,8 +79,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def new
     authorize! :new, ::Ish::EmailContext
-    @template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first
-    @template ||= Ish::EmailTemplate.where( id: params[:template_slug] ).first
+    @tmpl = @email_template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first || Ish::EmailTemplate.where( id: params[:template_slug] ).first
     attrs = {}
     if @template
       attrs = @template.attributes.slice( :subject, :body, :from_email )

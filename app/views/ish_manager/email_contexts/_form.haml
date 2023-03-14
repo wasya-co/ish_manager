@@ -12,8 +12,9 @@
         .field.field-template
           = f.label "Template"
           = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || ctx.email_template_id ), {}, { class: 'select2' }
-          = link_to 'view', email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
-          = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
+          - if ctx.email_template_id
+            = link_to 'view', email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
+            = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
         -# .field
         -#   = f.label :slug
         -#   = f.text_field :slug
