@@ -7,7 +7,7 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
 
   def index
     authorize! :email_conversations_index, IshManager::Ability
-    @email_conversations = ::Office::EmailConversation.all.order_by( latest_date: :desc )
+    @email_conversations = ::Office::EmailConversation.all.order_by( latest_at: :desc )
   end
 
   def show
