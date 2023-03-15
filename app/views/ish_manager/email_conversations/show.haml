@@ -49,7 +49,7 @@
             .time= m.date&.strftime('%l:%M%P')
 
         .row-2
-          %a.preview{ href: "javascript: void(0)", data: { id: m.id.to_s } }
+          %a.preview{ href: 'javascript:void(0)', data: { id: m.id.to_s } }
             = (ActionView::Base.full_sanitizer.sanitize( m.part_html )||'<no-info>')[0..300]
           .expand
 

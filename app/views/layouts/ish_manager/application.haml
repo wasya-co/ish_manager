@@ -38,24 +38,9 @@
     .bg-white
       = render :partial => "ish_manager/application/main_header_#{@current_profile.role_name}"
       .container.W0
-        - if notice || alert
-          .row
-            .col-sm-12
-              - if notice
-                - if notice.class == Array
-                  %ul.notice
-                    - notice.map do |n|
-                      %li= n
-                - else
-                  %p.notice= notice
-              - if alert
-                - if alert.class == Array
-                  %ul.alert
-                    - alert.map do |n|
-                      %li= n
-                - else
-                  %p.alert= alert
+        = render 'alerts_notices' if notice || alert
         = yield
+
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?
 
