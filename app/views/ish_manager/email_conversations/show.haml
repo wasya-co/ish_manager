@@ -22,15 +22,15 @@
 
 
   .messages.max-width
-    - @email_messages.each do |m|
-      - lead = m.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
+    - @email_messages.each do |msg|
+      - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
 
       .item
         .row-1
-          .gray= m.id
+          .gray= msg.id
 
           .chip.from
-            -# = m.from
+            -# = msg.from
             = lead.email
 
           .relative
@@ -45,13 +45,14 @@
             = render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
           .datetime
-            .date= m.date&.strftime('%Y-%m-%d')
-            .time= m.date&.strftime('%l:%M%P')
+            .date= msg.date&.strftime('%Y-%m-%d')
+            .time= msg.date&.strftime('%l:%M%P')
 
         .row-2
-          %a.preview{ href: 'javascript:void(0)', data: { id: m.id.to_s } }
-            = (ActionView::Base.full_sanitizer.sanitize( m.part_html )||'<no-info>')[0..300]
-          .expand
+
+          - link_label = (ActionView::Base.full_sanitizer.sanitize( msg.part_html )||'<no-info>')[0..200]
+          = link_to link_label, ishapi.email_message_path(msg, jwt_token: @jwt_token ), target: msg.message_id, class: 'preview'
+          %iframe{ name: msg.message_id }
 
           .my-actions.hide
             = render 'ish_manager/email_templates/form_reply_2_mini'

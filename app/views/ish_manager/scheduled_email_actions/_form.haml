@@ -6,21 +6,21 @@
 - sch_a = scheduled_email_action
 - url = sch_a.new_record? ? scheduled_email_actions_path : scheduled_email_action_path(sch_a.id)
 
+.scheduled-email-actions--form
+  = form_for scheduled_email_action, url: url, html: { class: "form-mini" } do |f|
+    .header
+      %h5.title Schedule an email action
 
-= form_for scheduled_email_action, url: url, html: { class: "form-mini" } do |f|
-  .header
-    %h5.title Schedule an email action
+    .field
+      %label Lead
+      = select_tag :lead_id, options_for_select( @leads_list, selected: sch_a[:lead_id]||params[:lead_id] ), class: 'select2'
+    .field
+      %label State
+      = f.select :state, options_for_select(::Office::ScheduledEmailAction::STATES, selected: sch_a.state ), class: 'select2'
+    %br
+    .field
+      %label Email Action
+      = select_tag :email_action_id, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), class: 'select2'
 
-  .field
-    %label Lead
-    = select_tag :lead_id, options_for_select( @leads_list, selected: sch_a[:lead_id]||params[:lead_id] ), class: 'select2'
-  .field
-    %label State
-    = f.select :state, options_for_select(::Office::ScheduledEmailAction::STATES, selected: sch_a.state ), class: 'select2'
-  %br
-  .field
-    %label Email Action
-    = select_tag :email_action_id, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), class: 'select2'
-
-  .actions
-    = submit_tag 'Schedule'
+    .actions
+      = submit_tag 'Schedule'

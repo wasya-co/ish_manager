@@ -103,6 +103,18 @@
         display: flex;
         justify-content: space-between;
       }
+
+      .row-2 {
+        iframe {
+          border: 2px solid yellow;
+
+          width: 100%;
+          min-height: 500px;
+          height: 80vh;
+          display: none;
+        }
+      }
+
     }
   }
 
