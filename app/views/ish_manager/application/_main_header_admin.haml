@@ -41,7 +41,7 @@
     .a
       %ul
         %li
-          = link_to "Inbox (#{Office::EmailConversation.count})", email_conversations_path
+          = link_to "Inbox (#{Office::EmailConversation.in_inbox.count})", email_conversations_path
           = link_to '[+]', new_email_context_path
         %li
           = link_to 'Contexts', email_contexts_path
