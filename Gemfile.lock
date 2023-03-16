@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: 8f56463468783f00a7aeb479566da18ce85fe94e
+  revision: ede3f0274a6e143871a82e7d8aa64fae6ad145f1
   branch: 2.1.0
   specs:
-    ish_models (0.0.33.197)
+    ish_models (0.0.33.199)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -15,7 +15,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.363)
+    ish_manager (0.1.8.364)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise (~> 4.3)
@@ -94,7 +94,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.727.0)
+    aws-partitions (1.728.0)
     aws-sdk-core (3.170.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
