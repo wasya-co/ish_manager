@@ -130,8 +130,7 @@ $(function () {
   })
 
   $(".delete-btn").click(function(e) {
-    logg(e, 'deleting...')
-
+    const jwt_token = $("#Config").data('jwt-token')
     const action_path = $(this).data('url')
     const out = []
 
@@ -139,14 +138,13 @@ $(function () {
       let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
       out.push(val)
     })
-    logg(out, 'out')
 
     $.ajax({
       url: action_path,
       type: 'DELETE',
       data: {
         ids: out,
-        jwt_token: localStorage.getItem('jwt_token'),
+        jwt_token: jwt_token,
       },
       success: e => {
         logg((e||{}).responseText, 'deleted Ok')
