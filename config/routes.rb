@@ -63,8 +63,9 @@ IshManager::Engine.routes.draw do
   get 'email_messages/stripped/:id', to: 'email_messages#show_stripped', as: :email_message_stripped
   resources :email_messages
 
-  get 'email_conversations', to: 'email_conversations#index'
-  get 'email_conversations/:id', to: 'email_conversations#show', as: :email_conversation
+  get 'email_conversations',                   to: 'email_conversations#index'
+  get 'email_conversations/in_emailtag/:slug', to: 'email_conversations#index', as: :email_conversations_in_emailtag
+  get 'email_conversations/show/:id',          to: 'email_conversations#show', as: :email_conversation
 
   get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index', as: :email_contexts_for_lead
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
