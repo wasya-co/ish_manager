@@ -10,6 +10,11 @@
     #{@email_conversation.subject}
     (#{@email_conversation.email_messages.all.count})
 
+  .tags.max-width
+    Tags:
+    = @email_conversation.wp_term_ids
+    = @email_conversation.tags.map(&:name).join(", ")
+
   .leads.max-width
     Leads (#{@email_conversation.leads.length}):
     %ul
@@ -30,7 +35,6 @@
           .gray= msg.id
 
           .chip.from
-            -# = msg.from
             = lead.email
 
           .relative

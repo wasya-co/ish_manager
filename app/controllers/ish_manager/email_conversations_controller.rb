@@ -11,8 +11,9 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     if params[:slug]
       @email_conversations = ::Office::EmailConversation.in_emailtag( params[:slug] )
     else
-      @email_conversations = ::Office::EmailConversation.all
+      @email_conversations = ::Office::EmailConversation.in_no_trash
     end
+    @email_conversations = @email_conversations.order_by( latest_at: :desc )
   end
 
   def show

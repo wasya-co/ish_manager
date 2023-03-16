@@ -16,4 +16,33 @@ $(document).ready(() => {
 
   })
 
+
+  $(".delete-btn").click(function(e) {
+    const jwt_token = $("#Config").data('jwt-token')
+    const action_path = $(this).data('url')
+    const out = []
+
+    $( $("input[type='checkbox'].i-sel:checked") ).each( idx => {
+      let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
+      out.push(val)
+    })
+
+    $.ajax({
+      url: action_path,
+      type: 'DELETE',
+      data: {
+        ids: out,
+        jwt_token: jwt_token,
+      },
+      success: e => {
+        logg((e||{}).responseText, 'deleted Ok')
+        location.reload()
+      },
+      error: e => {
+        logg((e||{}).responseText, 'deleted Err')
+      },
+    })
+
+  })
+
 })

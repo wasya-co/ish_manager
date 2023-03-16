@@ -6,11 +6,11 @@
     = link_to email_conversations_in_emailtag_path(WpTag::EMAILTAG_INBOX) do
       Inbox (#{Office::EmailConversation.in_inbox.length})
     = link_to email_conversations_path do
-      All (#{Office::EmailConversation.all.length})
+      Archived (#{Office::EmailConversation.in_no_trash.length})
     = link_to email_conversations_in_emailtag_path(WpTag::EMAILTAG_TRASH) do
       Trash (#{Office::EmailConversation.in_emailtag(WpTag::EMAILTAG_TRASH).length})
 
-    Selected: #{params[:slug] || 'all' }
+    Selected: #{params[:slug] || 'archived' }
 
   .actions
 

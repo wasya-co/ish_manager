@@ -17,12 +17,12 @@ cat ish_manager.gemspec-template | \
 
 bundle > /dev/null
 
-gem build ish_manager.gemspec
-gem push ish_manager-$version.gem
-
 git add .
 git commit -m 'autobuild `date "+%Y%m%d"`'
 git push
+
+gem build ish_manager.gemspec
+gem push ish_manager-$version.gem
 
 echo "ish_manager build ok"
 
