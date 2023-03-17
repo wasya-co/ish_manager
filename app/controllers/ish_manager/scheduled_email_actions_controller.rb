@@ -25,7 +25,6 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
   def edit
     @sch = Sch.find params[:id]
     authorize! :edit, @sch
-
   end
 
   def index
@@ -36,6 +35,24 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
   def new
     @scheduled_email_action = ::Office::ScheduledEmailAction.new
     authorize! :scheduled_emails_new, @scheduled_email_action
+  end
+
+  def show
+    @sch = Sch.find params[:id]
+    authorize! :show, @sch
+    redirect_to action: 'edit'
+  end
+
+  def update
+    @sch = Sch.find params[:id]
+    authorize! :update, @sch
+    flag = @sch.update_attributes( params[:sch].permit! )
+    if flag
+      flash[:notice] = "Success."
+    else
+      flash[:alert] = "No luck: #{@sch.errors.full_messages.join(',')}."
+    end
+    render action: 'edit'
   end
 
 end

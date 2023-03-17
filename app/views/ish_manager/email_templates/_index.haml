@@ -1,17 +1,14 @@
 
 %h3.center.collapse-expand#emailTemplatesIndex
   Email Templates (#{Ish::EmailTemplate.all.count})
-.email-templates-index
 
-  -# = render 'ish_manager/email_templates/form_mini'
-
+.email-templates-index.max-width
   %table.bordered
     %tr
-      %th Actions
+      %th
       %th Slug
       %th Created
       %th Updated
-
 
     - @templates.each do |tmpl|
       %tr
@@ -20,10 +17,6 @@
           = link_to '[~]', edit_email_template_path({ id: tmpl })
           = button_to '[x]', email_template_path({ id: tmpl }), method: :delete, :data => { :confirm => 'Are you sure?' }, form_class: 'inline'
         %td= link_to tmpl.slug, email_template_path({ id: tmpl })
-        %td= tmpl.created_at
-        %td= tmpl.updated_at
-
-        -# = link_to 'iFrame', email_template_iframe_path({ id: tmpl }), target: :_blank
-
-%hr
+        %td= pp_date tmpl.created_at
+        %td= pp_date tmpl.updated_at
 

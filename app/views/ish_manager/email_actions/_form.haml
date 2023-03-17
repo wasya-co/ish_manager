@@ -23,13 +23,17 @@
 
       .col-md-6
         .field
-          %label Next in Days
-          .eg eg: rand(1..5)
-          = f.text_field :next_in_days
-        .field
-          %label Next at Time
-          .eg eg: rand(8..16).hours + rand(1..59).minutes
-          = f.text_field :next_at_time
+          %label Next At Exe
+          .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
+          = f.text_field :next_at_exe
+        -# .field
+        -#   %label Next in Days
+        -#   .eg eg: rand(1..5)
+        -#   = f.text_field :next_in_days
+        -# .field
+        -#   %label Next at Time
+        -#   .eg eg: rand(8..16).hours + rand(1..59).minutes
+        -#   = f.text_field :next_at_time
         .field
           %label Next Email Actions
           = f.select :next_email_actions, options_for_select( @email_actions_list, selected: act.next_email_actions.map(&:id) ), { }, { class: 'select2', multiple: true }

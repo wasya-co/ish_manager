@@ -187,6 +187,14 @@ table.dataTable {
 
 
 /* E */
+.eg {
+  font-size: 0.8em;
+
+  &:before {
+    content: "e.g. ";
+  }
+}
+
 .error_explanation {
   border: 1px solid red;
   padding: .8em;

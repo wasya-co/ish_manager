@@ -15,7 +15,8 @@
     %table.bordered.data-table
       %thead
         %tr
-          %th.actions Actions
+          %th.actions
+          %th.from From
           %th.to To
           %th.subject Subject
           %th.template Template
@@ -30,12 +31,15 @@
               - else
                 = link_to '[~]', edit_email_context_path(ctx)
               = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
+            %td
+              = ctx.from_email ? ctx.from_email : "t| #{ctx.tmpl.from_email}"
             %td= ctx.to_email
             %td
-              = link_to ctx.subject, email_context_path(ctx)
+              = link_to email_context_path(ctx) do
+                = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"
             %td= ctx.email_template.slug
-            %td= ctx.created_at.strftime('%Y-%m-%d')
-            %td= ctx.updated_at.strftime('%Y-%m-%d')
+            %td= ctx.created_at.strftime('%Y-%m-%d %l:%M%P %:z')
+            %td= ctx.updated_at.strftime('%Y-%m-%d %l:%M%P %:z')
 
 
     = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager

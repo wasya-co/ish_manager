@@ -2,10 +2,6 @@
 - url = email_template.new_record? ? email_templates_path : email_template_path(email_template.id)
 
 .email-templates--form
-
-  .header
-    %h2 Email Template
-
   = form_for email_template, url: url do |f|
     .row
       .col-md-4
