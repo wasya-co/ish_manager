@@ -1,5 +1,3 @@
 
-- if @email_template.layout == 'plain'
-  = raw @email_template.body
-- else
-  = render "ish_manager/email_templates/#{@email_template.layout}", ctx: @email_ctx
+-# = render "ish_manager/email_templates/#{@email_template.layout}", ctx: @ctx
+= render "ish_manager/email_templates/#{@email_template.layout}"

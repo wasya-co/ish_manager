@@ -65,6 +65,13 @@
     }
   }
 
+  .leads {
+    .item {
+      border: 1px solid green;
+      // background: cyan;
+    }
+  }
+
   // these are inside a conversation. _vp_ 2023-02-28
   .messages {
     // border: 1px solid red;
@@ -147,6 +154,11 @@
   .select-all.chip {
     display: flex;
     border: 1px solid cyan;
+  }
+
+  .subject {
+    margin: 0 1em;
+    font-weight: bold;
   }
 
   .tags {

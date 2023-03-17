@@ -9,7 +9,9 @@
 .email-contexts-show,
 .emails-ns, // emails namespace
 .leads-edit,
-.leads-index {
+.leads-index,
+.leads-show,
+.scheduled-emails-index {
   .header {
     display: flex;
     justify-content: center;
@@ -24,7 +26,7 @@
   // display: flex;
   // flex-direction: column;
 
-  max-width: 400px;
+  // max-width: 400px; // @TODO: where is this used?!
 
   margin-left: 20px;
 

@@ -1,15 +1,19 @@
 
 class ::IshManager::EmailContextsController < ::IshManager::ApplicationController
 
-  # alphabetized : )
+  # Alphabetized : )
 
   before_action :set_lists
 
   def create
-    authorize! :create, ::Ish::EmailContext
     pparams = params[:ish_email_context].permit!
-    pparams[:tmpl] = JSON.parse(pparams[:tmpl])
-    @ctx = ::Ish::EmailContext.new pparams
+    @ctx    = ::Ish::EmailContext.new pparams
+    @tmpl   = ::Ish::EmailTemplate.find @ctx.email_template_id
+
+    @ctx.from_email ||= @tmpl.from_email
+    @ctx.subject    ||= @tmpl.subject
+
+    authorize! :create, @ctx
     if @ctx.save
       flash[:notice] = 'Saved.'
       redirect_to action: 'show', id: @ctx.id
@@ -55,7 +59,6 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :iframe_src, @ctx
     @tmpl = @email_template = @ctx.email_template
     @lead = @ctx.lead
-    # @body = @ctx.body_templated
     render "ish_manager/email_templates/_#{@tmpl.layout}", layout: false
   end
 
@@ -71,10 +74,6 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       @lead = Lead.find params[:lead_id]
       @ctxs = @ctxs.where( to_email: @lead.email )
     end
-
-    @ctxs = @ctxs.page( params[Ish::EmailContext::PAGE_PARAM_NAME] )
-
-    render layout: 'ish_manager/application_fullwidth'
   end
 
   def new

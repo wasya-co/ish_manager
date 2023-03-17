@@ -35,7 +35,9 @@
       .tab-raw
         = f.text_area :body
       .tab-preview
-        -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
-        %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
+        - if email_template.persisted?
+          -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
+          %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
     .actions
       = f.submit 'Save'
+

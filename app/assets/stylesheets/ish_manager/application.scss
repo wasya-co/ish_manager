@@ -25,11 +25,15 @@
 **/
 
 a[target='_blank'] {
+  display: flex;
+
   &::before {
-    content: '[ '
+    content: '[ ';
+    display: inline;
   }
   &::after {
     content: ' ^]';
+    display: inline;
     // content: ' ^]' !important;
     // font-size: .5em;
   }
@@ -73,6 +77,10 @@ ul:not(.browser-default).bullets, {
 .expand-next + form {
   // border: 1px solid red !important;
   // display: none !important;
+}
+.expand-hide {
+  display: none;
+  position: absolute;
 }
 
 .alert {
@@ -162,8 +170,8 @@ table.bordered {
 /* D */
 
 table.dataTable {
-  border: 1px solid red;
-  padding: 1em;
+  // border: 1px solid red;
+  // padding: 1em;
   border-radius: 5px;
   box-sizing: border-box;
   background: white;
@@ -216,10 +224,6 @@ table.dataTable {
 /* H */
 .hide, .hidden {
   display: none !important;
-}
-.hide-expand {
-  display: none;
-  position: absolute;
 }
 
 /* I */

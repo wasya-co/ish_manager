@@ -28,9 +28,6 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
   def edit
     @tmpl = @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first
     authorize! :edit, @tmpl
-
-    # @ctx = @email_context = Ish::EmailContext.new
-    render layout: 'ish_manager/application_fullwidth'
   end
 
   def iframe_src

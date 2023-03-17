@@ -3,8 +3,6 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
 
   before_action :set_lists
 
-  layout 'ish_manager/application_fullwidth'
-
   def create
     puts! params, 'params'
 
@@ -22,6 +20,12 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
       flash[:alert] = "No luck: #{@scheduled.errors.full_messages.join(', ')}"
     end
     redirect_to request.referrer ? request.referrer : leadsets_path
+  end
+
+  def edit
+    @sch = Sch.find params[:id]
+    authorize! :edit, @sch
+
   end
 
   def index

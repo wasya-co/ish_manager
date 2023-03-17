@@ -1,0 +1,48 @@
+
+.leads-show
+
+  .header
+    %h2.title
+      Lead ##{@lead.id}
+      = link_to '[~]', edit_lead_path(@lead)
+
+  %ul
+    %li Name: #{@lead.name}
+    %li Email: #{@lead.email}
+
+  .row
+    .col-md-6.ctxs
+      %h5
+        Email Contexts (#{@ctxs.length})
+        = link_to '[new]', '#'
+      %ul
+        - @ctxs.each do |ctx|
+          %li
+            = link_to ctx.subject, email_context_path(ctx)
+            = pp_date ctx.sent_at
+    .col-md-6.schs
+      %h5
+        Scheduled actions (#{@schs.length})
+        = link_to '[new]', '#'
+      %ul
+        - @schs.each do |sch|
+          %li
+            = link_to sch.email_action.slug, edit_scheduled_email_action_path(sch)
+            = sch.state
+
+
+            (#{link_to 'prototype', edit_email_action_path(sch.email_action)})
+
+            In #{sch.email_action.next_in_days} days at #{sch.email_action.next_at_time}
+
+
+  .row
+    .col-md-12.msgs
+      %h5 Email Messages (#{@msgs.length})
+      %ul
+        - @msgs.each do |msg|
+          %li= link_to msg.subject, email_conversation_path( msg.conv )
+
+
+
+

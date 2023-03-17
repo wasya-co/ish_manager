@@ -3,8 +3,6 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  layout 'ish_manager/application_fullwidth'
-
   ## alphabetized : )
 
   def bulkop
@@ -127,8 +125,11 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def show
-    authorize! :redirect, IshManager::Ability
-    redirect_to :action => :edit, :id => params[:id]
+    @lead = Lead.find params[:id]
+    authorize! :show, @lead
+    @schs = Sch.where( lead_id: @lead.id )
+    @ctxs = Ctx.where( lead_id: @lead.id )
+    @msgs = Msg.where( from: @lead.email )
   end
 
   def update

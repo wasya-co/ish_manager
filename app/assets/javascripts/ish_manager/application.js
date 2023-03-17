@@ -106,7 +106,6 @@ $(function () {
       pageLength: 10,
       lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
       lengthChange: true,
-      "aLengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
     }
     $('#dataTable').DataTable(_props)
     $('.data-table').DataTable(_props)

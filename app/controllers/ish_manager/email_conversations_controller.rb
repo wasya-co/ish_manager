@@ -1,8 +1,6 @@
 
 class ::IshManager::EmailConversationsController < IshManager::ApplicationController
 
-  layout 'ish_manager/application_fullwidth'
-
   before_action :set_lists
 
   def index

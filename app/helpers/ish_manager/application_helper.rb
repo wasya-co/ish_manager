@@ -49,7 +49,8 @@ module IshManager
     end
 
     def pretty_date date
-      date.to_s[0, 10]
+      # date.to_s[0, 10]
+      date&.strftime('%Y-%m-%d')
     end
     def pp_date a; pretty_date a; end
 

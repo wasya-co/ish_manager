@@ -2,28 +2,24 @@
 .email-conversations-show
 
   .header.max-width
-    %i.material-icons mail
-    Inbox (#{Office::EmailConversation.all.length})
+    -# %i.material-icons mail
 
     = link_to '[<<-]', email_conversations_path
-    -# = link_to '[<-]', email_conversations_path
-    #{@email_conversation.subject}
+
+    .subject #{@email_conversation.subject}
     (#{@email_conversation.email_messages.all.count})
 
   .tags.max-width
-    Tags:
+    Tags (#{@email_conversation.tags.length}):
     = @email_conversation.wp_term_ids
     = @email_conversation.tags.map(&:name).join(", ")
 
   .leads.max-width
     Leads (#{@email_conversation.leads.length}):
-    %ul
-      - @email_conversation.leads.each do |p|
-        %li
-          = p.email
-          [existing actions?]
-          = render 'ish_manager/email_templates/form_reply_2_mini'
-          = render 'ish_manager/scheduled_actions/form_mini'
+    = @email_conversation.leads.map(&:id)
+    .leadsC
+      = render 'ish_manager/leads/index_rows', leads: @email_conversation.leads
+
 
 
   .messages.max-width
@@ -59,7 +55,7 @@
           %iframe{ name: msg.message_id }
 
           .my-actions.hide
-            = render 'ish_manager/email_templates/form_reply_2_mini'
+            = render 'ish_manager/email_contexts/form_reply', lead: lead
             -# = button_to 'Reply'
             -# = button_to 'Reply All'
             -# = button_to 'New Template'

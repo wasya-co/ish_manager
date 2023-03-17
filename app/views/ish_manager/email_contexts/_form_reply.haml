@@ -1,6 +1,8 @@
 
-.email-templates--form-reply-2-mini.form-mini
+.email-contexts--form-reply.form-mini
   = form_for ::Ish::EmailContext.new, url: email_contexts_path do |f|
+    = hidden_field_tag 'ish_email_context[lead_id]', lead.id
+    To: #{lead.email}
     .field
       -# = f.label :template
       = f.select :email_template_id, options_for_select( @email_templates_list )
@@ -9,7 +11,7 @@
 
     .field.send-at
       -# = f.label :send_at
-      = f.text_field :send_at, placeholder: 'YYYY-MM-DD', size: 10, class: 'input-date'
+      = f.text_field :send_at, placeholder: 'YYYY-MM-DD', value: 1.business_day.after(Time.now).strftime('%Y-%m-%d'), size: 10, class: 'input-date'
 
     .action
       = f.submit 'Schedule'

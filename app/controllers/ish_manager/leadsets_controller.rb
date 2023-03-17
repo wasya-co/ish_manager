@@ -42,8 +42,6 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
     # else
     #   @leadsets = @leadsets.where( :is_done => false )
     # end
-
-    render layout: 'ish_manager/application_fullwidth'
   end
 
   def new
