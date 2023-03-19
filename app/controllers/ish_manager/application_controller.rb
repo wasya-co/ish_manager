@@ -9,6 +9,8 @@ module IshManager
     check_authorization
     rescue_from ::CanCan::AccessDenied, :with => :access_denied
 
+    http_basic_authenticate_with :name => BASIC_AUTH_NAME, :password => BASIC_AUTH_PASSWORD
+
     def home
       authorize! :home, IshManager::Ability
       render 'home'

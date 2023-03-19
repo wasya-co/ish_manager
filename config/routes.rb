@@ -23,16 +23,12 @@ IshManager::Engine.routes.draw do
   # end
   # resources :orders
 
-  # namespace :iron_warbler do
-  #   resources :iron_condors
-  #   resources :stock_watches
-  #   resources :option_watches
-  #   resources :covered_calls
-  # end
 
-  namespace :iro do
-    get 'watches', to: 'iro_watches#index'
-  end
+  get 'iro_watches', to: 'iro_watches#index'
+  get 'iro_purse',   to: 'iro_purses#my', as: :my_purse
+
+
+
 
   scope 'gameui' do
     get 'maps/:id/map-editor', to: 'maps#map_editor', as: :location_map_editor

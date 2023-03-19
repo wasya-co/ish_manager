@@ -1,0 +1,11 @@
+
+.iro-purses-my.max-width
+  .header
+    %h2.title
+      My purse value: $#{@purse.current_value}
+
+  .positions
+    %h3 Positions (#{@positions.length})
+    %ul
+      - @positions.each do |p|
+        %li= p.inspect
