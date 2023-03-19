@@ -6,6 +6,12 @@
 
   .positions
     %h3 Positions (#{@positions.length})
-    %ul
-      - @positions.each do |p|
-        %li= p.inspect
+
+    %table.bordered
+      %thead
+        %tr
+          %td Ticker
+      %tbody
+        - @positions.each do |p|
+          %tr
+            %td= p.ticker

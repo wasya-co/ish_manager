@@ -1,6 +1,6 @@
 
 = form_for video do |f|
-  = render 'form_errors', :item => @video
+  -# = render 'form_errors', :item => @video
 
   .row
     .col.m6
@@ -34,9 +34,6 @@
     .col.s4
       = f.check_box :is_trash
       = f.label :is_trash
-    .col.s4
-      = f.check_box :is_feature
-      = f.label :is_feature
 
   .action
     = f.submit

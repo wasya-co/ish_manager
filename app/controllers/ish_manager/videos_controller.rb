@@ -3,7 +3,7 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  # alphabetized : )
+  # Alphabetized : )
 
   def create
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
@@ -40,13 +40,14 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.where( is_trash: false, :user_profile => @current_profile ).order_by( :created_at => :desc )
+    @videos = Video.unscoped.where( is_trash: false, :user_profile => @current_profile
+    ).order_by( :created_at => :desc )
 
     if params[:q]
       @videos = @videos.where({ :name => /#{params[:q]}/i })
     end
 
-    @videos = @videos.page( params[:videos_page] ).per( 10 )
+    @videos = @videos.page( params[:videos_page] ).per( 9 )
 
     respond_to do |format|
       format.html do

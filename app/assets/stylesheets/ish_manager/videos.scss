@@ -1,10 +1,29 @@
 
-.ish_manager-videos-show {
-  border-bottom: 2px solid red;
-  margin: 0 auto;
-  padding-bottom: .8em;
-  width: 640px;
+.videos-index {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
 
+  .item {
+    margin-bottom: 1em;
+
+    .title {
+      word-break: break-word;
+    }
+  }
+
+  .pagination {
+    margin: 1em 0;
+  }
+}
+
+div.videos-show {
+  // border-bottom: 2px solid red;
+  padding-bottom: .8em;
+
+  margin: 0 auto;
+  width: 640px;
 
   .title {
     font-size: 1.4em;
