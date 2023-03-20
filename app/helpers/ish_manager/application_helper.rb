@@ -55,7 +55,16 @@ module IshManager
     def pp_date a; pretty_date a; end
 
     def pp_amount a
+      return '-' if !a
       "$ #{'%.2f' % a}"
+    end
+    def pp_money a; pp_amount a; end
+    def pp_percent a
+      "#{(a*100).round(2)}%"
+    end
+
+    def pp_bool a
+      a ? 'Y' : '-'
     end
 
   end

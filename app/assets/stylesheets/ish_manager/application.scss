@@ -11,6 +11,7 @@
  *= require ish_manager/email
  *
  *= require ish_manager/galleries
+ *= require ish_manager/iro
  *= require ish_manager/leads_leadsets
  *= require ish_manager/maps
  *= require ish_manager/markers
@@ -21,6 +22,7 @@
  *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
+
  *
 **/
 
@@ -122,8 +124,10 @@ body.application-fullwidth {
 }
 
 table.bordered {
-  td {
-    border: 1px solid black;
+  tbody {
+    td {
+      border: 1px solid black;
+    }
   }
 }
 

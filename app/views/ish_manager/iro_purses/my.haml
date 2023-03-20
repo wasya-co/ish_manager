@@ -1,8 +1,14 @@
 
-.iro-purses-my.max-width
+.iro-purses-my.padded
   .header
-    %h2.title
-      My purse value: $#{@purse.current_value}
+    %h2.title My purse value: $#{@purse.current_value}
+
+  .strategies
+    - @strategies.each do |strat|
+      .strategy
+        = link_to '[~]', edit_iro_strategy_path( strat )
+        <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
+
 
   .positions
     %h3 Positions (#{@positions.length})
@@ -10,8 +16,53 @@
     %table.bordered
       %thead
         %tr
+          %td id
+          %td Strat
           %td Ticker
+          %td Kind/Type
+          %td Strike
+          %td ExpiresOn
+          %td Days Left
+          %td.q Q
+          %td Begin On
+          %td Begin $
+          %td Begin #{"\u0394"}
+          %td Current $
+          %td.net Net
+          %td.netp % Net
+          %td Curr #{"\u0394"}
+          %td Days at Open
+          %td.must-roll Must roll?
+          %td.should-roll Should roll?
+          %td.next-symbol Next Symbol
+          %td.next-outcome Next Outcome
+          %td.state State
       %tbody
         - @positions.each do |p|
           %tr
+            %td= p.id
+            %td= p.iro_strategy_id
             %td= p.ticker
+            %td= p.type == "Iro::CoveredCall" ? "CALL" : "other"
+            %td= p.strike
+            %td= p.expires_on.strftime('%b %d')
+            %td= (p.expires_on.to_date - Time.now.to_date).to_i
+            %td.q= p.quantity
+            %td= pp_date p.opened_on
+            %td= p.opened_price
+            %td= sprintf('%.2f', p.opened_delta ) rescue nil
+            %td= pp_money p.current_price
+            %td.net= pp_money ( p.opened_price - p.current_price ) * 100 - 1.3
+            %td.netp= pp_percent ( p.opened_price - p.current_price ) / p.opened_price
+            %td= sprintf('%.2f', p.current_delta ) rescue nil
+            %td= (p.expires_on.to_date - p.opened_on).to_i
+            %td.must-roll= pp_bool p.must_roll?
+            %td.should-roll
+              .aC
+                .a= p.should_rollp ? p.should_rollp : '-'
+                .a= pp_bool p.should_roll?
+            %td.next-symbol= p.next_symbol
+            %td.next-outcome= pp_money p.next_outcome
+            %td.state= p.status
+
+

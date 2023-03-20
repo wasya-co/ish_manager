@@ -1,0 +1,49 @@
+
+.iro-purses-my {
+  font-size: 16px; // @TODO: make uniform _vp_ 2023-03-19
+
+  table {
+
+    td {
+      padding: 0 .5em;
+    }
+
+    tbody {
+      .must-roll,
+      .next-symbol {
+        text-align: center;
+      }
+
+      .net,
+      .netp {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .should-roll > .aC {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+
+
+
+  .must-roll,
+  .should-roll,
+  .next-symbol {
+    background: #eee;
+  }
+
+  .q {
+    font-weight: bold;
+  }
+
+  .strategy {
+    pre {
+      font-size: 12px;
+      background: #eee;
+    }
+  }
+
+}
