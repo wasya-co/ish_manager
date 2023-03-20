@@ -20,8 +20,6 @@
     .leadsC
       = render 'ish_manager/leads/index_rows', leads: @email_conversation.leads
 
-
-
   .messages.max-width
     - @email_messages.each do |msg|
       - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
@@ -42,7 +40,7 @@
 
           .relative
             %i.fa.fa-clock-o.expand-next
-            = render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+            .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
           .datetime
             .date= msg.date&.strftime('%Y-%m-%d')
