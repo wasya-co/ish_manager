@@ -20,10 +20,15 @@
 
   .actions
 
+    %a.btn.archive-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/rmtag/#{WpTag::INBOX}" } }
+      %i.material-icons archive
+      archive
     %a.btn.delete-btn{ href: "javascript: void(0)", data: { url: '/api/email_conversations' } }
       %i.material-icons delete
+      delete
     %a.btn.reload-btn{ href: "javascript: location.reload()" }
       %i.material-icons refresh
+      refresh
 
   %table.conversations
     %tr
