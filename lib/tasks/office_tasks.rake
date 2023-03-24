@@ -47,7 +47,7 @@ namespace :office do
   task :email_worker => :environment do
     while true do
 
-      ctxs = ::Ish::EmailContext.current.unsent
+      ctxs = ::Ish::EmailContext.scheduled.unsent
       puts! ctxs.count, 'ctxs'
       ctxs.map do |ctx|
         IshManager::OfficeMailer.send_context_email( ctx[:id].to_s ).deliver_later

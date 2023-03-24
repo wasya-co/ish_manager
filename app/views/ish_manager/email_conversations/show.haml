@@ -17,8 +17,7 @@
   .leads.max-width
     Leads (#{@email_conversation.leads.length}):
     = @email_conversation.leads.map(&:id)
-    .leadsC
-      = render 'ish_manager/leads/index_rows', leads: @email_conversation.leads
+    -# .leadsC= render 'ish_manager/leads/index_rows', leads: @email_conversation.leads
 
   .messages.max-width
     - @email_messages.each do |msg|
@@ -26,21 +25,22 @@
 
       .item
         .row-1
-          .gray= msg.id
-
-          .chip.from
-            = lead.email
-
-          .relative
-            %a.chip{ href: email_contexts_for_lead_path( lead ) }
-              \(
-              = lead.email_contexts.count
-              %i.fa.fa-envelope
-              \)
-
-          .relative
-            %i.fa.fa-clock-o.expand-next
-            .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+          .gray
+            %ul
+              %li
+                = msg.id
+                <b>To:</b> #{msg.to}
+              %li
+                <b>From:</b> #{msg.from}
+                = lead.email
+                %a.chip{ href: email_contexts_for_lead_path( lead ) }
+                  \(
+                  = lead.email_contexts.count
+                  %i.fa.fa-envelope
+                  \)
+                .relative.inline-block
+                  %i.fa.fa-clock-o.expand-next
+                  .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
           .datetime
             .date= msg.date&.strftime('%Y-%m-%d')
