@@ -69,20 +69,10 @@
       = f.label :url, "URL (if any)"
       = f.text_field :url
     .row
-      .col-sm-3 &nbsp;
-      .col-sm-5
-        .field
-          = f.label :description
-          = f.text_area :description
-    .row
       .col-sm-4
         .field
           = f.label :item_type
           = f.select :item_type, options_for_select( ::Gameui::Marker::ITEM_TYPES, selected: @marker.item_type )
-      .col-sm-4
-        .field
-          = f.label :ordering
-          = f.text_field :ordering
       .col-sm-4
         .field
           = f.check_box :is_active

@@ -3,14 +3,20 @@
 
   .second-header
     %i.material-icons mail
-    = link_to email_conversations_in_emailtag_path(WpTag::EMAILTAG_INBOX) do
-      Inbox (#{Office::EmailConversation.in_inbox.length})
-    = link_to email_conversations_path do
-      Archived (#{Office::EmailConversation.in_no_trash.length})
-    = link_to email_conversations_in_emailtag_path(WpTag::EMAILTAG_TRASH) do
-      Trash (#{Office::EmailConversation.in_emailtag(WpTag::EMAILTAG_TRASH).length})
+    = link_to email_conversations_in_path(WpTag::INBOX) do
+      Inbox (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})
+    = link_to email_conversations_notin_path(WpTag::INBOX) do
+      Not Inbox (#{Office::EmailConversation.not_in_emailtag(WpTag::INBOX).length})
 
-    Selected: #{params[:slug] || 'archived' }
+    = link_to email_conversations_in_path(WpTag::TRASH) do
+      Trash (#{Office::EmailConversation.in_emailtag(WpTag::TRASH).length})
+    = link_to email_conversations_notin_path(WpTag::TRASH) do
+      Not Trash (#{Office::EmailConversation.not_in_emailtag(WpTag::TRASH).length})
+
+    - if params[:slug]
+      slug: #{params[:slug]}
+    - if params[:not_slug]
+      not slug: #{params[:not_slug]}
 
   .actions
 

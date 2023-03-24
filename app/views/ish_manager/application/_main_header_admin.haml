@@ -29,7 +29,7 @@
         %li= link_to 'Ish::UserProfiles',  user_profiles_path
         %li= link_to "Ish::ImageAsset's", image_assets_path
         %li
-          = link_to 'Maps', maps_path
+          = link_to 'Locations (maps)', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q
@@ -41,13 +41,12 @@
     .a
       %ul
         %li
-          = link_to "Inbox (#{Office::EmailConversation.in_inbox.length})", email_conversations_path
+          = link_to "#{WpTag::INBOX} (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})", email_conversations_in_path(WpTag::INBOX)
           = link_to '[+]', new_email_context_path
         %li
           = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
           = link_to '[+]', new_email_template_path
         %li
-          -# = link_to 'Contexts', email_contexts_path
           = link_to 'Contexts', notsent_email_contexts_path
           = link_to '[+]', new_email_context_path
         -# %li
