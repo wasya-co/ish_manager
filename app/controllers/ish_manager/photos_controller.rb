@@ -27,11 +27,10 @@ class IshManager::PhotosController < IshManager::ApplicationController
   end
 
   def j_create
-    # find this gallery
     if params[:slug]
       gallery = Gallery.unscoped.where( :slug => params[:slug] ).first
       gallery ||= Gallery.unscoped.find params[:slug]
-    elsif params[:gallery_id] # this one, let's normalize on id everywhere in manager.
+    elsif params[:gallery_id]
       gallery = Gallery.unscoped.find( params[:gallery_id] )
       gallery ||= Gallery.unscoped.where( :slug => params[:gallery_id] ).first
     end
@@ -41,7 +40,6 @@ class IshManager::PhotosController < IshManager::ApplicationController
     @photo.is_public = true
     @photo.gallery = gallery
 
-    # cache
     @photo.gallery.touch
 
     if @photo.save
@@ -55,7 +53,10 @@ class IshManager::PhotosController < IshManager::ApplicationController
       }
       render :json => [ j ]
     else
-      render :json => { "errors" => @photo.errors }
+      render :json => {
+        message: @photo.errors.full_messages.join(", "),
+        filename: @photo.photo.original_filename,
+      }, status: 400
     end
   end
 

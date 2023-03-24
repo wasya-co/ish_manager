@@ -33,13 +33,35 @@ const AppRouter = {
 
 $(function () {
 
+  var fileuploadCount = 0
   $('#fileupload').fileupload({
     dataType: 'json',
-    done: function (e, data) {
-      var photos = $('#photos');
-      var tempUrl = data.result[0].thumbnail_url;
-      $('<img/>').attr('src', tempUrl).appendTo(photos);
-    }
+    success: function(ev) {
+      logg(ev, 'success')
+      ev = ev[0]
+      fileuploadCount += 1
+
+      var el = $('<div class="item" />')
+      var photosEl = $('#photos')
+
+      $('<div/>').html(fileuploadCount).appendTo(el)
+      $('<img/>').attr('src', ev.thumbnail_url).appendTo(el)
+      $('<div/>').html(ev.name).appendTo(el)
+      el.appendTo(photosEl)
+    },
+    error: function(err) {
+      logg(err, 'error')
+      err = err.responseJSON
+      fileuploadCount += 1
+
+      var el = $('<div class="item" />')
+      var errorsEl = $('.photos--multinew .errors')
+
+      $('<div/>').html(fileuploadCount).appendTo(el)
+      $('<div />').html(err.filename).appendTo(el)
+      $('<div />').html(err.message).appendTo(el)
+      el.appendTo(errorsEl)
+    },
   });
 
   $('*[data-confirm]').click(function(){
@@ -97,7 +119,6 @@ $(function () {
   })
 
   $(".expand-next").click(function (_e) {
-    // logg($(this).next(), 'expand?')
     $(this).next().slideToggle()
   })
 

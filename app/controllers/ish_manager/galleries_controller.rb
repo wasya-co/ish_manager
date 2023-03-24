@@ -3,7 +3,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   before_action :set_lists
   before_action :set_gallery, only: %w|destroy edit j_show show update update_ordering|
 
-  # alphabetized! : )
+  # Alphabetized! : )
 
   def create
     params[:gallery][:shared_profiles] ||= []
@@ -19,7 +19,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       redirect_to edit_gallery_path(@gallery)
     else
       puts! @gallery.errors.messages
-      flash[:alert] = "Cannot create the gallery: #{@gallery.errors.full_messages}"
+      flash[:alert] = "Cannot create the gallery: #{@gallery.errors.full_messages.join(', ')}"
       render :action => 'new'
     end
   end

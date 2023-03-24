@@ -2,11 +2,11 @@
 -# ish_manager / galleries / show
 -#
 
-.galleries-show
+.galleries-show.padded
   .row
-    .col-sm-12.col-md-6
+    .col-md-6
       = render 'title', :gallery => @gallery
-    .col-sm-12.col-md-6
+    .col-md-6
       = render 'ish_manager/photos/multinew', :gallery => @gallery
 
   .row-deleted
