@@ -4,14 +4,9 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
   before_action :set_lists
 
   def create
-    puts! params, 'params'
-
     authorize! :scheduled_emails_create, ::IshManager
 
-    @scheduled = Office::ScheduledEmailAction .new({
-      lead_id: params[:lead_id],
-      email_action_id: params[:email_action_id],
-    })
+    @scheduled = Office::ScheduledEmailAction.new( params[:sch].permit! )
 
     flag = @scheduled.save
     if flag

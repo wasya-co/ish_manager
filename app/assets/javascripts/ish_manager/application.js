@@ -91,7 +91,7 @@ $(function () {
     if (!!$('body').select2) {
       $('.select2').each(function() {
         $( this ).select2({
-          width: '100%'
+          width: 'auto',
         })
       })
     }

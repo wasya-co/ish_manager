@@ -66,7 +66,7 @@ module IshManager
 
       @leads_list = Lead.list
       @leadsets_list = Leadset.list
-      @email_actions_list = ::Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
+      @email_actions_list = [[nil,nil]] + ::Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
       @email_templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     end
 

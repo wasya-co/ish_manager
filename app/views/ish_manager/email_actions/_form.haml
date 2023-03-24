@@ -23,34 +23,22 @@
 
       .col-md-6
         .field
-          %label Next At Exe
-          .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
-          = f.text_field :next_at_exe
-        -# .field
-        -#   %label Next in Days
-        -#   .eg eg: rand(1..5)
-        -#   = f.text_field :next_in_days
-        -# .field
-        -#   %label Next at Time
-        -#   .eg eg: rand(8..16).hours + rand(1..59).minutes
-        -#   = f.text_field :next_at_time
-        .field
           %label Next Email Actions
-          = f.select :next_email_actions, options_for_select( @email_actions_list, selected: act.next_email_actions.map(&:id) ), { }, { class: 'select2', multiple: true }
+          .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
+          %br
+
+          = f.fields_for :ties do |next_f|
+            .flex-row.field
+              = next_f.label :next_at_exe
+              = next_f.text_field :next_at_exe, class: 'flex-grow'
+            .flex-row.field
+              = next_f.label :to_delete
+              = next_f.check_box :to_delete
+              = next_f.select :next_email_action_id, options_for_select( @email_actions_list, selected: next_f.object.next_email_action_id ), { }, { class: 'select2' }
+            %br
 
     .row
       .col-sm-6
         = f.submit :submit
 
 
-
-
-
-
-
-        -# .field
-        -#   %label State
-        -#   = f.select :state, options_for_select( ::Office::EmailAction::STATES, selected: act.state )
-        -# .field
-        -#   %label Lead
-        -#   = f.select :lead_id, options_for_select( @leads_list, selected: act.lead_id ), {}, class: 'select2'

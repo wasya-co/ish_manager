@@ -208,6 +208,10 @@ table.dataTable {
 
 /* F */
 
+.flex-grow {
+  flex-grow: 1;
+}
+
 .flex-row {
   display: flex;
   flex-wrap: wrap;
@@ -327,6 +331,8 @@ textarea.large {
   margin-top: 1em;
 
   flex-grow: 1;
+
+  z-index: -1;
 }
 
 .max-width {

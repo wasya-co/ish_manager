@@ -1,5 +1,5 @@
 
-.leads-show
+.leads-show.padded
 
   .header
     %h2.title
@@ -14,7 +14,7 @@
     .col-md-6.ctxs
       %h5
         Email Contexts (#{@ctxs.length})
-        = link_to '[new]', '#'
+        = link_to '[+]', '#'
       %ul
         - @ctxs.each do |ctx|
           %li
@@ -23,17 +23,14 @@
     .col-md-6.schs
       %h5
         Scheduled actions (#{@schs.length})
-        = link_to '[new]', '#'
+        = link_to '[+]', '#'
       %ul
         - @schs.each do |sch|
           %li
             = link_to sch.email_action.slug, edit_scheduled_email_action_path(sch)
             = sch.state
-
-
-            (#{link_to 'prototype', edit_email_action_path(sch.email_action)})
-
-            In #{sch.email_action.next_in_days} days at #{sch.email_action.next_at_time}
+            (#{link_to 'proto-action', edit_email_action_path(sch.email_action)})
+            = sch.perform_at
 
 
   .row

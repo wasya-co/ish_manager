@@ -12,15 +12,19 @@
       %h5.title Schedule an email action
 
     .field
-      %label Lead
-      = select_tag :lead_id, options_for_select( @leads_list, selected: sch_a[:lead_id]||params[:lead_id] ), class: 'select2'
+      = f.label :lead
+      = f.select :lead_id, options_for_select(@leads_list, selected: sch_a[:lead_id]||params[:lead_id] ), class: 'select2'
     .field
       %label State
       = f.select :state, options_for_select(::Office::ScheduledEmailAction::STATES, selected: sch_a.state ), class: 'select2'
     %br
     .field
       %label Email Action
-      = select_tag :email_action_id, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), class: 'select2'
+      = f.select :email_action, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), class: 'select2'
+    %br
+    .field
+      = f.label :perform_at
+      = f.text_field :perform_at
 
     .actions
       = submit_tag 'Schedule'

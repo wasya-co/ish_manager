@@ -1,5 +1,5 @@
 
-.email-actions-index.max-width
+.email-actions-index.padded
 
   .header
     %h2.title
@@ -17,10 +17,16 @@
       %tr
         %td= check_box_tag 'abba'
         %td= link_to '[~]', edit_email_action_path( act )
-        %td= act.slug
+        %td= link_to act.slug, email_action_path( act )
         %td= act.descr
         -# %td= act.lead&.email
         %td
           %ul
-            - act.next_email_actions.map do |next_a|
-              %li= link_to next_a.slug, edit_email_action_path( next_a )
+            - act.ties.map do |next_a|
+              %li
+                .a= next_a.next_at_exe
+                .a
+                  - if next_a.next_email_action.slug == act.slug
+                    (same)
+                  = next_a.next_email_action.slug
+              -# %li= link_to next_a.next_email_action.slug, edit_email_action_path( next_a.next_email_action )
