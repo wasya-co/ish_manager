@@ -23,10 +23,11 @@
           = button_to 'Send', email_context_send_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
           = link_to '[~]', edit_email_context_path(@ctx)
 
-  - if @ctx.sent_at
-    = raw @ctx.rendered_str
-    = @ctx.tmpl
+  .max-width
+    - if @ctx.sent_at
+      = raw @ctx.rendered_str
+      -# = @ctx.tmpl
 
-  - else
-    = link_to 'i-src', email_context_iframe_path(@ctx), target: :_blank
-    %iframe{ src: email_context_iframe_path(@ctx), width: '100%', height: '100%' }
+    - else
+      -# = link_to 'i-src', email_context_iframe_path(@ctx), target: :_blank
+      %iframe{ src: email_context_iframe_path(@ctx), width: '100%', height: '100%' }

@@ -6,8 +6,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   before_action :set_lists
 
   def create
-    pparams = params[:ish_email_context].permit!
-    @ctx    = ::Ish::EmailContext.new pparams
+    @ctx    = ::Ish::EmailContext.new params[:ctx].permit!
     @tmpl   = ::Ish::EmailTemplate.find @ctx.email_template_id
 
     @ctx.from_email ||= @tmpl.from_email
@@ -57,9 +56,12 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def iframe_src
     @ctx = @email_context = Ish::EmailContext.find params[:id]
     authorize! :iframe_src, @ctx
+
     @tmpl = @email_template = @ctx.email_template
     @lead = @ctx.lead
-    render "ish_manager/email_templates/_#{@tmpl.layout}", layout: false
+    @body = @ctx.body
+
+    render layout: false
   end
 
   def index
@@ -80,10 +82,10 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :new, ::Ish::EmailContext
     @tmpl = @email_template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first || Ish::EmailTemplate.where( id: params[:template_slug] ).first
     attrs = {}
-    if @template
-      attrs = @template.attributes.slice( :subject, :body, :from_email )
+    if @tmpl
+      attrs = @tmpl.attributes.slice( :subject, :body, :from_email )
     end
-    @ctx = ::Ish::EmailContext.new( { email_template: @template }.merge(attrs) )
+    @ctx = ::Ish::EmailContext.new( { email_template: @tmpl }.merge(attrs) )
   end
 
   def show
@@ -94,11 +96,10 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def update
     @ctx = ::Ish::EmailContext.find params[:id]
     authorize! :update, @ctx
-    pparams = params[:ish_email_context].permit!
 
-    if @ctx.update_attributes pparams
+    if @ctx.update_attributes params[:ctx].permit!
       flash[:notice] = 'Saved.'
-      redirect_to action: 'show', id: @ctx.id
+      redirect_to action: 'edit', id: @ctx.id
       return
     else
       flash[:alert] = "Could not save: #{@ctx.errors.full_messages.join(', ')}"

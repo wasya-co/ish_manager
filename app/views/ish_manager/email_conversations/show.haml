@@ -31,7 +31,8 @@
                 = msg.id
                 <b>To:</b> #{msg.to}
               %li
-                <b>From:</b> #{msg.from}
+                <b>From:</b>
+                -# #{msg.from}
                 = lead.email
                 %a.chip{ href: email_contexts_for_lead_path( lead ) }
                   \(

@@ -23,6 +23,7 @@
       = f.label :preview_str
       = f.text_field :preview_str
 
+
     .tab-labels
       %a.label-raw{ href: "javascript: void(0)", data: { ref: '.tab-raw' } } Raw
       %a.label-preview.active{ href: "javascript: void(0)", data: { ref: '.tab-preview' } } Preview
@@ -34,6 +35,8 @@
         - if email_template.persisted?
           -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
           %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
+
+
     .actions
       = f.submit 'Save'
 

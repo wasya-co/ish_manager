@@ -1,7 +1,7 @@
 
 $(document).ready(() => {
 
-  if ($(".email-templates--form").length) {
+  if ($(".email-templates--form").length || $(".email-contexts--form").length) {
     $(".tab-labels > a").click(function() {
       logg( $(this).data('ref'), 'ref')
 

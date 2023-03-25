@@ -7,7 +7,7 @@ end
 namespace :office do
 
   desc 'schheduled email actions, rolling perform'
-  task :schs => :environment do
+  task schs: :environment do
     while true do
 
       Sch.active.where({ :perform_at.lte => Time.now }).each do |sch|
@@ -21,10 +21,11 @@ namespace :office do
         })
         ctx.save!
 
-        # schedule the next action & update the action
-        next_at = eval(sch.act.next_at_exe)
-        sch.act.next_email_actions.each do |nxt|
-          sch_nxt = Sch.find_or_initialize_by({
+        # schedule next actions & update the action
+        sch.act.ties.each do |tie|
+          next_act = tie.next_email_action
+          next_at  = eval(tie.next_at_exe)
+          next_sch = Sch.find_or_initialize_by({
             lead_id: sch.lead_id,
             email_action_id: nxt.id,
           })
@@ -33,18 +34,18 @@ namespace :office do
           sch_nxt.save!
         end
 
-        print '.'
+        print '+'
 
       end
 
       # sleep 1.minute
       sleep 10.seconds
-      print '|'
+      print '.'
     end
   end
 
   desc "send emails"
-  task :email_worker => :environment do
+  task email_worker: :environment do
     while true do
 
       ctxs = ::Ish::EmailContext.scheduled.unsent

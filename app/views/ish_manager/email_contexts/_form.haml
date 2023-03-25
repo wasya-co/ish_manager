@@ -1,12 +1,7 @@
 
 .email-contexts--form
-  .header
-    %h2.title Email Context
-
   - url = ctx.new_record? ? email_contexts_path : email_context_path(ctx)
-  = form_for ctx, url: url do |f|
-    .row
-      = f.submit 'Save'
+  = form_for ctx, as: :ctx, url: url do |f|
     .row
       .col-md-6
         .field.field-template
@@ -15,36 +10,35 @@
           - if ctx.email_template_id
             = link_to 'view', email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
             = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
-        -# .field
-        -#   = f.label :slug
-        -#   = f.text_field :slug
+            layout: #{ctx.tmpl.layout}
 
         .field
           = f.label "From"
           = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: ctx.from_email)
 
-      -# .col-md-6
-      -#   %h5 Context
-      -#   %div Commonly: name, companyName
-      -#   .field
-      -#     = f.text_area :tmpl, value: JSON.pretty_generate( ctx.tmpl )
     .row
       .col-md-4
-        .field
+        .field.flex-row
           = f.label "To lead"
-          = f.select :lead_id, options_for_select( @leads_list ), {}, { class: 'select2' }
+          = f.select :lead_id, options_for_select( @leads_list, selected: ctx.lead_id ), {}, { class: 'select2' }
       .col-md-8
         .field.field-subject
           = f.label :subject
           = f.text_field :subject
 
-    - if 'plain' == ctx.email_template&.layout
-      .body
-        = raw ctx.email_template.body
-    - else
-      .field
-        = f.label :body
-        = f.text_area :body, class: 'tinymce'
+
+
+    .tab-labels
+      %a.label-raw{ href: "javascript: void(0)", data: { ref: '.tab-raw' } } Raw
+      %a.label-preview.active{ href: "javascript: void(0)", data: { ref: '.tab-preview' } } Preview
+      .label-save-preview= f.submit 'Save & Preview'
+    .tabs
+      .tab-raw
+        = f.text_area :body
+      .tab-preview
+        %iframe{ src: email_context_iframe_path(ctx), width: '100%', height: '100%' }
+
+
     .actions
       .left
         = f.submit 'Preview'

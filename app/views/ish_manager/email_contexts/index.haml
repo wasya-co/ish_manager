@@ -20,8 +20,6 @@
           %th.to To
           %th.subject Subject
           %th.template Template
-          %th.created_at Created at
-          %th.updated_at Updated at
       %tbody
         - @ctxs.each do |ctx|
           %tr
@@ -38,8 +36,6 @@
               = link_to email_context_path(ctx) do
                 = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"
             %td= ctx.email_template.slug
-            %td= ctx.created_at.strftime('%Y-%m-%d %l:%M%P %:z')
-            %td= ctx.updated_at.strftime('%Y-%m-%d %l:%M%P %:z')
 
 
     = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
