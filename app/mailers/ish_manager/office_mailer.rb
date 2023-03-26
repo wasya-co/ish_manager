@@ -63,10 +63,10 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
     @ctx.update( rendered_str: rendered_str, sent_at: Time.now.to_s )
 
-    mail( from: @email_ctx.from_email,
-          to: @email_ctx.to_email,
+    mail( from: @ctx.from_email,
+          to: @ctx.to_email,
           bcc: 'piousbox@gmail.com',
-          subject: @email_ctx.subject,
+          subject: @ctx.subject,
           template_name: "render/_#{@ctx.tmpl.slug}" )
   end
 
