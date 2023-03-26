@@ -36,7 +36,10 @@
       .tab-raw
         = f.text_area :body
       .tab-preview
-        %iframe{ src: email_context_iframe_path(ctx), width: '100%', height: '100%' }
+        - if ctx.new_record?
+          New record...
+        - else
+          %iframe{ src: email_context_iframe_path(ctx), width: '100%', height: '100%' }
 
 
     .actions

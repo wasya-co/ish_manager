@@ -80,12 +80,14 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def new
     authorize! :new, ::Ish::EmailContext
-    @tmpl = @email_template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first || Ish::EmailTemplate.where( id: params[:template_slug] ).first
+    @tmpl = @email_template = Ish::EmailTemplate.where( slug: params[:template_slug] ).first ||
+      Ish::EmailTemplate.where( id: params[:template_slug] ).first ||
+      Ish::EmailTemplate.new
     attrs = {}
     if @tmpl
       attrs = @tmpl.attributes.slice( :subject, :body, :from_email )
     end
-    @ctx = ::Ish::EmailContext.new( { email_template: @tmpl }.merge(attrs) )
+    @ctx = ::Ish::EmailContext.new({ email_template: @tmpl }.merge(attrs))
   end
 
   def show
