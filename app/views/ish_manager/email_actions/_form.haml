@@ -14,10 +14,10 @@
         .field
           %label Slug
           = f.text_field :slug
-        .field
-          %label Descr
-          = f.text_area :descr
-        .field
+        -# .field
+        -#   %label Descr
+        -#   = f.text_area :descr
+        .field.flex-row
           %label Template
           = f.select :email_template_id, options_for_select( @email_templates_list, selected: act.email_template_id ), {}, class: 'select2'
 

@@ -50,6 +50,7 @@ IshManager::Engine.routes.draw do
   # office, below
   #
 
+  post :email_actions, to: 'email_actions#update'
   resources :email_actions
 
   resources :email_campaigns

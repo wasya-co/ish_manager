@@ -1,6 +1,7 @@
 
 module IshManager
   class ApplicationController < ActionController::Base
+
     protect_from_forgery :with => :exception, :prepend => true
     before_action :set_current_ability
     before_action :set_changelog
@@ -9,7 +10,11 @@ module IshManager
     check_authorization
     rescue_from ::CanCan::AccessDenied, :with => :access_denied
 
-    http_basic_authenticate_with :name => BASIC_AUTH_NAME, :password => BASIC_AUTH_PASSWORD
+    before_action :basic_auth
+    def basic_auth
+      return if Rails.env.test?
+      http_basic_authenticate_or_request_with :name => BASIC_AUTH_NAME, :password => BASIC_AUTH_PASSWORD
+    end
 
     def home
       authorize! :home, IshManager::Ability
@@ -24,6 +29,11 @@ module IshManager
     def access_denied exception
       store_location_for :user, request.path
       redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message
+    end
+
+    def encode(payload, exp = 48.hours.from_now) # @TODO: definitely change, right now I expire once in 2 days.
+      payload[:exp] = exp.to_i
+      JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
     end
 
     def pp_errors err
@@ -51,23 +61,17 @@ module IshManager
       @jwt_token = encode(user_profile_id: @current_user.profile.id.to_s)
     end
 
-    def encode(payload, exp = 48.hours.from_now) # @TODO: definitely change, right now I expire once in 2 days.
-      payload[:exp] = exp.to_i
-      JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
-    end
-
     def set_lists
-      @galleries_list = Gallery.all.list
-      @locations_list = ::Gameui::Map.list
-      @maps_list = ::Gameui::Map.list # @TODO: missing nonpublic!
-      @reports_list = Report.all.list
-      @user_profiles_list = Ish::UserProfile.list
-      @videos_list = Video.all.list
-
-      @leads_list = Lead.list
-      @leadsets_list = Leadset.list
-      @email_actions_list = [[nil,nil]] + ::Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
-      @email_templates_list = Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
+      @galleries_list       = Gallery.all.list
+      @locations_list       = ::Gameui::Map.list
+      @maps_list            = ::Gameui::Map.list # @TODO: missing nonpublic!
+      @reports_list         = Report.all.list
+      @user_profiles_list   = Ish::UserProfile.list
+      @videos_list          = Video.all.list
+      @leads_list           = Lead.list
+      @leadsets_list        = Leadset.list
+      @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
+      @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     end
 
     def set_title

@@ -8,4 +8,7 @@
 = Test =
 
  ln -s ../../../../../ish_models/spec/factories/ish_models_factories.rb spec/factories
+
+ . .env-local
  be rspec spec
+

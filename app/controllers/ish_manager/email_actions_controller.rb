@@ -5,28 +5,6 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
 
   ## Alphabetized : )
 
-  def create
-    @act = @email_action = Office::EmailAction.new
-    authorize! :create, @act
-
-    next_ids = params[:email_action].delete(:next_email_actions)
-    next_ids.delete("")
-    Office::EmailAction.where(prev_email_action_id: params[:id] ).update_all(prev_email_action_id: nil)
-    next_ids.each do |next_id|
-      next_action = ::Office::EmailAction.find next_id
-      next_action.update_attribute( :prev_email_action_id, params[:id] )
-    end
-
-    flag = @act.update_attributes( params[:email_action].permit! )
-    if flag
-      flash[:notice] = 'Success'
-    else
-      flash[:alert] = "No luck: #{@act.errors.full_messages.join(', ')}"
-    end
-
-    redirect_to action: 'index'
-  end
-
   def edit
     @act = @email_action = Office::EmailAction.find( params[:id] )
     @act.ties.push Office::EmailActionTie.new( next_email_action_id: nil )
@@ -48,28 +26,37 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
     authorize! :show, @act
   end
 
+  ## def create; update; end
+  ## def upsert; update; end
   def update
-    @act = @email_action = Office::EmailAction.find( params[:id] )
-    authorize! :update, @act
+    if params[:id]
+      @act = @email_action = Office::EmailAction.find( params[:id] )
+    else
+      @act = @email_action = Office::EmailAction.new
+    end
+    authorize! :upsert, @act
 
-    params[:email_action][:ties_attributes].each do |k, v|
-      if !v[:next_email_action_id].present?
-        params[:email_action][:ties_attributes].delete( k )
-      end
-      if v[:to_delete] == "1"
-        Actie.find( v[:id] ).delete
-        params[:email_action][:ties_attributes].delete( k )
+    if params[:email_action][:ties_attributes]
+      params[:email_action][:ties_attributes].each do |k, v|
+        if !v[:next_email_action_id].present?
+          params[:email_action][:ties_attributes].delete( k )
+        end
+        if v[:to_delete] == "1"
+          Actie.find( v[:id] ).delete
+          params[:email_action][:ties_attributes].delete( k )
+        end
       end
     end
 
     flag = @act.update_attributes( params[:email_action].permit! )
     if flag
       flash[:notice] = 'Success'
+      redirect_to action: 'index'
     else
       flash[:alert] = "No luck: #{@act.errors.full_messages.join(', ')}. #{@act.ties.map { |t| t.errors.full_messages.join(', ') }.join(' | ') }"
+      render action: 'edit'
     end
 
-    redirect_to action: 'index'
   end
 
   ##
