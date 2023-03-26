@@ -57,10 +57,10 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
   def send_context_email ctx_id
     @ctx = ::Ish::EmailContext.find ctx_id
-    ac = ActionController::Base.new
+    ac   = ActionController::Base.new
     ac.instance_variable_set( :@ctx, @ctx )
 
-    rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.slug}")
+    rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
     @ctx.update( rendered_str: rendered_str, sent_at: Time.now.to_s )
 
     mail( from: @email_ctx.from_email,
