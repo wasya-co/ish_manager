@@ -1,12 +1,10 @@
 
 .galleries--menu
 
-  -# .title Galleries (#{@galleries.count}) #{link_to '[+]', new_gallery_path}
   = link_to 'Galleries', galleries_path
   - if defined?(count)
     (#{count})
 
-  -# = render 'search', path: galleries_path
   .inline-search
     = form_tag galleries_path, method: :get do
       = text_field_tag :q

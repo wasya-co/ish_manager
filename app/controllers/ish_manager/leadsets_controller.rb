@@ -7,7 +7,6 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
 
   def create
     @leadset = Leadset.new params[:leadset].permit!
-    @leadset.profile = @current_profile
     authorize! :create, @leadset
     if @leadset.save
       flash[:notice] = "created leadset"
@@ -18,8 +17,6 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
   end
 
   def destroy
-    puts! params, 'params'
-
     leadsets = Leadset.find( params[:leadset_ids] )
     @results = []
     leadsets.each do |leadset|
@@ -37,11 +34,6 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
   def index
     authorize! :index, Leadset
     @leadsets = Leadset.all.kept # where( :profile => @current_profile, :is_trash => false )
-    # if params[:is_done]
-    #   @leadsets = @leadsets.where( :is_done => true )
-    # else
-    #   @leadsets = @leadsets.where( :is_done => false )
-    # end
   end
 
   def new

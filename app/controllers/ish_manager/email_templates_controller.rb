@@ -33,6 +33,7 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
   def iframe_src
     @tmpl = @email_template = Ish::EmailTemplate.where({ id: params[:id] }).first ||
       Ish::EmailTemplate.find_by({ slug: params[:id] })
+    @ctx = Ctx.new({ email_template: @tmpl })
     authorize! :iframe_src, @email_template
     render layout: false
   end
