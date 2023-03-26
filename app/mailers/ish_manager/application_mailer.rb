@@ -25,5 +25,9 @@ module IshManager
       mail( :to => stock.profile.email, :subject => "IshManager Stock Alert :: #{stock.ticker}" ).deliver
     end
 
+    def test_email
+      mail( to: 'piousbox@gmail.com', subject: "Test email at #{Time.now}" )
+    end
+
   end
 end

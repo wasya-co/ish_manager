@@ -27,11 +27,11 @@ namespace :office do
           next_at  = eval(tie.next_at_exe)
           next_sch = Sch.find_or_initialize_by({
             lead_id: sch.lead_id,
-            email_action_id: nxt.id,
+            email_action_id: next_act.id,
           })
-          sch_nxt.perform_at = next_at
-          sch_nxt.state = Sch::STATE_ACTIVE
-          sch_nxt.save!
+          next_sch.perform_at = next_at
+          next_sch.state      = Sch::STATE_ACTIVE
+          next_sch.save!
         end
 
         print '+'
