@@ -67,7 +67,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
           to: @ctx.to_email,
           bcc: 'piousbox@gmail.com',
           subject: @ctx.subject,
-          template_name: "render/_#{@ctx.tmpl.slug}" )
+          template_name: "render/_#{@ctx.tmpl.layout}" )
   end
 
 end
