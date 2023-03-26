@@ -6,7 +6,7 @@ end
 
 namespace :office do
 
-  desc 'schheduled email actions, rolling perform'
+  desc 'scheduled email actions, rolling perform'
   task schs: :environment do
     while true do
 
@@ -18,6 +18,9 @@ namespace :office do
           email_template_id: sch.act.tmpl.id,
           lead_id: sch.lead.id,
           send_at: Time.now,
+          subject: sch.act.tmpl.subject,
+          from_email: sch.act.tmpl.from_email,
+          scheduled_email_action_id: sch.act.id,
         })
         ctx.save!
 
