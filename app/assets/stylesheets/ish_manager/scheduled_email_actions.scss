@@ -1,0 +1,47 @@
+
+.scheduled-email-actions--form {
+  min-width: 300px;
+}
+
+.scheduled-emails-new {
+  border: 1px solid red;
+  border-radius: .5em;
+  padding: .5em;
+  background: white;
+
+  form {
+    display: flex;
+    align-items: flex-end;
+  }
+
+}
+
+.form-mini {
+  border: 1px solid blue;
+  background: #ccc;
+
+  display: inline-block;
+}
+
+.scheduled-email-actions--form {
+
+  form {
+    border: 1px solid blue;
+    border-radius: 0.5em;
+    padding: 0.5em;
+
+    background: #ccc;
+    display: inline-block;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: .5em;
+  }
+
+  .flex-row {
+    justify-content: space-between;
+  }
+
+}
