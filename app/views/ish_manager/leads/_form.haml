@@ -12,6 +12,10 @@
     = f.text_field :email
 
   .field
+    = f.label :phone
+    = f.text_field :phone
+
+  .field
     = f.label "Leadset (company)"
     = f.select :m3_leadset_id, options_for_select(@leadsets_list, selected: lead.m3_leadset_id), { include_blank: true }, { class: 'select2' }
 

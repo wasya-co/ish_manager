@@ -17,6 +17,7 @@
           %th &nbsp;
           %th Name/Email
           %th Company
+          %th Phone
           %th Tag
           %th created_at
           %th Ctx
@@ -28,6 +29,7 @@
             %td= check_box_tag 'lead_ids[]', lead.id
             %td= link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
             %td= lead.company.company_url
+            %td= lead.phone
             %td= lead.wp_tags.map(&:name).join(", ")
             %td= lead.created_at.to_s[0..10]
             %td.ctx
