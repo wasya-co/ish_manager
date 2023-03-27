@@ -12,12 +12,6 @@ describe IshManager::NewsitemsController, :type => :controller do
     @newsitem = create(:newsitem, map_id: @map.id, report_id: @report_id)
   end
 
-  describe 'destroy' do
-    skip 'touches tag on destroy' do
-      ;
-    end
-  end
-
   describe 'edit' do
     it 'renders' do
       get :edit, params: { id: @newsitem.id }

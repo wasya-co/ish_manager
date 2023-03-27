@@ -39,7 +39,7 @@ describe IshManager::ApplicationController, :type => :controller do
 
     it 'sets @page_title' do
       get :home
-      puts! response.body, 'body'
+
       assigns(:page_title).should eql('application home ')
     end
   end

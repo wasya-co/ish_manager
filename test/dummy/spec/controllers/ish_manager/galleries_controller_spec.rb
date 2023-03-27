@@ -40,13 +40,6 @@ describe IshManager::GalleriesController, :type => :controller do
       gs.length.should > 0
     end
 
-    skip 'searches done galleries as well as active ones' do
-      gallery_name = 'abba1233'
-      g = create(:gallery, is_done: true, user_profile_id: @admin_profile.id )
-      get :index, params: { q: g.name, render_type: Gallery::RENDER_THUMBS }
-      assert assigns(:galleries).map(&:name).include?(g.name)
-    end
-
   end
 
   describe '#new' do

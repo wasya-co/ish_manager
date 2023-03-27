@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 91d20351885b4ed7ca357810be7b9288924abe9b
+  revision: c7366325fb78ab100f25fcacf96528013909062e
   branch: 2.1.0
   specs:
     ish_manager (0.1.8.395)
@@ -22,10 +22,10 @@ GIT
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: 22cb2116c1039593f223cdab37adb63b0d934931
+  revision: 4087ec4a5422aaad1a1440366da5dbae25e63975
   branch: 2.1.0
   specs:
-    ish_models (0.0.33.215)
+    ish_models (0.0.33.219)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -37,10 +37,10 @@ GIT
 
 GIT
   remote: https://github.com/wasya-co/ishapi.git
-  revision: 1ae75c597f69d3e3eccef7847c603a006b0d3f32
+  revision: 8f6b0cbbb541a777fb0fb202e9fb7e61e1fd2c6e
   branch: 1.0.0
   specs:
-    ishapi (0.1.8.244)
+    ishapi (0.1.8.246)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise
