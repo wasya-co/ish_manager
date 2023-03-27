@@ -49,8 +49,7 @@
 
         .row-2
 
-          - link_label = (ActionView::Base.full_sanitizer.sanitize( msg.part_html ).gsub(/\s+/, ' ') )[0..200]
-          = link_to "Expand: #{link_label}", ishapi.email_message_path(msg, jwt_token: @jwt_token ), target: msg.message_id, class: 'preview'
+          = link_to "Expand: #{msg.preview_str}", ishapi.email_message_path(msg, jwt_token: @jwt_token ), target: msg.message_id, class: 'preview'
           %iframe{ name: msg.message_id }
 
           .my-actions.hide

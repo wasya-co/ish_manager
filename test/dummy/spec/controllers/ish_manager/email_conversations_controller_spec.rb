@@ -7,6 +7,7 @@ describe IshManager::EmailConversationsController, :type => :controller do
   before :each do
     setup_users
     @tmpl = create :email_template
+    @convo = create( :email_conversation )
   end
 
   # Alphabetized : )
@@ -18,6 +19,13 @@ describe IshManager::EmailConversationsController, :type => :controller do
       get :index
       convos = assigns(:email_conversations)
       convos[0][:latest_at].should > convos[1][:latest_at]
+    end
+  end
+
+  describe '#show' do
+    it 'renders' do
+      get :show, params: { id: @convo.id }
+      response.code.should eql '200'
     end
   end
 

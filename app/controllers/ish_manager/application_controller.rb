@@ -1,4 +1,6 @@
 
+require 'business_time'
+
 module IshManager
   class ApplicationController < ActionController::Base
 
