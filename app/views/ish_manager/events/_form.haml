@@ -1,0 +1,18 @@
+
+- url = event.new_record? ? events_path : event_path(event)
+.events--form
+  = form_for event, as: :event, url: url do |f|
+    .field
+      = f.label :start_at
+      = f.text_field :start_at
+    .field
+      = f.label :end_at
+      = f.text_field :end_at
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label :descr
+      = f.text_field :descr
+    .actions
+      = f.submit

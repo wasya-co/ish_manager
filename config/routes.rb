@@ -5,6 +5,8 @@ IshManager::Engine.routes.draw do
 
   get 'categories', to: 'categories#index'
 
+  resources 'events'
+
   patch 'galleries/:id/update_ordering', to: 'galleries#update_ordering'
   get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
   get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }

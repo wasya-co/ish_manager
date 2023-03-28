@@ -34,6 +34,13 @@
             = form_tag maps_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_map_path
+      %ul
+        %li
+          = link_to 'Events', events_path
+          .inline-search
+            = form_tag events_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_event_path
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
