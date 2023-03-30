@@ -52,8 +52,8 @@ def do_setup
   @map.save
 
   # P
-  ::Gameui::PremiumPurchase.unscoped.destroy_all
-  @purchase = create :purchase, item: @report, user_profile: @guy_profile
+  ::Ish::Payment.unscoped.destroy_all
+  @purchase = create :purchase, item: @report, profile: @guy_profile
 
 end
 

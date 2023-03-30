@@ -54,6 +54,8 @@
 
           .my-actions.hide
             = render 'ish_manager/email_contexts/form_reply', lead: lead
+            .bordered-card
+              = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
             -# = button_to 'Reply'
             -# = button_to 'Reply All'
             -# = button_to 'New Template'

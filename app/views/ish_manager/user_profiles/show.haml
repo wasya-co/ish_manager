@@ -9,7 +9,8 @@
       = render 'ish_manager/newsitems/show', newsitem: newsitem
 
   .premium-purchases
-    Purchased Items (#{@profile.premium_purchases.length}):
-    - @profile.premium_purchases.each do |purchase|
+    Payments (purchased items) (#{@profile.payments.length}):
+    - @profile.payments.each do |payment|
       .Card.item
-        = purchase.item_type.constantize.find(purchase.item_id).inspect
+        = payment.inspect
+        = payment.item&.inspect

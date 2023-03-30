@@ -64,6 +64,8 @@ class IshManager::ApplicationController < ActionController::Base
   end
 
   def set_lists
+    @blank_template       = Tmpl.new
+
     @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
     @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     @galleries_list       = Gallery.all.list
