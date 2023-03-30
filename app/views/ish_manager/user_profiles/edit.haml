@@ -1,4 +1,6 @@
 
-%h5 Editing profile for: `#{@profile.email}`
+.user-profiles-edit.max-width
+  .header
+    %h2.title Editing profile for: `#{@profile.email}`
 
-= render 'form', :profile => @profile
+  = render 'form', :profile => @profile

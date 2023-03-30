@@ -5,7 +5,7 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
 
   def create
     @newsitem = Newsitem.new params[:newsitem].permit!
-    @resource ||= Ish::UserProfile.find params[:newsitem][:user_profile_id] if !params[:newsitem][:user_profile_id].blank?
+    @resource ||= Ish::UserProfile.find params[:newsitem][:profile_id] if !params[:newsitem][:profile_id].blank?
     @resource ||= ::Gameui::Map.find params[:newsitem][:map_id] if !params[:newsitem][:map_id].blank?
     @resource.newsitems << @newsitem
     @resource.touch

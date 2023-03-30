@@ -26,10 +26,14 @@
         %li= link_to 'Categories & Tags', categories_path
       %ul
         %li= link_to '+Newsitem', new_newsitem_path
-        %li= link_to 'Ish::UserProfiles',  user_profiles_path
+        %li
+          = link_to 'Ish::UserProfiles',  user_profiles_path
+          .inline-search
+            = form_tag user_profiles_path, method: :get do
+              = text_field_tag :q
         %li= link_to "Ish::ImageAsset's", image_assets_path
         %li
-          = link_to 'Locations (maps)', maps_path
+          = link_to 'Locations', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q

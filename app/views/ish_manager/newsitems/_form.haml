@@ -8,6 +8,9 @@
       .field
         = f.label :map
         = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) ), {}, class: 'select2'
+      .field
+        = f.label :profile
+        = f.select :profile_id, options_for_select( @profiles_list, selected: newsitem[:profile_id] ), {}, class: 'select2'
     .col-sm-6
       = f.submit :submit
 

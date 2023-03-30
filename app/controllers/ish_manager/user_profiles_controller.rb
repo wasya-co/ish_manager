@@ -6,11 +6,14 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   def index
     @user_profiles = Ish::UserProfile.all
     authorize! :index, Ish::UserProfile
+    if params[:q]
+      @user_profiles = @user_profiles.where({ :email => /#{params[:q]}/i })
+    end
   end
 
   def show
-    @user_profile = Ish::UserProfile.find params[:id]
-    authorize! :show, @user_profile
+    @profile = Ish::UserProfile.find params[:id]
+    authorize! :show, @profile
   end
 
   def edit
