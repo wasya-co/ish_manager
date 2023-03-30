@@ -1,0 +1,1 @@
+../../../../../spec/m3_factories.rb

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: bb2db3f773dcf5cb2ba0a0dec0d5fbb64d7fe86e
+  revision: bdf9fe65bfa97e7eb9f79081965ae0cc53e3a8be
   branch: 2.1.0
   specs:
     ish_manager (0.1.8.398)
