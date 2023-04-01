@@ -1,0 +1,13 @@
+
+.iro-watches-index.padded
+  .header
+    .title Iro Watches
+
+
+  - @watches.each do |watch|
+    = render 'form', :watch => watch
+
+  %hr
+  %h5 New
+  = render 'form', :watch => Iro::OptionWatch.new
+

@@ -26,7 +26,8 @@ IshManager::Engine.routes.draw do
   # resources :orders
 
 
-  get 'iro_watches', to: 'iro_watches#index'
+  # get 'iro_watches', to: 'iro_watches#index'
+  resources :iro_watches
   get 'iro_purse',   to: 'iro_purses#my', as: :my_purse
 
   resources :iro_strategies

@@ -20,9 +20,12 @@ module IshManager
       mail( :to => option.profile.email, :subject => "IshManager Option Alert :: #{option.ticker}" ).deliver
     end
 
-    def stock_alert stock
-      @stock = stock
-      mail( :to => stock.profile.email, :subject => "IshManager Stock Alert :: #{stock.ticker}" ).deliver
+    def stock_alert watch_id
+      @watch = Iro::OptionWatch.find watch_id
+      mail({
+        to: @watch.profile.email,
+        subject: "Iro Watch Alert :: #{@watch.ticker} is #{@watch.direction} #{@watch.mark}."
+      })
     end
 
     def test_email

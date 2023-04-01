@@ -1,50 +1,47 @@
 
 class ::IshManager::IroWatchesController < IshManager::ApplicationController
 
-  before_action :set_lists
+  # before_action :set_lists
 
-  def index
-    # authorize! :index, Ish::Invoice
-    # @invoices = Ish::Invoice.all.includes( :payments )
-    raise 'not implemented'
+  def create
+    @option_watch = Iro::OptionWatch.new params[:iro_watch].permit!
+    authorize! :create, @option_watch
+    flag = @option_watch.save
+    if flag
+      flash[:notice] = 'Created option watch.'
+    else
+      flash[:alert] = "Cannot create option watch: #{@option_watch.errors.full_messages.join(', ')}."
+    end
+    redirect_to action: 'index'
   end
 
-  # def new
-  #   authorize! :new, @invoice
-  # end
+  def destroy
+    @w = Iro::OptionWatch.find params[:id]
+    authorize! :destroy, @w
+    flag = @w.destroy
+    if flag
+      flash[:notice] = 'Success.'
+    else
+      flash[:alert] = @w.errors.full_messages.join(", ")
+    end
+    redirect_to action: 'index'
+  end
 
-  # def create
-  #   @invoice = Ish::Invoice.new params[:invoice].permit!
-  #   authorize! :create, @invoice
-  #   if @invoice.save
-  #     flash[:notice] = "created invoice"
-  #   else
-  #     flash[:alert] = "Cannot create invoice: #{@invoice.errors.messages}"
-  #   end
-  #   redirect_to :action => 'index'
-  # end
+  def index
+    authorize! :index, Iro::OptionWatch
+    @watches = Iro::OptionWatch.order_by( ticker: :asc, direction: :asc, price: :desc)
+  end
 
-  # def update
-  #   @invoice = Ish::Invoice.find params[:id]
-  #   authorize! :update, @invoice
-  #   if @invoice.update_attributes params[:invoice].permit!
-  #     flash[:notice] = 'Success'
-  #     redirect_to :action => 'index'
-  #   else
-  #     flash[:alert] = "Cannot update invoice: #{@invoice.errors.messages}"
-  #   end
-  #   redirect_to :action => 'index'
-  # end
-
-  #
-  # private
-  #
-  private
-
-  def set_lists
-    # @invoice_number = Ish::Invoice.order_by( :number => :desc ).first
-    # @invoice_number = @invoice_number ? @invoice_number.number + 1 : 1
-    # @new_invoice = Ish::Invoice.new :number => @invoice_number
+  def update
+    @option_watch = Iro::OptionWatch.find params[:id]
+    authorize! :update, @option_watch
+    flag = @option_watch.update_attributes params[:iro_watch].permit!
+    if flag
+      flash[:notice] = 'Updated option watch.'
+    else
+      flash[:alert] = "Cannot update option watch: #{@option_watch.errors.full_messages.join(', ')}."
+    end
+    redirect_to action: 'index'
   end
 
 end
