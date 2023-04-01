@@ -1,0 +1,34 @@
+
+- url = position.new_record? ? iro_positions_path : iro_position_path( position )
+
+.iro-positions--form
+  = form_for position, as: :position, url: url do |f|
+    .flex-row
+      .field Position ##{position.id}
+      .field
+        = f.label :strategy
+        = f.select :iro_strategy_id, options_for_select( Iro::CoveredCallStrategy.list, selected: position.iro_strategy_id ), {}, class: 'select2'
+      .field
+        = f.label :ticker
+        = f.text_field :ticker
+
+      .field
+        = f.label :strike
+        = f.number_field :strike, step: 0.01
+
+      .field
+        = f.label :expires_on
+        = f.text_field :expires_on
+      .field
+        = f.label :status
+        = f.select :status, options_for_select( Iro::Position.statuses_list, selected: position.status ), {}, class: 'select2'
+
+      .field
+        = f.label :opened_price
+        = f.text_field :opened_price
+      .field
+        = f.label :opened_on
+        = f.text_field :opened_on
+
+      .actions
+        = f.submit 'Submit'

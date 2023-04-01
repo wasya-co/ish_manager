@@ -1,9 +1,10 @@
 
 .iro-purses-my.padded
   .header
-    %h2.title My purse value: $#{@purse.current_value}
+    %h2.title Purse value: $#{@purse.current_value}
 
   .strategies
+    .title Strategies
     - @strategies.each do |strat|
       .strategy
         = link_to '[~]', edit_iro_strategy_path( strat )
@@ -11,13 +12,15 @@
 
 
   .positions
-    %h3 Positions (#{@positions.length})
+    %h3
+      Positions (#{@positions.length})
+      = link_to '[+]', new_iro_position_path
 
     %table.bordered
       %thead
         %tr
           %td id
-          %td Strat
+          %td Strategy
           %td Ticker
           %td Kind/Type
           %td Strike
@@ -40,8 +43,10 @@
       %tbody
         - @positions.each do |p|
           %tr
-            %td= p.id
-            %td= p.iro_strategy_id
+            %td
+              = p.id
+              = link_to '[~]', edit_iro_position_path(p)
+            %td= p.strategy
             %td= p.ticker
             %td= p.type == "Iro::CoveredCall" ? "CALL" : "other"
             %td= p.strike
