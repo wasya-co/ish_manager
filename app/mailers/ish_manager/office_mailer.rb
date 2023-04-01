@@ -50,7 +50,6 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     mail( from: @ctx.from_email,
       to: @lead.email,
-      bcc: 'piousbox@gmail.com', # @TODO: change _vp_ 2022-11-21
       subject: @ctx.subject,
       template_name: template )
   end
@@ -65,7 +64,6 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     mail( from: @ctx.from_email,
           to: @ctx.to_email,
-          bcc: 'piousbox@gmail.com',
           subject: @ctx.subject,
           template_name: "render/_#{@ctx.tmpl.layout}" )
   end

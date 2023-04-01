@@ -17,7 +17,10 @@ module IshManager
 
     def option_alert option
       @option = option
-      mail( :to => option.profile.email, :subject => "IshManager Option Alert :: #{option.ticker}" ).deliver
+      mail({
+        :to => option.profile.email,
+        :subject => "IshManager Option Alert :: #{option.ticker}",
+      })
     end
 
     def stock_alert watch_id
