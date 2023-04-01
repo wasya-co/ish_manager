@@ -70,6 +70,8 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
     if params[:notsent]
       @ctxs = @ctxs.where( sent_at: nil )
+    else
+      @ctxs = @ctxs.where( :sent_at.ne => nil )
     end
 
     if params[:lead_id]

@@ -3,16 +3,22 @@
 
   .header.collapse-expand-trash#emailContextsIndex
     %h2.title
+      - if params[:notsent]
+        <u>notsent</u>
+        = link_to '[sent]', sent_email_contexts_path
+      - else
+        = link_to '[notsent]', notsent_email_contexts_path
+        <u>sent</u>
       Email Contexts (#{@ctxs.length})
       - if @lead
         For lead `#{@lead.name}`
       = link_to '[+]', new_email_context_path
-      = link_to '[unsent]', notsent_email_contexts_path
+
 
   .W0
     = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
 
-    %table.bordered.data-table
+    %table.bordered
       %thead
         %tr
           %th.actions
@@ -20,6 +26,8 @@
           %th.to To
           %th.subject Subject
           %th.template Template
+          %th.send_at Send at
+          %th.sent_at Sent at
       %tbody
         - @ctxs.each do |ctx|
           %tr
@@ -36,6 +44,8 @@
               = link_to email_context_path(ctx) do
                 = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"
             %td= ctx.email_template.slug
+            %td= pp_date ctx.send_at
+            %td= pp_date ctx.sent_at
 
 
     = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager

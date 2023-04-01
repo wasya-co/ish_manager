@@ -42,10 +42,20 @@ a[target='_blank'] {
 }
 html {
   height: 100%;
+  width: 100%;
+  // display: flex;
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
 }
 body {
   background: #dedede;
   font-size: 20px;
+  width: 100%;
+}
+
+body.application-fullwidth {
+  // height: 100%;
+  // display: flex;
+  // flex-direction: column;
 }
 hr {
   background: red;
@@ -94,11 +104,6 @@ ul:not(.browser-default).bullets, {
 .application--debug {
   width: 100vwh;
   overflow-x: auto;
-}
-body.application-fullwidth {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 .application-home {
   .bordered-card {

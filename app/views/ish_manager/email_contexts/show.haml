@@ -20,7 +20,7 @@
         %li <b>Send at:</b> #{@ctx.send_at&.strftime('%Y-%m-%d %l:%M%P')}
         %li <b>Sent at:</b> #{@ctx.sent_at&.strftime('%Y-%m-%d %l:%M%P')}
         %li
-          = button_to 'Send', email_context_send_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
+          = button_to 'Send', send_email_context_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
           = link_to '[~]', edit_email_context_path(@ctx)
 
   .max-width

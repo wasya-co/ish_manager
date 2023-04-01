@@ -58,7 +58,7 @@
           = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
           = link_to '[+]', new_email_template_path
         %li
-          = link_to 'Contexts', notsent_email_contexts_path
+          = link_to "Contexts (#{Ctx.notsent.length})", notsent_email_contexts_path
           = link_to '[+]', new_email_context_path
         -# %li
         -#   = link_to 'Campaigns', email_campaigns_path
