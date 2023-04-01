@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: e9e10a6fdaccf9c388a79d70e5edec55bf9d277c
+  revision: 22622c48e27c378873456ede25cc1b23f88dd05e
   branch: 2.2.0
   specs:
-    ish_models (0.0.33.228)
+    ish_models (0.0.33.229)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.401)
+    ish_manager (0.1.8.402)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -156,7 +156,7 @@ GEM
       marcel (~> 1.0.1)
       mime-types
       terrapin (~> 0.6.0)
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.1)
