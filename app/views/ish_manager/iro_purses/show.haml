@@ -1,41 +1,58 @@
 
-.iro-purses-my.padded
-  .header
-    %h2.title Purse value: $#{@purse.current_value}
+.iro-purses-show.padded
+  .max-width
+    .header
+      %h4.title Purse value: $#{@purse.current_value}
 
-  .strategies
-    .title Strategies
+
+  %h5.collapse-expand#strategies Strategies #{link_to '[+]', new_iro_strategy_path}
+  .strategies.items
     - @strategies.each do |strat|
-      .strategy
-        = link_to '[~]', edit_iro_strategy_path( strat )
-        <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
+      -# .strategy.item
+      -#   = link_to '[~]', edit_iro_strategy_path( strat )
+      -#   <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
+      .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
 
 
+  %h5.collapse-expand#positions
+    Positions (#{@positions.length})
+    = link_to '[+]', new_iro_position_path
   .positions
-    %h3
-      Positions (#{@positions.length})
-      = link_to '[+]', new_iro_position_path
+
 
     %table.bordered
       %thead
         %tr
-          %td id
-          %td Strategy
-          %td Ticker
+          %td
+            .id id
+          %td
+            .strategy Strategy
+          %td
+            .ticker Ticker
           %td Kind/Type
           %td Strike
           %td ExpiresOn
-          %td Days Left
-          %td.q Q
-          %td Begin On
-          %td Begin $
-          %td Begin #{"\u0394"}
-          %td Current $
+          %td
+            .days-left Days Left
+          %td
+            .q Q
+          %td
+            .begin-on Begin On
+          %td
+            .price Price
+          %td
+            .to-open To Open
+          %td
+            .begin-delta #{"\u0394"}
+          %td
+            .to-close Current $ <br />(To Close)
           %td.net Net
           %td.netp % Net
-          %td Curr #{"\u0394"}
-          %td Days at Open
-          %td.must-roll Must roll?
+          %td #{"\u0394"}
+          %td
+            .days-at-open Days@Open
+          %td
+            .must-roll Must roll?
           %td.should-roll Should roll?
           %td.next-symbol Next Symbol
           %td.next-outcome Next Outcome
@@ -43,19 +60,20 @@
       %tbody
         - @positions.each do |p|
           %tr
-            %td
+            %td.id
               = p.id
               = link_to '[~]', edit_iro_position_path(p)
-            %td= p.strategy
+            %td.strategy= link_to p.strategy, edit_iro_strategy_path(p.strategy)
             %td= p.ticker
             %td= p.type == "Iro::CoveredCall" ? "CALL" : "other"
             %td= p.strike
             %td= p.expires_on.strftime('%b %d')
-            %td= (p.expires_on.to_date - Time.now.to_date).to_i
+            %td.days-left= (p.expires_on.to_date - Time.now.to_date).to_i
             %td.q= p.quantity
-            %td= pp_date p.opened_on
-            %td= p.opened_price
-            %td= sprintf('%.2f', p.opened_delta ) rescue nil
+            %td.begin-on= pp_date p.opened_on
+            %td.price= p.opened_price
+            %td.to-open= pp_amount( p.opened_price * 100 * p.quantity )
+            %td.begin-delta= sprintf('%.2f', p.opened_delta ) rescue nil
             %td= pp_money p.current_price
             %td.net= pp_money ( p.opened_price - p.current_price ) * 100 - 1.3
             %td.netp= pp_percent ( p.opened_price - p.current_price ) / p.opened_price

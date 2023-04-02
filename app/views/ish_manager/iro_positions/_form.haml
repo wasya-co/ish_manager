@@ -3,7 +3,7 @@
 
 .iro-positions--form
   = form_for position, as: :position, url: url do |f|
-    .flex-row
+    .a
       .field Position ##{position.id}
       .field
         = f.label :strategy
@@ -19,9 +19,14 @@
       .field
         = f.label :expires_on
         = f.text_field :expires_on
+
+      .field
+        = f.label :quantity
+        = f.number_field :quantity
+
       .field
         = f.label :status
-        = f.select :status, options_for_select( Iro::Position.statuses_list, selected: position.status ), {}, class: 'select2'
+        = f.select :status, options_for_select( Iro::Position.states_list, selected: position.status ), {}, class: 'select2'
 
       .field
         = f.label :opened_price

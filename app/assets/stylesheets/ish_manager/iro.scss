@@ -1,17 +1,57 @@
 
-.iro-purses-my {
-  font-size: 16px; // @TODO: make uniform _vp_ 2023-03-19
+.iro-purses-show {
+  font-size: 14px;
 
   table {
+    .id {
+      width: 20px;
+    }
+    .strategy {
+      width: 30px;
+    }
+
+    thead {
+      position: relative;
+      height: 50px;
+
+
+      .id,
+      .ticker,
+      .days-left,
+      .to-close,
+      .must-roll {
+        top: 0;
+      }
+
+      .price {
+        background: cyan;
+      }
+
+      td > div {
+        // border: 1px solid green;
+
+        position: absolute;
+      }
+    }
+
 
     td {
       padding: 0 .5em;
     }
 
     tbody {
+      .begin-delta {
+        min-width: 20px;
+      }
       .must-roll,
       .next-symbol {
         text-align: center;
+      }
+
+      .must-roll,
+      .should-roll,
+      .next-symbol {
+        background: #eee;
       }
 
       .net,
@@ -28,22 +68,31 @@
   }
 
 
-
-  .must-roll,
-  .should-roll,
-  .next-symbol {
-    background: #eee;
-  }
-
   .q {
     font-weight: bold;
   }
 
-  .strategy {
-    pre {
-      font-size: 12px;
-      background: #eee;
-    }
+  .strategies {
+
+    display: flex;
+    flex-wrap: wrap;
   }
 
+}
+.iro-strategies-edit,
+.iro-strategies-new {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.iro-strategies--form {
+  border: 1px solid blue;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-right: .5em;
+
+  .field {
+    display: flex;
+    justify-content: space-between;
+  }
 }
