@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 151cd2b7900a4d9c858dea3e3e9aa21adb52575a
+  revision: d12d9ea2d4c0c204867f16060c8b99e1e5ed5a5e
   branch: 2.1.0
   specs:
-    ish_manager (0.1.8.402)
+    ish_manager (0.1.8.403)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)

@@ -23,6 +23,7 @@ git push
 
 gem build ish_manager.gemspec
 gem push ish_manager-$version.gem
+rm ish_manager-$version.gem
 
 echo "ish_manager build ok"
 

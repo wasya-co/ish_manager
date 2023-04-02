@@ -12,7 +12,7 @@ module IshManager
       @gallery_path   = IshManager::Engine.routes.url_helpers.gallery_path(@gallery.slug)
       mail( :to => '314658@gmail.com',
             :bcc => profiles.map { |p| p.email },
-            :subject => 'You got new shared galleries on pi manager' ).deliver
+            :subject => 'You got new shared galleries on pi manager' )
     end
 
     def option_alert option
@@ -32,7 +32,7 @@ module IshManager
     end
 
     def test_email
-      mail( to: 'piousbox@gmail.com', subject: "Test email at #{Time.now}" )
+      mail( to: DEFAULT_RECIPIENT, subject: "Test email at #{Time.now}" )
     end
 
   end

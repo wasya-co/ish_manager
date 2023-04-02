@@ -30,10 +30,6 @@ module IshManager
     #   "/manager/email_contexts/for_lead/#{lead.id.to_s}"
     # end
 
-    def pretty_date input
-      return input.strftime("%Y-%m-%d")
-    end
-
     def pp_errors errors
       return errors
     end
@@ -53,6 +49,12 @@ module IshManager
       date&.strftime('%Y-%m-%d')
     end
     def pp_date a; pretty_date a; end
+    def pp_datetime date
+      date&.strftime('%Y-%m-%d %l:%M%P %z')
+    end
+    def pp_time date
+      date&.strftime('%l:%M%P %z')
+    end
 
     def pp_amount a
       return '-' if !a

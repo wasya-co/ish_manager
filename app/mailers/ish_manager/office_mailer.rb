@@ -54,8 +54,9 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
       template_name: template )
   end
 
+  ## 2023-04-02 _vp_ Continue.
   def send_context_email ctx_id
-    @ctx = ::Ish::EmailContext.find ctx_id
+    @ctx = Ctx.find ctx_id
     ac   = ActionController::Base.new
     ac.instance_variable_set( :@ctx, @ctx )
 
@@ -69,18 +70,3 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
   end
 
 end
-
-
-## 2022-11-10 _vp_ backup
-# def send_context_email ctx_id
-#   @email_ctx = ::Ish::EmailContext.find ctx_id
-#   template = "render/_#{@email_ctx.email_template.slug}"
-#   ac = ActionController::Base.new
-#   ac.instance_variable_set( :@email_ctx, @email_ctx )
-#   rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@email_ctx.email_template.slug}")
-#   @email_ctx.update( rendered_str: rendered_str, sent_at: Time.now )
-#   mail( to: @email_ctx.to_email,
-#         bcc: 'piousbox@gmail.com',
-#         subject: @email_ctx.subject,
-#         template_name: template )
-# end
