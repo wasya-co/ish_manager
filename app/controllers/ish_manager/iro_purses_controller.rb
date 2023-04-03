@@ -18,7 +18,7 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
     end
 
     @positions = @purse.positions.order({ expires_on: :asc, strike: :asc })
-    @positions.active.map &:refresh
+    # @positions.map &:refresh ## @TODO remove, it only sets current_delta, current_price
   end
 
 end

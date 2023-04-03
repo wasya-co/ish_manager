@@ -29,9 +29,12 @@
             .strategy Strategy
           %td
             .ticker Ticker
-          %td Kind/Type
-          %td Strike
-          %td ExpiresOn
+          %td
+            .type Kind/Type
+          %td
+            .strike Strike
+          %td
+            .expires_on ExpiresOn
           %td
             .days-left Days Left
           %td
@@ -46,17 +49,26 @@
             .begin-delta #{"\u0394"}
           %td
             .to-close Current $ <br />(To Close)
-          %td.net Net
-          %td.netp % Net
-          %td #{"\u0394"}
+          %td
+            .net Net
+          %td
+            .netp % Net
+          %td
+            .delta #{"\u0394"}
           %td
             .days-at-open Days@Open
           %td
             .must-roll Must roll?
-          %td.should-roll Should roll?
-          %td.next-symbol Next Symbol
-          %td.next-outcome Next Outcome
-          %td.state State
+          %td
+            .should-roll Should roll?
+          %td
+            .next-symbol Next Symbol
+          %td
+            .next-delta Next Delta
+          %td
+            .next-outcome Next Outcome
+          %td
+            .state State
       %tbody
         - @positions.each do |p|
           %tr
@@ -85,6 +97,7 @@
                 .a= p.should_rollp ? p.should_rollp : '-'
                 .a= pp_bool p.should_roll?
             %td.next-symbol= p.next_symbol
+            %td.next-delta= p.next_position[:delta]
             %td.next-outcome= pp_money p.next_outcome
             %td.state= p.status
 
