@@ -12,6 +12,7 @@
           %ul
             %li <b>Email:</b> #{@current_profile.email}
             %li <b>Role name:</b> #{@current_profile.role_name}
+            %li= link_to 'sidekiq', '/sidekiq', target: :_blank
 
         .col-sm-4
           %ul

@@ -3,7 +3,6 @@
   Debug
 .application--debug
   %ul.browser-default
-    %li= link_to 'sidekiq', '/sidekiq', target: :_blank
     %li= params.inspect
     %li Cached? #{Rails.application.config.action_controller.perform_caching} :: Cache key: #{@cache_key.inspect}
     %li= "Env: #{Rails.env}"
