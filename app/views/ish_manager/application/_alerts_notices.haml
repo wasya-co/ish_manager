@@ -2,16 +2,11 @@
 .row.max-width
   .col-sm-12
     - if notice
-      - if notice.class == Array
-        %ul.notice
-          - notice.map do |n|
-            %li= n
-      - else
-        %p.notice= notice
+      .notice
+        = notice
+        .close [x]
     - if alert
-      - if alert.class == Array
-        %ul.alert
-          - alert.map do |n|
-            %li= n
-      - else
-        %p.alert= alert
+      .alert
+        = alert
+        .close [x]
+

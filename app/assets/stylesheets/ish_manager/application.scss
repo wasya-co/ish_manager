@@ -82,26 +82,11 @@ ul:not(.browser-default).bullets, {
 
 
 /* A */
-
-.collapse-expand::after {
-  content: " [<]";
-}
-.collapsed::after {
-  content: " [>]";
-}
-.expand-next + form {
-  // border: 1px solid red !important;
-  // display: none !important;
-}
-.expand-hide {
-  display: none;
-  position: absolute;
-  min-width: 250px;
-}
-
 .alert {
   border: 1px solid red;
   padding: .8em;
+  margin: 0.8em;
+  position: relative;
 }
 
 .application--debug {
@@ -148,11 +133,10 @@ table.bordered {
   padding: 0.5em;
 }
 
-/* B */
-
 .btn {
   border: 1px solid red;
 }
+
 
 /* C */
 
@@ -171,6 +155,11 @@ table.bordered {
   text-align: center;
 }
 
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
 .collapse-expand {
   cursor: pointer;
@@ -178,6 +167,17 @@ table.bordered {
   > * {
     display: inline-block;
   }
+}
+
+.collapse-expand::after {
+  content: " [<]";
+}
+.collapsed::after {
+  content: " [>]";
+}
+.expand-next + form {
+  // border: 1px solid red !important;
+  // display: none !important;
 }
 
 /* D */
@@ -198,6 +198,13 @@ table.dataTable {
   font-size: 1.6em;
 }
 
+
+
+.expand-hide {
+  display: none;
+  position: absolute;
+  min-width: 250px;
+}
 
 /* E */
 .eg {
@@ -392,6 +399,8 @@ textarea.large {
 .notice {
   border: 1px solid green;
   padding: .8em;
+  margin: 0.8em;
+  position: relative;
 }
 
 /* P */

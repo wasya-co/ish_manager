@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_06_175428) do
+ActiveRecord::Schema.define(version: 2023_03_04_181859) do
 
   create_table "active_admin_comments", charset: "latin1", force: :cascade do |t|
     t.string "namespace"
@@ -52,6 +52,27 @@ ActiveRecord::Schema.define(version: 2023_02_06_175428) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "iro_option_positions", charset: "utf8mb3", force: :cascade do |t|
+    t.string "ticker", limit: 32
+    t.string "symbol", limit: 32
+    t.string "description"
+    t.string "contractType", limit: 4
+    t.float "strike"
+    t.date "expires_on"
+    t.integer "quantity"
+    t.float "opened_price"
+    t.float "opened_delta"
+    t.date "opened_on"
+    t.float "current_price"
+    t.float "current_delta"
+    t.float "closed_price"
+    t.float "closed_delta"
+    t.date "closed_on"
+    t.string "status", limit: 32
+    t.string "type"
+    t.string "kind", limit: 32
   end
 
   create_table "iro_option_price_items", charset: "utf8mb3", force: :cascade do |t|
@@ -132,6 +153,20 @@ ActiveRecord::Schema.define(version: 2023_02_06_175428) do
     t.timestamp "sent_at"
   end
 
+  create_table "m3_lead_leadsets", charset: "utf8mb3", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "lead_id"
+    t.bigint "leadset_id"
+  end
+
+  create_table "m3_lead_tags", charset: "utf8mb3", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "term_id"
+    t.bigint "lead_id"
+  end
+
   create_table "m3_leads", charset: "latin1", force: :cascade do |t|
     t.string "email"
     t.string "comment"
@@ -142,7 +177,16 @@ ActiveRecord::Schema.define(version: 2023_02_06_175428) do
     t.string "tag"
     t.string "name"
     t.string "full_name"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_m3_leads_on_discarded_at"
     t.index ["m3_leadset_id"], name: "index_m3_leads_on_m3_leadset_id"
+  end
+
+  create_table "m3_leadset_tags", charset: "utf8mb3", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "term_id"
+    t.bigint "leadset_id"
   end
 
   create_table "m3_leadsets", charset: "utf8mb3", force: :cascade do |t|
@@ -154,6 +198,8 @@ ActiveRecord::Schema.define(version: 2023_02_06_175428) do
     t.string "comment"
     t.string "location"
     t.string "tag"
+    t.datetime "discarded_at"
+    t.index ["discarded_at"], name: "index_m3_leadsets_on_discarded_at"
   end
 
   create_table "m3_users", charset: "latin1", force: :cascade do |t|

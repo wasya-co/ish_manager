@@ -1,5 +1,5 @@
 
-.email-filters-index
+.email-filters-index.max-width
   .header
     %h2.title
       Email Filters (#{@email_filters.length})
@@ -10,6 +10,7 @@
       %th &nbsp;
       %th &nbsp;
       %th From Regex
+      %th Subject Regex
       %th Body Regex
       %th Kind
     - @email_filters.each do |ef|
@@ -18,6 +19,7 @@
         %td= check_box_tag 'checked'
         %td= link_to '[~]', edit_email_filter_path(ef)
         %td= ef.from_regex
+        %td= ef.subject_regex
         %td= ef.body_regex
         %td= ef.kind
 

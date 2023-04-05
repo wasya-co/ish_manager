@@ -70,3 +70,7 @@ def setup_users
 end
 
 Paperclip.options[:log] = false
+
+class Iro::Purse < ActiveRecord::Base
+  self.table_name = 'iro_purses'
+end

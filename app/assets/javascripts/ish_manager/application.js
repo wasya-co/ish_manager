@@ -97,6 +97,9 @@ $(function () {
     }
   }
 
+  $(".close").click(function(ev) {
+    $(this).parent().slideToggle()
+  })
 
   $(".collapse-expand").each(function() {
     const thisId = $(this).attr('id')

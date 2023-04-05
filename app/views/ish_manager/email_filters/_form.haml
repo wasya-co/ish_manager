@@ -6,6 +6,12 @@
       %label From Regex
       = f.text_field :from_regex
     .field
+      %label Subject Regex
+      = f.text_field :subject_regex
+    .field
+      %label Body Regex
+      = f.text_field :body_regex
+    .field
       %label Kind
       = f.select :kind, options_for_select( ::Office::EmailFilter::KINDS, selected: email_filter.kind )
     .actions
