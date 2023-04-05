@@ -14,12 +14,11 @@
     -# %pre= @purse.config
     = render 'form', iro_purse: @purse
 
-  %h5.collapse-expand#strategies Strategies (#{@strategies.length}) #{link_to '[+]', new_iro_strategy_path}
+  %h5.collapse-expand#strategies
+    Strategies (#{@strategies.length})
+    = link_to '[+]', new_iro_strategy_path({ iro_purse_id: @purse.id })
   .strategies.items
     - @strategies.each do |strat|
-      -# .strategy.item
-      -#   = link_to '[~]', edit_iro_strategy_path( strat )
-      -#   <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
       .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
 
 

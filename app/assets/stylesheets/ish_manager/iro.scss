@@ -6,7 +6,9 @@
   }
 }
 
-.iro-purses-show {
+.iro-purses-show,
+.iro-purses-show-gameui,
+._ {
   font-size: 14px;
 
   table {
@@ -89,7 +91,6 @@
   }
 
   .strategies {
-
     display: flex;
     flex-wrap: wrap;
   }
