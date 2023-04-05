@@ -8,7 +8,7 @@
   = form_tag leads_bulkop_path do
     = label_tag 'Act on Selected:'
     = select_tag :op, options_for_select( [[nil,nil]] + Lead::OPS )
-    -# = select_tag :email_campaign_id, options_for_select( @email_campaigns_list )
+    = select_tag :email_campaign_id, options_for_select( @email_campaigns_list )
     = submit_tag 'Go'
 
     %table.bordered.data-table

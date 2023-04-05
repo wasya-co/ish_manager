@@ -5,14 +5,13 @@ class ::IshManager::IroPositionsController < IshManager::ApplicationController
 
   def create
     @position = Iro::Position.new({
-      iro_purse: @purse = Iro::Purse.find_or_create_by({ user_id: current_user.id }),
       type: 'Iro::CoveredCall',
     })
     authorize! :update, @position
 
-    if @position.update params[:position].permit!
+    if @position.update params[:iro_position].permit!
       flash[:notice] = 'Successfully updated position.'
-      redirect_to controller: 'iro_purses', action: :show
+      redirect_to controller: 'iro_purses', action: :show, id: params[:iro_position][:iro_purse_id]
     else
       flash[:alert] = "Cannot update position: #{@position.errors.full_messages.join(', ')}."
       render action: 'edit'
@@ -33,9 +32,9 @@ class ::IshManager::IroPositionsController < IshManager::ApplicationController
     @position = Iro::Position.find params[:id]
     authorize! :update, @position
 
-    if @position.update params[:position].permit!
+    if @position.update params[:iro_position].permit!
       flash[:notice] = 'Successfully updated position.'
-      redirect_to controller: 'iro_purses', action: :show
+      redirect_to controller: 'iro_purses', action: :show, id: @position[:iro_purse_id]
     else
       flash[:alert] = "Cannot update position: #{@position.errors.full_messages.join(', ')}."
       render action: 'edit'

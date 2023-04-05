@@ -3,7 +3,7 @@
   .max-width
     .header
       %h4.title
-        Purse ##{@purse.id}.
+        GAMEUI::Purse ##{@purse.id}.
         #{link_to '[~]', edit_iro_purse_path(@purse)}
         Value: $#{@purse.current_value}
 
@@ -22,8 +22,34 @@
       -#   <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
       .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
 
+  %h5.collapse-expand#gameuiPositions1
+    Gameui Positions (#{@positions.length})
+    = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
+  .gameuiW
+    .gameui
+      .gameuiC
 
-  %h5.collapse-expand#positions
+
+        .elephant
+        .windW
+          .wind
+            .windC
+        .ground
+        .grid
+        .spearmanW
+          .spearman
+            .spearmanStart
+            .spearmanCurrent
+        .groundedW
+          .grounded
+            .groundedC
+            .groundedStart
+            .groundedCurrent
+
+        .elephant.elephantNext
+
+
+  %h5.collapse-expand#positions2
     Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
   .positions

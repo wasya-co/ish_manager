@@ -27,18 +27,18 @@
       %ul
         %li= link_to '+Newsitem', new_newsitem_path
         %li
-          = link_to 'Ish::UserProfiles',  user_profiles_path
+          = link_to 'Profiles',  user_profiles_path
           .inline-search
             = form_tag user_profiles_path, method: :get do
               = text_field_tag :q
-        %li= link_to "Ish::ImageAsset's", image_assets_path
+
         %li
           = link_to 'Locations', maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_map_path
-      %ul
+
         %li
           = link_to 'Events', events_path
           .inline-search
@@ -58,30 +58,35 @@
           = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
           = link_to '[+]', new_email_template_path
         %li
-          = link_to "Contexts (#{Ctx.notsent.length})", notsent_email_contexts_path
-          = link_to '[+]', new_email_context_path
-        -# %li
-        -#   = link_to 'Campaigns', email_campaigns_path
-        -#   = link_to '[+]', new_email_campaign_path
+          = link_to "Companies (#{Leadset.kept.length})", leadsets_path
+          = link_to '[+]', new_leadset_path
+
 
         %li
-          = link_to "Sch (#{Sch.active.length})", scheduled_email_actions_path
-          = link_to '[+]', new_scheduled_email_action_path
           = link_to "Email Actions (#{Office::EmailAction.all.length})", email_actions_path
           = link_to '[+]', new_email_action_path
       %ul
-        %li &nbsp;
-
-        %li
-          = link_to "Co's (#{Leadset.kept.length})", leadsets_path
-          = link_to '[+]', new_leadset_path
-        %li
-          = link_to "Leads (#{Lead.kept.length})", leads_path
-          = link_to '[+]', new_lead_path
-
         %li
           = link_to "Filters (#{Office::EmailFilter.active.length})", email_filters_path
           = link_to '[+]', new_email_filter_path
+        %li
+          = link_to "Contexts (#{Ctx.notsent.length})", notsent_email_contexts_path
+          = link_to '[+]', new_email_context_path
+
+        %li
+          = link_to "Leads (#{Lead.kept.length})", leads_path
+          = link_to '[+]', new_lead_path
+        %li
+          = link_to "Schs (#{Sch.active.length})", scheduled_email_actions_path
+          = link_to '[+]', new_scheduled_email_action_path
+      %ul
+        %li &nbsp;
+        %li &nbsp;
+        %li
+          = link_to 'Campaigns', email_campaigns_path
+          = link_to '[+]', new_email_campaign_path
+        %li &nbsp;
+
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderIro
@@ -89,7 +94,10 @@
     .a
       %ul
         %li
-          = link_to 'Purse', my_purse_path
+          %span.label Purses:
+          - Iro::Purse.all.map do |p|
+            = link_to "[#{p.id}]", iro_purse_path(p)
+          = link_to '[+]', new_iro_purse_path
         %li
           = link_to 'Watches', iro_watches_path
         %li

@@ -1,37 +1,20 @@
 
 class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
-  def do_send
-
-    # case @ctx.type
-    # when ::Ish::EmailContext::TYPE_SINGLE
-    #   flash[:notice] = 'Scheduled a single send - v2'
-    #   @ctx.send_at = Time.now
-    #   @ctx.save
-    # when ::Ish::EmailContext::TYPE_CAMPAIGN
-    #   flash[:notice] = 'Scheduled campaign send'
-    #   IshManager::EmailCampaignJob.new.perform(params[:id])
-    # end
-  end
+  before_action :set_lists
 
   def index
     authorize! :index, Ish::EmailCampaign
-    @campaigns = Ish::EmailCampaign.where( :profile => @current_profile, :is_trash => false )
-    if params[:is_done]
-      @campaigns = @campaigns.where( :is_done => true )
-    else
-      @campaigns = @campaigns.where( :is_done => false )
-    end
+    @campaigns = Ish::EmailCampaign.all
   end
 
   def new
-    @new_campaign = Ish::EmailCampaign.new
-    authorize! :new, @new_campaign
+    @campaign = Ish::EmailCampaign.new
+    authorize! :new, @campaign
   end
 
   def create
     @campaign = Ish::EmailCampaign.new params[:campaign].permit!
-    @campaign.profile = @current_profile
     authorize! :create, @campaign
     if @campaign.save
       flash[:notice] = "created campaign"
@@ -41,9 +24,26 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
+  def do_send
+    @campaign = Ish::EmailCampaign.find params[:id]
+    authorize! :send, @campaign
+    @campaign.leads.each do |lead|
+      tmpl = @campaign.email_template
+
+      ctx = Ctx.create!({
+        email_template: tmpl,
+        send_at: Time.now,
+        lead_id: lead.id,
+        from_email: tmpl.from_email,
+        subject: tmpl.subject,
+      })
+    end
+
+  end
+
   def show
-    authorize! :redirect, IshManager::Ability
-    redirect_to :action => :edit, :id => params[:id]
+    @campaign = Ish::EmailCampaign.find params[:id]
+    authorize! :show, @campaign
   end
 
   def edit

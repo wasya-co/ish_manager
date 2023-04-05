@@ -2,7 +2,9 @@
 - url = position.new_record? ? iro_positions_path : iro_position_path( position )
 
 .iro-positions--form
-  = form_for position, as: :position, url: url do |f|
+  = form_for position, as: :iro_position, url: url do |f|
+    - if params[:iro_purse_id]
+      = hidden_field_tag 'iro_position[iro_purse_id]', params[:iro_purse_id]
     .a
       .field Position ##{position.id}
       .field

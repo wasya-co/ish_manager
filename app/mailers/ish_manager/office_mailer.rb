@@ -61,7 +61,10 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     ac.instance_variable_set( :@ctx, @ctx )
 
     rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
-    @ctx.update( rendered_str: rendered_str, sent_at: Time.now.to_s )
+    @ctx.update({
+      rendered_str: rendered_str,
+      sent_at: Time.now.to_s,
+    })
 
     mail( from: @ctx.from_email,
           to: @ctx.to_email,

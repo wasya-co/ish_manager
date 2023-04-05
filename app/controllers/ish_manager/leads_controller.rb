@@ -9,7 +9,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     authorize! :bulkop, ::Lead
     case params[:op]
     when Lead::OP_ADD_TO_CAMPAIGN
-      c = EmailCampaign.find params[:email_campaign_id]
+      c = Ish::EmailCampaign.find params[:email_campaign_id]
       params[:lead_ids].each do |lead_id|
         c_lead = EmailCampaignLead.new( lead_id: lead_id, email_campaign_id: c.id )
         flag = c_lead.save

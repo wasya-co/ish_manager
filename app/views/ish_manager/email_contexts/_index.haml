@@ -1,0 +1,8 @@
+
+%ul.ctxs--index.browser-default
+  - ctxs.each do |ctx|
+    -# %li id: #{ctx.id}
+    -# %li Slug: #{ctx.slug}
+    -# %li send at: #{pp_date ctx.send_at}
+    %li sent at: #{pp_date ctx.sent_at}
+

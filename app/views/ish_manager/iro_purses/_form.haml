@@ -1,0 +1,11 @@
+
+- url = iro_purse.new_record? ? iro_purses_path : iro_purse_path(iro_purse)
+
+.iro-purses--form
+  = form_for iro_purse, as: :iro_purse, url: url do |f|
+    .field
+      -# = f.label :config
+      = f.text_area :config
+    .actions
+      = f.submit 'Submit'
+

@@ -23,14 +23,21 @@ class IshManager::ApplicationController < ActionController::Base
     render 'home'
   end
 
-  #
-  # private
-  #
+  ##
+  ## private
+  ##
   private
 
   def access_denied exception
     store_location_for :user, request.path
     redirect_to user_signed_in? ? root_path : Rails.application.routes.url_helpers.new_user_session_path, :alert => exception.message
+  end
+
+  def current_profile
+    return @current_profile if @current_profile
+    if current_user&.email
+      return @current_profile = Ish::UserProfile.find_by({ email: current_user.email })
+    end
   end
 
   def encode(payload, exp = 48.hours.from_now) # @TODO: definitely change, right now I expire once in 2 days.
@@ -66,6 +73,7 @@ class IshManager::ApplicationController < ActionController::Base
   def set_lists
     @blank_template       = Tmpl.new
 
+    @email_campaigns_list = [[nil,nil]] + Ish::EmailCampaign.all.map { |c| [ c.slug, c.id ] }
     @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
     @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     @galleries_list       = Gallery.all.list

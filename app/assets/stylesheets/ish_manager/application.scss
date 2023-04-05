@@ -84,7 +84,10 @@ ul:not(.browser-default).bullets, {
 /* A */
 
 .collapse-expand::after {
-  content: " [<>]";
+  content: " [<]";
+}
+.collapsed::after {
+  content: " [>]";
 }
 .expand-next + form {
   // border: 1px solid red !important;
@@ -294,7 +297,8 @@ textarea.large {
   border-bottom: 2px solid red;
   margin-bottom: 1em;
 
-  a {
+  a,
+  span.label {
     background: white;
     padding: .2em;
   }
@@ -319,6 +323,8 @@ textarea.large {
       }
     }
   }
+
+
 }
 @media only screen and (max-width: 400px) {
   .main-header ul li {

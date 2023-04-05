@@ -7,13 +7,12 @@ IshManager::Engine.routes.draw do
 
   resources 'events'
 
-  patch 'galleries/:id/update_ordering', to: 'galleries#update_ordering'
-  get 'galleries', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
-  get 'galleries/index_titles', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_TITLES }
-  get 'galleries/index_thumbs', :to => 'galleries#index', :defaults => { :render_type => Gallery::RENDER_THUMBS }
-  get 'galleries/shared', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_THUMBS }
-  get 'galleries/shared_titles', to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_TITLES
-    }, as: :galleries_shared_titles
+  patch 'galleries/:id/update_ord', to: 'galleries#update_ordering'
+  get   'galleries',                to: 'galleries#index',          defaults: { render_type: Gallery::RENDER_THUMBS }
+  get   'galleries/index_titles',   to: 'galleries#index',          defaults: { render_type: Gallery::RENDER_TITLES }
+  get   'galleries/index_thumbs',   to: 'galleries#index',          defaults: { render_type: Gallery::RENDER_THUMBS }
+  get   'galleries/shared',         to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_THUMBS }
+  get   'galleries/shared_titles',  to: 'galleries#shared_with_me', defaults: { render_type: Gallery::RENDER_TITLES }, as: :galleries_shared_titles
   resources :galleries do
     post 'multiadd', :to => 'photos#j_create', :as => :multiadd
   end
@@ -27,9 +26,9 @@ IshManager::Engine.routes.draw do
 
   resources :iro_positions
 
-  # get 'iro_watches', to: 'iro_watches#index'
   resources :iro_watches
-  get 'iro_purse',   to: 'iro_purses#show', as: :my_purse
+
+  resources :iro_purses
 
   resources :iro_strategies
 
@@ -57,8 +56,11 @@ IshManager::Engine.routes.draw do
   post :email_actions, to: 'email_actions#update'
   resources :email_actions
 
+  post 'email_campaigns/:id/send', to: 'email_campaigns#do_send', as: :send_email_campaign
   resources :email_campaigns
+
   resources :email_campaign_leads, as: :campaign_leads
+
   resources :email_filters
 
   get 'email_messages/iframe/:id',   to: 'email_messages#show_iframe',   as: :email_message_iframe

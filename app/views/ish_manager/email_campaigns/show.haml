@@ -1,0 +1,23 @@
+
+.email-campaigns-show.max-width
+  .header
+    %h5.title
+      Email Campaign `#{@campaign.slug}`
+      = link_to '[~]', edit_email_campaign_path(@campaign)
+      .inline-block
+        = form_for @campaign, as: :campaign, method: :post, url: send_email_campaign_path(@campaign) do |f|
+          = hidden_field_tag 'campaign[send_at]', Time.now
+          = f.submit 'Send', data: { confirm: 'Are you sure?' }
+
+  %ul.browser-default
+    %li Template: #{link_to @campaign.email_template.slug, edit_email_template_path(@campaign.email_template)}
+    -# %li Send At: #{@campaign.send_at}
+
+  .collapse-expand#campaignLeads Email Campaign leads (#{@campaign.campaign_leads.length})
+  %ul.email-campaign-leads.items.browser-default
+    - @campaign.leads.each do |lead|
+      %li.item
+        = lead.email
+        Ctxs:
+        = render 'ish_manager/email_contexts/index', ctxs: lead.email_contexts
+

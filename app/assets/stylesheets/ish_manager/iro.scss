@@ -1,4 +1,11 @@
 
+.iro-purses--form {
+  textarea {
+    min-width: 500px;
+    min-height: 500px;
+  }
+}
+
 .iro-purses-show {
   font-size: 14px;
 
@@ -104,4 +111,225 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+.gameuiW {
+  border: 1px solid cyan;
+  border-radius: 0.5em;
+
+  position: relative;
+
+  margin-bottom: 100px;
+
+  width: 1000px;
+  height: 200px;
+
+  z-index: 0;
+
+  .elephant {
+    // border: 2px solid yellow;
+
+    background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04103931/200x125-elephant-1rmTiny.png');
+    width: 200px;
+    height: 125px;
+
+    position: absolute;
+
+    left: 700px;
+    bottom: 0;
+
+    &::after { /* arrow-up */
+      content: "";
+      position: absolute;
+      bottom: 0;
+      right: calc( 50% - 25px );
+
+      width: 0;
+      height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+
+      border-bottom: 25px solid red;
+    }
+  }
+
+  .elephantNext {
+    // border: 5px solid white;
+    border-radius: 50%;
+
+    display: none;
+
+    position: absolute;
+    bottom: -50px;
+    margin-left: 50px;
+    transform: scale(1.2);
+    opacity: 0.33;
+    background-color: green;
+
+  }
+
+  .grid {
+    background: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04110701/500x250-gridTiny.png');
+    background-size: 100%;
+    background-position: bottom center;
+
+    width: 1000px;
+    height: 200px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    z-index: -1;
+  }
+
+  .ground {
+    border-bottom: 5px solid gray;
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    bottom: -50px;
+
+    background: gray;
+  }
+
+  .groundedW {
+    position: absolute;
+
+    right: -250px;
+    bottom: 0;
+
+    .grounded {
+      border: 2px solid pink;
+      background: rgba(255,255,255, 0.75);
+      border-radius: 50%;
+
+      width: 100px;
+      height: 100px;
+
+      background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04105933/200x200-spearman-rmTiny.png');
+      background-size: cover;
+
+      .groundedStart {
+        // border: 2px solid white;
+        position: absolute;
+        background: #999;
+        bottom: 50px;
+        top: 11px;
+        left: 50%;
+        right: -40px;
+
+        z-index: -1;
+      }
+
+      .groundedCurrent {
+        position: absolute;
+        background: red;
+        bottom: 45px;
+        top: 52px;
+        left: 50%;
+        right: -30px;
+      }
+    }
+  }
+
+  .spearmanW {
+    border: 2px solid yellow;
+
+    position: absolute;
+    display: inline-block;
+
+    left: 800px;
+
+    .spearman {
+      // border: 2px solid orange;
+      background: rgba(255,255,255, 0.75);
+      border-radius: 50%;
+
+      background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04105933/200x200-spearman-rmTiny.png');
+      background-size: cover;
+
+      width: 100px;
+      height: 100px;
+
+      position: absolute;
+      left: -50px;
+
+      // &::after { /* arrow-up */
+      //   content: "";
+      //   position: absolute;
+      //   bottom: 0;
+      //   right: calc( 50% - 25px );
+
+      //   width: 0;
+      //   height: 0;
+      //   border-left: 25px solid transparent;
+      //   border-right: 25px solid transparent;
+
+      //   border-bottom: 25px solid red;
+      // }
+
+      .spearmanStart {
+        position: absolute;
+        background: #999;
+        bottom: 50px;
+        top: 11px;
+        right: 50%;
+        left: -134px;
+
+        z-index: -1;
+      }
+
+      .spearmanCurrent {
+        position: absolute;
+        background: red;
+        bottom: 45px;
+        top: 52px;
+        right: 50%;
+        left: -97px;
+      }
+    }
+  }
+
+  .windW {
+    // border: 2px solid blue;
+
+    position: absolute;
+    left: 910px; /* ( <price> - 20 ) * 200 */
+    bottom: 0;
+
+    &::after { /* arrow-up */
+      border-bottom: 25px solid yellow;
+
+      content: "";
+      position: absolute;
+      bottom: 0;
+      // right: 50%;
+      left: -25px;
+
+      // width: 0;
+      // height: 0;
+      border-left: 25px solid transparent;
+      border-right: 25px solid transparent;
+    }
+
+    .wind {
+
+      background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04104623/200x200-windTiny.png');
+      background-position: bottom center;
+
+      opacity: 0.5;
+
+      width: 200px;
+      height: 200px;
+
+      margin-left: -25px;
+
+      .windC {
+      }
+    }
+  }
+
 }
