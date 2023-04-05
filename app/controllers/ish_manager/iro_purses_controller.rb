@@ -43,7 +43,7 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
     @positions = @purse.positions.order({ expires_on: :asc, strike: :asc })
     @positions.map &:refresh
 
-    render @purse.parsed_config[:kind] || 'show'
+    render @purse.parsed_config[:kind] || params[:kind] || 'show'
   end
 
   def update

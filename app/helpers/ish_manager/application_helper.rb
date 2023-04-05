@@ -61,6 +61,7 @@ module IshManager
       "$ #{'%.2f' % a}"
     end
     def pp_money a; pp_amount a; end
+    def pp_currency a; pp_amount a; end
     def pp_percent a
       "#{(a*100).round(2)}%"
     end

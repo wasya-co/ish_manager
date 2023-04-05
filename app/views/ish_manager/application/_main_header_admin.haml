@@ -52,7 +52,8 @@
     .a
       %ul
         %li
-          = link_to "#{WpTag::INBOX} (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})", email_conversations_in_path(WpTag::INBOX)
+          .chip
+            = link_to "#{WpTag::INBOX} (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})", email_conversations_in_path(WpTag::INBOX)
           = link_to '[+]', new_email_context_path
         %li
           = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
@@ -97,6 +98,7 @@
           %span.label Purses:
           - Iro::Purse.all.map do |p|
             = link_to "[#{p.id}]", iro_purse_path(p)
+            = link_to "[gui]", iro_purse_gameui_path(p)
           = link_to '[+]', new_iro_purse_path
         %li
           = link_to 'Watches', iro_watches_path

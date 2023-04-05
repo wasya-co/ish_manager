@@ -25,6 +25,7 @@
 //= require ish_manager/email_conversations
 //= require ish_manager/email_templates
 //= require ish_manager/galleries
+//= require ish_manager/iro
 
 const AppRouter = {
   gallery_update_ordering_path: ({ id, slug }) => `/manager/galleries/${slug || id}/update_ordering`,

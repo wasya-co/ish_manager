@@ -28,6 +28,7 @@ IshManager::Engine.routes.draw do
 
   resources :iro_watches
 
+  get 'iro_purses/:id/show-gameui', to: 'iro_purses#show', as: :iro_purse_gameui, defaults: { kind: 'show_gameui' }
   resources :iro_purses
 
   resources :iro_strategies

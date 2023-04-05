@@ -1,5 +1,5 @@
 
-.iro-purses-show.padded
+.iro-purses-show-shameui.padded
   .max-width
     .header
       %h4.title
@@ -22,34 +22,56 @@
       -#   <pre>#{JSON.pretty_generate( strat.display_attrs )}</pre>
       .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
 
-  %h5.collapse-expand#gameuiPositions1
+  %h5.collapse-expand#gameuiPositions
     Gameui Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
-  .gameuiW
-    .gameui
-      .gameuiC
+
+  .gameui-positions
+    - @positions.each do |p|
+
+      -# something like, $23 Apr-14
+      .gameuiW.show-amounts{ data: { cc: { strike: p.strike, startPrice: p.opened_price, currentPrice: p.current_price, cus: p.strategy.current_underlying_strike } } }
+        .gameui
+          .gameuiC
+
+            .elephantW
+              .elephant
+                .elephantC
+
+                  .amount
+
+                  .q= p.quantity
+
+                  .riderW
+                    .rider
+                      .riderC
+
+                  .riderStart
+                    .amount
+                    .riderCurrent
+                      .amount
+                  .riderStart2
+
+                .sunflowerW
+                  .sunflower
+                    .sunflowerC
+
+                      .days-left= (p.expires_on.to_date - Time.now.to_date).to_i
+
+            .windW
+              .wind
+                .c-u-s= pp_currency p.strategy.current_underlying_strike
+                .windC
 
 
-        .elephant
-        .windW
-          .wind
-            .windC
-        .ground
-        .grid
-        .spearmanW
-          .spearman
-            .spearmanStart
-            .spearmanCurrent
-        .groundedW
-          .grounded
-            .groundedC
-            .groundedStart
-            .groundedCurrent
-
-        .elephant.elephantNext
+            .spearW
+              .spear
+                .spearC
+                  .spearStart
+                    .spearCurrent
 
 
-  %h5.collapse-expand#positions2
+  %h5.collapse-expand#spreadsheetPositions
     Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
   .positions
