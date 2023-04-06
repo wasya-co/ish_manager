@@ -57,8 +57,16 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
   ## 2023-04-02 _vp_ Continue.
   def send_context_email ctx_id
     @ctx = Ctx.find ctx_id
+
+    @utm_tracking_str = {
+      'cid'          => @ctx.lead_id,
+      'utm_medium'   => 'email',
+      'utm_campaign' => @ctx.tmpl.slug,
+    }.map { |k, v| "#{k}=#{v}" }.join("&")
+
     ac   = ActionController::Base.new
     ac.instance_variable_set( :@ctx, @ctx )
+    ac.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
 
     rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
     @ctx.update({
