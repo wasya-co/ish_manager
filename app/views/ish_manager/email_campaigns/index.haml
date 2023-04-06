@@ -5,6 +5,9 @@
       Email Campaigns (#{@campaigns.length})
       = link_to '[+]', new_email_campaign_path
 
-  - @campaigns.each do |c|
-    = link_to c.slug, email_campaign_path(c)
+  %ul
+    - @campaigns.each do |c|
+      %li
+        = link_to c.slug, email_campaign_path(c)
+        = link_to '[~]', edit_email_campaign_path(c)
 

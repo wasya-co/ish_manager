@@ -27,16 +27,7 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
   def do_send
     @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :send, @campaign
-    @campaign.leads.each do |lead|
-      tmpl = @campaign.email_template
-      ctx = Ctx.create!({
-        email_template: tmpl,
-        send_at: Time.now,
-        lead_id: lead.id,
-        from_email: tmpl.from_email,
-        subject: tmpl.subject,
-      })
-    end
+    @campaign.do_send
   end
 
   def show

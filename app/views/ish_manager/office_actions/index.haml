@@ -10,22 +10,29 @@
     %tr
       %th= check_box_tag 'abba'
       %th
+      %th state
       %th slug
+      %th perform at
+      %th exe
       %th next actions
-    - @office_actions.each do |eact|
+    - @office_actions.each do |oact|
       %tr
         %td= check_box_tag 'abba'
-        %td= link_to '[~]', edit_office_action_path( eact )
+        %td= link_to '[~]', edit_office_action_path( oact )
+        %td= oact.state
         %td
-          = link_to eact.slug, office_action_path( eact )
-          .em.small= eact.descr
+          -# = link_to oact.slug, office_action_path( oact )
+          = oact.slug
+          .em.small= oact.descr
+        %td= oact.perform_at
+        %td= oact.action_exe
         %td
           %ul
-            - eact.ties.map do |next_a|
+            - oact.ties.map do |next_a|
               %li
                 .a= next_a.next_at_exe
                 .a
-                  - if next_a.next_office_action.slug == eact.slug
+                  - if next_a.next_office_action.slug == oact.slug
                     (same)
                   = next_a.next_office_action.slug
 

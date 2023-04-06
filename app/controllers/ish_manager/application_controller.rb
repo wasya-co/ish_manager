@@ -81,6 +81,7 @@ class IshManager::ApplicationController < ActionController::Base
     @leadsets_list        = Leadset.list
     @locations_list       = ::Gameui::Map.list
     @maps_list            = ::Gameui::Map.list # @TODO: missing nonpublic!
+    @office_actions_list  = [[nil,nil]] + Office::Action.all.map { |a| [ a.slug, a.id ] }
     @profiles_list        = Ish::UserProfile.list
     @reports_list         = Report.all.list
     @user_profiles_list   = Ish::UserProfile.list

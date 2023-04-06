@@ -22,10 +22,17 @@ namespace :office do
   task oacts: :environment do
     while true do
 
+      ## send and roll
       Office::Action.active.where({ :perform_at.lte => Time.now }).each do |oact|
 
         oact.update({ state: OAct::STATE_INACTIVE })
         eval( oact.action_exe )
+        oact.ties.each do |tie|
+          next_oact            = tie.next_office_action
+          next_oact.perform_at = eval(tie.next_at_exe)
+          next_oact.state      = OAct::STATE_ACTIVE
+          next_oact.save!
+        end
 
         print '+'
       end

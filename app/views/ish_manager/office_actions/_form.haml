@@ -14,6 +14,14 @@
         .field
           %label Slug
           = f.text_field :slug
+
+        .flex-row
+          %label State
+          = f.select :state, options_for_select(::Office::Action::STATES, selected: oact.state )
+        .field
+          = f.label :perform_at
+          = f.text_field :perform_at
+
         .field
           %label Action Exe
           = f.text_area :action_exe, class: 'large'
