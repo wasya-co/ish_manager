@@ -25,7 +25,10 @@ namespace :office do
       ## send and roll
       Office::Action.active.where({ :perform_at.lte => Time.now }).each do |oact|
 
-        oact.update({ state: OAct::STATE_INACTIVE })
+        oact.update({
+          perform_at: nil,
+          # state: OAct::STATE_INACTIVE, ## @TODO: remove, they remain active but non-perform.
+        })
         eval( oact.action_exe )
         oact.ties.each do |tie|
           next_oact            = tie.next_office_action
@@ -37,7 +40,7 @@ namespace :office do
         print '+'
       end
 
-      duration = Rails.env.production? ? 300 : 10 # 5 minutes or 10 seconds
+      duration = Rails.env.production? ? 360 : 15 # 6 minutes or 15 seconds
       sleep duration
       print '.'
     end
@@ -55,7 +58,8 @@ namespace :office do
         print '^'
       end
 
-      sleep 60 # seconds
+      duration = Rails.env.production? ? 120 : 15 # 2 minutes or 15 seconds
+      sleep duration
       print '.'
     end
   end
