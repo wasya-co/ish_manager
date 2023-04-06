@@ -1,0 +1,9 @@
+
+-# padded b/c eval(next_time_at) is long
+
+.office-actions-new.padded
+  .header
+    %h2.title
+      New Office Action
+
+  = render 'form', office_action: @new_office_action

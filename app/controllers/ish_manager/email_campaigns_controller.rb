@@ -29,7 +29,6 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
     authorize! :send, @campaign
     @campaign.leads.each do |lead|
       tmpl = @campaign.email_template
-
       ctx = Ctx.create!({
         email_template: tmpl,
         send_at: Time.now,
@@ -38,7 +37,6 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
         subject: tmpl.subject,
       })
     end
-
   end
 
   def show

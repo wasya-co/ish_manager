@@ -108,6 +108,8 @@ IshManager::Engine.routes.draw do
 
   resources :newsitems
 
+  resources :office_actions
+
   resources :photos
   resources :payments
 

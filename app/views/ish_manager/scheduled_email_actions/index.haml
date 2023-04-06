@@ -1,24 +1,23 @@
 
-.scheduled-emails-index.max-width
+.scheduled-emails-index.padded
   .header
     %h2
       Scheduled Email Actions
       -# (#{Sch.kept.count})
       (#{Sch.all.count})
       = link_to '[+]', new_scheduled_email_action_path
-  .header
-    Time now: #{Time.now.strftime('%Y-%m-%d %l:%M%P')}
 
   .items
     - @scheduled_email_actions.each do |sch|
-      .item
+      .item.Card
         .flex-row
           .gray= sch.id
           = link_to '[~]', edit_scheduled_email_action_path(sch)
 
         %ul
-          %li <b>Act:</b> #{link_to sch.email_action.slug, edit_email_action_path(sch.email_action)}
+          %li <b>EAct:</b> #{link_to sch.email_action.slug, edit_email_action_path(sch.email_action)}
           %li <b>Tmpl:</b> #{sch.email_action.email_template.slug}
-          %li <b>Lead:</b> #{link_to sch.lead.email, lead_path(sch.lead) }
+          - if sch.lead_id
+            %li <b>Lead:</b> #{link_to sch.lead.email, lead_path(sch.lead) }
           %li <b>State:</b> #{sch.state}
           %li <b>Perform at:</b> #{sch.perform_at.in_time_zone}

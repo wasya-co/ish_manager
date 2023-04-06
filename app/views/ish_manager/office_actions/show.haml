@@ -1,0 +1,11 @@
+
+.office-actions-show.max-width
+  .header
+    .title Office Action #{@act.id}
+
+  %ul
+    - @act.ties.map do |next_a|
+      %li
+        .a <b>Next act:</b> #{"(same)" if next_a.next_office_action.slug == @act.slug} #{next_a.next_office_action.slug}
+        .a <b>Next at exe:</b> #{next_a.next_at_exe}
+        .a <b>Eval'ed:</b> #{eval( next_a.next_at_exe )}

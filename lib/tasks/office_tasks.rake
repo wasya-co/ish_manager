@@ -18,6 +18,24 @@ namespace :office do
     end
   end
 
+  desc 'office actions exe, rolling perform'
+  task oacts: :environment do
+    while true do
+
+      Office::Action.active.where({ :perform_at.lte => Time.now }).each do |oact|
+
+        oact.update({ state: OAct::STATE_INACTIVE })
+        eval( oact.action_exe )
+
+        print '+'
+      end
+
+      duration = Rails.env.production? ? 300 : 10 # 5 minutes or 10 seconds
+      sleep duration
+      print '.'
+    end
+  end
+
   ## 2023-04-02 _vp_ Continue.
   desc "send emails"
   task ctxs: :environment do

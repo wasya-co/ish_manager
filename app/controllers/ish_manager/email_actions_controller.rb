@@ -42,7 +42,7 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
           params[:email_action][:ties_attributes].delete( k )
         end
         if v[:to_delete] == "1"
-          Actie.find( v[:id] ).delete
+          EActie.find( v[:id] ).delete
           params[:email_action][:ties_attributes].delete( k )
         end
       end

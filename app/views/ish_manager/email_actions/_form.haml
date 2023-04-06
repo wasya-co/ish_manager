@@ -1,6 +1,6 @@
 
-- act = email_action
-- url = email_action.new_record? ? email_actions_path : email_action_path( email_action )
+- eact = email_action
+- url  = email_action.new_record? ? email_actions_path : email_action_path( email_action )
 
 .email-actions--form
 
@@ -19,7 +19,7 @@
         -#   = f.text_area :descr
         .field.flex-row
           %label Template
-          = f.select :email_template_id, options_for_select( @email_templates_list, selected: act.email_template_id ), {}, class: 'select2'
+          = f.select :email_template_id, options_for_select( @email_templates_list, selected: eact.email_template_id ), {}, class: 'select2'
 
       .col-md-6
         .field

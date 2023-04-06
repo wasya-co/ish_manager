@@ -56,7 +56,7 @@
             = link_to "#{WpTag::INBOX} (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})", email_conversations_in_path(WpTag::INBOX)
           = link_to '[+]', new_email_context_path
         %li
-          = link_to "Templates (#{Ish::EmailTemplate.all.count})", email_templates_path
+          = link_to "Tmpls (#{Ish::EmailTemplate.all.count})", email_templates_path
           = link_to '[+]', new_email_template_path
         %li
           = link_to "Companies (#{Leadset.kept.length})", leadsets_path
@@ -64,16 +64,16 @@
 
 
         %li
-          = link_to "Email Actions (#{Office::EmailAction.all.length})", email_actions_path
+          = link_to "EActions (#{Office::EmailAction.count})", email_actions_path
           = link_to '[+]', new_email_action_path
       %ul
         %li
           = link_to "Filters (#{Office::EmailFilter.active.length})", email_filters_path
           = link_to '[+]', new_email_filter_path
         %li
-          = link_to "Contexts (#{Ctx.notsent.length})", notsent_email_contexts_path
+          = link_to "Ctxs (#{Ctx.notsent.length})", notsent_email_contexts_path
           = link_to '[+]', new_email_context_path
-          = link_to 'summary', email_contexts_summary_path( format: :csv )
+          = link_to '[csv]', email_contexts_summary_path( format: :csv )
 
         %li
           = link_to "Leads (#{Lead.kept.length})", leads_path
@@ -81,13 +81,16 @@
         %li
           = link_to "Schs (#{Sch.active.length})", scheduled_email_actions_path
           = link_to '[+]', new_scheduled_email_action_path
+
       %ul
         %li &nbsp;
         %li &nbsp;
         %li
-          = link_to 'Campaigns', email_campaigns_path
+          = link_to "Campaigns (#{Ish::EmailCampaign.count})", email_campaigns_path
           = link_to '[+]', new_email_campaign_path
-        %li &nbsp;
+        %li
+          = link_to "OActions (#{Office::Action.count})", office_actions_path
+          = link_to '[+]', new_office_action_path
 
     .c
 

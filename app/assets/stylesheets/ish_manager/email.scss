@@ -53,3 +53,14 @@
   }
 }
 
+.scheduled-emails-index {
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Card {
+      margin: 0 10px 10px 0;
+      padding: 10px;
+    }
+  }
+}

@@ -1,10 +1,10 @@
 
-.email-actions-index.padded
+.office-actions-index.padded
 
   .header
     %h2.title
-      Email Actions
-      = link_to '[+]', new_email_action_path
+      Office Actions
+      = link_to '[+]', new_office_action_path
 
   %table.bordered
     %tr
@@ -12,12 +12,12 @@
       %th
       %th slug
       %th next actions
-    - @email_actions.each do |eact|
+    - @office_actions.each do |eact|
       %tr
         %td= check_box_tag 'abba'
-        %td= link_to '[~]', edit_email_action_path( eact )
+        %td= link_to '[~]', edit_office_action_path( eact )
         %td
-          = link_to eact.slug, email_action_path( eact )
+          = link_to eact.slug, office_action_path( eact )
           .em.small= eact.descr
         %td
           %ul
@@ -25,7 +25,7 @@
               %li
                 .a= next_a.next_at_exe
                 .a
-                  - if next_a.next_email_action.slug == eact.slug
+                  - if next_a.next_office_action.slug == eact.slug
                     (same)
-                  = next_a.next_email_action.slug
+                  = next_a.next_office_action.slug
 
