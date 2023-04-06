@@ -1,3 +1,4 @@
+require 'csv'
 
 class ::IshManager::EmailContextsController < ::IshManager::ApplicationController
 
@@ -95,6 +96,22 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def show
     @ctx = @email_context = ::Ish::EmailContext.find( params[:id] )
     authorize! :show, @ctx
+  end
+
+  def summary
+    authorize! :summary, Ish::EmailContext
+    @results = Ish::EmailContext.summary
+    puts! @results, 'r'
+
+    # headers["Content-Type"] ||= 'text/csv'
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.csv do
+        render layout: false
+      end
+    end
+
   end
 
   def update

@@ -74,6 +74,7 @@ IshManager::Engine.routes.draw do
   get 'email_conversations/notin/:not_slug',   to: 'email_conversations#index',         as: :email_conversations_notin
   get 'email_conversations/show/:id',          to: 'email_conversations#show', as: :email_conversation
 
+  get 'email_contexts/summary', to: 'email_contexts#summary', as: :email_contexts_summary
   get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index', as: :email_contexts_for_lead
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with_template/:template_slug', to: 'email_contexts#new'
