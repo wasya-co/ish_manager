@@ -31,7 +31,7 @@ class ::IshManager::IroStrategiesController < IshManager::ApplicationController
     flag = @strategy.update params[:iro_strategy].permit!
     if flag
       flash[:notice] = 'Success.'
-      redirect_to my_purse_path
+      redirect_to controller: 'ish_manager/iro_purses', action: :show, id: @strategy.iro_purse_id
     else
       flash[:alert] = "No luck: #{@strategy.errors.full_messages.join(', ')}."
       render action: 'new'

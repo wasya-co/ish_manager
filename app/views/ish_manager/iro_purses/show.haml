@@ -92,7 +92,8 @@
             %td.q= p.quantity
             %td.begin-on= pp_date p.opened_on
             %td.price= p.opened_price
-            %td.to-open= pp_amount( p.opened_price * 100 * p.quantity )
+            %td.to-open
+              -# pp_amount( p.opened_price * 100 * p.quantity )
             %td.begin-delta= sprintf('%.2f', p.opened_delta ) rescue nil
             %td= pp_money p.current_price
             %td.net= pp_money ( p.opened_price - p.current_price ) * 100 - 1.3

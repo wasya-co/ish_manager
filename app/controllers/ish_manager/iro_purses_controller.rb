@@ -34,9 +34,11 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
 
     @strategies = @purse.strategies
 
+
     underlyings = Tda::Stock.get_quotes( @strategies.map(&:ticker).compact.uniq.join(",") )
-    # json_puts! underlyings, 'out'
+    json_puts! underlyings, 'out'
     underlyings.each do |ticker, v|
+      puts! v[:mark], 'ze mark'
       Iro::CoveredCallStrategy.where( ticker: ticker ).update( current_underlying_strike: v[:mark] )
     end
 

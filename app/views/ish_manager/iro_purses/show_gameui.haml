@@ -9,9 +9,7 @@
 
   %h5.collapse-expand#iroPurseConfig
     Config
-    -# #{link_to '[~]', edit_iro_purse_path(@purse)}
   .config
-    -# %pre= @purse.config
     = render 'form', iro_purse: @purse
 
   %h5.collapse-expand#strategies
@@ -33,6 +31,7 @@
       .gameuiW.show-amounts{ data: { cc: { strike: p.strike, startPrice: p.opened_price, currentPrice: p.current_price, cus: p.strategy.current_underlying_strike } } }
         .gameui
           .gameuiC
+            gameuiC
 
             .elephantW
               .elephant
@@ -50,7 +49,12 @@
                     .amount
                     .riderCurrent
                       .amount
+
                   .riderStart2
+                    .amount
+                    .riderCurrent2
+                      .amount
+
 
                 .sunflowerW
                   .sunflower
@@ -75,8 +79,6 @@
     Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
   .positions
-
-
     %table.bordered
       %thead
         %tr
@@ -99,7 +101,7 @@
           %td
             .begin-on Begin On
           %td
-            .price Price
+            .price Begin Price
           %td
             .to-open To Open
           %td
@@ -140,12 +142,15 @@
             %td.days-left= (p.expires_on.to_date - Time.now.to_date).to_i
             %td.q= p.quantity
             %td.begin-on= pp_date p.opened_on
-            %td.price= p.opened_price
-            %td.to-open= pp_amount( p.opened_price * 100 * p.quantity )
+            %td.price= pp_amount p.opened_price
+            %td.to-open
+              -# = pp_amount( p.opened_price * p.quantity )
             %td.begin-delta= sprintf('%.2f', p.opened_delta ) rescue nil
             %td= pp_money p.current_price
-            %td.net= pp_money ( p.opened_price - p.current_price ) * 100 - 1.3
-            %td.netp= pp_percent ( p.opened_price - p.current_price ) / p.opened_price
+            %td.net
+              = pp_money ( p.opened_price - p.current_price ) - 0.013
+            %td.netp
+              = pp_percent ( p.opened_price - p.current_price ) / p.opened_price
             %td= sprintf('%.2f', p.current_delta ) rescue nil
             %td= (p.expires_on.to_date - p.opened_on).to_i
             %td.must-roll= pp_bool p.must_roll?

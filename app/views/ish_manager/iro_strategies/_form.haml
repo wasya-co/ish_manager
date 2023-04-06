@@ -2,7 +2,8 @@
 - url = strategy.new_record? ? iro_strategies_path : iro_strategy_path(strategy)
 .iro-strategies--form
   = form_for strategy, url: url, as: :iro_strategy do |f|
-    = hidden_field_tag 'iro_strategy[iro_purse_id]', params[:iro_purse_id]
+    - if params[:iro_purse_id]
+      = hidden_field_tag 'iro_strategy[iro_purse_id]', params[:iro_purse_id]
     .field
       = "#{strategy.id}." if strategy.id
       = f.label :slug
