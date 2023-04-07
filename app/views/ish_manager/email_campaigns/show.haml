@@ -15,9 +15,9 @@
 
   .collapse-expand#campaignLeads Email Campaign leads (#{@campaign.campaign_leads.length})
   %ul.email-campaign-leads.items.browser-default
-    - @campaign.leads.each do |lead|
+    - @campaign.campaign_leads.each do |clead|
       %li.item
-        = lead.email
-        Ctxs:
-        = render 'ish_manager/email_contexts/index', ctxs: lead.email_contexts
+        .inline-block= button_to '[x]', email_campaign_lead_path(clead), method: :delete, :data => { :confirm => 'Are you sure?' }
+        = link_to clead.lead.email, lead_path(clead.lead.id)
+        (#{clead.lead.email_contexts.length} ctxs)
 

@@ -61,7 +61,7 @@ IshManager::Engine.routes.draw do
   post 'email_campaigns/:id/send', to: 'email_campaigns#do_send', as: :send_email_campaign
   resources :email_campaigns
 
-  resources :email_campaign_leads, as: :campaign_leads
+  resources :email_campaign_leads # , as: :campaign_leads
 
   resources :email_filters
 

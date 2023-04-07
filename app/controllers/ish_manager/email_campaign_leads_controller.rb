@@ -33,10 +33,17 @@ class ::IshManager::EmailCampaignLeadsController < IshManager::ApplicationContro
   #   redirect_to :action => 'index'
   # end
 
-  # def edit
-  #   @lead = ::Lead.find params[:id]
-  #   authorize! :edit, @lead
-  # end
+  def destroy
+    @clead = EmailCampaignLead.find params[:id]
+    authorize! :destroy, @clead
+    flag = @clead.delete
+    if flag
+      flash[:notice] = 'ok'
+    else
+      flash[:alert] = 'no luck'
+    end
+    redirect_to controller: 'email_campaigns', action: :show, id: @clead.email_campaign_id
+  end
 
   # def index
   #   authorize! :index, ::Lead

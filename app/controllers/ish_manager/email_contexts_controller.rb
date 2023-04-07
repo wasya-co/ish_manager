@@ -101,12 +101,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def summary
     authorize! :summary, Ish::EmailContext
     @results = Ish::EmailContext.summary
-    puts! @results, 'r'
-
-    # headers["Content-Type"] ||= 'text/csv'
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.csv do
         render layout: false
       end

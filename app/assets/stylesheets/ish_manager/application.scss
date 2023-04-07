@@ -155,41 +155,54 @@ table.bordered {
   text-align: center;
 }
 
-.chip,
-// .main-header a.chip,
-._ {
-  margin-right: 20px;
+.chip {
   // border: 1px solid black;
-
   border-radius: 1em 0 0 1em;
-  padding-left: .6em;
+
+  margin-right: 32px;
+
+  padding: 0.2em 0.2em 0.2em 0.6em;
+
+  height: 32px;
 
   background: white;
+
   position: relative;
 
+  &::before {
+    // border: 1px solid red;
+    // background: yellow;
 
+    content: "";
+    display: block;
 
+    position: absolute;
+    right: -16px;
+    top: 0;
+
+    width: 16px;
+    height: 32px;
+
+    // border-left: 12px solid white;
+    border-top: 17px solid white;
+    border-right: 12px solid transparent;
+    // border-bottom: 12px solid transparent;
+  }
   &::after {
     // border: 1px solid red;
 
     content: "";
+    display: block;
 
     position: absolute;
-    right: -30px;
-    width: 10px;
-    display: block;
-    // background: inherit;
-    // background: red;
-    margin: 0 20px;
-    top: -1px;
+    right: -16px;
     bottom: 0;
 
-    border-top: 16px solid white;
-    border-bottom: 16px solid white;
+    width: 16px;
+    height: 32px;
 
-    border-right: 10px solid transparent;
-
-    // border: 1px solid red;
+    border-bottom: 17px solid white;
+    border-right: 12px solid transparent;
   }
 }
 
@@ -342,7 +355,7 @@ textarea.large {
   border-bottom: 2px solid red;
   margin-bottom: 1em;
 
-  a,
+  a:not(.chip),
   span.label {
     background: white;
     padding: .2em;

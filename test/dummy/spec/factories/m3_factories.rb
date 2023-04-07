@@ -1,1 +1,1 @@
-../../../../../spec/m3_factories.rb
+../../../../../spec/factories.rb
