@@ -216,9 +216,6 @@
       .elephantC {
         // border: 10px solid black;
 
-        // width: 10px;
-        // height: 10px;
-
         z-index: 1;
         position: absolute;
         color: #333;
@@ -237,23 +234,8 @@
           top: -25px;
         }
       }
-
-
     }
 
-    .elephantNext {
-      // border: 5px solid white;
-      border-radius: 50%;
-
-      display: none;
-
-      position: absolute;
-      bottom: -50px;
-      margin-left: 50px;
-      transform: scale(1.2);
-      opacity: 0.33;
-      background-color: green;
-    }
 
     .groundedW {
       position: absolute;
@@ -445,5 +427,34 @@
         }
       }
     }
+  }
+}
+.next-position {
+  .elephant {
+    border: 1px solid white; /* 4.5% more */
+    border-radius: 50% 50% 0 0;
+    // background-size: 120%;
+
+    background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04103931/200x125-elephant-1rmTiny.png');
+    width: 200px;
+    height: 125px;
+
+    padding-left: 100px;
+
+    position: absolute;
+    left: -100px;
+    bottom: 0;
+
+    z-index: 1;
+  }
+  .elephantLoss {
+    border: 1px solid red;
+    border-radius: 50% 50% 0 0;
+    width: 200px;
+    height: 125px;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
   }
 }

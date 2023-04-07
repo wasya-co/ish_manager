@@ -48,4 +48,21 @@ $(document).ready(function () {
     }
   })
 
+
+
+  $(".gameuiW.next-position").each( function (idx, w) {
+    logg($(w).data(), 'next-position')
+
+    let ans
+
+    let gainp = $(w).data('ccGainp')
+    if (gainp > 0) {
+      $(w).find('.elephant').css('border-width', `${gainp*200 + 1}px` )
+      $(w).find('.elephantLoss').css('display', 'none')
+    } else {
+      gainp = -1 * gainp
+      $(w).find('.elephantLoss').css('border-width', `${gainp*200 + 1}px` )
+    }
+  })
+
 })

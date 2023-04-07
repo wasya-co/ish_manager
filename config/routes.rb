@@ -24,6 +24,7 @@ IshManager::Engine.routes.draw do
   # end
   # resources :orders
 
+  get 'iro_positions/roll/:id', to: 'iro_positions#roll', as: :roll_iro_position
   resources :iro_positions
 
   resources :iro_watches

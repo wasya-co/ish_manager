@@ -28,6 +28,15 @@ class ::IshManager::IroPositionsController < IshManager::ApplicationController
     authorize! :new, @position
   end
 
+  ## prepare to roll
+  def roll
+    @position = Iro::Position.find( params[:id] )
+    # puts! @position, 'zze'
+
+    authorize! :roll, @position
+    @next_positions = Iro::Position.find( 13, 14, 15, 16 )
+  end
+
   def update
     @position = Iro::Position.find params[:id]
     authorize! :update, @position

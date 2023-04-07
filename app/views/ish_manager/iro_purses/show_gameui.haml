@@ -11,6 +11,7 @@
     Config
   .config
     = render 'form', iro_purse: @purse
+  .c
 
   %h5.collapse-expand#strategies
     Strategies (#{@strategies.length})
@@ -18,12 +19,11 @@
   .strategies.items
     - @strategies.each do |strat|
       .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
-
+  .c
 
   %h5.collapse-expand#gameuiPositions
     Gameui Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
-
   .gameui-positions
     - @positions.each do |p|
 
@@ -31,7 +31,7 @@
       .gameuiW.show-amounts{ data: { cc: { strike: p.strike, startPrice: p.opened_price, currentPrice: p.current_price, cus: p.strategy.current_underlying_strike } } }
         .gameui
           .gameuiC
-            gameuiC
+            = link_to '[roll]', roll_iro_position_path(p)
 
             .elephantW
               .elephant
@@ -73,7 +73,7 @@
                 .spearC
                   .spearStart
                     .spearCurrent
-
+  .c
 
   %h5.collapse-expand#spreadsheetPositions
     Positions (#{@positions.length})
@@ -162,5 +162,5 @@
             %td.next-delta= p.next_position[:delta]
             %td.next-outcome= pp_money p.next_outcome
             %td.state= p.status
-
+  .c
 
