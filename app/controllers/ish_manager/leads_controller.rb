@@ -110,11 +110,11 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
       }
     }
     @email_contexts = {}
-    tmp_contexts = Ish::EmailContext.all.where( :to_email.in => lead_emails
-      ).map_reduce( map, reduce
-      ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/
-      ).to_a
-    tmp_contexts.map { |x| @email_contexts[x[:_id]] = x[:value][:count].to_i }
+    # tmp_contexts = Ish::EmailContext.all.where( :to_email.in => lead_emails
+    #   ).map_reduce( map, reduce
+    #   ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/
+    #   ).to_a
+    # tmp_contexts.map { |x| @email_contexts[x[:_id]] = x[:value][:count].to_i }
     # puts! @email_contexts, '@email_contexts'
 
   end
