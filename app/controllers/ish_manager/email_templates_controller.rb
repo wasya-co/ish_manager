@@ -38,19 +38,10 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
     @ctx = Ctx.new({ email_template: @tmpl, lead_id: 999 })
 
     @utm_tracking_str = {
-      # 'v'   => 1,
-      # 'tid' => 'UA-53077236-2',
-      'cid' => @ctx.lead_id,
-      # 'uid' => @ctx.lead_id,
-      # 't'   => 'event',
-      # 'ec'  => 'email',
-      # 'ea'  => 'open',
-      # 'cn'  => @campaign.slug,
-      # 'ci'  => @campaign.slug,
-      # 'cm'  => 'email',
-      # 'utm_source'   => @campaign.slug,
+      'cid'          => @ctx.lead_id,
+      'utm_campaign' => @ctx.tmpl.slug,
       'utm_medium'   => 'email',
-      'utm_campaign' => 'campaign-1', # @campaign.slug,
+      'utm_source'   => @ctx.tmpl.slug,
     }.map { |k, v| "#{k}=#{v}" }.join("&")
 
     render layout: false

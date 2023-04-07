@@ -60,8 +60,9 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     @utm_tracking_str = {
       'cid'          => @ctx.lead_id,
-      'utm_medium'   => 'email',
       'utm_campaign' => @ctx.tmpl.slug,
+      'utm_medium'   => 'email',
+      'utm_source'   => @ctx.tmpl.slug,
     }.map { |k, v| "#{k}=#{v}" }.join("&")
 
     ac   = ActionController::Base.new
