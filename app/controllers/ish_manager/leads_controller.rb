@@ -51,65 +51,37 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     authorize! :edit, @lead
   end
 
-  ##          0     1     2      3    4      5         6        7
-  ## Fields: id, date, name, email, tag, phone, linkedin, comment
   def import
     authorize! :import, ::Lead
     file   = params[:csv_file]
-    flags  = []
-    errors = []
-    CSV.read(file.path, headers: true).each do |row|
 
-      leadset = ::Leadset.find_or_create_by({ company_url: row[3].split('@')[1] })
-      lead = ::Lead.new({
-        name: row[2].presence || row[3].split('@')[0],
-        full_name: row[2].presence || row[3].split('@')[0],
-        email: row[3],
-        m3_leadset_id: leadset.id,
-        phone: row[5],
-      })
-      flag = lead.save
-      flags << flag
-      if !flag
-        errors << lead.errors.full_messages.join(", ")
-      end
+    ## 2023-04-08
+    flags = Lead.import_v1( file )
 
-      if row[4].present?
-        tags = row[4].split(",").map do |tag_name|
-          WpTag.my_find_or_create({ name: tag_name })
-        end
-        puts! tags, 'tags'
-        tags.each do |tag|
-          LeadTag.create({ wp_tag: tag, lead: lead })
-        end
-      end
-
-    end
     flash[:notice] = "Result: #{flags.inspect}."
-    flash[:alert] = errors
     redirect_to action: 'new'
   end
 
   def index
     authorize! :index, ::Lead
-    @leads = ::Lead.kept.includes( :company )
-    lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
+    @leads = ::Lead.kept.includes( :company ).page( params[:leads_page ] ).per( current_profile.per_page )
 
-    map = %Q{
-      function() {
-        emit(this.to_email, {count: 1})
-      }
-    }
-    reduce = %Q{
-      function(key, values) {
-        var result = {count: 0};
-        values.forEach(function(value) {
-          result.count += value.count;
-        });
-        return result;
-      }
-    }
     @email_contexts = {}
+    # lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
+    # map = %Q{
+    #   function() {
+    #     emit(this.to_email, {count: 1})
+    #   }
+    # }
+    # reduce = %Q{
+    #   function(key, values) {
+    #     var result = {count: 0};
+    #     values.forEach(function(value) {
+    #       result.count += value.count;
+    #     });
+    #     return result;
+    #   }
+    # }
     # tmp_contexts = Ish::EmailContext.all.where( :to_email.in => lead_emails
     #   ).map_reduce( map, reduce
     #   ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/

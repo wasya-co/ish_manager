@@ -10,5 +10,11 @@ class ::IshManager::CategoriesController < IshManager::ApplicationController
     @tags = Category.all_tags
   end
 
+  def show
+    @category = WpTag.find params[:id]
+    authorize! :show, @category
+
+  end
+
 end
 

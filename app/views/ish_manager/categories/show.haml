@@ -1,0 +1,10 @@
+
+.categories-show.max-width
+  .header
+    %h2.title Category/Tag `#{@category.slug}`
+
+  .leads
+    %h3 Leads (#{@category.leads.length})
+    %ol
+      - @category.leads.each do |lead|
+        %li= link_to lead.email, lead_path(lead)

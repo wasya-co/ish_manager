@@ -3,7 +3,8 @@ IshManager::Engine.routes.draw do
 
   root :to => 'application#home'
 
-  get 'categories', to: 'categories#index'
+  # get 'categories', to: 'categories#index'
+  resources :categories
 
   resources 'events'
 

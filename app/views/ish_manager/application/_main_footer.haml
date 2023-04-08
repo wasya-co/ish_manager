@@ -8,7 +8,7 @@
       Account & Session
     .a
       .row
-        .col-sm-6
+        .col-sm-4
           %ul
             %li <b>Email:</b> #{@current_profile.email}
             %li <b>Role name:</b> #{@current_profile.role_name}
@@ -21,8 +21,13 @@
             %li= Time.now.to_s
             -# <pre>#{@changelog}</pre>
 
-        .col-sm-2
-          = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete
+        .col-sm-4
+          = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete, data: { confirm: 'Are you sure?' }
+          = form_for @current_profile, url: profile_path(@current_profile), as: :profile do |f|
+            .flex-row
+              = f.label :per_page
+              = f.select :per_page, options_for_select([ 10, 25, 50, 100, 250, 500, 1000], selected: @current_profile.per_page)
+              = f.submit 'Go'
 
     .c
     = render 'debug' if !Rails.env.production?

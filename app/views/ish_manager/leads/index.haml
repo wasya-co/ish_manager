@@ -1,22 +1,23 @@
 
-.leads-index
+.leads-index.padded
   .header
     %h2.title
       #{link_to 'Kept Leads', leads_path} (#{::Lead.kept.count}, #{::Lead.all.count})
       = link_to raw("<i class='fa fa-plus-square'></i>"), new_lead_path
 
+  = paginate @leads, param_name: :leads_page
   = form_tag leads_bulkop_path do
     = label_tag 'Act on Selected:'
     = select_tag :op, options_for_select( [[nil,nil]] + Lead::OPS )
     = select_tag :email_campaign_id, options_for_select( @email_campaigns_list )
     = submit_tag 'Go'
 
-    %table.bordered.data-table
+    %table.bordered
       %thead
         %tr
           %th &nbsp;
           %th Name/Email
-          %th Company
+          %th.company Company
           %th Phone
           %th Tag
           %th created_at
@@ -28,7 +29,10 @@
           %tr
             %td= check_box_tag 'lead_ids[]', lead.id
             %td= link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
-            %td= lead.company.company_url
+            %td.company
+              = lead.company.company_url
+              - if lead.company.name.present?
+                <br /><b>#{lead.company.name}</b>
             %td= lead.phone
             %td= lead.wp_tags.map(&:name).join(", ")
             %td= lead.created_at.to_s[0..10]
@@ -42,7 +46,8 @@
               -#     %li
               -#       = link_to sch_a.email_action.slug, edit_scheduled_email_action_path( sch_a )
               -#       [x]
-
+  .c
+  = paginate @leads, param_name: :leads_page
 
 
 

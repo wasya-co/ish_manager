@@ -9,4 +9,7 @@
       %h1 Tags
       %ul
         - @tags.each do |tag|
-          %li= tag[:name]
+          %li
+            = tag[:taxonomy]
+            \::
+            = link_to tag[:name], category_path( tag[:id] )
