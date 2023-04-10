@@ -20,7 +20,7 @@ class IshManager::EventsController < ::IshManager::ApplicationController
 
   def index
     authorize! :manage, Ish::Event
-    @events = Ish::Event.all
+    @events = Ish::Event.all.order_by({ start_at: :desc })
     if params[:q]
       @events = @events.where({ :name => /#{params[:q]}/i })
     end

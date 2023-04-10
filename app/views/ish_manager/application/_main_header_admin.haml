@@ -33,7 +33,7 @@
               = text_field_tag :q
 
         %li
-          = link_to 'Locations', maps_path
+          = link_to "Locations (#{Location.all.length})", maps_path
           .inline-search
             = form_tag maps_path, method: :get do
               = text_field_tag :q
