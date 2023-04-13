@@ -86,10 +86,19 @@
       border-bottom: 1px solid yellow;
       margin-bottom: 0.2em;
 
-      .expand {
-        border: 1px solid red;
-        max-height: 500px;
-        overflow: auto;
+      // .expand {
+      //   border: 1px solid red;
+      //   max-height: 500px;
+      //   overflow: auto;
+      // }
+
+      iframe {
+        border: 2px solid yellow;
+
+        width: 100%;
+        min-height: 500px;
+        height: 80vh;
+        // display: none;
       }
 
       .my-actions {
@@ -112,17 +121,9 @@
         justify-content: space-between;
       }
 
-      .row-2 {
-        iframe {
-          border: 2px solid yellow;
-
-          width: 100%;
-          min-height: 500px;
-          height: 80vh;
-          display: none;
-        }
+      .to-expand {
+        display: none;
       }
-
     }
   }
 

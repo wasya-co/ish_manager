@@ -1,17 +1,18 @@
 
 $(document).ready(() => {
 
-  $("body.email_conversations-show a.preview").click(function(e) {
-    // logg(e, 'clicked')
+  $("body.email_conversations-show .preview-btn").click(function(e) {
+    // logg($(this).data(), 'clicked')
 
-    if ($(this).data('expanded')) {
-      $(this).data('expanded', false)
-      $(this).parent().find(".my-actions").addClass('hide')
-      $(this).parent().find("iframe").css('display', 'none')
+    var msgId = $(this).data().msg.id
+    var msgC = $(`.msg-container[data-msg-id='${msgId}']`) // msgContainer
+
+    if ($(msgC).data('expanded')) {
+      $(msgC).data('expanded', false)
+      msgC.find(".to-expand").css('display', 'none')
     } else {
-      $(this).data('expanded', true)
-      $(this).parent().find(".my-actions").removeClass('hide')
-      $(this).parent().find("iframe").css('display', 'block')
+      $(msgC).data('expanded', true)
+      msgC.find(".to-expand").css('display', 'block')
     }
 
   })

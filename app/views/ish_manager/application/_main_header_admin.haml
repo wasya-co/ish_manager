@@ -18,7 +18,7 @@
               = text_field_tag :q
           = link_to '[+]', new_report_path
         %li
-          = link_to 'Videos',    videos_path
+          = link_to "Videos (#{Video.all.length})", videos_path
           .inline-search
             = form_tag videos_path, method: :get do
               = text_field_tag :q

@@ -13,10 +13,12 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     authorize! :create_newsitem, @resource
 
     if params[:photo]
-      photo = Photo.create( :photo => params[:photo],
-        :user_profile => @current_profile,
-        descr: params[:descr],
-        subhead: params[:subhead] )
+      photo = Photo.create({
+        descr:        params[:descr],
+        photo:        params[:photo],
+        subhead:      params[:subhead],
+        user_profile: @current_profile,
+      })
       @newsitem.photo = photo
     end
 
