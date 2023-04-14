@@ -1,10 +1,11 @@
 /*
  * Alphabetized : )
  *
- *= require ish_manager/jquery-ui
- *= require ish_manager/kaminari_pagination
- *= require_self
+ *= require ish_manager/vendor/jquery-ui
+ * require ish_manager/vendor/summernote-bs4.min
  *
+ *= require_self
+ *= require ish_manager/kaminari_pagination
  *= require ish_manager/email_contexts
  *= require ish_manager/email_conversations
  *= require ish_manager/email_messages
@@ -23,7 +24,6 @@
  *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
-
  *
 **/
 

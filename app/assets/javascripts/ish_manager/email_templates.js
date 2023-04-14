@@ -3,7 +3,6 @@ $(document).ready(() => {
 
   if ($(".email-templates--form").length || $(".email-contexts--form").length) {
     $(".tab-labels > a").click(function() {
-      logg( $(this).data('ref'), 'ref')
 
       $(this).parent().find("a").each((idx, item) => {
         $(item).removeClass('active')

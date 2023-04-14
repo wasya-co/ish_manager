@@ -1,24 +1,11 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-// require ish_manager/vendor/jquery-3.6.0.min
-// require ish_manager/vendor/bootstrap.min
 //
 //= require ish_manager/vendor/jquery.iframe-transport
 //= require ish_manager/vendor/jquery.ui.widget
 //= require ish_manager/vendor/jquery.fileupload
 //= require ish_manager/vendor/jquery-ui.min
-//= require ish_manager/shared
+// require ish_manager/vendor/summernote-bs4.min
 //
+//= require ish_manager/shared
 //= require_self
 //= require ish_manager/maps
 //= require ish_manager/email_contexts
@@ -26,6 +13,7 @@
 //= require ish_manager/email_templates
 //= require ish_manager/galleries
 //= require ish_manager/iro
+//
 
 const AppRouter = {
   gallery_update_ordering_path: ({ id, slug }) => `/manager/galleries/${slug || id}/update_ordering`,
@@ -69,13 +57,14 @@ $(function () {
     return confirm($(this).attr('data-confirm'));
   });
 
-  if ($(".tinymce").length > 0) {
-    tinymce.init({
-      mode: "specific_textareas",
-      editor_selector: 'tinymce',
-      plugins: 'link'
-    });
-  }
+  // if ($(".tinymce").length > 0) {
+  //   tinymce.init({
+  //     mode: "specific_textareas",
+  //     editor_selector: 'tinymce',
+  //     plugins: 'link'
+  //   });
+  // }
+  $(".tinymce").summernote()
 
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')

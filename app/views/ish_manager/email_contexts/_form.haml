@@ -34,7 +34,7 @@
       .label-save-preview= f.submit 'Save & Preview'
     .tabs
       .tab-raw
-        = f.text_area :body
+        = f.text_area :body, class: 'tinymce'
       .tab-preview
         - if ctx.new_record?
           New record...

@@ -25,6 +25,9 @@
     = stylesheet_link_tag "//cdn.jsdelivr.net/npm/select2@4.0.0/dist/css/select2.min.css"
     = javascript_include_tag "//cdn.jsdelivr.net/npm/select2@4.0.0/dist/js/select2.min.js"
 
+    = stylesheet_link_tag "//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+    = javascript_include_tag "//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"
+
     - # @TODO: document? test-drive?
     - if @include_materialize
       = stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
@@ -41,5 +44,3 @@
     = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?
-
-
