@@ -31,7 +31,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
       else
         format.html do
           flash[:alert] = @report.errors.full_messages
-          @tags_list = Tag.all.list
+          @tags_list = [] # ::WpTag.all.list
 
           render :action => "new"
         end
@@ -70,7 +70,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
   def new
     @report = Report.new
     authorize! :new, @report
-    @tags_list = Tag.all.where( :is_public => true ).list
+    @tags_list = [] # ::WpTag.all.where( :is_public => true ).list
 
     respond_to do |format|
       format.html do

@@ -71,7 +71,7 @@
           = link_to "Filters (#{Office::EmailFilter.active.length})", email_filters_path
           = link_to '[+]', new_email_filter_path
         %li
-          = link_to "Ctxs (#{Ctx.notsent.length})", notsent_email_contexts_path
+          = link_to "Ctxs (#{Ctx.notsent.length})", email_contexts_path({ sent: false })
           = link_to '[+]', new_email_context_path
           %br
           = link_to 'summary', email_contexts_summary_path( format: :html )

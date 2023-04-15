@@ -45,6 +45,10 @@ class IshManager::ApplicationController < ActionController::Base
     JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
   end
 
+  def my_truthy? which
+    ["1", "t", "T", "true"].include?( which )
+  end
+
   def pp_errors err
     err
   end

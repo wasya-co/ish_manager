@@ -3,12 +3,12 @@
 
   .header.collapse-expand-trash#emailContextsIndex
     %h2.title
-      - if params[:notsent]
-        <u>notsent</u>
-        = link_to '[sent]', sent_email_contexts_path
-      - else
-        = link_to '[notsent]', notsent_email_contexts_path
+      - if my_truthy? params[:sent]
+        = link_to '[notsent]', email_contexts_path({ sent: false })
         <u>sent</u>
+      - else
+        <u>notsent</u>
+        = link_to '[sent]', email_contexts_path({ sent: true })
       Email Contexts (#{@ctxs.length})
       - if @lead
         For lead `#{@lead.name}`
@@ -16,7 +16,7 @@
 
 
   .W0
-    = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
+    = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager
 
     %table.bordered
       %thead
@@ -50,4 +50,4 @@
             %td= pp_date ctx.sent_at
 
 
-    = render 'paginate', resource: @ctxs, param_name: :email_contexts_page, views_prefix: :ish_manager
+    = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager

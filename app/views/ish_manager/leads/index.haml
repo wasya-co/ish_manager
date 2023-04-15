@@ -18,7 +18,7 @@
           %th &nbsp;
           %th Name/Email
           %th.company Company
-          %th Phone
+          %th Phone, address
           %th Tag
           %th created_at
           %th Ctx
@@ -33,7 +33,9 @@
               = lead.company.company_url
               - if lead.company.name.present?
                 <br /><b>#{lead.company.name}</b>
-            %td= lead.phone
+            %td
+              .a= lead.phone   if lead.phone.present?
+              .a= lead.address if lead.address.present?
             %td= lead.wp_tags.map(&:name).join(", ")
             %td= lead.created_at.to_s[0..10]
             %td.ctx

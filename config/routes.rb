@@ -81,9 +81,7 @@ IshManager::Engine.routes.draw do
   get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
   get  'email_contexts/new_with_template/:template_slug', to: 'email_contexts#new'
   post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :send_email_context
-  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts,         defaults: { notsent: true }
-  get  'email_contexts/notsent',                 to: 'email_contexts#index',      as: :notsent_email_contexts, defaults: { notsent: true }
-  get  'email_contexts/sent',                    to: 'email_contexts#index',      as: :sent_email_contexts,    defaults: { notsent: false }
+  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts
   resources :email_contexts
 
   get    'email_templates/iframe_src/:id', to: 'email_templates#iframe_src', as: :email_template_iframe
