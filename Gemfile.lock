@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.423)
+    ish_manager (0.1.8.424)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -237,7 +237,7 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     ruby2_keywords (0.0.5)
-    sidekiq (7.0.8)
+    sidekiq (7.0.9)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)

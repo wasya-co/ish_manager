@@ -3,8 +3,14 @@
   Welcome home
 
   .bordered-card
-    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get do
+    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
       %p Search CGTrader:
       = hidden_field_tag "polygons", "lt_5k"
       = text_field_tag "keywords"
+      = submit_tag 'search'
+
+  .bordered-card
+    = form_tag "https://www.youtube.com/results", method: :get, target: :_blank do
+      %p Search Youtube:
+      = text_field_tag "search_query"
       = submit_tag 'search'
