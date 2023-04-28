@@ -24,7 +24,7 @@ class IshManager::ScheduledEmailActionsController < IshManager::ApplicationContr
 
   def index
     authorize! :scheduled_emails_index, ::IshManager
-    @scheduled_email_actions = ::Office::ScheduledEmailAction.all
+    @schs = @scheduled_email_actions = ::Office::ScheduledEmailAction.all
   end
 
   def new

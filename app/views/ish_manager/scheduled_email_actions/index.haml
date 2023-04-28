@@ -3,21 +3,29 @@
   .header
     %h2
       Scheduled Email Actions
-      -# (#{Sch.kept.count})
       (#{Sch.all.count})
       = link_to '[+]', new_scheduled_email_action_path
 
-  .items
-    - @scheduled_email_actions.each do |sch|
-      .item.Card
-        .flex-row
-          .gray= sch.id
-          = link_to '[~]', edit_scheduled_email_action_path(sch)
+  %table.bordered.data-table
+    %thead
+      %tr
+        %td
+        %td Active?
+        %td From
+        %td To
+        %td Tmpl
+        %td Perform at
+    %tbody
+      - @schs.each do |sch|
+        %tr
+          %td= link_to '[~]', edit_scheduled_email_action_path(sch)
+          %td= sch.state == 'active' ? 'Y' : '-'
+          %td= sch.email_action.email_template.from_email
+          %td= link_to sch.lead.email, lead_path(sch.lead)
+          %td= sch.email_action.email_template.slug
+          %td= sch.perform_at.in_time_zone
 
-        %ul
-          %li <b>EAct:</b> #{link_to sch.email_action.slug, edit_email_action_path(sch.email_action)}
-          %li <b>Tmpl:</b> #{sch.email_action.email_template.slug}
-          - if sch.lead_id
-            %li <b>Lead:</b> #{link_to sch.lead.email, lead_path(sch.lead) }
-          %li <b>State:</b> #{sch.state}
-          %li <b>Perform at:</b> #{sch.perform_at.in_time_zone}
+
+
+
+
