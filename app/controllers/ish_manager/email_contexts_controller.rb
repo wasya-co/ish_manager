@@ -69,7 +69,6 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :index, ::Ish::EmailContext
     @ctxs = ::Ish::EmailContext.all.page( params[:ctxs_page] ).per( 100 )
 
-
     if my_truthy? params[:sent]
       @ctxs = @ctxs.where( :sent_at.ne => nil )
     else
@@ -109,7 +108,6 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
         render layout: false
       end
     end
-
   end
 
   def update
