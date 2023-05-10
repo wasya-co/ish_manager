@@ -23,7 +23,7 @@ class ::IshManager::EmailFiltersController < ::IshManager::ApplicationController
 
   def index
     authorize! :index, Office::EmailFilter.new
-    @email_filters = Office::EmailFilter.active
+    @email_filters = Office::EmailFilter.active.per( current_profile.per_page )
   end
 
   def new

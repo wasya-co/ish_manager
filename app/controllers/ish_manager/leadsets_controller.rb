@@ -33,7 +33,7 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Leadset
-    @leadsets = Leadset.all.kept # where( :profile => @current_profile, :is_trash => false )
+    @leadsets = Leadset.all.kept.per( current_profile.per_page ) # where( :profile => @current_profile, :is_trash => false )
   end
 
   def new

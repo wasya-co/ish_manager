@@ -67,7 +67,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def index
     authorize! :index, ::Ish::EmailContext
-    @ctxs = ::Ish::EmailContext.all.page( params[:ctxs_page] ).per( 100 )
+    @ctxs = ::Ish::EmailContext.all.page( params[:ctxs_page] ).per( current_profile.per_page )
 
     if my_truthy? params[:sent]
       @ctxs = @ctxs.where( :sent_at.ne => nil )

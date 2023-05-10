@@ -3,7 +3,7 @@ class ::IshManager::EmailMessagesController < IshManager::ApplicationController
 
   def index
     authorize! :email_messages_index, IshManager::Ability
-    @email_messages = Office::EmailMessage.all.order_by( date: :desc )
+    @email_messages = Office::EmailMessage.all.order_by( date: :desc ).per( current_profile.per_page )
   end
 
   def show

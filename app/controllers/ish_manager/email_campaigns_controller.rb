@@ -5,7 +5,7 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Ish::EmailCampaign
-    @campaigns = Ish::EmailCampaign.all
+    @campaigns = Ish::EmailCampaign.all.per( current_profile.per_page )
   end
 
   def new
