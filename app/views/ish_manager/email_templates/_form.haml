@@ -30,7 +30,7 @@
       .label-save-preview= f.submit 'Save & Preview'
     .tabs
       .tab-raw
-        = f.text_area :body, class: 'tinymce'
+        = f.text_area :body
       .tab-preview
         - if email_template.persisted?
           -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template

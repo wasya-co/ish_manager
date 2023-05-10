@@ -35,7 +35,8 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
       Ish::EmailTemplate.find_by({ slug: params[:id] })
     authorize! :iframe_src, @email_template
 
-    @ctx = Ctx.new({ email_template: @tmpl, lead_id: 999 })
+    pox = Lead.find_by({ email: 'poxlovi@gmail.com' })
+    @ctx = Ctx.new({ email_template: @tmpl, lead_id: pox.id })
 
     @utm_tracking_str = {
       'cid'          => @ctx.lead_id,

@@ -23,6 +23,11 @@ class IshManager::ApplicationController < ActionController::Base
     render 'home'
   end
 
+  def tinymce
+    authorize! :home, IshManager::Ability
+    render layout: false
+  end
+
   ##
   ## private
   ##

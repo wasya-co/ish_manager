@@ -3,6 +3,8 @@ IshManager::Engine.routes.draw do
 
   root :to => 'application#home'
 
+  get 'application/tinymce', to: 'application#tinymce'
+
   # get 'categories', to: 'categories#index'
   resources :categories
 
