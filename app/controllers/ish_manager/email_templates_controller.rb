@@ -49,7 +49,7 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
 
   def index
     authorize! :index, Ish::EmailTemplate
-    @templates = Ish::EmailTemplate.all.order_by( slug: :asc ).per( current_profile.per_page ).page( params[:templates_page] )
+    @templates = Ish::EmailTemplate.all.order_by( slug: :asc ).page( params[:templates_page] ).per( current_profile.per_page )
   end
 
   def new

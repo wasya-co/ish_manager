@@ -1,4 +1,6 @@
 
+-# - path ||= "#{resource.name.downcase.pluralize}"
+- path ||= resource
 .application--search
   = form_tag path, :method => :get, :class => :search do
     .field.search_words

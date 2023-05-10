@@ -2,6 +2,7 @@
 %h3.center.collapse-expand#emailTemplatesIndex
   Email Templates (#{Ish::EmailTemplate.all.count})
 
+= paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
 .email-templates-index.max-width
   %table.bordered
     %tr
@@ -19,4 +20,4 @@
         %td= link_to tmpl.slug, email_template_path({ id: tmpl })
         %td= pp_date tmpl.created_at
         %td= pp_date tmpl.updated_at
-
+= paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'

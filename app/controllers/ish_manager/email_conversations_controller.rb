@@ -5,7 +5,7 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
 
   def index
     authorize! :email_conversations_index, IshManager::Ability
-    @email_conversations = ::Office::EmailConversation.all.per( current_profile.per_page )
+    @email_conversations = ::Office::EmailConversation.all
 
     if params[:slug]
       @email_conversations = @email_conversations.in_emailtag( params[:slug] )

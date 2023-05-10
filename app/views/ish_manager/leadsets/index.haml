@@ -13,6 +13,7 @@
       .n-selected -
     = button_tag 'Delete', method: :delete, class: 'delete-btn'
 
+  = paginate @leadsets, :param_name => :leadsets_page, :views_prefix => 'ish_manager'
   %table
     %thead
       %tr
@@ -76,5 +77,5 @@
                     .chip
                       .interval= sch.interval
                       .tmpl= sch.email_template.slug
-
+  = paginate @leadsets, :param_name => :leadsets_page, :views_prefix => 'ish_manager'
 

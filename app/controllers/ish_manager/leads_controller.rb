@@ -64,7 +64,11 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
 
   def index
     authorize! :index, ::Lead
-    @leads = ::Lead.kept.includes( :company ).page( params[:leads_page ] ).per( current_profile.per_page )
+    @leads = ::Lead.kept.includes( :company )
+    if params[:q].present?
+      @leads = @leads.where(" email LIKE ? ", "%#{params[:q]}%" )
+    end
+    @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
 
     @email_contexts = {}
     # lead_emails = @leads.map( &:email ).compact.reject(&:empty?)

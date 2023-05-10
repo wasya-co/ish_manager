@@ -3,16 +3,6 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  def index
-    authorize! :index, Ish::EmailCampaign
-    @campaigns = Ish::EmailCampaign.all.per( current_profile.per_page )
-  end
-
-  def new
-    @campaign = Ish::EmailCampaign.new
-    authorize! :new, @campaign
-  end
-
   def create
     @campaign = Ish::EmailCampaign.new params[:campaign].permit!
     authorize! :create, @campaign
@@ -30,14 +20,24 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
     @campaign.do_send
   end
 
-  def show
-    @campaign = Ish::EmailCampaign.find params[:id]
-    authorize! :show, @campaign
-  end
-
   def edit
     @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :edit, @campaign
+  end
+
+  def index
+    authorize! :index, Ish::EmailCampaign
+    @campaigns = Ish::EmailCampaign.all
+  end
+
+  def new
+    @campaign = Ish::EmailCampaign.new
+    authorize! :new, @campaign
+  end
+
+  def show
+    @campaign = Ish::EmailCampaign.find params[:id]
+    authorize! :show, @campaign
   end
 
   def update

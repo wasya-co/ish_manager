@@ -31,7 +31,7 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
   end
 
   def index
-    @user_profiles = Ish::UserProfile.all.per( current_profile.per_page )
+    @user_profiles = Ish::UserProfile.all
     authorize! :index, Ish::UserProfile
     if params[:q]
       @user_profiles = @user_profiles.where({ :email => /#{params[:q]}/i })

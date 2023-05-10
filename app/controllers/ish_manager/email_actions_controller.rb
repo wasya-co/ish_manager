@@ -12,7 +12,7 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
   end
 
   def index
-    @email_actions = Office::EmailAction.all.per( current_profile.per_page )
+    @email_actions = Office::EmailAction.all
 
     authorize! :index, @new_email_action
   end
