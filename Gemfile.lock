@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: 0759dc0becef85a52f41a1e4ecb585640f8b9d3b
+  revision: e54922bca6b343aa90bbef2a1253d5b971f78ca8
   branch: 2.2.0
   specs:
     ish_models (0.0.33.242)
@@ -16,7 +16,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.425)
+    ish_manager (0.1.8.426)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -96,16 +96,16 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.747.0)
-    aws-sdk-core (3.171.0)
+    aws-partitions (1.762.0)
+    aws-sdk-core (3.172.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
       jmespath (~> 1, >= 1.6.1)
-    aws-sdk-kms (1.63.0)
+    aws-sdk-kms (1.64.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.120.1)
+    aws-sdk-s3 (1.122.0)
       aws-sdk-core (~> 3, >= 3.165.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.4)
@@ -140,7 +140,7 @@ GEM
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
-    i18n (1.12.0)
+    i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
     kaminari-actionview (1.2.2)
@@ -170,7 +170,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2023.0218.1)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
     minitest (5.18.0)
     mongo (2.18.2)
       bson (>= 4.14.1, < 5.0.0)
@@ -201,7 +201,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     racc (1.6.2)
-    rack (2.2.6.4)
+    rack (2.2.7)
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (6.1.7.3)
@@ -264,7 +264,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    zeitwerk (2.6.7)
+    zeitwerk (2.6.8)
 
 PLATFORMS
   ruby

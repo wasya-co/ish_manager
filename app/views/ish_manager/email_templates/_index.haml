@@ -1,23 +1,25 @@
 
-%h3.center.collapse-expand#emailTemplatesIndex
-  Email Templates (#{Ish::EmailTemplate.all.count})
+.email-templates--index.max-width
 
-= paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
-.email-templates-index.max-width
-  %table.bordered
-    %tr
-      %th
-      %th Slug
-      %th Created
-      %th Updated
+  %h3.center.collapse-expand#emailTemplatesIndex
+    Email Templates (#{Ish::EmailTemplate.all.count})
 
-    - @templates.each do |tmpl|
+  = paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
+  .email-templates-index.max-width
+    %table.bordered
       %tr
-        %td
-          = link_to '[use]', new_email_context_path({ email_template_id: tmpl.id })
-          = link_to '[~]', edit_email_template_path({ id: tmpl })
-          = button_to '[x]', email_template_path({ id: tmpl }), method: :delete, :data => { :confirm => 'Are you sure?' }, form_class: 'inline'
-        %td= link_to tmpl.slug, email_template_path({ id: tmpl })
-        %td= pp_date tmpl.created_at
-        %td= pp_date tmpl.updated_at
-= paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
+        %th
+        %th Slug
+        %th Created
+        %th Updated
+
+      - @templates.each do |tmpl|
+        %tr
+          %td
+            = link_to '[use]', new_email_context_path({ email_template_id: tmpl.id })
+            = link_to '[~]', edit_email_template_path({ id: tmpl })
+            = button_to '[x]', email_template_path({ id: tmpl }), method: :delete, :data => { :confirm => 'Are you sure?' }, form_class: 'inline'
+          %td= link_to tmpl.slug, email_template_path({ id: tmpl })
+          %td= pp_date tmpl.created_at
+          %td= pp_date tmpl.updated_at
+  = paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
