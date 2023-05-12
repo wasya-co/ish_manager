@@ -3,8 +3,5 @@
   .header
     %h2.title Category/Tag `#{@category.slug}`
 
-  .leads
-    %h3 Leads (#{@category.leads.length})
-    %ol
-      - @category.leads.each do |lead|
-        %li= link_to lead.email, lead_path(lead)
+  = render 'ish_manager/leads/index', leads: @leads, email_contexts: {}, search_path: category_path(@category)
+

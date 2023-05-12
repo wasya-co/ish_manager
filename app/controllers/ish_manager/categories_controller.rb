@@ -14,6 +14,12 @@ class ::IshManager::CategoriesController < IshManager::ApplicationController
     @category = WpTag.find params[:id]
     authorize! :show, @category
 
+    ## same as in leads#index
+    @leads = @category.leads
+    if params[:q].present?
+      @leads = @leads.where(" email LIKE ? ", "%#{params[:q]}%" )
+    end
+    @leads = @leads.page( params[:leads_page] ).per( current_profile.per_page )
   end
 
 end

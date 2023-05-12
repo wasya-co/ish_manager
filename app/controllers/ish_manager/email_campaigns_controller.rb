@@ -38,6 +38,11 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
   def show
     @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :show, @campaign
+    @leads = @campaign.leads
+    if params[:q].present?
+      @leads = @leads.where(" email LIKE ? ", "%#{params[:q]}%" )
+    end
+    @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
   end
 
   def update
