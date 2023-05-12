@@ -67,7 +67,7 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
     if params[:redirect_to]
       redirect_to params[:redirect_to]
     else
-      redirect_to :action => :index
+      redirect_to request.referrer
     end
   end
 

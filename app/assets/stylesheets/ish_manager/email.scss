@@ -15,6 +15,7 @@
 .leads--index,
 .leads-index,
 .leads-show,
+.leadsets-show,
 .scheduled-email-actions--form,
 .scheduled-emails-index {
   .header {
@@ -22,7 +23,9 @@
     justify-content: center;
   }
 }
-
+.ctxs {
+  text-align: center;
+}
 .email-actions--form {
   .select2-container {
     flex-grow: 1;

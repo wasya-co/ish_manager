@@ -1,0 +1,5 @@
+
+.leadsets-show.max-width
+  .header
+    %h2.title Leadset #{@leadset.company_url}
+  = render 'ish_manager/leads/index', leads: @leadset.employees, skip_pagination: true, email_contexts: @email_contexts

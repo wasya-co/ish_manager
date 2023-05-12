@@ -3,6 +3,7 @@
 //= require ish_manager/vendor/jquery.ui.widget
 //= require ish_manager/vendor/jquery.fileupload
 //= require ish_manager/vendor/jquery-ui.min
+//
 // require ish_manager/vendor/summernote-bs4.min
 //
 //= require ish_manager/shared
@@ -13,6 +14,7 @@
 //= require ish_manager/email_templates
 //= require ish_manager/galleries
 //= require ish_manager/iro
+//= require ish_manager/leads
 //
 
 const AppRouter = {

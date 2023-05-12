@@ -33,7 +33,11 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
 
   def index
     authorize! :index, Leadset
-    @leadsets = Leadset.all.kept.page( params[:leadsets_page] ).per( current_profile.per_page )
+    @leadsets = Leadset.all.kept.includes(:leads)
+    if params[:q].present?
+      @leadsets = @leadsets.where(" company_url LIKE ? ", "%#{params[:q]}%" )
+    end
+    @leadsets = @leadsets.page( params[:leadsets_page] ).per( current_profile.per_page )
   end
 
   def new
@@ -42,8 +46,12 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
   end
 
   def show
-    authorize! :redirect, IshManager::Ability
-    redirect_to :action => :edit, :id => params[:id]
+    @leadset = Leadset.find params[:id]
+    authorize! :show, @leadset
+    @email_contexts = {}
+    @leadset.employees.each do |lead|
+      @email_contexts[lead.email] = lead.email_contexts
+    end
   end
 
   def update

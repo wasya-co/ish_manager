@@ -31,15 +31,15 @@
       %tbody
         - @ctxs.each do |ctx|
           %tr
-            %td
+            %td.actions
               - if ctx.sent_at
                 [~]
               - else
                 = link_to '[~]', edit_email_context_path(ctx)
               = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
-            %td
+            %td.from
               = ctx.from_email ? ctx.from_email : "t| #{ctx.tmpl.from_email}"
-            %td= ctx.to_email
+            %td.to= link_to ctx.lead.email, lead_path(ctx.lead)
             %td
               = link_to email_context_path(ctx) do
                 = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"

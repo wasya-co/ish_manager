@@ -9,6 +9,7 @@
   %ul
     %li Name: #{@lead.name}
     %li Email: #{@lead.email}
+    %li Company: #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
     %li Phone: #{@lead.phone}
     %li Address: #{@lead.address}
 

@@ -13,26 +13,24 @@
       .n-selected -
     = button_tag 'Delete', method: :delete, class: 'delete-btn'
 
+  .float-right= render 'search', path: leadsets_path
   = paginate @leadsets, :param_name => :leadsets_page, :views_prefix => 'ish_manager'
-  %table
+  %table.bordered
     %thead
       %tr
         %th &nbsp;
-        -# %th created at
-        -# %th Name
         %th.company-url Company Url
         %th Tags
         %th +
+        %th.employees Employees
         %th.leads Leads
     %tbody
       - @leadsets.each_with_index do |leadset, idx1|
         %tr
           %td= check_box_tag 'leadset_ids[]', leadset.id, nil, { class: 'i-sel' }
-          -# %td= leadset.created_at.strftime("%Y-%m-%d %H:%M%P")
-          -# %td= link_to leadset.name, leadset_path( leadset )
-          %td= link_to leadset.company_url, leadset.company_url
-          %td.tags
+          %td= link_to leadset.company_url, leadset_path(leadset)
 
+          %td.tags
             - leadset.wp_tags.each_with_index do |tag, idx2|
               .chip
                 = tag.name
@@ -47,35 +45,36 @@
               .actions
                 = submit_tag 'Add'
 
-          %td.leads
-            -# = leadset.leads.count
-            - leadset.leads.each do |lead|
-              .item
+          %td.employees
+            = leadset.employees.length
+            -# - leadset.employees.each do |lead|
+            -#   .item
 
-                .chip
-                  -# = lead.email
-                  = link_to lead.name, lead_path( lead )
+            -#     .chip
+            -#       -# = lead.email
+            -#       = link_to lead.name, lead_path( lead )
 
-                .relative
-                  %a.chip{ href: email_contexts_for_lead_path( lead ) }
-                    \(
-                    = lead.email_contexts.count
-                    %i.fa.fa-envelope
-                    \)
+            -#     .relative
+            -#       %a.chip{ href: email_contexts_for_lead_path( lead ) }
+            -#         \(
+            -#         = lead.email_contexts.count
+            -#         %i.fa.fa-envelope
+            -#         \)
 
-                .relative
-                  %i.fa.fa-pencil.expand-next
-                  %form.form-mini{ style: 'display: none' }
-                    Editing...
+            -#     .relative
+            -#       %i.fa.fa-pencil.expand-next
+            -#       %form.form-mini{ style: 'display: none' }
+            -#         Editing...
 
-                .relative
-                  %i.fa.fa-clock-o.expand-next
-                  = render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+            -#     .relative
+            -#       %i.fa.fa-clock-o.expand-next
+            -#       .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
-                .scheduled
-                  - lead.scheduled_emails.each do |sch|
-                    .chip
-                      .interval= sch.interval
-                      .tmpl= sch.email_template.slug
+            -#     -# .scheduled
+            -#     -#   - lead.scheduled_emails.each do |sch|
+            -#     -#     .chip
+            -#     -#       -# .interval= sch.interval
+            -#     -#       -# .tmpl= sch.email_template.slug
+
   = paginate @leadsets, :param_name => :leadsets_page, :views_prefix => 'ish_manager'
 
