@@ -1,8 +1,8 @@
 
 -#
--# receives locals: leads , email_contexts , search_path
+-# receives locals: leads , search_path
 -#
-- email_contexts ||= {}
+-# - email_contexts ||= {}
 
 .leads--index.padded
   .header
@@ -51,7 +51,10 @@
             %td= lead.wp_tags.map(&:name).join(", ")
             %td= lead.created_at.to_s[0..10]
             %td.ctxs
-              = email_contexts[lead.email]&.length || '-'
+              = lead.email_contexts.length
+              -## without the N+1 but unfinished and messy:
+              -# = email_contexts[lead.id] || '-'
+
             %td.sch
               = lead.scheduled_email_actions.length
               = link_to '[+]', new_scheduled_email_action_path( lead_id: lead.id )

@@ -70,28 +70,28 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     end
     @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
 
-    @email_contexts = {}
-    lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
-    map = %Q{
-      function() {
-        emit(this.to_email, {count: 1})
-      }
-    }
-    reduce = %Q{
-      function(key, values) {
-        var result = {count: 0};
-        values.forEach(function(value) {
-          result.count += value.count;
-        });
-        return result;
-      }
-    }
-    tmp_contexts = Ish::EmailContext.all.where( :to_email.in => lead_emails
-      ).map_reduce( map, reduce
-      ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/
-      ).to_a
-    tmp_contexts.map { |x| @email_contexts[x[:_id]] = x[:value][:count].to_i }
-    puts! @email_contexts, '@email_contexts'
+    # @email_contexts = {}
+    # # lead_emails = @leads.map( &:email ).compact.reject(&:empty?)
+    # lead_ids = @leads.map( &:id )
+    # map = %Q{
+    #   function() {
+    #     emit(''+this.lead_id, {count: 1})
+    #   }
+    # }
+    # reduce = %Q{
+    #   function(key, values) {
+    #     var result = {count: 0};
+    #     values.forEach(function(value) {
+    #       result.count += value.count;
+    #     });
+    #     return result;
+    #   }
+    # }
+    # tmp_contexts = Ish::EmailContext.all.where( :lead_id.in => lead_ids
+    #   ).map_reduce( map, reduce
+    #   ).out( inline: 1 ## From: https://www.mongodb.com/docs/mongoid/current/reference/map-reduce/
+    #   ).to_a
+    # tmp_contexts.map { |x| @email_contexts[x[:_id]] = x[:value][:count].to_i }
 
   end
 
