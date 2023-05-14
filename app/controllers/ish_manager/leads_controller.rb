@@ -116,7 +116,8 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     else
       flash[:alert] = "Cannot update lead: #{@lead.errors.messages}"
     end
-    redirect_to :action => 'index'
+    ## 2023-05-14 NOT redirecting to index anymore.
+    redirect_to :action => 'show', id: @lead.id
   end
 
 end

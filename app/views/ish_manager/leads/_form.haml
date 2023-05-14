@@ -23,6 +23,10 @@
     = f.label "Leadset (company)"
     = f.select :m3_leadset_id, options_for_select(@leadsets_list, selected: lead.m3_leadset_id), { include_blank: true }, { class: 'select2' }
 
+  .field
+    = f.label :comment
+    = f.text_area :comment
+
   -# .field
   -#   = f.label "Tags"
   -#   = f.text_field :wp_tags

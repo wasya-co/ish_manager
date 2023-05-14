@@ -40,7 +40,9 @@
         - leads.each do |lead|
           %tr
             %td= check_box_tag 'lead_ids[]', lead.id
-            %td= link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
+            %td
+              = link_to '[~]', edit_lead_path( lead )
+              = link_to "#{lead.name} <#{lead.email}>", lead_path( lead )
             %td.company
               = lead.company.company_url
               - if lead.company.name.present?

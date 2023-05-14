@@ -12,6 +12,7 @@
     %li Company: #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
     %li Phone: #{@lead.phone}
     %li Address: #{@lead.address}
+    %li Comment: #{raw @lead.comment}
 
   .row
     .col-md-6.ctxs
