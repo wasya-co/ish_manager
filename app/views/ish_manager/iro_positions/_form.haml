@@ -36,6 +36,9 @@
       .field
         = f.label :opened_on
         = f.text_field :opened_on
+      .field
+        = f.label :opened_delta
+        = f.number_field :opened_delta, step: 0.01
 
       .actions
         = f.submit 'Submit'

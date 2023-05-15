@@ -1,0 +1,8 @@
+
+.iro-purses.max-width
+  .header
+    %h2.title Iro Purses
+
+  %ul
+    - @iro_purses.each do |purse|
+      %li= link_to purse.id, iro_purse_path( purse )

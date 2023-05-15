@@ -23,6 +23,11 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
     authorize! :edit, @iro_purse
   end
 
+  def index
+    @iro_purses = Iro::Purse.all
+    authorize! :index, Iro::Purse
+  end
+
   def new
     @iro_purse = Iro::Purse.new
     authorize! :new, @iro_purse
@@ -32,13 +37,11 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
     @purse = Iro::Purse.find params[:id]
     authorize! :my, @purse
 
-    @strategies = @purse.strategies
-
-
+    @strategies = Iro::CoveredCallStrategy.all
     underlyings = Tda::Stock.get_quotes( @strategies.map(&:ticker).compact.uniq.join(",") )
-    json_puts! underlyings, 'out'
+    # json_puts! underlyings, 'out'
     underlyings.each do |ticker, v|
-      puts! v[:mark], 'ze mark'
+      # puts! v[:mark], 'ze mark'
       Iro::CoveredCallStrategy.where( ticker: ticker ).update( current_underlying_strike: v[:mark] )
     end
 
