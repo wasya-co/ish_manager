@@ -12,5 +12,4 @@
     Payments (purchased items) (#{@profile.payments.length}):
     - @profile.payments.each do |payment|
       .Card.item
-        = payment.inspect
-        = payment.item&.inspect
+        = payment

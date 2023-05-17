@@ -12,7 +12,7 @@
         = f.text_field :name
       .field
         = f.label :descr
-        = f.text_field :descr
+        = f.text_area :descr
     .col.m6
       .field
         = f.label :video
@@ -28,10 +28,11 @@
       = f.label :user_profile
       = f.select :user_profile_id, @user_profiles_list
   .row
-    .col.s4
-      = f.check_box :is_public
-      = f.label :is_public
-    .col.s4
+    .col-md-6
+      -# = f.check_box :is_public
+      -# = f.label :is_public
+      = render 'ish_manager/application/form_nonpublic', f: f, model: video
+    .col-md-6
       = f.check_box :is_trash
       = f.label :is_trash
 

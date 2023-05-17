@@ -10,15 +10,16 @@
   - else
     %iframe{:allowfullscreen => "true", :frameborder => "0", :height => "480", :src => "#{video.video.url}", :width => "640"}
 
-  .flex-row
+  .my-row
     .a= image_tag video.thumb.url(:thumb)
     .a
-      .title
+      %h3
         = video.name.blank? ? t('videos.no_title') : video.name
         .meta-edit
           .inline= button_to '[x]', video_path( video ), :method => :delete, :data => { :confirm => 'Are you sure?' }
           = link_to '[~]', edit_video_path( video )
 
       = render 'ish_manager/application/metaline', :item => video
-      .flex-row= link_to video.video_file_name, video.video.url
+  .flex-row
+    Download File:&nbsp;#{link_to video.video_file_name, video.video.url}
 

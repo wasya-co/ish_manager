@@ -28,7 +28,8 @@
         = f.text_area :subhead
       .field
         = f.label :descr
-        = f.text_area :descr, :class => :tinymce
+        = f.text_area :descr
+        .descr= raw newsitem.descr
 
     .col-sm-6
       .field

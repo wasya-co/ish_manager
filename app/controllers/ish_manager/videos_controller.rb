@@ -40,7 +40,8 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.where( is_trash: false, :user_profile => @current_profile
+    @videos = Video.unscoped.where( is_trash: false,
+      :user_profile => @current_profile
     ).order_by( :created_at => :desc )
 
     if params[:q]
@@ -81,10 +82,24 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     authorize! :update, @video
 
+    old_shared_profile_ids = @video.shared_profile_ids
+    if params[:video][:shared_profiles].present?
+      params[:video][:shared_profiles].delete('')
+    end
+    params[:video][:shared_profile_ids] = params[:video][:shared_profiles]
+    params[:video].delete :shared_profiles
+
     @video.update params[:video].permit!
     if @video.save
+
+      # if params[:video][:shared_profile_ids].present?
+      #   new_shared_profiles = Ish::UserProfile.find( params[:video][:shared_profile_ids]
+      #     ).select { |p| !old_shared_profile_ids.include?( p.id ) }
+      #   ::IshManager::ApplicationMailer.shared_video( new_shared_profiles, @video ).deliver
+      # end
+
       flash[:notice] = 'Success.'
-      redirect_to videos_path
+      redirect_to video_path(@video)
     else
       flash[:alert] = "No luck: #{@video.errors.messages}"
       render :edit

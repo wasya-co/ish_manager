@@ -101,9 +101,9 @@ class IshManager::GalleriesController < IshManager::ApplicationController
   end
 
   def update
-    old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
+    old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     if params[:gallery][:shared_profiles].present?
       params[:gallery][:shared_profiles].delete('')
     end
