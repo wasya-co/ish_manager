@@ -1,7 +1,5 @@
 
 = form_for video do |f|
-  -# = render 'form_errors', :item => @video
-
   .row
     .col.m6
       .field
@@ -29,8 +27,6 @@
       = f.select :user_profile_id, @user_profiles_list
   .row
     .col-md-6
-      -# = f.check_box :is_public
-      -# = f.label :is_public
       = render 'ish_manager/application/form_nonpublic', f: f, model: video
     .col-md-6
       = f.check_box :is_trash

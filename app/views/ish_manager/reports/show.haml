@@ -1,20 +1,20 @@
 
-.manager-reports-show
-  .row
-    .large-12.columns
-      %h1.flex-row
-        = @report.name
-        = link_to '[~]', edit_report_path( @report )
-        = button_to '[x]', report_path( @report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+.reports-show.max-width
 
-      = render 'meta', item: @report
+  %h1.flex-row
+    = @report.name
+    = link_to '[~]', edit_report_path( @report )
+    = button_to '[x]', report_path( @report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-      - if @report.subhead.length > 3
-        .subhead= @report.subhead
+  = render 'meta', item: @report
 
-      .descr
-        - if @report.photo
-          .float-left= image_tag @report.photo.photo.url( :small )
-        = raw @report.descr
+  - if @report.subhead.length > 3
+    .subhead= @report.subhead
+
+  .descr
+    - if @report.photo
+      .float-left= image_tag @report.photo.photo.url( :small )
+    = raw @report.descr
+
   %hr
   = render 'form', :url => report_path(@report.id), :report => @report

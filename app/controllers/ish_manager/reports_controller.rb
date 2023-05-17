@@ -56,15 +56,16 @@ class IshManager::ReportsController < IshManager::ApplicationController
   def index
     authorize! :index, Report
     @reports = Report.unscoped.order_by( :created_at => :desc
-      ).where( :is_trash => false, :user_profile => @current_profile
-      ).page( params[:reports_page] ).per( Report::PER_PAGE )
+      ).where( :is_trash => false, :user_profile => @current_profile )
     if params[:q]
-      @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
+      # @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
+      @reports = @reports.where({ :name => /#{params[:q]}/i })
       if @reports.length == 1
         redirect_to report_path(@reports[0])
         return
       end
     end
+    @reports = @reports.page( params[:reports_page] ).per( Report::PER_PAGE )
   end
 
   def new
@@ -93,6 +94,14 @@ class IshManager::ReportsController < IshManager::ApplicationController
       photo = Photo.new :photo => params[:photo]
       @report.update_attributes( :photo => photo, :updated_at => Time.now )
     end
+
+    old_shared_profile_ids = @report.shared_profiles.map(&:id)
+    if params[:report][:shared_profiles].present?
+      params[:report][:shared_profiles].delete('')
+    end
+    params[:report][:shared_profile_ids] = params[:report][:shared_profiles]
+    params[:report].delete :shared_profiles
+
 
     respond_to do |format|
       if @report.update_attributes(params[:report].permit!)

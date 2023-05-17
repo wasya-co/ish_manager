@@ -4,120 +4,114 @@
 
 - url ||= reports_path
 = form_for report, :url => url, :html => { :multipart => true } do |f|
-  - if report.errors.any?
-    #error_explanation
-      %h3= t('e.there_are_errors')
-      %ul
-        - report.errors.full_messages.each do |msg|
-          %li= msg
+
+  -# - if report.errors.any?
+  -#   #error_explanation
+  -#     %h3= t('e.there_are_errors')
+  -#     %ul
+  -#       - report.errors.full_messages.each do |msg|
+  -#         %li= msg
 
   .row
-    .col.s4
+    .col-md-6
       .field
         = f.label :"Name"
         = f.text_field :name, :class=> 'form-control', :placeholder => "name of report", :type => "text"
+      .field
         = f.label "Slug"
         = f.text_field :slug, :class=> 'form-control', :placeholder => "name seo", :type => "text"
-
-    .col.s4
       .field
-        = f.label :subhead
-        = f.text_area :subhead, :class => 'form-control', :rows => "5", :style=> "resize: vertical;"
+        = f.label :created_at
+        = f.text_field :created_at
       .field
         = f.label "Item Type: default, longscroll"
         = f.text_field :item_type
 
-    .col.s4
-      .field
-        = f.label :created_at
-        = f.text_field :created_at
-
-  .field
-    = f.label :Description
-    = f.text_area :descr, :class => 'tinymce'
-  .field
-    = f.label :raw_json
-    = f.text_area :raw_json
-
-  %br
+    .col-md-6
+      = render 'ish_manager/application/form_nonpublic', f: f, model: report
 
   .row
-    .col.s4
+    .col-md-4
       .field
-        = f.label :Coordinates
-        .panel.panel-default
-          .panel-body
-            .col.s6
-              .form-group
-                %label{} X-coordinate
-                = f.text_field :x, :placeholder => "x", :type => "text", :class=>"form-control"
+        = f.label :Description
+        = f.text_area :descr
+    .col-md-4
+      .field
+        = f.label :raw_json
+        = f.text_area :raw_json
+    .col-md-4
+      .field
+        = f.label :subhead
+        = f.text_area :subhead, :class => 'form-control', :rows => "5", :style=> "resize: vertical;"
 
-            .col.s6
-              .form-group
-                %label{} Y-coordinate
-                = f.text_field :y, :placeholder => "y", :type => "text", :class=>"form-control"
-    .col.s4
+  .row
+    .col-md-4
+      .field.my-row
+        = f.label :Coordinates
+        = f.text_field :x, :placeholder => "x", :type => "text", :class=>"form-control"
+        = f.text_field :y, :placeholder => "y", :type => "text", :class=>"form-control"
+        = f.text_field :z, :placeholder => "z", :type => "text", :class=>"form-control"
+
+
+    .col-md-4
       .field
         = f.label :premium_tier
         = f.number_field :premium_tier
       .field
         = f.label :user_profile
         = select :report, :user_profile_id, @user_profiles_list
-    .col.s4
-      unused
 
-  .row
-  .panel.panel-default
-    .panel-heading
-      %h3.panel-title Upload File
-    .panel-body
-      .row
-        .col.s6.col.soffset-3
-          %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
-      = file_field_tag :photo, :style => "display:none", :id=>"photo"
-      .div.center
-        -# @TODO: wtf?
-        %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}
+    .col-md-4
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title Upload File
+        .panel-body
+          .row
+            .col.s6.col.soffset-3
+              %button.btn.btn-primary.btn-lg.btn-block{:type => "button", :onClick => "upload()"} Upload File
+          = file_field_tag :photo, :style => "display:none", :id=>"photo"
+          .div.center
+            -# @TODO: wtf?
+            %img#thumbnail_image_boy.img-thumbnail{:alt => "uploaded image", :width=>"200px"}
 
 
-  :javascript
 
-      $( document ).ready(function() {
-      $(".caret").html("");
-      });
 
-      function upload(){
-        document.getElementById("photo").click();
-      }
 
-        function handleFileSelect(evt) {
-          var files = evt.target.files;
-
-          // Loop through the FileList and render image files as thumbnails.
-          for (var i = 0, f; f = files[i]; i++) {
-            // Only process image files.
-            if (f.type.match('image.*')) {
-              var reader = new FileReader();
-
-              reader.onload = function (e) {
-                  // get loaded data and render thumbnail.
-                  document.getElementById("thumbnail_image_boy").src = e.target.result;
-              };
-
-              // read the image file as a data URL.
-              reader.readAsDataURL(f);
-            }else{
-              $("#photo").val("");
-              alert("Only images accepted.");
-            }
-          }
-        }
-        document.getElementById('photo').addEventListener('change', handleFileSelect, false);
-
-  .input
-    = f.check_box :is_public
-    = f.label :is_public
   .input
     = f.check_box :is_trash
     = f.label :is_trash
   %button.btn.btn-success{:type => "submit"} submit
+
+:javascript
+  $( document ).ready(function() {
+    $(".caret").html("");
+    });
+
+    function upload(){
+      document.getElementById("photo").click();
+    }
+
+    function handleFileSelect(evt) {
+      var files = evt.target.files;
+
+      // Loop through the FileList and render image files as thumbnails.
+      for (var i = 0, f; f = files[i]; i++) {
+        // Only process image files.
+        if (f.type.match('image.*')) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+              // get loaded data and render thumbnail.
+              document.getElementById("thumbnail_image_boy").src = e.target.result;
+          };
+
+          // read the image file as a data URL.
+          reader.readAsDataURL(f);
+        }else{
+          $("#photo").val("");
+          alert("Only images accepted.");
+        }
+      }
+    }
+    document.getElementById('photo').addEventListener('change', handleFileSelect, false);
