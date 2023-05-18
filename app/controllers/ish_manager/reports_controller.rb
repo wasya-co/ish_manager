@@ -10,6 +10,13 @@ class IshManager::ReportsController < IshManager::ApplicationController
     @report.user_profile = @current_profile # @TODO: this should not be hard-coded
     authorize! :create, @report
 
+    old_shared_profile_ids = @report.shared_profiles.map(&:id)
+    if params[:report][:shared_profiles].present?
+      params[:report][:shared_profiles].delete('')
+    end
+    params[:report][:shared_profile_ids] = params[:report][:shared_profiles]
+    params[:report].delete :shared_profiles
+
     flag = @report.save
     respond_to do |format|
       if flag
