@@ -26,7 +26,7 @@
         = link_to n.report.name, report_path(n.report.slug)
         = link_to "[~]", edit_report_path(n.report)
       .meta
-        on #{pretty_date n.report.created_at} by #{n.report.username}
+        on #{pretty_date n.report.created_at} by #{n.report.user_profile&.name || '<anonymous>'}
       - unless n.report.photo.blank?
         .thumb= link_to image_tag(n.report.photo.photo.url(:thumb), :alt => ''), report_path( n.report.slug )
       .subhead= n.report.subhead
