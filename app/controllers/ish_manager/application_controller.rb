@@ -85,6 +85,7 @@ class IshManager::ApplicationController < ActionController::Base
     @email_campaigns_list = [[nil,nil]] + Ish::EmailCampaign.all.map { |c| [ c.slug, c.id ] }
     @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
     @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
+    @email_tags_list      = [[nil,nil]] + WpTag.email_tags.map { |t| [ t.name, t.id ] }
     @galleries_list       = Gallery.all.list
     @leads_list           = Lead.list
     @leadsets_list        = Leadset.list
@@ -101,19 +102,27 @@ class IshManager::ApplicationController < ActionController::Base
     @page_title = "#{ params[:controller].gsub('ish_manager/', '') } #{params[:action]} #{params[:slug]||params[:id]} ".gsub("  ", " ")
   end
 
-  # @TODO: obsolete, remove _vp_ 2022-10-15
-  def update_profile_pic
-    return unless params[:photo]
-    @photo = Photo.new :photo => params[:photo]
-    @photo.user_profile = @current_profile
-    flag = @photo.save
-    @resource.profile_photo = @photo
-    flagg = @resource.save
-    if flag && flagg
-      flash[:notice] = 'Success'
-    else
-      flash[:alert] = "No Luck. #{@photo.errors.messages} #{@resource.errors.messages}"
-    end
-  end
 
 end
+
+
+
+
+
+
+
+  # ## @TODO: obsolete, remove _vp_ 2022-10-15
+  # def update_profile_pic
+  #   return unless params[:photo]
+  #   @photo = Photo.new :photo => params[:photo]
+  #   @photo.user_profile = @current_profile
+  #   flag = @photo.save
+  #   @resource.profile_photo = @photo
+  #   flagg = @resource.save
+  #   if flag && flagg
+  #     flash[:notice] = 'Success'
+  #   else
+  #     flash[:alert] = "No Luck. #{@photo.errors.messages} #{@resource.errors.messages}"
+  #   end
+  # end
+

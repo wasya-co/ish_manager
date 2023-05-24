@@ -1,7 +1,7 @@
 
 class ::IshManager::EmailFiltersController < ::IshManager::ApplicationController
 
-  # before_action :set_lists
+  before_action :set_lists
 
   # alphabetized : )
 
@@ -12,6 +12,18 @@ class ::IshManager::EmailFiltersController < ::IshManager::ApplicationController
       flash[:notice] = 'Success'
     else
       flash[:alert] = "No luck: #{@email_filter.errors.full_messages.join(', ')}."
+    end
+    redirect_to action: 'index'
+  end
+
+  def destroy
+    @email_filter = Office::EmailFilter.find params[:id]
+    authorize! :destroy, @email_filter
+    flag = @email_filter.destroy
+    if flag
+      flash[:notice] = 'Success'
+    else
+      flash[:alert] = 'Error'
     end
     redirect_to action: 'index'
   end
@@ -34,8 +46,8 @@ class ::IshManager::EmailFiltersController < ::IshManager::ApplicationController
   def update
     @email_filter = Office::EmailFilter.find params[:id]
     authorize! :update, @email_filter
-    @email_filter.update_attributes( params[:email_filter].permit! )
-    if @email_filter.persisted?
+    flag = @email_filter.update_attributes( params[:email_filter].permit! )
+    if flag
       flash[:notice] = 'Success'
     else
       flash[:alert] = "No luck: #{@email_filter.errors.full_messages.join(', ')}."
