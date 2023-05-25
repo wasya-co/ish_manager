@@ -15,6 +15,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     ac   = ActionController::Base.new
     ac.instance_variable_set( :@ctx, @ctx )
+    ac.instance_variable_set( :@lead, @ctx.lead )
     ac.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
 
     rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
@@ -25,7 +26,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     mail( from: @ctx.from_email,
           to: @ctx.to_email,
-          subject: ERB.new( @ctx.subject ).result,
+          subject: ERB.new( @ctx.subject ).result( @ctx.get_binding ),
           template_name: "render/_#{@ctx.tmpl.layout}" )
   end
 

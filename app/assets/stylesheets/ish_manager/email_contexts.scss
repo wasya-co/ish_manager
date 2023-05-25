@@ -16,7 +16,6 @@
   iframe {
     min-height: 80vh;
   }
-
 }
 
 .email-contexts--form,
@@ -24,6 +23,7 @@
 
   .field-template {
     display: flex;
+    flex-wrap: wrap;
   }
 
   textarea {
@@ -47,7 +47,6 @@
     padding: 10px;
     margin: 10px;
   }
-
 }
 
 .email-contexts-index {
@@ -55,27 +54,12 @@
   > .header {
     display: flex;
     justify-content: center;
-
-    // .title {
-    //   a {
-    //     &:before {
-    //       content: '[';
-    //     }
-    //     &:after {
-    //       content: ']';
-    //     }
-    //   }
-    // }
-
   }
-
-
 
   table {
     th.actions {
       min-width: 100px;
     }
   }
-
 }
 

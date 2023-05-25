@@ -27,8 +27,6 @@
 **/
 
 a[target='_blank'] {
-  display: flex;
-
   &::before {
     content: '[ ';
     display: inline;
@@ -36,8 +34,6 @@ a[target='_blank'] {
   &::after {
     content: ' ^]';
     display: inline;
-    // content: ' ^]' !important;
-    // font-size: .5em;
   }
 }
 html {

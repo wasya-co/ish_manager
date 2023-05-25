@@ -2,29 +2,25 @@
 .email-contexts--form
   - url = ctx.new_record? ? email_contexts_path : email_context_path(ctx)
   = form_for ctx, as: :ctx, url: url do |f|
-    .row
-      .col-md-6
-        .field.field-template
-          = f.label "Template"
-          = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || ctx.email_template_id ), {}, { class: 'select2' }
-          - if ctx.email_template_id
-            = link_to 'view', email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
-            = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
-            layout: #{ctx.tmpl.layout}
+    .field.field-template
+      = f.label "Template"
+      = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || ctx.email_template_id ), {}, { class: 'select2' }
+      - if ctx.email_template_id
+        = link_to 'view', email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
+        = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
+        layout: #{ctx.tmpl.layout}
 
-        .field
-          = f.label "From"
-          = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: ctx.from_email)
+    .field
+      = f.label "From"
+      = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: ctx.from_email)
 
-    .row
-      .col-md-4
-        .field.flex-row
-          = f.label "To lead"
-          = f.select :lead_id, options_for_select( @leads_list, selected: ctx.lead_id ), {}, { class: 'select2' }
-      .col-md-8
-        .field.field-subject
-          = f.label :subject
-          = f.text_field :subject
+    .field.flex-row
+      = f.label "To lead"
+      = f.select :lead_id, options_for_select( @leads_list, selected: ctx.lead_id ), {}, { class: 'select2' }
+
+    .field.field-subject
+      = f.label :subject
+      = f.text_field :subject
 
 
 
