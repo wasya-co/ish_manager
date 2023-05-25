@@ -254,6 +254,17 @@ table.dataTable {
   display: none;
   position: absolute;
   min-width: 250px;
+  z-index: 1;
+
+  form {
+    min-width: 300px;
+    border: 1px solid blue;
+    border-radius: 0.5em;
+    padding: 0.5em;
+
+    background: #ccc;
+    display: inline-block;
+  }
 }
 
 /* E */

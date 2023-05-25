@@ -18,7 +18,7 @@
       = f.select :email_action, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), {}, class: 'select2'
     .flex-row
       = f.label :perform_at
-      = f.text_field :perform_at
+      = f.text_field :perform_at, value: sch_a.new_record? ? Time.now : sch_a.perform_at
 
     .actions
       = submit_tag 'Schedule'

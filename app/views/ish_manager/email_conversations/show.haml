@@ -16,8 +16,20 @@
 
   .leads.max-width
     Leads (#{@email_conversation.leads.length}):
-    = @email_conversation.leads.map(&:id)
-    -# .leadsC= render 'ish_manager/leads/index_rows', leads: @email_conversation.leads
+    - @email_conversation.leads.each do |lead|
+      .item
+        = link_to "#{lead.id} #{lead.email}", lead_path(lead)
+        \(ctxs:
+        = link_to email_contexts_for_lead_path( lead ) do
+          = lead.email_contexts.count
+          %i.fa.fa-envelope
+        .relative.inline-block
+          %i.fa.fa-plus.expand-next
+          .expand-hide= render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank })
+        \)
+        .relative.inline-block
+          %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
+          .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
   .messages.max-width
     - @email_messages.each do |msg|
@@ -31,14 +43,7 @@
                 = msg.id
                 <b>To:</b> #{msg.to}
                 <b>From:</b> #{lead.email}
-                = link_to email_contexts_for_lead_path( lead ) do
-                  \(
-                  = lead.email_contexts.count
-                  %i.fa.fa-envelope
-                  \)
-                .relative.inline-block
-                  %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
-                  .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+
 
           .datetime
             .date= msg.date&.strftime('%Y-%m-%d')

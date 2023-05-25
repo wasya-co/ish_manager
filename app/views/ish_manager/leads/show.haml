@@ -22,8 +22,8 @@
       %ul
         - @ctxs.each do |ctx|
           %li
-            = link_to ctx.subject, email_context_path(ctx)
-            = pp_date ctx.sent_at
+            = pp_date( ctx.sent_at ) || 'not sent'
+            = link_to ctx.subject.presence||"No Subj?!", email_context_path(ctx)
     .col-md-6.schs
       %h5
         Scheduled actions (#{@schs.length})

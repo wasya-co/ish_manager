@@ -69,15 +69,15 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     authorize! :index, ::Ish::EmailContext
     @ctxs = ::Ish::EmailContext.all.page( params[:ctxs_page] ).per( current_profile.per_page )
 
-    if my_truthy? params[:sent]
-      @ctxs = @ctxs.where( :sent_at.ne => nil )
-    else
-      @ctxs = @ctxs.where( sent_at: nil )
-    end
-
     if params[:lead_id]
       @lead = Lead.find params[:lead_id]
-      @ctxs = @ctxs.where( to_email: @lead.email )
+      @ctxs = @ctxs.where( lead_id: @lead.id )
+    else
+      if my_truthy? params[:sent]
+        @ctxs = @ctxs.where( :sent_at.ne => nil )
+      else
+        @ctxs = @ctxs.where( sent_at: nil )
+      end
     end
   end
 

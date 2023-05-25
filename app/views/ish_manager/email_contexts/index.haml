@@ -3,15 +3,17 @@
 
   .header.collapse-expand-trash#emailContextsIndex
     %h2.title
-      - if my_truthy? params[:sent]
-        = link_to '[notsent]', email_contexts_path({ sent: false })
-        <u>sent</u>
-      - else
-        <u>notsent</u>
-        = link_to '[sent]', email_contexts_path({ sent: true })
+
       Email Contexts (#{@ctxs.length})
       - if @lead
-        For lead `#{@lead.name}`
+        For lead #{@lead.email}
+      - else
+        - if my_truthy? params[:sent]
+          = link_to '[notsent]', email_contexts_path({ sent: false })
+          <u>sent</u>
+        - else
+          <u>notsent</u>
+          = link_to '[sent]', email_contexts_path({ sent: true })
       = link_to '[+]', new_email_context_path
 
 
