@@ -25,7 +25,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
     mail( from: @ctx.from_email,
           to: @ctx.to_email,
-          subject: = raw ERB.new( @ctx.subject ).result,
+          subject: ERB.new( @ctx.subject ).result,
           template_name: "render/_#{@ctx.tmpl.layout}" )
   end
 
