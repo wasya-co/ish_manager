@@ -1,4 +1,7 @@
 
+##
+## Campaigns send individual contexts to leads.
+##
 class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
   before_action :set_lists
