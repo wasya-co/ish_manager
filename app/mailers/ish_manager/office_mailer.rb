@@ -19,7 +19,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     ac.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
 
     if 'plain' == @ctx.tmpl.layout
-      rendered_str = ERB.new( @ctx.body ).result( @ctx.get_binding ),
+      rendered_str = ERB.new( @ctx.body ).result( @ctx.get_binding )
     else
       rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
     end
