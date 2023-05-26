@@ -18,7 +18,11 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     ac.instance_variable_set( :@lead, @ctx.lead )
     ac.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
 
-    rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
+    if 'plain' == @ctx.tmpl.layout
+      rendered_str = ERB.new( @ctx.body ).result( @ctx.get_binding ),
+    else
+      rendered_str = ac.render_to_string("ish_manager/email_templates/_#{@ctx.tmpl.layout}")
+    end
     @ctx.update({
       rendered_str: rendered_str,
       sent_at: Time.now.to_s,
@@ -27,7 +31,7 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     mail( from: @ctx.from_email,
           to: @ctx.to_email,
           subject: ERB.new( @ctx.subject ).result( @ctx.get_binding ),
-          template_name: "render/_#{@ctx.tmpl.layout}" )
+          body: rendered_str )
   end
 
 end
