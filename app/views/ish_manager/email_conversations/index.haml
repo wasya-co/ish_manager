@@ -42,6 +42,7 @@
       %th Datetime
       %th Tags
 
+    = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
     - @email_conversations.each do |conv|
       %tr{ class: [ conv.state ] }
         .item
@@ -64,4 +65,4 @@
               - conv.tags.each do |tag|
                 .chip
                   = tag.name
-
+    = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
