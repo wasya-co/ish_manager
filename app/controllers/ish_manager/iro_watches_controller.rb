@@ -30,6 +30,7 @@ class ::IshManager::IroWatchesController < IshManager::ApplicationController
   def index
     authorize! :index, Iro::OptionWatch
     @watches = Iro::OptionWatch.order_by( ticker: :asc, direction: :asc, price: :desc)
+    @option_get_chains = Iro::OptionGet.all_get_chains
   end
 
   def update

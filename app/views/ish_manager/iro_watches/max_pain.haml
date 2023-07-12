@@ -1,0 +1,21 @@
+
+.iro-max-pain.max-width
+  .header
+    %h2.title max pain for #{@ticker} on #{params[:date]}
+
+  %ul
+    - flag = false
+    - @calls_items.each do |_t|
+      - item = @all_items[_t[:strikePrice]]
+      - if !flag && item[:puts_subtotal] < item[:calls_subtotal]
+        %hr
+        - flag = true
+      %li
+        -# = item.inspect
+        = item[:strikePrice]
+        %ul
+          %li calls oi: #{item[:calls_oi]}
+          %li Call pain: #{number_to_currency item[:calls_subtotal], precision: 0}
+          %li puts oi: #{item[:puts_oi]}
+          %li Put pain: #{number_to_currency item[:puts_subtotal], precision: 0}
+
