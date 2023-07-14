@@ -40,45 +40,12 @@ $(document).ready(function () {
       $(w).find('.elephantC ').css('height', `${dollarWidth * (ccCurrentPrice)}px` );
       $(w).find('.elephantC ').css('border-radius', `${dollarWidth * (ccCurrentPrice)}px ${dollarWidth * (ccCurrentPrice)}px 0 0` );
     }
-
-
-
-
-
-    // return false;
-    // $(".c-u-s").each(function (idx, elem) {
-    //   $(elem).html(cUS)
-    // })
-    // $(".windW").each(function (idx, elem) {
-    //   ans = ( origin - cUS ) * scale
-    //   $(elem).css('left', ans)
-    // })
-    // // $($(w).find('.elephantW')).css('left', (origin - ccStrike)* scale )
-    // $(w).find('.riderStart > .amount').html( " $" + ccStartPrice )
-    // $(w).find('.riderStart').css('width', scale * ccStartPrice )
-    // $(w).find('.riderStart').css('left', -1 * scale * ccStartPrice )
-    // $(w).find('.riderStart2').css('width', scale * ccStartPrice )
-    // let currentAmount = ((ccStartPrice - ccCurrentPrice)*100).toPrecision(2)/100
-    // let ccCurrentGain = ccStartPrice - ccCurrentPrice
-    // $(w).find('.riderCurrent > .amount').html( " $" + currentAmount )
-    // ans = `${-1*ccCurrentGain*scale}px`
-    // $(w).find('.riderW').css('left', ans)
-    // if (ccCurrentGain > 0) {
-    //   $(w).find('.riderCurrent').css('width', scale * ccCurrentGain )
-    // } else {
-    //   $(w).find('.riderCurrent').css('display', 'none')
-    //   $(w).find('.riderCurrent2').css('display', 'block')
-    //   $(w).find('.riderCurrent2').css('width', -1 * scale * ccCurrentGain )
-    //   $(w).find('.rider').addClass('riderF')
-    // }
   })
 
 
 
   $(".gameuiW.next-position").each( function (idx, w) {
-    logg($(w).data(), 'next-position')
-
-    let ans
+    // logg($(w).data(), 'next-position')
 
     let gainp = $(w).data('ccGainp')
     if (gainp > 0) {
@@ -89,5 +56,28 @@ $(document).ready(function () {
       $(w).find('.elephantLoss').css('border-width', `${gainp*200 + 1}px` )
     }
   })
+
+  $(".recklessDefenseW").each( function(idx, w) {
+    let longStrike = $(w).data('ccLongstrike')
+    // logg(longStrike, 'longStrike')
+    let shortStrike = $(w).data('ccShortstrike')
+    let shortOpenedPrice = $(w).data('ccShortopenedprice')
+    let shortCurrentPrice = $(w).data('ccShortcurrentprice')
+    let longOpenedPrice = $(w).data('ccLongopenedprice')
+    let longCurrentPrice = $(w).data('ccLongcurrentprice')
+
+    $(w).css('left', `-${dollarWidth * ( origin - longStrike )}px` )
+    $(w).css('width', `${dollarWidth * (shortStrike - longStrike - shortOpenedPrice + longOpenedPrice )}px`)
+
+    let gainLoss = longCurrentPrice - longOpenedPrice + shortOpenedPrice - shortCurrentPrice
+    if (gainLoss > 0) {
+      $(w).find('.recklessDefenseC').css('left', `${dollarWidth * gainLoss}px`)
+    } else {
+      $(w).find('.recklessDefenseC').css('left', `${dollarWidth * gainLoss}px`)
+      $(w).css('border-color', 'red')
+      $(w).find('.recklessDefenseC').css('border-color', 'red')
+    }
+  })
+
 
 })

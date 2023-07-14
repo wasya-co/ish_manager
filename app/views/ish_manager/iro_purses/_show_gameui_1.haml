@@ -7,7 +7,7 @@
   .gameui-positions{ data: { cc: { |
     dollarWidth: 100, |
     origin: @positions[0].strike, |
-    cus: @current_underlying_strike |
+    cus: @current_underlying_strike, |
   } } }
     .gameuiCUSW
       .gameuiCUS= pp_currency @positions[0].strategy.current_underlying_strike
@@ -29,7 +29,7 @@
             .elephantW{ data: { cc: { |
               strike: p.strike, |
               startPrice: p.opened_price, |
-              currentPrice: p.current_price |
+              currentPrice: p.current_price, |
             } } }
               = link_to '[roll]', iro_roll_prep_path(p)
               .amount
@@ -37,6 +37,18 @@
               .elephant
               .elephantC
                 .q= p.quantity
+
+            - if p.reckless_defense_quantity.present?
+              .recklessDefenseW{ data: { cc: { |
+                longStrike: p.reckless_defense_long_strike, |
+                shortStrike: p.reckless_defense_short_strike, |
+                longOpenedPrice: p.reckless_defense_long_opened_price, |
+                longCurrentPrice: p.reckless_defense_long_current_price, |
+                shortOpenedPrice: p.reckless_defense_short_opened_price, |
+                shortCurrentPrice: p.reckless_defense_short_current_price, |
+              } } }
+                .recklessDefense
+                  .recklessDefenseC
 
     - if @next_positions.present?
       .step
