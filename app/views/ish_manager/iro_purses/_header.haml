@@ -17,10 +17,21 @@
     .c
 
   .padded
-    %h5.collapse-expand#strategies
+    %h5.collapse-expand#iroStrategies
       Strategies (#{@strategies.length})
       = link_to '[+]', new_iro_strategy_path({ iro_purse_id: @purse.id })
-    .strategies.items
+    .iro-strategies.items
       - @strategies.each do |strat|
-        .strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
+        .iro-strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
     .c
+
+    .iro-position-statuses-selector
+      = form_tag( {}, { method: :get } ) do
+        - if !params[:statuses]
+          - params[:statuses] = ::Iro::Position::STATUSES
+        - ::Iro::Position::STATUSES.each do |status|
+          .field
+            %label= status
+            = check_box_tag "statuses[]", status, params[:statuses].include?( status )
+        = submit_tag 'Submit'
+

@@ -3,49 +3,47 @@ $(document).ready(function () {
 
   const dollarWidth = $('.gameui-positions').data('ccDollarwidth')
   const origin = $('.gameui-positions').data('ccOrigin')
+  const cUS = $(".gameui-positions").data('ccCus')
 
-  $(".gameuiW").each( function (idx, w) {
+  $(".step").css('height', `${dollarWidth * .75}px`)
+  $(".gameui").css('height', `${dollarWidth}px`)
+  $('.windW').css('left', `${dollarWidth * (origin - cUS)}px`)
+  $('.gameuiCUS').css('left', `${dollarWidth * (origin - cUS)}px`)
+
+  $(".elephantW").each( function (idx, w) {
     // logg($(w).data(), 'data')
-
-
-    let ans
 
     let ccStrike = $(w).data('ccStrike')
     let ccStartPrice = $(w).data('ccStartprice') // e.g. 0.88
     let ccCurrentPrice = $(w).data('ccCurrentprice')
 
     let loss = ccCurrentPrice - ccStartPrice;
-    logg(loss,'loss')
-    let cUS = $(w).data('ccCus')
 
-    $(w).find(".gameui").css('height', `${dollarWidth}px`)
-    $(w).find(".step").css('height', `${dollarWidth * .75}px`)
-
-    $(w).find('.elephantW').css('left', `${dollarWidth * (origin-ccStrike)}px` );
+    $(w).css('left', `${dollarWidth * (origin-ccStrike)}px` );
     // $(w).find('.elephantW').css('width', `${dollarWidth * ccStartPrice}px` );
-    $(w).find('.elephantW').css('height', `${dollarWidth * ccStartPrice}px` );
-    $(w).find('.elephantW .elephant ').css('left', `-${dollarWidth * (ccStartPrice)}px` );
-    $(w).find('.elephantW .elephant ').css('width', `${dollarWidth * (ccStartPrice)}px` );
-    $(w).find('.elephantW .elephant ').css('height', `${dollarWidth * (ccStartPrice)}px` );
-    $(w).find('.elephantW .elephant ').css('border-radius', `${dollarWidth * (ccStartPrice)}px ${dollarWidth * (ccStartPrice)}px 0 0` );
+    $(w).css('height', `${dollarWidth * ccStartPrice}px` );
+    $(w).find('.elephant ').css('left', `-${dollarWidth * (ccStartPrice)}px` );
+    $(w).find('.elephant ').css('width', `${dollarWidth * (ccStartPrice)}px` );
+    $(w).find('.elephant ').css('height', `${dollarWidth * (ccStartPrice)}px` );
+    $(w).find('.elephant ').css('border-radius', `${dollarWidth * (ccStartPrice)}px ${dollarWidth * (ccStartPrice)}px 0 0` );
+    $(w).find('.elephantC > .amount').html( " $" + ccStartPrice )
     if (loss > 0) {
-      $(w).find('.elephantW .elephantC ').css('left', `-${dollarWidth * (ccStartPrice - loss)}px` );
-      $(w).find('.elephantW .elephantC ').css('width', `${dollarWidth * (ccStartPrice - loss)}px` );
-      $(w).find('.elephantW .elephantC ').css('height', `${dollarWidth * (ccStartPrice - loss)}px` );
-      $(w).find('.elephantW .elephantC ').css('border-radius', `${dollarWidth * (ccStartPrice - loss)}px ${dollarWidth * (ccStartPrice - loss)}px 0 0` );
+      $(w).find('.elephantC ').css('left', `-${dollarWidth * (ccStartPrice - loss)}px` );
+      $(w).find('.elephantC ').css('width', `${dollarWidth * (ccStartPrice - loss)}px` );
+      $(w).find('.elephantC ').css('height', `${dollarWidth * (ccStartPrice - loss)}px` );
+      $(w).find('.elephantC ').css('border-radius', `${dollarWidth * (ccStartPrice - loss)}px ${dollarWidth * (ccStartPrice - loss)}px 0 0` );
       $(w).find('.elephant').css('border-color', 'red');
-      $(w).find('.elephantW .elephantC ').css('border-color', 'red');
+      $(w).find('.elephantC ').css('border-color', 'red');
     } else {
-      $(w).find('.elephantW .elephantC ').css('left', `-${dollarWidth * (ccCurrentPrice)}px` );
-      $(w).find('.elephantW .elephantC ').css('width', `${dollarWidth * (ccCurrentPrice)}px` );
-      $(w).find('.elephantW .elephantC ').css('height', `${dollarWidth * (ccCurrentPrice)}px` );
-      $(w).find('.elephantW .elephantC ').css('border-radius', `${dollarWidth * (ccCurrentPrice)}px ${dollarWidth * (ccCurrentPrice)}px 0 0` );
+      $(w).find('.elephantC ').css('left', `-${dollarWidth * (ccCurrentPrice)}px` );
+      $(w).find('.elephantC ').css('width', `${dollarWidth * (ccCurrentPrice)}px` );
+      $(w).find('.elephantC ').css('height', `${dollarWidth * (ccCurrentPrice)}px` );
+      $(w).find('.elephantC ').css('border-radius', `${dollarWidth * (ccCurrentPrice)}px ${dollarWidth * (ccCurrentPrice)}px 0 0` );
     }
 
-    // $(w).find('.elephantC > .strike').html( " $" + ccStrike )
-    $(w).find('.elephantC > .amount').html( " $" + ccStartPrice )
-    $(w).find('.windW').css('left', `${dollarWidth * (origin - cUS)}px`)
-    $('.gameuiCUS').css('left', `${dollarWidth * (origin - cUS)}px`)
+
+
+
 
     // return false;
     // $(".c-u-s").each(function (idx, elem) {

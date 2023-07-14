@@ -8,6 +8,7 @@
 
 .iro-purses-show,
 .iro-purses-show-gameui,
+.iro-purses-show-gameui-1,
 ._ {
   font-size: 14px;
 
@@ -94,11 +95,10 @@
     font-weight: bold;
   }
 
-  .strategies {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
+}
+.iro-strategies {
+  display: flex;
+  flex-wrap: wrap;
 }
 .iro-strategies-edit,
 .iro-strategies-new {
@@ -115,6 +115,21 @@
   .field {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.iro-position-statuses-selector form {
+  display: flex;
+  margin: 1em 0 0 0;
+
+  .field {
+    border: 1px solid gray;
+    border-radius: .5em;
+    padding: 0 1em;
+    margin-right: 1em;
+
+    display: flex;
+    flex-direction: row-reverse;
   }
 }
 

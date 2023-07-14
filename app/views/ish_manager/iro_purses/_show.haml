@@ -1,5 +1,5 @@
 
-.iro-purses--show.padded
+.iro-purses--show
 
   %h5.collapse-expand#positions
     Positions (#{@positions.length})
@@ -53,7 +53,7 @@
           %td
             .next-outcome Next Outcome
           %td
-            .state State
+            .status Status
       %tbody
         - @positions.each_with_index do |p, idx|
           - if idx > 0 && @positions[idx-1][:expires_on] != p[:expires_on]
@@ -94,6 +94,6 @@
             %td.next-symbol= p.next_symbol
             %td.next-delta= p.next_position[:delta]
             %td.next-outcome= pp_money p.next_outcome
-            %td.state= p.status
+            %td.status= p.status
 
 

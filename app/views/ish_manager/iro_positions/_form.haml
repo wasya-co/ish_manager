@@ -28,7 +28,7 @@
 
       .field
         = f.label :status
-        = f.select :status, options_for_select( Iro::Position.states_list, selected: position.status ), {}, class: 'select2'
+        = f.select :status, options_for_select( Iro::Position.statuses_list, selected: position.status ), {}, class: 'select2'
 
       .field
         = f.label :opened_price

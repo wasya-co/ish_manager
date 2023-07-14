@@ -27,13 +27,14 @@ IshManager::Engine.routes.draw do
   # end
   # resources :orders
 
-  get 'iro_positions/roll/:id', to: 'iro_positions#roll', as: :roll_iro_position
+  get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep
   resources :iro_positions
 
   resources :iro_option_gets
   get 'iro/max_pain/ticker/:ticker/date/:date', to: 'iro_option_gets#max_pain', as: :iro_max_pain
 
   get 'iro_purses/:id/:kind', to: 'iro_purses#show', as: :iro_purse, defaults: { kind: 'show' } # kind: show_gameui
+
   resources :iro_purses
 
   resources :iro_strategies

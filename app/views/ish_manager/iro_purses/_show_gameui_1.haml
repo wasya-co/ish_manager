@@ -3,44 +3,64 @@
   %h5.collapse-expand#gameuiPositions
     Gameui Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
-  .gameui-positions{ data: { cc: { dollarWidth: 100, origin: @positions[1].strike } } }
+
+  .gameui-positions{ data: { cc: { |
+    dollarWidth: 100, |
+    origin: @positions[0].strike, |
+    cus: @current_underlying_strike |
+  } } }
     .gameuiCUSW
       .gameuiCUS= pp_currency @positions[0].strategy.current_underlying_strike
+
     - @positions.each_with_index do |p, idx|
+      - if idx > 0 && p[:expires_on] != @positions[idx-1][:expires_on]
+        .step
 
-
-      -# something like, $23 Apr-14
-      .gameuiW.show-amounts{ data: { cc: { |
-        strike: p.strike, |
-        startPrice: p.opened_price, |
-        currentPrice: p.current_price, |
-        cus: p.strategy.current_underlying_strike |
-      } } }
-        - if idx > 0 && p[:expires_on] != @positions[idx-1][:expires_on]
-          .step
-
+      -# aka "lane"
+      .gameuiW.show-amounts
         .gameui
           .gameuiC
-            -# = link_to '[roll]', roll_iro_position_path(p)
-            -# hello world
 
-            .elephantW
+            .windW
+              .wind
+                .windC
+
+
+            .elephantW{ data: { cc: { |
+              strike: p.strike, |
+              startPrice: p.opened_price, |
+              currentPrice: p.current_price |
+            } } }
+              = link_to '[roll]', iro_roll_prep_path(p)
               .amount
               .strike= p.strike
               .elephant
               .elephantC
                 .q= p.quantity
 
-            .windW
-              .wind
-                -# .c-u-s= pp_currency p.strategy.current_underlying_strike
-                .windC
+    - if @next_positions.present?
+      .step
+      - @next_positions.each do |p|
+        -# aka "lane"
+        .gameuiW.show-amounts
+          .gameui
+            .gameuiC
+
+              .windW
+                .wind
+                  .windC
+
+              .elephantW{ data: { cc: { |
+                strike: p.strike, |
+                startPrice: p.opened_price, |
+                currentPrice: p.current_price |
+              } } }
+                .amount= p.opened_price
+                .current_price= p.current_price
+                .strike= p.strike
+                .elephant
+                .elephantC
 
 
-            .spearW
-              .spear
-                .spearC
-                  .spearStart
-                    .spearCurrent
   .c
 
