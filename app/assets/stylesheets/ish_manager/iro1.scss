@@ -1,0 +1,100 @@
+
+.show-gameui-1 {
+  // background: red;
+  position: relative;
+
+  .gameuiCUSW {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    .gameuiCUS {
+      position: absolute;
+      border-left: 2px dashed blue;
+      padding: 0 10px;
+      width: 100px;
+    }
+  }
+  .gameuiW {
+    // border: 1px solid red;
+
+    .gameui {
+      // border: 1px solid black;
+      position: relative;
+      border-bottom: 10px solid gray;
+
+      background: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/07/13184511/200x200-grid2.png');
+      background-position: 50% center;
+      width: 100%;
+
+      .gameuiC {
+        // border: 1px solid green;
+        border-bottom: 10px solid green;
+
+        width: 50%;
+        height: 100%;
+
+        position: absolute;
+        left: 50%;
+        bottom: -10px;
+
+        .elephantW {
+          border: 0px solid cyan;
+          width: 1px;
+          height: 100%;
+
+          position: absolute;
+          bottom: 0;
+
+          > .amount {
+            // border: 3px solid black;
+
+            position: absolute;
+            left: 0;
+            bottom: 0;
+          }
+          > .strike {
+            position: absolute;
+            height: 1.4 em;
+            bottom: 0;
+            background: yellow;
+
+            right: 0;
+            width: 69px;
+            border-right: 2px solid black;
+
+            padding: 0 5px;
+          }
+          .elephant {
+            border: 2px dashed green;
+            position: absolute;
+            bottom: 0;
+          }
+
+
+          .elephantC {
+            position: absolute;
+            bottom: 0;
+
+            border: 2px dashed green;
+
+            // color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+          }
+        }
+
+        .windW {
+          border: 2px dashed blue;
+          width: 1px;
+          height: 100%;
+          position: absolute;
+          // left: calc( 200px * ( 23.5 - 23.46 ) );
+
+        }
+
+      }
+    }
+  }
+}

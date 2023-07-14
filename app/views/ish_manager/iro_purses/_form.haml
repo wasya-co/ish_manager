@@ -3,6 +3,9 @@
 
 .iro-purses--form
   = form_for iro_purse, as: :iro_purse, url: url do |f|
+    .legend
+      kind: show | show_gameui
+
     .field
       -# = f.label :config
       = f.text_area :config

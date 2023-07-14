@@ -31,6 +31,10 @@
       .price {
         background: cyan;
       }
+      .to-close {
+        background: #333;
+        color: white;
+      }
 
       td {
         // border: 1px solid red;
@@ -124,7 +128,7 @@
  * GameUI in Purse
  * 2023-04-06 _vp_ Continue
 **/
-.gameuiW {
+.iro-purses-show-gameui .gameuiW {
   border: 1px solid #ff9966;
   border-radius: 1em;
 
@@ -216,11 +220,12 @@
       .elephantC {
         // border: 10px solid black;
 
-        z-index: 1;
+
         position: absolute;
         color: #333;
         background: #ddd;
         display: inline-block;
+        z-index: 2;
 
         .q {
           border: 2px solid #eee;
@@ -404,8 +409,8 @@
           position: relative;
           z-index: 2;
 
-          background: #333;
-          color: white;
+          background: yellow;
+          // color: white;
           display: inline-block
         }
 

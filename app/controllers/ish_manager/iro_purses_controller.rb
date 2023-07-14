@@ -45,10 +45,17 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
       Iro::CoveredCallStrategy.where( ticker: ticker ).update( current_underlying_strike: v[:mark] )
     end
 
-    @positions = @purse.positions.order({ expires_on: :asc, strike: :asc })
+    if params[:show_all]
+      @positions = @purse.positions
+    elsif params[:show_inactive]
+      @positions = @purse.not_done_positions
+    else
+      @positions = @purse.active_positions
+    end
+    @positions = @positions.order({ expires_on: :asc, strike: :asc })
     @positions.map &:refresh
 
-    render @purse.parsed_config[:kind] || params[:kind] || 'show'
+    render params[:kind] || @purse.parsed_config[:kind] || 'show'
   end
 
   def update
