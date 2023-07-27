@@ -33,9 +33,11 @@ IshManager::Engine.routes.draw do
   resources :iro_option_gets
   get 'iro/max_pain/ticker/:ticker/date/:date', to: 'iro_option_gets#max_pain', as: :iro_max_pain
 
+  patch 'iro_purses/:id/show', to: 'iro_purses#update'
+  get 'iro_purses/:id/edit', to: 'iro_purses#edit', as: :edit_iro_purse
   get 'iro_purses/:id/:kind', to: 'iro_purses#show', as: :iro_purse, defaults: { kind: 'show' } # kind: show_gameui
-
   resources :iro_purses
+
 
   resources :iro_strategies
 
