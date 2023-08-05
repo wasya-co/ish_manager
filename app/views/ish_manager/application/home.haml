@@ -1,6 +1,6 @@
 
 .application-home.max-width
-  Welcome home
+  %h5 Welcome home
 
   .bordered-card
     = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
@@ -14,3 +14,19 @@
       %p Search Youtube:
       = text_field_tag "search_query"
       = submit_tag 'search'
+
+  .bordered-card
+    %h5.center.text-center USD to COP
+    #root{ width: 500, height: 300 }
+    %script{src: "/recharts-example-out.js", type: "module"}
+    %script{type: "module"}
+
+
+      import App from '/recharts-example-out.js';
+
+      const el = document.querySelector('#root')
+      const e = React.createElement;
+
+      const domContainer = document.querySelector('#root');
+      const root = ReactDOM.createRoot(domContainer);
+      root.render(e(App));

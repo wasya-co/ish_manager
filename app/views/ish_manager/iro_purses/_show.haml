@@ -1,10 +1,20 @@
 
-.iro-purses--show
+.iro-purses--show.padded
 
   %h5.collapse-expand#positions
     Positions (#{@positions.length})
     = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
   .positions
+    .iro-position-statuses-selector
+      = form_tag( {}, { method: :get } ) do
+        - if !params[:statuses]
+          - params[:statuses] = ::Iro::Position::STATUSES
+        - ::Iro::Position::STATUSES.each do |status|
+          .field
+            %label= status
+            = check_box_tag "statuses[]", status, params[:statuses].include?( status )
+        = submit_tag 'Submit'
+
     %table.bordered
       %thead
         %tr
@@ -58,8 +68,10 @@
         - @positions.each_with_index do |p, idx|
           - if idx > 0 && @positions[idx-1][:expires_on] != p[:expires_on]
             %tr
-              %td
-                %hr
+              %td{ colspan: 30, style: "background: #eee;" }
+                -# %hr
+                &nbsp;
+
           %tr
             %td.id
               = p.id
@@ -88,12 +100,19 @@
             %td= (p.expires_on.to_date - p.opened_on).to_i
             %td.must-roll= pp_bool p.must_roll?
             %td.should-roll
-              .aC
-                .a= p.should_rollp ? p.should_rollp : '-'
-                .a= pp_bool p.should_roll?
-            %td.next-symbol= p.next_symbol
-            %td.next-delta= p.next_position[:delta]
-            %td.next-outcome= pp_money p.next_outcome
-            %td.status= p.status
+              .a= p.should_rollp
+            %td.next-symbol
+              = p.next_symbol
+            %td.next-delta
+              = p.next_position[:delta]
+            %td.next-outcome
+              = pp_money p.next_outcome
+            %td.status
+              = p.status
+          - if p.next_reasons.length > 1 ## @TODO: this is messy, remove _vp_ 2023-08-05
+            %tr
+              %td{ colspan: 30 }
+                Next Reasons: #{pp_list p.next_reasons}
+
 
 

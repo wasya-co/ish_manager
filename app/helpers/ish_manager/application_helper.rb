@@ -74,5 +74,14 @@ module IshManager
       a ? 'Y' : '-'
     end
 
+    def pp_list inns
+      out = "<ul>"
+      inns.each do |inn|
+        out = "#{out}<li>#{inn}</li>"
+      end
+      out = "#{out}</ul>"
+      return raw out
+    end
+
   end
 end

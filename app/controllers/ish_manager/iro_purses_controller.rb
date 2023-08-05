@@ -39,11 +39,6 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
     authorize! :my, @purse
 
     @strategies = Iro::CoveredCallStrategy.all
-    @current_underlying_strike = @strategies[0].current_underlying_strike
-    underlyings = Tda::Stock.get_quotes( @strategies.map(&:ticker).compact.uniq.join(",") )
-    underlyings.each do |ticker, v|
-      Iro::CoveredCallStrategy.where( ticker: ticker ).update( current_underlying_strike: v[:mark] )
-    end
 
     if params[:statuses]
       @positions = @purse.positions.where( :status.in => params[:statuses].split(',') )
@@ -51,7 +46,11 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
       @positions = @purse.positions
     end
     @positions = @positions.order({ expires_on: :asc, strike: :asc })
-    @positions.map &:refresh
+    # @positions.map do |p|
+    #   if p[:status] == 'active'
+    #     # p.refresh
+    #   end
+    # end
 
     render params[:kind] || @purse.parsed_config[:kind] || 'show'
   end
@@ -59,7 +58,7 @@ class ::IshManager::IroPursesController < IshManager::ApplicationController
   def roll_prep
     @strategies = Iro::CoveredCallStrategy.all
     @position = Iro::Position.find params[:id]
-    puts! @position, '@position'
+    # puts! @position, '@position'
     @positions = [ @position ]
     @purse = @position.purse
     @strategy = @position.strategy

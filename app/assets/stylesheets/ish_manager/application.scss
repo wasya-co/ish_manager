@@ -92,7 +92,8 @@ ul:not(.browser-default).bullets, {
 }
 .application-home {
   .bordered-card {
-    max-width: 400px;
+    display: inline-block;
+    // max-width: 400px;
   }
 }
 
