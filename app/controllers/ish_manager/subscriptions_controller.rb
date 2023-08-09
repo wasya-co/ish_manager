@@ -10,10 +10,12 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
 
     Stripe.api_key = ::STRIPE_SK
     Stripe.api_version = '2020-08-27'
-    @customers = Stripe::Customer.list().data
+    @stripe_customers = Stripe::Customer.list().data
+    @stripe_subscriptions = Stripe::Subscription.list().data
+
     @users = User.all
     @organizations = Wco::Organization.all()
-    @subscriptions = Stripe::Subscription.list().data
+
   end
 
 end

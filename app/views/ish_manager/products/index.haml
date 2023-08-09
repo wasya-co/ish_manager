@@ -1,7 +1,22 @@
 
 .products-index.max-width
-  %h5 Products
 
+  %h5
+    Stripe Products:
+    -# = link_to '[+]', new_product_path
   %ul
-    - @products.each do |product|
-      %li= product.name
+    - @products.each do |product_id, product|
+      %li
+        = link_to '[~]', edit_product_path( product.id )
+        %span.gray= product.id
+        = product.name
+        %ul
+          - product[:prices].each do |price_id, price|
+            %li
+              %span.gray= price.id
+              $#{price[:unit_amount].to_f/100}/#{price[:recurring][:interval]}
+
+  %hr
+
+  %h5 New Stripe Product:
+  = render 'ish_manager/products/form', product: Wco::Product.new
