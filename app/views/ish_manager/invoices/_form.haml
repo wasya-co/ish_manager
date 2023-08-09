@@ -2,20 +2,22 @@
 - url = invoice.persisted? ? invoice_path( invoice.id ) : invoices_path
 
 = form_for invoice, :as => :invoice, :url => url do |f|
+  = hidden_field_tag :leadset_id, @leadset.id
+
   .input-field
     %label Email
-    = f.text_field :email
+    = f.text_field :email, value: @leadset.email
 
   .input-field
-    %label amount
-    = f.number_field :amount, :step => 0.01, :default => 0.0
+    %label item
+    = select_tag 'invoice[items][]', options_for_select( @products_list )
 
-  .input-field
-    %label number
-    = f.number_field :number
+  -# .input-field
+  -#   %label number
+  -#   = f.number_field :number
 
-  .input-field
-    %label Description
-    = f.text_area :description
-  
+  -# .input-field
+  -#   %label Description
+  -#   = f.text_area :description
+
   = f.submit 'Save'

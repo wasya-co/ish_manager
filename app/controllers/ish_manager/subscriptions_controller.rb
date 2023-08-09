@@ -13,9 +13,6 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
     @stripe_customers = Stripe::Customer.list().data
     @stripe_subscriptions = Stripe::Subscription.list().data
 
-    @users = User.all
-    @organizations = Wco::Organization.all()
-
   end
 
 end

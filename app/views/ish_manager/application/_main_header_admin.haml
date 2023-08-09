@@ -60,6 +60,9 @@
           = link_to '[+]', new_email_template_path
         %li
           = link_to "Companies (#{Leadset.kept.length})", leadsets_path
+          .inline-search
+            = form_tag leadsets_path, method: :get do
+              = text_field_tag :q
           = link_to '[+]', new_leadset_path
 
 
@@ -97,6 +100,12 @@
           = link_to "OActions (#{Office::Action.count})", office_actions_path
           = link_to '[+]', new_office_action_path
 
+      %ul
+        %li
+          = link_to 'Products & Prices', products_path
+        %li
+          = link_to 'Customers & Subscriptions', subscriptions_path
+
     .c
 
     %i.fa.fa-compress.collapse-expand#collapseHeaderIro
@@ -118,12 +127,3 @@
           = link_to '[+]', new_iro_purse_path
     .c
 
-    %i.fa.fa-compress.collapse-expand#collapseHeaderWco
-      Wco
-    .a
-      %ul
-        %li
-          = link_to 'Products & Prices', products_path
-        %li
-          = link_to 'Customers & Subscriptions', subscriptions_path
-    .c

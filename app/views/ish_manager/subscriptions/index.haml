@@ -1,8 +1,8 @@
 
 .container.subscriptions-index.padded
   .row
-    .col-md-6
 
+    .col-md-6
       %h5 Stripe Customers
       %ul
         - @stripe_customers.each do |customer|
@@ -18,35 +18,13 @@
                       %li= sub.items.data[0].plan.product
 
     .col-md-6
-      %h5 ::User's
+      %h5 Stripe Subscriptions
       %ul
-        - @users.each do |user|
+        - @stripe_subscriptions.each do |sub|
           %li
-            = user.email
             %ul
-              %li <b>profile:</b> #{user.profile.email}
-              - if user.profile.organization
-                %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
-                %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
-      %hr
-      %h5 ::Wco::Organization's
-      %ul
-        - @organizations.each do |org|
-          %li
-            = org.name
-            %ul
-              %li <b>customer_id:</b> #{org.customer_id}
-            -#   %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
-            -#   %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
-
-  %hr
-  %h5 Stripe Subscriptions
-  %ul
-    - @stripe_subscriptions.each do |sub|
-      %li
-        %ul
-          %li plan: $#{sub[:plan][:amount].to_f/100}/#{sub[:plan][:interval]}
-          %li product: #{sub[:plan][:product]}
-          %li customer: #{sub[:customer]}
-          -# %li= sub.inspect
+              %li plan: $#{sub[:plan][:amount].to_f/100}/#{sub[:plan][:interval]}
+              %li product: #{sub[:plan][:product]}
+              %li customer: #{sub[:customer]}
+              -# %li= sub.inspect
 

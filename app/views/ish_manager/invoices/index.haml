@@ -5,16 +5,17 @@
 
 %h3
   Invoices
-  = link_to '[+]', new_invoice_path
+  -# = link_to '[+]', new_invoice_path
 
-.row
-  .col.s12.col.m6.col-md-offset-3
-    = render 'form', :invoice => @new_invoice
+-# .row
+-#   .col.s12.col.m6.col-md-offset-3
+-#     = render 'form', :invoice => @new_invoice
 %hr
 
 %table#dataTable
   %thead
     %tr
+      %th View
       %th Email
       %th Number
       %th Amount
@@ -23,6 +24,7 @@
   %tbody
     - @invoices.each do |i|
       %tr
+        %td= link_to "View", invoice_path( i )
         %td= i.email
         %td= i.number
         %td= i.amount

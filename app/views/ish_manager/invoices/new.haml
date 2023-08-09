@@ -1,5 +1,5 @@
 
 .row
   .col.s12.col.m6.col-md-offset-3
-    %h5 New Invoice
-    = render 'form', :invoice => @new_invoice
+    %h5 New Invoice for #{@leadset&.name}
+    = render 'form', invoice: @new_invoice

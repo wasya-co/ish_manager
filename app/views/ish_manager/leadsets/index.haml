@@ -19,6 +19,7 @@
     %thead
       %tr
         %th &nbsp;
+        %th &nbsp;
         %th.company-url Company Url
         %th Tags
         %th +
@@ -28,6 +29,7 @@
       - @leadsets.each_with_index do |leadset, idx1|
         %tr
           %td= check_box_tag 'leadset_ids[]', leadset.id, nil, { class: 'i-sel' }
+          %td= link_to '[~]', edit_leadset_path( leadset )
           %td= link_to leadset.company_url, leadset_path(leadset)
 
           %td.tags

@@ -52,6 +52,7 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
     @leadset.employees.each do |lead|
       @email_contexts[lead.email] = lead.email_contexts
     end
+    @employees = @leadset.employees.page( params[:leads_page] ).per( current_profile.per_page )
   end
 
   def update
@@ -62,7 +63,7 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
     else
       flash[:alert] = "Cannot update leadset: #{@leadset.errors.messages}"
     end
-    redirect_to :action => 'index'
+    redirect_to :action => 'show', id: @leadset.id
   end
 
   ##

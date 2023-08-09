@@ -2,21 +2,32 @@
 .products-index.max-width
 
   %h5
-    Stripe Products:
+    Stripe Products (#{@stripe_products.length}):
     -# = link_to '[+]', new_product_path
-  %ul
-    - @products.each do |product_id, product|
+  %ol
+    - @stripe_products.each do |product_id, product|
       %li
         = link_to '[~]', edit_product_path( product.id )
+        .inline-block= button_to '[x]', product_path( product.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
         %span.gray= product.id
         = product.name
         %ul
           - product[:prices].each do |price_id, price|
             %li
               %span.gray= price.id
-              $#{price[:unit_amount].to_f/100}/#{price[:recurring][:interval]}
+              $#{price[:unit_amount].to_f/100}/#{(price[:recurring]||{})[:interval]||'onetime'}
+              -# = price.inspect
 
   %hr
 
   %h5 New Stripe Product:
   = render 'ish_manager/products/form', product: Wco::Product.new
+
+  %hr
+  %h5 Wco::Product's (#{@products.length})
+  %ul
+    - @products.each do |product|
+      %li
+        = link_to '[~]', edit_product_path( product )
+        = product.inspect
+

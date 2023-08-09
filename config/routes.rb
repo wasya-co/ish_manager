@@ -22,9 +22,9 @@ IshManager::Engine.routes.draw do
 
   get 'image_assets', to: 'image_assets#index', as: :image_assets
 
-  # resources :invoices do
+  resources :invoices do
   #   resources :payments
-  # end
+  end
   # resources :orders
 
   get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep

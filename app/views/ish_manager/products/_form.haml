@@ -2,10 +2,27 @@
 - url = product.new_record? ? products_path : product_path( product )
 
 .products--form
-  = form_for product, url: url do |f|
+  = form_for product, as: :product, url: url do |f|
+
     .form-field
       %label Name
       = f.text_field :name
+
+    .form-field
+      %label Price in cents
+      = f.text_field :price_cents
+
+    .form-field
+      %label Recurring?
+      = f.select :interval, options_for_select(Wco::Product::INTERVALS)
+
+    .form-field
+      %label Stripe product_id
+      = f.text_field :product_id
+
+    .form-field
+      %label Stripe price_id
+      = f.text_field :price_id
 
     .actions
       = f.submit 'Submit'
