@@ -25,8 +25,9 @@
             = user.email
             %ul
               %li <b>profile:</b> #{user.profile.email}
-              %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
-              %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
+              - if user.profile.organization
+                %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
+                %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
       %hr
       %h5 Wco Organizations
       %ul
