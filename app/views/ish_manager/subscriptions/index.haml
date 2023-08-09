@@ -1,0 +1,46 @@
+
+.container.subscriptions-index.padded
+  .row
+    .col-md-6
+
+      %h5 Stripe Customers
+      %ul
+        - @customers.each do |customer|
+          %li
+            %ul
+              %li <b>Email:</b> #{customer.email}
+              %li <b>customer_id:</b> #{customer.id}
+              %li
+                <b>Subscriptions:</b>
+                %ul
+                  - @subscriptions.each do |sub|
+                    - if sub.customer == customer.id
+                      %li= sub.items.data[0].plan.product
+
+    .col-md-6
+      %h5 Wco Users
+      %ul
+        - @users.each do |user|
+          %li
+            = user.email
+            %ul
+              %li <b>profile:</b> #{user.profile.email}
+              %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
+              %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
+      %hr
+      %h5 Wco Organizations
+      %ul
+        - @organizations.each do |org|
+          %li
+            = org.name
+            %ul
+              %li <b>customer_id:</b> #{org.customer_id}
+            -#   %li <b>organization:</b> #{user.profile.organization.name}, customer_id: #{user.profile.organization.customer_id}
+            -#   %li <b>subscriptions:</b> #{user.profile.organization.subscriptions.inspect}
+
+  %hr
+  %h5 Subscriptions
+  %ul
+    - @subscriptions.each do |sub|
+      %li= sub.inspect
+

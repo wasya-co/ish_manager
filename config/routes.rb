@@ -119,10 +119,12 @@ IshManager::Engine.routes.draw do
 
   resources :photos
   resources :payments
+  resources :products
 
   resources :reports
 
   resources :scheduled_email_actions
+  resources :subscriptions
 
   resources :user_profiles do
     resources :newsitems
