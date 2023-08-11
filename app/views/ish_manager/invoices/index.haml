@@ -1,32 +1,31 @@
 
--#
--# invoices / index.haml
--#
+.invoices-index.max-width
 
-%h3
-  Invoices
-  -# = link_to '[+]', new_invoice_path
 
--# .row
--#   .col.s12.col.m6.col-md-offset-3
--#     = render 'form', :invoice => @new_invoice
-%hr
+  %h5
+    Invoices
+    -# = link_to '[+]', new_invoice_path
 
-%table#dataTable
-  %thead
-    %tr
-      %th View
-      %th Email
-      %th Number
-      %th Amount
-      %th Amount Paid
-      %th Created At
-  %tbody
-    - @invoices.each do |i|
+  -# .row
+  -#   .col.s12.col.m6.col-md-offset-3
+  -#     = render 'form', :invoice => @new_invoice
+  %hr
+
+  %table#dataTable
+    %thead
       %tr
-        %td= link_to "View", invoice_path( i )
-        %td= i.email
-        %td= i.number
-        %td= i.amount
-        %td= i.paid_amount
-        %td= i.created_at.to_s[0..10]
+        %th
+        %th Leadset
+        %th Number
+        %th Amount
+        %th Amount Paid
+        %th Created At
+    %tbody
+      - @invoices.each do |i|
+        %tr
+          %td= link_to "View", invoice_path( i )
+          %td= i.leadset.name
+          %td= i.number
+          %td= i.amount
+          %td= i.paid_amount
+          %td= i.created_at.to_s[0..10]

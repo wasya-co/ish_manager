@@ -9,7 +9,7 @@
   %ul
     %li Name: #{@lead.name}
     %li Email: #{@lead.email}
-    %li Company: #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
+    %li Company (leadset): #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
     %li Phone: #{@lead.phone}
     %li Address: #{@lead.address}
     %li Comment: #{raw @lead.comment}
@@ -24,10 +24,12 @@
           %li
             = pp_date( ctx.sent_at ) || 'not sent'
             = link_to ctx.subject.presence||"No Subj?!", email_context_path(ctx)
+
     .col-md-6.schs
       %h5
         Scheduled actions (#{@schs.length})
-        = link_to '[+]', '#'
+        -# = link_to '[+]', '#'
+        \[+]
       %ul
         - @schs.each do |sch|
           %li
@@ -35,6 +37,14 @@
             = sch.state
             (#{link_to 'proto-action', edit_email_action_path(sch.email_action)})
             = sch.perform_at
+
+      %hr
+      %h5
+        Invoices (?)
+        = link_to '[+]', new_invoice_path({ leadset_id: @lead.m3_leadset_id })
+      %ul
+        %li None?
+
 
 
   .row

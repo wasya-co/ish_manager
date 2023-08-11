@@ -2,14 +2,17 @@
 .leadsets-show.max-width
   .header
     %h2.title
-      Leadset #{@leadset.company_url}
+      Leadset `#{@leadset.name}`
       = link_to '[~]', edit_leadset_path( @leadset )
 
   %ul
     %li <b>Email:</b> #{@leadset.email}
     %li <b>Stripe customer_id:</b> #{@leadset.customer_id}
+    %li <b>company_url</b>: #{@leadset.company_url}
     %li
-      = link_to 'Invoices', invoices_path({ leadset_id: @leadset.id })
+      = link_to invoices_path({ leadset_id: @leadset.id }) do
+        Invoices
+        (#{@leadset.invoices.length})
       = link_to '[+]', new_invoice_path({ leadset_id: @leadset.id })
 
   = render 'ish_manager/leads/index', leads: @employees

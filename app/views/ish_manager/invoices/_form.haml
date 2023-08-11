@@ -2,11 +2,17 @@
 - url = invoice.persisted? ? invoice_path( invoice.id ) : invoices_path
 
 = form_for invoice, :as => :invoice, :url => url do |f|
-  = hidden_field_tag :leadset_id, @leadset.id
+  = hidden_field_tag 'invoice[leadset_id]', @leadset.id
 
   .input-field
     %label Email
-    = f.text_field :email, value: @leadset.email
+    = @leadset.email
+    -# - if @leadset.email
+    -#   = f.text_field :email, value: @leadset.email
+    -# - elsif @leadset.employees.length == 1
+    -#   = f.text_field :email, value: @leadset.employees[0].email
+    -# - else
+    -#   = f.select :email, options_for_select([[nil,nil]] + @leadset.employees.map { |i| [ i.email, i.email ] } )
 
   .input-field
     %label item

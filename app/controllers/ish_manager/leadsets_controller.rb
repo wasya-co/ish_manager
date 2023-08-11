@@ -36,6 +36,9 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
     @leadsets = Leadset.all.kept.includes(:leads)
     if params[:q].present?
       @leadsets = @leadsets.where(" company_url LIKE ? ", "%#{params[:q]}%" )
+      if @leadsets.length == 1
+        return redirect_to action: :show, id: @leadsets[0][:id]
+      end
     end
     @leadsets = @leadsets.page( params[:leadsets_page] ).per( current_profile.per_page )
   end

@@ -1,0 +1,19 @@
+
+- i = @invoice
+
+.invoices-show.max-width
+  %h5 Invoice ##{@invoice.number}
+
+  %ul
+    %li email: #{i.email}
+    %li leadset: #{link_to i.leadset.name, leadset_path( i.leadset) }
+    %li invoice_id: #{i.invoice_id}
+    %li items: #{i.items}
+
+    = @invoice.inspect
+
+  %hr
+
+  %pre
+    = @stripe_invoice.inspect
+

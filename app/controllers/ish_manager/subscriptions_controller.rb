@@ -8,10 +8,12 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
   def index
     authorize! :index, Wco::Subscription
 
-    Stripe.api_key = ::STRIPE_SK
-    Stripe.api_version = '2020-08-27'
     @stripe_customers = Stripe::Customer.list().data
     @stripe_subscriptions = Stripe::Subscription.list().data
+
+    emails = @stripe_customers.map &:email
+    @leadsets = Leadset.find_by( email: emails )
+    puts! @leadsets, '@leadsets'
 
   end
 

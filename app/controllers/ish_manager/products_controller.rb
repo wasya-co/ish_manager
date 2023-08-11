@@ -9,11 +9,6 @@ class IshManager::ProductsController < IshManager::ApplicationController
     @product = Wco::Product.new params[:product].permit!
     authorize! :create, @product
 
-    ##
-    ## Stripe
-    ##
-    Stripe.api_key = ::STRIPE_SK
-    Stripe.api_version = '2020-08-27'
     stripe_product = Stripe::Product.create({ name: params[:product][:name] })
     puts! stripe_product, 'stripe_product'
 
@@ -28,12 +23,16 @@ class IshManager::ProductsController < IshManager::ApplicationController
     stripe_price = Stripe::Price.create( price_hash )
     puts! stripe_price, 'stripe_price'
 
+    @product.product_id = stripe_product[:id]
+    @product.price_id   = stripe_price[:id]
 
     flag = @product.save
     if flag
-      flash[:notice] = 'Success'
+      flash[:notice] = 'Created the product.'
+      redirect_to action: :index
     else
       flash[:alert] = "No luck: #{@product.errors.full_messages.join(', ')}."
+      render action: :index
     end
   end
 

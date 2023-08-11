@@ -16,13 +16,13 @@
       %label Recurring?
       = f.select :interval, options_for_select(Wco::Product::INTERVALS)
 
-    .form-field
-      %label Stripe product_id
-      = f.text_field :product_id
+    -# .form-field
+    -#   %label Stripe product_id
+    -#   = f.text_field :product_id
 
-    .form-field
-      %label Stripe price_id
-      = f.text_field :price_id
+    -# .form-field
+    -#   %label Stripe price_id
+    -#   = f.text_field :price_id
 
     .actions
       = f.submit 'Submit'
