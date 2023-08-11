@@ -50,9 +50,12 @@
   .row
     .col-md-12.msgs
       %h5 Email Messages (#{@msgs.length})
+      .descr @TODO: these used to be links, but now they are broken. _vp_ 2023-08-10
       %ul
         - @msgs.each do |msg|
-          %li= link_to msg.subject, email_conversation_path( msg.conv )
+          %li
+            = msg.subject
+            -#   = link_to msg.subject, email_conversation_path( msg.conv )
 
 
 

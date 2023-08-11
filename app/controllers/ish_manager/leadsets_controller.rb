@@ -51,10 +51,12 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
   def show
     @leadset = Leadset.find params[:id]
     authorize! :show, @leadset
+
     @email_contexts = {}
     @leadset.employees.each do |lead|
       @email_contexts[lead.email] = lead.email_contexts
     end
+
     @employees = @leadset.employees.page( params[:leads_page] ).per( current_profile.per_page )
   end
 
