@@ -66,7 +66,7 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     authorize! :index, ::Lead
     @leads = ::Lead.kept.includes( :company )
     if params[:q].present?
-      @leads = @leads.where(" email LIKE ? ", "%#{params[:q]}%" )
+      @leads = @leads.where(" email LIKE ? or name LIKE ? ", "%#{params[:q]}%", "%#{params[:q]}%" )
     end
     @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
 
