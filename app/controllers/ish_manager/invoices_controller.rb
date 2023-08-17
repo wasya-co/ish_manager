@@ -15,9 +15,10 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
       pending_invoice_items_behavior: 'exclude',
     })
     params[:invoice][:items].each do |item|
+      stripe_price = Wco::Product.find( item ).price_id
       invoice_item = Stripe::InvoiceItem.create({
         customer: @invoice.leadset.customer_id,
-        price:    item,
+        price:    stripe_price,
         invoice:  stripe_invoice.id,
       })
     end
