@@ -30,9 +30,18 @@
       .input-field
         = f.label :fb_access_token
         = f.text_field :fb_access_token
+
       .input-field
         = f.label :fb_long_access_token
         = f.text_field :fb_long_access_token
+
+      .input-field
+        = f.label :customer_id
+        = f.text_field :customer_id
+        %label [X]
+        = check_box_tag :delete_customer_id
+
+
 
       = f.submit 'Save', :class => %w(button)
 

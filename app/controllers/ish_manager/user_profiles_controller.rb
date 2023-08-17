@@ -57,6 +57,13 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
       @profile.profile_photo = photo
     end
 
+    puts! params[:profile][:customer_id].present?, 'params[:profile][:customer_id].present?'
+    if !params[:profile][:customer_id].present? || params[:delete_customer_id]
+      params[:profile][:customer_id] = nil
+    end
+
+    puts! params[:profile], 'ze params'
+
     flag = @profile.update_attributes params[:profile].permit!
 
     if flag

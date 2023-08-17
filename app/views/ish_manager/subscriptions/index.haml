@@ -28,5 +28,9 @@
               %li plan: $#{sub[:plan][:amount].to_f/100}/#{sub[:plan][:interval]}
               %li product: #{sub[:plan][:product]}
               %li customer: #{sub[:customer]}
-              -# %li= sub.inspect
+              -# %li= @customers.inspect
+              - if @customers[sub[:customer]] && @customers[sub[:customer]][:leadsets]
+                %li leadsets: #{ @customers[sub[:customer]][:leadsets]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
+              - if @customers[sub[:customer]] && @customers[sub[:customer]][:profiles]
+                %li profiles: #{ @customers[sub[:customer]][:profiles]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
 

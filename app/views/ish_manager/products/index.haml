@@ -29,5 +29,5 @@
     - @products.each do |product|
       %li
         = link_to '[~]', edit_product_path( product )
-        = product.inspect
-
+        #{product.name} // $#{product.price_cents.to_f/100}/#{product.interval.presence || 'onetime'}
+        [ #{product.product_id}, #{product.price_id} ]
