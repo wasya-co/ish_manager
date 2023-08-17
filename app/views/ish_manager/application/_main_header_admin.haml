@@ -10,7 +10,7 @@
     .a
       %ul
         %li
-          = render 'ish_manager/galleries/menu'
+          = render 'ish_manager/galleries/menu', count: Gallery.all.count
         %li
           = link_to 'Reports',   reports_path
           .inline-search

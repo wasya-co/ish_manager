@@ -1,7 +1,7 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
-  before_action :set_gallery, only: %w|destroy edit j_show show update update_ordering|
+  before_action :set_gallery, only: %w| destroy edit j_show show update update_ordering |
 
   # Alphabetized! : )
 
@@ -126,6 +126,9 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     end
   end
 
+  ##
+  ## private
+  ##
   private
 
   def set_gallery

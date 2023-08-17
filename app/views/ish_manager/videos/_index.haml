@@ -1,12 +1,18 @@
 
 - videos ||= @videos
+- this_videos_path ||= videos_path
 
 .videos--index
-  .header
-    %h5.title
-      Videos (#{videos.count})
-      = link_to '[+]', new_video_path
-    = render 'search', path: videos_path
+  .videos--menu
+    = link_to "Videos (#{videos.count})", this_videos_path
+
+    -# = render 'search', path: this_videos_path
+    .inline-search
+      = form_tag this_videos_path, method: :get do
+        = text_field_tag :q
+
+    = link_to '[+]', new_video_path
+    %hr
 
   = paginate videos, param_name: :videos_page, views_prefix: 'ish_manager'
 
@@ -25,7 +31,6 @@
           = link_to '[~]', edit_video_path( video )
 
         = render 'meta', item: video
-
 
   = paginate videos, param_name: :videos_page, views_prefix: 'ish_manager'
 

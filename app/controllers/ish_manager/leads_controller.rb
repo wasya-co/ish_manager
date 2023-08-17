@@ -36,14 +36,33 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def create
+    param_lead_tags = params[:lead].delete :lead_tags
+    param_photo     = params[:lead].delete :photo
     @lead = ::Lead.new params[:lead].permit!
     authorize! :create, @lead
+
+    param_lead_tags.delete ''
+    lead_tags = LeadTag.where({ lead_id: @lead.id })
+    if param_lead_tags.map(&:to_i).sort != lead_tags.map(&:term_id).sort
+      lead_tags.map(&:destroy)
+      param_lead_tags.each do |lt|
+        LeadTag.create({ lead_id: @lead.id, term_id: lt })
+      end
+    end
+
+    if param_photo
+      photo = Photo.create photo: param_photo
+      @lead.photo_id  = photo.id
+      # @lead.photo_url = photo.photo.url(:small)
+    end
+
     if @lead.save
       flash[:notice] = "created lead"
+      redirect_to action: :show, id: @lead.id
     else
       flash[:alert] = "Cannot create lead: #{@lead.errors.messages}"
+      render action: :new
     end
-    redirect_to :action => 'index'
   end
 
   def edit
@@ -67,6 +86,18 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     @leads = ::Lead.kept.includes( :company )
     if params[:q].present?
       @leads = @leads.where(" email LIKE ? or name LIKE ? ", "%#{params[:q]}%", "%#{params[:q]}%" )
+    end
+    if params[:q_tag_ids].present?
+      carry = nil
+      params[:q_tag_ids].each do |term_id|
+        lts = LeadTag.where({ term_id: term_id }).map(&:lead_id)
+        if carry
+          carry = carry & lts
+        else
+          carry = lts
+        end
+      end
+      @leads = Lead.where({ :id.in => carry })
     end
     @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
 
@@ -106,18 +137,38 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
     @schs = Sch.where( lead_id: @lead.id )
     @ctxs = Ctx.where( lead_id: @lead.id )
     @msgs = Msg.where( from: @lead.email )
+    @galleries = @lead.galleries.page( params[:galleries_page] ).per( current_profile.per_page )
+    @videos    = @lead.videos.page( params[:videos_page]       ).per( current_profile.per_page )
   end
 
   def update
+    param_lead_tags = params[:lead].delete :lead_tags
+    param_photo     = params[:lead].delete :photo
     @lead = ::Lead.find params[:id]
     authorize! :update, @lead
+
+    param_lead_tags.delete ''
+    lead_tags = LeadTag.where({ lead_id: @lead.id })
+    if param_lead_tags.map(&:to_i).sort != lead_tags.map(&:term_id).sort
+      lead_tags.map(&:destroy)
+      param_lead_tags.each do |lt|
+        LeadTag.create({ lead_id: @lead.id, term_id: lt })
+      end
+    end
+
+    if param_photo
+      photo = Photo.create photo: param_photo
+      @lead.photo_id  = photo.id
+      # @lead.photo_url = photo.photo.url(:small)
+    end
+
     if @lead.update_attributes params[:lead].permit!
       flash[:notice] = 'Successfully updated lead.'
+      redirect_to :action => 'show', id: @lead.id
     else
       flash[:alert] = "Cannot update lead: #{@lead.errors.messages}"
+      render action: :edit
     end
-    ## 2023-05-14 NOT redirecting to index anymore.
-    redirect_to :action => 'show', id: @lead.id
   end
 
 end

@@ -18,7 +18,9 @@
                       %li= sub.items.data[0].plan.product
 
     .col-md-6
-      %h5 Stripe Subscriptions
+      %h5
+        Stripe Subscriptions
+        = link_to '[+]', new_subscription_path
       %ul
         - @stripe_subscriptions.each do |sub|
           %li

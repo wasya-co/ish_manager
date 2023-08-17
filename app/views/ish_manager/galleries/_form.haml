@@ -7,10 +7,10 @@
 
 = form_for gallery, :url => url do |f|
   .row
-    .col.s6
+    .col-md-6
       = f.label :name
       = f.text_field :name
-    .col.s6
+    .col-md-6
       = f.label :slug
       = f.text_field :slug
 
@@ -18,10 +18,14 @@
 
 
   .row
-    = f.label :subhead
-    = f.text_area :subhead
-  .row
-    = f.text_area :descr, class: :tinymce
+    .col-md-4
+      = f.label :subhead
+      = f.text_area :subhead
+    .col-md-4
+      = f.text_area :descr, class: :tinymce
+    .col-md-4
+      %label Lead
+      = f.select :lead_id, options_for_select(@leads_list, selected: gallery.lead_id), {}, class: :select2
 
   .row
     .col.s3

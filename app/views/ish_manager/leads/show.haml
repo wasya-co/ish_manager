@@ -6,13 +6,32 @@
       Lead ##{@lead.id}
       = link_to '[~]', edit_lead_path(@lead)
 
-  %ul
-    %li Name: #{@lead.name}
-    %li Email: #{@lead.email}
-    %li Company (leadset): #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
-    %li Phone: #{@lead.phone}
-    %li Address: #{@lead.address}
-    %li Comment: #{raw @lead.comment}
+  .row
+    .col-md-6
+      %ul
+        %li Name: #{@lead.name}
+        %li Email: #{@lead.email}
+        %li Company (leadset): #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
+        %li Rating: #{@lead.rating}
+        - if @lead.phone
+          %li Phone: #{@lead.phone}
+        - if @lead.address
+          %li Address: #{@lead.address}
+        - if @lead.shoe_size
+          %li Shoe size: #{@lead.shoe_size}
+        - if @lead.comment
+          %li Comment: #{raw @lead.comment}
+        - if @lead.photo
+          %li
+            = image_tag Photo.find( @lead.photo_id ).photo.url(:small)
+
+    .col-md-6
+      %h5 Tags
+      %ul
+        - @lead.lead_tags.each do |lt|
+          %li
+            = link_to category_path(lt.wp_tag.id) do
+              = "##{lt.wp_tag.id} - #{lt.wp_tag.name}"
 
   .row
     .col-md-6.ctxs
@@ -57,6 +76,11 @@
             = msg.subject
             -#   = link_to msg.subject, email_conversation_path( msg.conv )
 
+  .row
+    .col-md-6
+      = render 'ish_manager/galleries/index', galleries: @galleries
+    .col-md-6
+      = render 'ish_manager/videos/index', videos: @videos
 
 
 

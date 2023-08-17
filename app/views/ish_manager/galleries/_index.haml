@@ -8,16 +8,17 @@
 
 .galleries--index
   .max-width
-    = render 'ish_manager/galleries/menu', count: @galleries.count
+    = render 'ish_manager/galleries/menu', count: galleries.count
+  %hr
 
   .padded
-    - if @galleries.length > 0
+    - if galleries.length > 0
 
-      - if @galleries.respond_to? :total_pages
-        = paginate @galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
+      - if galleries.respond_to? :total_pages
+        = paginate galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
 
       .row
-        - @galleries.each do |g|
+        - galleries.each do |g|
           .col-sm-12.col-md-6
             .bordered-card
               %h5
@@ -32,8 +33,8 @@
                   - g.photos.limit( n_thumbs ).each do |photo|
                     = link_to image_tag(photo.photo.url(:thumb), :alt => g.name), gallery_path(g.slug)
 
-      - if @galleries.respond_to? :total_pages
-        = paginate @galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
+      - if galleries.respond_to? :total_pages
+        = paginate galleries, :param_name => :galleries_page, :views_prefix => 'ish_manager'
 
     - else
       %h5 No Galleries

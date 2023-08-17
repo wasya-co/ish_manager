@@ -94,6 +94,7 @@ class IshManager::ApplicationController < ActionController::Base
     @office_actions_list  = [[nil,nil]] + Office::Action.all.map { |a| [ a.slug, a.id ] }
     @profiles_list        = Ish::UserProfile.list
     @reports_list         = Report.all.list
+    @tags_list            = [[nil,nil]] + WpTag.all.map { |t| [ t.name, t.id ] }
     @user_profiles_list   = Ish::UserProfile.list
     @videos_list          = Video.all.list
   end
@@ -108,21 +109,4 @@ end
 
 
 
-
-
-
-  # ## @TODO: obsolete, remove _vp_ 2022-10-15
-  # def update_profile_pic
-  #   return unless params[:photo]
-  #   @photo = Photo.new :photo => params[:photo]
-  #   @photo.user_profile = @current_profile
-  #   flag = @photo.save
-  #   @resource.profile_photo = @photo
-  #   flagg = @resource.save
-  #   if flag && flagg
-  #     flash[:notice] = 'Success'
-  #   else
-  #     flash[:alert] = "No Luck. #{@photo.errors.messages} #{@resource.errors.messages}"
-  #   end
-  # end
 
