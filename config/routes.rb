@@ -22,10 +22,10 @@ IshManager::Engine.routes.draw do
 
   get 'image_assets', to: 'image_assets#index', as: :image_assets
 
-  resources :invoices do
-  #   resources :payments
-  end
-  # resources :orders
+  post 'invoices/create-pdf', to: 'invoices#create_pdf', as: :create_invoice_pdf
+  get 'invoices/new_pdf',    to: 'invoices#new_pdf',    as: :new_invoice_pdf
+  get 'invoices/new_stripe', to: 'invoices#new_stripe', as: :new_invoice_stripe
+  resources :invoices
 
   get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep
   resources :iro_positions

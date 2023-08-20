@@ -3,6 +3,26 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
 
   before_action :set_lists
 
+  def create_pdf
+    @invoice = Ish::Invoice.new
+    authorize! :new, @invoice
+
+    pdf = Prawn::Document.new
+    pdf.text "Job Summary."
+
+    filename = "a-summary.pdf"
+    path = Rails.root.join 'tmp', filename
+    pdf.render_file path
+    data = File.read path
+    File.delete(path) if File.exist?(path)
+
+    send_data( data, { :filename => filename,
+      :disposition => params[:disposition] ? params[:disposition] : :attachment,
+      :type => 'application/pdf'
+    })
+  end
+
+  ## #create_stripe()
   def create
     @invoice = Ish::Invoice.new params[:invoice].permit!
     authorize! :create, @invoice
@@ -43,7 +63,13 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
     @invoices = @invoices.includes( :payments )
   end
 
-  def new
+  def new_pdf
+    authorize! :new, @invoice
+    @leadset = Leadset.find params[:leadset_id]
+    @products_list = Wco::Product.list
+  end
+
+  def new_stripe
     authorize! :new, @invoice
     @leadset = Leadset.find params[:leadset_id]
     @products_list = Wco::Product.list

@@ -15,7 +15,7 @@
     %thead
       %tr
         %th
-        %th Leadset
+        %th Email
         %th Number
         %th Amount
         %th Amount Paid
@@ -24,8 +24,8 @@
       - @invoices.each do |i|
         %tr
           %td= link_to "View", invoice_path( i )
-          %td= i.leadset.name
+          %td= i.email
           %td= i.number
-          %td= i.amount
-          %td= i.paid_amount
+          %td= i.amount_cents
+          %td= i.paid_amount_cents
           %td= i.created_at.to_s[0..10]

@@ -7,13 +7,13 @@
 
   %ul
     %li <b>Email:</b> #{@leadset.email}
-    %li <b>Stripe customer_id:</b> #{@leadset.customer_id}
     %li <b>company_url</b>: #{@leadset.company_url}
     %li <b>customer_id</b>: #{@leadset.customer_id}
     %li
       = link_to invoices_path({ leadset_id: @leadset.id }) do
         Invoices
         (#{@leadset.invoices.length})
-      = link_to '[+]', new_invoice_path({ leadset_id: @leadset.id })
+      = link_to '[+stripe]', new_invoice_stripe_path({ leadset_id: @leadset.id })
+      = link_to '[+pdf]', new_invoice_pdf_path({ leadset_id: @leadset.id })
 
   = render 'ish_manager/leads/index', leads: @employees

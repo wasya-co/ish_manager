@@ -31,5 +31,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "sidekiq", [ '~> 7.0.0' ]
   s.add_runtime_dependency 'uglifier'
   s.add_runtime_dependency 'business_time', '~> 0.13.0'
+  s.add_runtime_dependency 'prawn', '~> 2.4.0'
 
 end
