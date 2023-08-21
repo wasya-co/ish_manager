@@ -30,8 +30,9 @@ class ::IshManager::AppliancesController < IshManager::ApplicationController
     authorize! :edit, @appliance
     flag = @appliance.update_attributes( params[:appliance].permit! )
     if flag
-      flash[:notice] = "Success."
-      redirect_to request.referrer ? request.referrer : { action: :edit, id: @appliance.id }
+      flash[:notice] = "Successfully updated appliance #{@appliance.name}."
+      redirect_to controller: :leadsets, action: :show, id: @appliance.leadset_id
+      # redirect_to request.referrer ? request.referrer : { action: :edit, id: @appliance.id }
     else
       flash[:alert] = "Cannot update appliance: #{@appliance.errors.full_messages.join(', ')}."
       render action: :edit, id: @appliance.id
@@ -47,7 +48,7 @@ class ::IshManager::AppliancesController < IshManager::ApplicationController
   def set_lists
     super
     @appliance = Wco::Appliance.find params[:id]
-    @these_serverhosts_list = @appliance.leadset.serverhosts
+    @these_serverhosts_list = @appliance.leadset.serverhosts.map { |i| [ i.name, i.id] }
   end
 
 end

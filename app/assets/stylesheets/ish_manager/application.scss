@@ -5,22 +5,22 @@
  * require ish_manager/vendor/summernote-bs4.min
  *
  *= require_self
+ *= require ish_manager/appliances
  *= require ish_manager/email_contexts
  *= require ish_manager/email_conversations
  *= require ish_manager/email_messages
  *= require ish_manager/email_templates
  *= require ish_manager/email
- *
  *= require ish_manager/galleries
  *= require ish_manager/iro
  *= require ish_manager/iro1
  *= require ish_manager/leads_leadsets
+ *= require ish_manager/leadsets
  *= require ish_manager/maps
  *= require ish_manager/markers
  *= require ish_manager/office
  *= require ish_manager/pagination
  *= require ish_manager/photos
- *= require ish_manager/serverhosts
  *= require ish_manager/scheduled_email_actions
  *= require ish_manager/tags
  *= require ish_manager/user_profiles

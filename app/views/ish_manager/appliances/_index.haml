@@ -3,11 +3,19 @@
   %h5 Appliances (#{appliances.length})
   - if appliances.present?
     %hr
-    %ul
+    %ul.items
       - appliances.each do |i|
         %li
           %ul
-            %li <b>name:</b> #{i.name} #{link_to '[~]', edit_appliance_path(i)}
-            %li <b>kind:</b> #{i.kind}
-            %li <b>serverhost:</b> #{i.serverhost&.name}
-            %li= i.inspect
+            %li.name <b>name:</b> #{i.name} #{link_to '[~]', edit_appliance_path(i)}
+            %li.kind <b>kind:</b> #{i.kind}
+            %li.leadset_id <b>leadset_id:</b> #{i.leadset_id}
+
+            %li.serverhost
+              <b>serverhost:</b>
+              - if i.serverhost
+                #{ link_to i.serverhost.name, serverhost_path(i.serverhost) }
+              - else
+                <no-serverhost>
+            %li.host <b>host:</b> #{i.host}
+            -# %li.inspect= i.inspect

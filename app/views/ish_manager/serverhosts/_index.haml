@@ -7,10 +7,15 @@
     - serverhosts.each do |i|
       %li
         = i.name
+        %span.gray= i.id.to_s
         = link_to '[~]', edit_serverhost_path(i)
         %ul
           %li.leadset_id <b>leadset_id:</b> #{i.leadset_id}
           %li.next_port <b>Next Port:</b> #{i.next_port}
+          %li.ssh_host <b>ssh_host:</b> #{i.ssh_host}
+          %li.ssh_username <b>ssh_username:</b> #{i.ssh_username}
+          %li.ssh_key <b>ssh_key:</b> #{i.ssh_key}
+          %li.nginx_root <b>nginx_root:</b> #{i.nginx_root}
           %li.appliances
             = render 'ish_manager/appliances/index', appliances: i.appliances
 
