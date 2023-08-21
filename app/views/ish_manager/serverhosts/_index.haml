@@ -1,0 +1,16 @@
+
+.serverhosts--index
+  %h5 Serverhosts (#{serverhosts.length})
+  %hr
+
+  %ul.items
+    - serverhosts.each do |i|
+      %li
+        = i.name
+        = link_to '[~]', edit_serverhost_path(i)
+        %ul
+          %li.leadset_id <b>leadset_id:</b> #{i.leadset_id}
+          %li.next_port <b>Next Port:</b> #{i.next_port}
+          %li.appliances
+            = render 'ish_manager/appliances/index', appliances: i.appliances
+

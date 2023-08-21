@@ -1,0 +1,15 @@
+
+- url = serverhost.new_record? ? serverhosts_path : serverhost_path( serverhost )
+.serverhosts--form
+  = form_for serverhost, as: :serverhost, url: url do |f|
+    .field
+      = f.label :name
+      = f.text_field :name
+    .field
+      = f.label :leadset_id
+      = f.number_field :leadset_id
+    .field
+      = f.label :next_port
+      = f.number_field :next_port
+    .actions
+      = f.submit 'Submit'

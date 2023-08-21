@@ -5,6 +5,9 @@ IshManager::Engine.routes.draw do
 
   get 'application/tinymce', to: 'application#tinymce'
 
+  resources :appliances
+  resources :appliance_tmpls
+
   # get 'categories', to: 'categories#index'
   resources :categories
 
@@ -123,6 +126,7 @@ IshManager::Engine.routes.draw do
 
   resources :reports
 
+  resources :serverhosts
   resources :scheduled_email_actions
   resources :subscriptions
 

@@ -1,0 +1,13 @@
+
+.appliances--index
+  %h5 Appliances (#{appliances.length})
+  - if appliances.present?
+    %hr
+    %ul
+      - appliances.each do |i|
+        %li
+          %ul
+            %li <b>name:</b> #{i.name} #{link_to '[~]', edit_appliance_path(i)}
+            %li <b>kind:</b> #{i.kind}
+            %li <b>serverhost:</b> #{i.serverhost&.name}
+            %li= i.inspect

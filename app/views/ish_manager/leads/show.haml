@@ -11,7 +11,9 @@
       %ul
         %li Name: #{@lead.name}
         %li Email: #{@lead.email}
-        %li Company (leadset): #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
+        %li
+          Company (leadset): #{ link_to @lead.company.company_url, leadset_path(@lead.company) }
+          (#{@lead.m3_leadset_id})
         %li Rating: #{@lead.rating}
         - if @lead.phone
           %li Phone: #{@lead.phone}
