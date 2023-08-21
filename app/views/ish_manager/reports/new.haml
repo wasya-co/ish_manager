@@ -1,6 +1,5 @@
 
-.row
-  .col.s12
-    %h1
-      %strong New Report
-    = render 'ish_manager/reports/form', :report => @report
+.reports-new.max-width
+  .header
+    %h3.title New Report
+  = render 'ish_manager/reports/form', :report => @report

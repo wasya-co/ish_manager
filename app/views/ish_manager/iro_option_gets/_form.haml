@@ -1,0 +1,10 @@
+
+- url = item.new_record? ? iro_option_gets_path : iro_option_get_path( item )
+.iro-option-gets--form
+  = form_for item, url: url, as: :iro_option_get do |f|
+    .flex-row
+      .form-group
+        = f.text_field :ticker
+
+      .form-group
+        = f.submit ">", :class => %w(btn blue)

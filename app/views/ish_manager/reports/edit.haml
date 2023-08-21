@@ -1,6 +1,5 @@
 
-.row
-  .large-12.columns
+.reports-edit.max-width
     %h1 Edit Report #{@report.name}
 
     = render 'form', :url => report_path(@report.id), :report => @report

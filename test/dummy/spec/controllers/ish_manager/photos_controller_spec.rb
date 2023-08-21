@@ -6,11 +6,8 @@ describe IshManager::PhotosController, :type => :controller do
   before do
     setup_users
 
-    Site.unscoped.destroy
-    @site = create :site
-
     Gallery.unscoped.destroy
-    @gallery = Gallery.create :site => @site
+    @gallery = create(:gallery)
 
     Photo.unscoped.destroy
     @photo = create :photo, :gallery => @gallery

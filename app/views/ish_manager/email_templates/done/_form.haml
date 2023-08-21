@@ -1,0 +1,22 @@
+
+- url = %w| index new create |.include?( params[:action] ) ? email_templates_path : email_template_path(email_template.id)
+
+.email-templates--form
+  = form_for email_template, url: url do |f|
+    .field
+      = f.label :type
+      = f.select :type, options_for_select(Ish::EmailTemplate.type_list, selected: email_template.type)
+    .field
+      = f.label :slug
+      = f.text_field :slug
+    .field
+      = f.label :from_email
+      = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_template.from_email)
+    .field.field-subject
+      = f.label :subject
+      = f.text_field :subject
+    .field
+      = f.label :body
+      = f.text_area :body, class: 'tinymce'
+    .actions
+      = f.submit 'Submit'

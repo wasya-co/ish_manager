@@ -1,0 +1,11 @@
+
+.events-index.max-width
+  .header
+    .title Events
+
+  - @events.each do |event|
+    .a
+      = pp_date event.start_at
+      = event.name
+      = link_to '[~]', edit_event_path(event)
+

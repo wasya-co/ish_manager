@@ -1,0 +1,1 @@
+../../../../../app/models/email_campaign_lead.rb

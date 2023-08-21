@@ -1,0 +1,44 @@
+
+- eact = email_action
+- url  = email_action.new_record? ? email_actions_path : email_action_path( email_action )
+
+.email-actions--form
+
+  = form_for email_action, url: url, as: :email_action, :html => { :multipart => true } do |f|
+    .row
+      .col-sm-6
+        = f.submit :submit
+
+    .row
+      .col-md-6
+        .field
+          %label Slug
+          = f.text_field :slug
+        -# .field
+        -#   %label Descr
+        -#   = f.text_area :descr
+        .field.flex-row
+          %label Template
+          = f.select :email_template_id, options_for_select( @email_templates_list, selected: eact.email_template_id ), {}, class: 'select2'
+
+      .col-md-6
+        .field
+          %label Next Email Actions
+          .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
+          %br
+
+          = f.fields_for :ties do |next_f|
+            .flex-row.field
+              = next_f.label :next_at_exe
+              = next_f.text_field :next_at_exe, class: 'flex-grow'
+            .flex-row.field
+              = next_f.label :to_delete
+              = next_f.check_box :to_delete
+              = next_f.select :next_email_action_id, options_for_select( @email_actions_list, selected: next_f.object.next_email_action_id ), { }, { class: 'select2' }
+            %br
+
+    .row
+      .col-sm-6
+        = f.submit :submit
+
+

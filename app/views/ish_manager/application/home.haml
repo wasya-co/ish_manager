@@ -1,10 +1,32 @@
 
-.application-home
-  Welcome home! Your role is `#{current_user.profile.role_name}`.
+.application-home.max-width
+  %h5 Welcome home
 
   .bordered-card
-    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get do
+    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
       %p Search CGTrader:
       = hidden_field_tag "polygons", "lt_5k"
       = text_field_tag "keywords"
       = submit_tag 'search'
+
+  .bordered-card
+    = form_tag "https://www.youtube.com/results", method: :get, target: :_blank do
+      %p Search Youtube:
+      = text_field_tag "search_query"
+      = submit_tag 'search'
+
+  .bordered-card
+    %h5.center.text-center USD to COP
+    #root{ width: 500, height: 300 }
+    %script{src: "/recharts-example-out.js", type: "module"}
+    %script{type: "module"}
+
+
+      import App from '/recharts-example-out.js';
+
+      const el = document.querySelector('#root')
+      const e = React.createElement;
+
+      const domContainer = document.querySelector('#root');
+      const root = ReactDOM.createRoot(domContainer);
+      root.render(e(App));

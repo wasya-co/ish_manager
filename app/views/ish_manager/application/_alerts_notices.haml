@@ -1,0 +1,12 @@
+
+.row.max-width
+  .col-sm-12
+    - if notice
+      .notice
+        = notice
+        .close [x]
+    - if alert
+      .alert
+        = alert
+        .close [x]
+

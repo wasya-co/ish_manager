@@ -1,21 +1,55 @@
 
-.email-contexts-index
+.email-contexts-index.padded
 
-  %h2
-    Paginated Email Contexts (aka emails)
-    = link_to '+', new_email_context_path
+  .header.collapse-expand-trash#emailContextsIndex
+    %h2.title
 
-  %ul
-    - @email_ctxs.each do |ctx|
-      %li
-        - if ctx.sent_at
-          \----
+      Email Contexts (#{@ctxs.length})
+      - if @lead
+        For lead #{@lead.email}
+      - else
+        - if my_truthy? params[:sent]
+          = link_to '[notsent]', email_contexts_path({ sent: false })
+          <u>sent</u>
         - else
-          = link_to '~', edit_email_context_path(ctx)
-        = link_to email_context_path(ctx) do
-          view
-          -# %i.fa.fa-external-link
-        = link_to email_context_iframe_path(ctx), target: :_blank do
-          iframe
-          %i.fa.fa-external-link
-        To #{ctx.to_email}: #{ctx.subject}
+          <u>notsent</u>
+          = link_to '[sent]', email_contexts_path({ sent: true })
+      = link_to '[+]', new_email_context_path
+
+
+  .W0
+    = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager
+
+    %table.bordered
+      %thead
+        %tr
+          %th.actions
+          %th.from From
+          %th.to To
+          %th.subject Subject
+          %th.template Template
+          %th.send_at Send at
+          %th.sent_at Sent at
+      %tbody
+        - @ctxs.each do |ctx|
+          %tr
+            %td.actions
+              - if ctx.sent_at
+                [~]
+              - else
+                = link_to '[~]', edit_email_context_path(ctx)
+              = button_to '[x]', email_context_path(ctx), method: :delete, form_class: :inline, data: { confirm: 'Are you sure?' }
+            %td.from
+              = ctx.from_email ? ctx.from_email : "t| #{ctx.tmpl.from_email}"
+            %td.to= link_to ctx.lead.email, lead_path(ctx.lead)
+            %td
+              = link_to email_context_path(ctx) do
+                = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"
+            %td= ctx.email_template.slug
+            %td.send_at
+              .a= pp_date ctx.send_at
+              .a= pp_time ctx.send_at
+            %td= pp_date ctx.sent_at
+
+
+    = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager

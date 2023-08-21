@@ -6,9 +6,16 @@ class IshManager::ReportsController < IshManager::ApplicationController
   # alphabetized : )
 
   def create
+    authorize! :create, Report
+
+    if params[:report][:shared_profiles].present?
+      params[:report][:shared_profiles].delete('')
+    end
+    params[:report][:shared_profile_ids] = params[:report][:shared_profiles]
+    params[:report].delete :shared_profiles
+
     @report = Report.new params[:report].permit!
-    @report.user_profile = current_user.profile # @TODO: this should not be hard-coded
-    authorize! :create, @report
+    @report.user_profile = @current_profile # @TODO: this should not be hard-coded
 
     flag = @report.save
     respond_to do |format|
@@ -31,9 +38,7 @@ class IshManager::ReportsController < IshManager::ApplicationController
       else
         format.html do
           flash[:alert] = @report.errors.full_messages
-          @tags_list = Tag.all.list
-          @sites_list = Site.all.list
-          @cities_list = City.all.list
+          @tags_list = [] # ::WpTag.all.list
 
           render :action => "new"
         end
@@ -58,31 +63,22 @@ class IshManager::ReportsController < IshManager::ApplicationController
   def index
     authorize! :index, Report
     @reports = Report.unscoped.order_by( :created_at => :desc
-      ).where( :is_trash => false, :user_profile => current_user.profile
-      ).page( params[:reports_page] ).per( Report::PER_PAGE )
-    if false === params[:site]
-      @reports = @reports.where( :site_id => nil )
-    end
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @reports = @reports.where( :site_id => params[:site_id] )
-    end
+      ).where( :is_trash => false, :user_profile => @current_profile )
     if params[:q]
-      @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
+      # @reports = @reports.or({ slug: /#{params[:q]}/i }, { name: /#{params[:q]}}/i }) # @TODO: why can't I have space in search term?
+      @reports = @reports.where({ :name => /#{params[:q]}/i })
       if @reports.length == 1
         redirect_to report_path(@reports[0])
         return
       end
     end
+    @reports = @reports.page( params[:reports_page] ).per( Report::PER_PAGE )
   end
 
   def new
     @report = Report.new
     authorize! :new, @report
-    @tags_list = Tag.all.where( :is_public => true ).list
-    @sites_list = Site.all.list
-    @cities_list = City.list
-    @venues_list = Venue.all.list
+    @tags_list = [] # ::WpTag.all.where( :is_public => true ).list
 
     respond_to do |format|
       format.html do
@@ -105,6 +101,14 @@ class IshManager::ReportsController < IshManager::ApplicationController
       photo = Photo.new :photo => params[:photo]
       @report.update_attributes( :photo => photo, :updated_at => Time.now )
     end
+
+    old_shared_profile_ids = @report.shared_profiles.map(&:id)
+    if params[:report][:shared_profiles].present?
+      params[:report][:shared_profiles].delete('')
+    end
+    params[:report][:shared_profile_ids] = params[:report][:shared_profiles]
+    params[:report].delete :shared_profiles
+
 
     respond_to do |format|
       if @report.update_attributes(params[:report].permit!)

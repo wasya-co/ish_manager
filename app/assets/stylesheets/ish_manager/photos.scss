@@ -34,6 +34,17 @@
     overflow-x: auto;
     max-width: Max( 300px, 50vw );
   }
+
+  .errors > div {
+    border: 1px solid red;
+  }
+
+  .thumbnails {
+    .item {
+      border: 1px solid blue;
+    }
+  }
+
 }
 
 .row-deleted {

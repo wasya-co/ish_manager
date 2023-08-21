@@ -1,32 +1,70 @@
 /*
  * Alphabetized : )
  *
- *= require ish_manager/jquery-ui
+ *= require ish_manager/vendor/jquery-ui
+ * require ish_manager/vendor/summernote-bs4.min
+ *
  *= require_self
- *
- * includes email contexts:
+ *= require ish_manager/appliances
+ *= require ish_manager/email_contexts
+ *= require ish_manager/email_conversations
+ *= require ish_manager/email_messages
  *= require ish_manager/email_templates
- *
+ *= require ish_manager/email
  *= require ish_manager/galleries
+ *= require ish_manager/iro
+ *= require ish_manager/iro1
+ *= require ish_manager/leads_leadsets
+ *= require ish_manager/leadsets
  *= require ish_manager/maps
  *= require ish_manager/markers
- *= require ish_manager/leads
+ *= require ish_manager/office
+ *= require ish_manager/pagination
  *= require ish_manager/photos
+ *= require ish_manager/scheduled_email_actions
  *= require ish_manager/tags
  *= require ish_manager/user_profiles
  *= require ish_manager/videos
- *= require ish_manager/pagination
+ *
 **/
 
-
+a[target='_blank'] {
+  &::before {
+    content: '[ ';
+    display: inline;
+  }
+  &::after {
+    content: ' ^]';
+    display: inline;
+  }
+}
+html {
+  height: 100%;
+  width: 100%;
+  // display: flex;
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
+}
 body {
   background: #dedede;
   font-size: 20px;
+  width: 100%;
+}
+
+body.application-fullwidth {
+  // height: 100%;
+  // display: flex;
+  // flex-direction: column;
 }
 hr {
   background: red;
   height: 1px !important;
 }
+
+input[type='file'] {
+  overflow: auto;
+  max-width: 100%;
+}
+
 pre {
   background: #e0e0e0;
   padding: 1em;
@@ -42,13 +80,11 @@ ul:not(.browser-default).bullets, {
 
 
 /* A */
-
-.collapse-expand::after {
-  content: " [<>]";
-}
 .alert {
   border: 1px solid red;
   padding: .8em;
+  margin: 0.8em;
+  position: relative;
 }
 
 .application--debug {
@@ -57,7 +93,8 @@ ul:not(.browser-default).bullets, {
 }
 .application-home {
   .bordered-card {
-    max-width: 400px;
+    display: inline-block;
+    // max-width: 400px;
   }
 }
 
@@ -79,12 +116,24 @@ ul:not(.browser-default).bullets, {
   padding: 1em;
 }
 
+table.bordered {
+  tbody {
+    td {
+      border: 1px solid black;
+    }
+  }
+}
+
 .bordered-card {
   border: 1px solid grey;
   padding: .5em;
   border-radius: 8px;
   margin-bottom: .5em;
   padding: 0.5em;
+}
+
+.btn {
+  border: 1px solid red;
 }
 
 
@@ -105,27 +154,138 @@ ul:not(.browser-default).bullets, {
   text-align: center;
 }
 
+.chip {
+  // border: 1px solid black;
+  border-radius: 1em 0 0 1em;
+
+  margin-right: 32px;
+
+  padding: 0.2em 0.2em 0.2em 0.6em;
+
+  height: 32px;
+
+  background: white;
+
+  position: relative;
+
+  &::before {
+    // border: 1px solid red;
+    // background: yellow;
+
+    content: "";
+    display: block;
+
+    position: absolute;
+    right: -16px;
+    top: 0;
+
+    width: 16px;
+    height: 32px;
+
+    // border-left: 12px solid white;
+    border-top: 17px solid white;
+    border-right: 12px solid transparent;
+    // border-bottom: 12px solid transparent;
+  }
+  &::after {
+    // border: 1px solid red;
+
+    content: "";
+    display: block;
+
+    position: absolute;
+    right: -16px;
+    bottom: 0;
+
+    width: 16px;
+    height: 32px;
+
+    border-bottom: 17px solid white;
+    border-right: 12px solid transparent;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .collapse-expand {
   cursor: pointer;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.collapse-expand::after {
+  content: " [<]";
+}
+.collapsed::after {
+  content: " [>]";
+}
+.expand-next + form {
+  // border: 1px solid red !important;
+  // display: none !important;
 }
 
 /* D */
+
+table.dataTable {
+  // border: 1px solid red;
+  // padding: 1em;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background: white;
+
+}
 
 .descr,
 .description {
   border: 1px solid red;
   padding: 1em;
-  font-size: 1.6em;
 }
 
 
+
+.expand-hide {
+  display: none;
+  position: absolute;
+  min-width: 250px;
+  z-index: 1;
+
+  form {
+    min-width: 300px;
+    border: 1px solid blue;
+    border-radius: 0.5em;
+    padding: 0.5em;
+
+    background: #ccc;
+    display: inline-block;
+  }
+}
+
 /* E */
+.eg {
+  font-size: 0.8em;
+
+  &:before {
+    content: "e.g. ";
+  }
+}
+
 .error_explanation {
   border: 1px solid red;
   padding: .8em;
 }
 
+
 /* F */
+
+.flex-grow {
+  flex-grow: 1;
+}
 
 .flex-row {
   display: flex;
@@ -147,6 +307,16 @@ ul:not(.browser-default).bullets, {
   float: right;
 }
 
+/* G */
+.gray,
+.grey {
+  color: #999;
+}
+
+/* H */
+.hide, .hidden {
+  display: none !important;
+}
 
 /* I */
 img.img-400 {
@@ -172,10 +342,14 @@ ul.inline li {
   }
 }
 
+.input-date {
+  width: 100px;
+}
 
 /* L */
 textarea.large {
   height: 400px;
+  width: 100%;
 }
 
 .large-photos img {
@@ -186,9 +360,12 @@ textarea.large {
 
 
 .main-header {
-  background: url('/assets/bg/weather.png');
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
+  border-bottom: 2px solid red;
+  margin-bottom: 1em;
 
-  a {
+  a:not(.chip),
+  span.label {
     background: white;
     padding: .2em;
   }
@@ -197,8 +374,6 @@ textarea.large {
     margin-top: 0;
   }
 
-
-
   ul {
     margin: 0;
     padding: 0;
@@ -206,15 +381,17 @@ textarea.large {
     flex-wrap: wrap;
 
     li {
-      margin: 0 0 10px 0;
+      margin: 0 10px 10px 0;
       display: inline-block;
-      min-width: 200px;
+      min-width: 220px;
 
       > div { /* for example .galleries--menu */
         display: inline-block;
       }
     }
   }
+
+
 }
 @media only screen and (max-width: 400px) {
   .main-header ul li {
@@ -222,9 +399,24 @@ textarea.large {
   }
 }
 
-.main-header.development,
-.main-header.development_production {
-  background: url('/assets/bg/weather-development.png');
+.main-header.development {
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192822/weather-bg-development.png');
+}
+
+.manager--main-footer {
+  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
+  border-top: 2px solid red;
+  margin-top: 1em;
+
+  flex-grow: 1;
+
+  z-index: -1;
+}
+
+.max-width {
+  max-width: 1140px;
+  width: 100%;
+  margin: auto;
 }
 
 .menu-secondary {
@@ -247,7 +439,19 @@ textarea.large {
   display: inline;
 }
 
+
+
 /* N */
+
+.n-selected {
+
+  &::before {
+    content: "(";
+  }
+  &::after {
+    content: ")";
+  }
+}
 
 .newsitems--item {
   border: 1px solid green;
@@ -257,9 +461,15 @@ textarea.large {
 .notice {
   border: 1px solid green;
   padding: .8em;
+  margin: 0.8em;
+  position: relative;
 }
 
 /* P */
+.padded {
+  padding: 0.5em;
+}
+
 .panel-content {
   padding: .5em;
 }
@@ -270,10 +480,15 @@ textarea.large {
   padding: .2em;
 }
 
+.relative {
+  position: relative;
+}
+
 /* S */
 
 .select2-container {
   max-width: 100%;
+  min-width: 250px;
   display: block;
 }
 
@@ -295,6 +510,18 @@ textarea.large {
 /* V */
 
 /* W */
+
+.W0 {
+  margin-top: 10px;
+}
+
+.WBordered {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 1em;
+}
+
+/* Y */
 
 .youtube_img {
   width: 100px;

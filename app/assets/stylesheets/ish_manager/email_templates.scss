@@ -1,38 +1,45 @@
 
-
-.email-contexts-new {
-  .actions {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-
-.email-contexts-show {
-
-  iframe {
-    min-height: 500px;
-  }
-
-}
-
-.email-templates-index ul li,
-.email-contexts-index {
-
-   a {
-    margin-right: 0.5em;
-
-    &::before {
-      content: "[";
-    }
-
-    &::after {
-      content: "]";
-    }
-  }
-
-}
-
+.email-contexts--form,
 .email-templates--form {
+  form {
+    > .actions {
+      text-align: right;
+    }
+
+    .tab-labels {
+      // border: 1px solid red;
+      margin-top: 1em;
+
+      display: flex;
+
+      > * {
+        // border: 1px solid red;
+      }
+      > .active {
+        border: 2px solid red;
+        border-radius: 0.5em 0.5em 0 0;
+        border-bottom: 0;
+        margin-bottom: -2px;
+        background: white;
+        padding: 0 .5em;
+        margin: 0 .5em;
+      }
+
+    }
+    .tabs {
+      .tab-raw {
+        display: none;
+      }
+      .tab-preview {
+        height: 500px;
+        // display: none;
+      }
+    }
+
+  }
+}
+
+.email-templates--form-mini {
   border: 1px solid red;
   padding: 1em;
 
@@ -43,5 +50,10 @@
       padding-right: 20px;
     }
   }
+
+}
+
+.email-templates--form-reply-mini,
+.email-templates--form-schedule-mini {
 
 }

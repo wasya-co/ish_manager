@@ -6,7 +6,7 @@ describe IshManager::GalleriesController, :type => :controller do
 
   before :each do
     setup_users
-    @gallery = create :gallery
+    @gallery = create :gallery, user_profile: @admin_profile
   end
 
   # alphabetized
@@ -27,8 +27,6 @@ describe IshManager::GalleriesController, :type => :controller do
       post :create, params: { gallery: { is_trash: true } }
 
       Gallery.count.should eql n_galleries
-      assigns( :cities_list ).should_not eql nil
-      assigns( :tags_list ).should_not eql nil
     end
   end
 
@@ -42,13 +40,6 @@ describe IshManager::GalleriesController, :type => :controller do
       gs.length.should > 0
     end
 
-    it 'searches done galleries as well as active ones' do
-      gallery_name = 'abba1233'
-      g = create(:gallery, is_done: true, user_profile_id: @admin.profile.id )
-      get :index, params: { q: g.name, render_type: Gallery::RENDER_THUMBS }
-      assert assigns(:galleries).map(&:name).include?(g.name)
-    end
-
   end
 
   describe '#new' do
@@ -56,8 +47,6 @@ describe IshManager::GalleriesController, :type => :controller do
       get :new
       response.should be_successful
       assigns( :gallery ).should_not eql nil
-      assigns( :cities_list ).should_not eql nil
-      assigns( :tags_list ).should_not eql nil
       assigns( :user_profiles_list ).should_not eql nil
     end
   end

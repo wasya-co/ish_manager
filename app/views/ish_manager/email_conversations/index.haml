@@ -1,0 +1,68 @@
+
+.email-conversations-index
+
+  .second-header
+    %i.material-icons mail
+    = link_to email_conversations_in_path(WpTag::INBOX) do
+      Inbox (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})
+    = link_to email_conversations_notin_path(WpTag::INBOX) do
+      Not Inbox (#{Office::EmailConversation.not_in_emailtag(WpTag::INBOX).length})
+
+    = link_to email_conversations_in_path(WpTag::TRASH) do
+      Trash (#{Office::EmailConversation.in_emailtag(WpTag::TRASH).length})
+    = link_to email_conversations_notin_path(WpTag::TRASH) do
+      Not Trash (#{Office::EmailConversation.not_in_emailtag(WpTag::TRASH).length})
+
+    - if params[:slug]
+      slug: #{params[:slug]}
+    - if params[:not_slug]
+      not slug: #{params[:not_slug]}
+
+  .actions
+
+    %a.btn.archive-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/rmtag/#{WpTag::INBOX}" } }
+      %i.material-icons archive
+      archive
+    %a.btn.delete-btn{ href: "javascript: void(0)", data: { url: '/api/email_conversations' } }
+      %i.material-icons delete
+      delete
+    %a.btn.reload-btn{ href: "javascript: location.reload()" }
+      %i.material-icons refresh
+      refresh
+
+  %table.conversations
+    %tr
+      %th
+        .chip.select-all
+          = check_box_tag :select_all
+          .n-selected -
+      %th Msgs
+      %th Leads
+      %th Subject
+      %th Datetime
+      %th Tags
+
+    = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
+    - @email_conversations.each do |conv|
+      %tr{ class: [ conv.state ] }
+        .item
+          %td= check_box_tag 'email_conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
+          %td.count
+            (#{conv.email_messages.count})
+
+          %td.leads
+            = conv.leads.map { |lead| lead.email }.join(", ")
+
+          %td.subject
+            = link_to conv.subject, email_conversation_path( conv )
+
+          %td.datetime
+            .date= conv.latest_at.strftime('%Y-%m-%d')
+            .time= conv.latest_at.strftime('%l:%M%P')
+
+          %td
+            .tags
+              - conv.tags.each do |tag|
+                .chip
+                  = tag.name
+    = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager

@@ -1,0 +1,32 @@
+
+.email-actions-index.padded
+
+  .header
+    %h2.title
+      Email Actions
+      = link_to '[+]', new_email_action_path
+
+  %table.bordered
+    %tr
+      %th= check_box_tag 'abba'
+      %th
+      %th slug
+      %th next actions
+    - @email_actions.each do |eact|
+      %tr
+        %td= check_box_tag 'abba'
+        %td= link_to '[~]', edit_email_action_path( eact )
+        %td
+          -# = link_to eact.slug, email_action_path( eact )
+          = eact.slug
+          .em.small= eact.descr
+        %td
+          %ul
+            - eact.ties.map do |next_a|
+              %li
+                .a= next_a.next_at_exe
+                .a
+                  - if next_a.next_email_action.slug == eact.slug
+                    (same)
+                  = next_a.next_email_action.slug
+

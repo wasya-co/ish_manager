@@ -5,9 +5,7 @@ class IshManager::PhotosController < IshManager::ApplicationController
   skip_authorization_check :only => [ :j_create ]
   protect_from_forgery :except => [ :j_create]
 
-  def without_gallery
-    @photos = Photo.unscoped.where( :gallery => nil, :is_trash => false )
-  end
+  ## Alphabetized : )
 
   def destroy
     @photo = Photo.unscoped.find params[:id]
@@ -23,17 +21,16 @@ class IshManager::PhotosController < IshManager::ApplicationController
     redirect_to request.referrer || root_path
   end
 
-  def show
-    @photo = Photo.unscoped.find params[:id]
-    authorize! :show, @photo
+  def index
+    authorize! :index, Photo
+    @photos = Photo.where( user_profile: @current_profile ).page( params[:photos_page] )
   end
 
   def j_create
-    # find this gallery
     if params[:slug]
       gallery = Gallery.unscoped.where( :slug => params[:slug] ).first
       gallery ||= Gallery.unscoped.find params[:slug]
-    elsif params[:gallery_id] # this one, let's normalize on id everywhere in manager.
+    elsif params[:gallery_id]
       gallery = Gallery.unscoped.find( params[:gallery_id] )
       gallery ||= Gallery.unscoped.where( :slug => params[:gallery_id] ).first
     end
@@ -43,9 +40,6 @@ class IshManager::PhotosController < IshManager::ApplicationController
     @photo.is_public = true
     @photo.gallery = gallery
 
-    # cache
-    @photo.gallery.site.touch if @photo.gallery.site
-    @photo.gallery.city.touch if @photo.gallery.city
     @photo.gallery.touch
 
     if @photo.save
@@ -59,8 +53,25 @@ class IshManager::PhotosController < IshManager::ApplicationController
       }
       render :json => [ j ]
     else
-      render :json => { "errors" => @photo.errors }
+      render :json => {
+        message: @photo.errors.full_messages.join(", "),
+        filename: @photo.photo.original_filename,
+      }, status: 400
     end
+  end
+
+  def new
+    authorize! :new, Photo
+    @photo = Photo.new
+  end
+
+  def show
+    @photo = Photo.unscoped.find params[:id]
+    authorize! :show, @photo
+  end
+
+  def without_gallery
+    @photos = Photo.unscoped.where( :gallery => nil, :is_trash => false )
   end
 
 end

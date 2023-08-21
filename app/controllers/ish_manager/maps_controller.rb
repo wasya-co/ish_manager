@@ -93,11 +93,7 @@ class IshManager::MapsController < IshManager::ApplicationController
       else
         p = Profile.new({ email: profile[:email], _id: profile[:_id] })
         u = User.where( email: profile[:email] ).first
-        if u
-          u.profile = p
-        else
-          u = User.new( email: profile[:email], password: rand.to_s, profile: p )
-        end
+        u ||= User.new( email: profile[:email], password: rand.to_s )
         flag = u.save && p.save
         if flag
           errors.push({ message: "Profile created for #{profile[:email]}." })
@@ -182,16 +178,21 @@ class IshManager::MapsController < IshManager::ApplicationController
       end
     end
 
+    if map_params[:parent_slug].present?
+      @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
+    else
+      @map.parent = nil
+    end
+
     respond_to do |format|
-      if map_params[:parent_slug].present?
-        @map.parent = ::Gameui::Map.find_by({ slug: map_params[:parent_slug] })
-      else
-        @map.parent = nil
-      end
       if @map.update(map_params)
-        format.html { redirect_to map_path(@map), notice: 'Map was successfully updated.' }
+        format.html do # format is required
+          redirect_to edit_map_path(@map), notice: 'Map was successfully updated.'
+        end
       else
-        format.html { render :edit }
+        format.html do
+          render :edit
+        end
       end
     end
   end

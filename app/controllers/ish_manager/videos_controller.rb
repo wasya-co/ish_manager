@@ -3,21 +3,12 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  # alphabetized : )
+  # Alphabetized : )
 
   def create
     @video = Video.new params[:video].permit(%i| name descr is_public is_trash is_feature x y lang youtube_id
-      tags city site user_profile premium_tier premium_purchases thumb video |)
-    @video.user_profile = current_user.profile
-    if !params[:video][:site_id].blank?
-      @video.site = Site.find params[:video][:site_id]
-      @video.site.touch
-    else
-      if @site
-        @video.site = @site
-        @site.touch
-      end
-    end
+      site user_profile premium_tier premium_purchases thumb video |)
+    @video.user_profile = @current_profile
     authorize! :create, @video
 
     if @video.save
@@ -25,8 +16,6 @@ class IshManager::VideosController < IshManager::ApplicationController
       redirect_to videos_path
     else
       flash[:alert] = 'No luck'
-      @tags_list = Tag.list
-      @cities_list = City.list
       render :action => 'new'
     end
   end
@@ -35,9 +24,6 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     authorize! :destroy, @video
     flag = @video.delete
-    @video.city.touch if @video.city
-    @video.site.touch if @video.site
-    @video.tags.map &:touch
     if flag
       flash[:notice] = "deleted video"
     else
@@ -50,35 +36,19 @@ class IshManager::VideosController < IshManager::ApplicationController
     @video = Video.unscoped.find params[:id]
     @user_profiles_list = Ish::UserProfile.list
     authorize! :edit, @video
-
-    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    @cities_list = City.list
   end
 
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.where( is_trash: false, :user_profile => current_user.profile ).order_by( :created_at => :desc )
-
-    if params[:city_id]
-      city = City.find params[:city_id]
-      @videos = @videos.where( :city => city )
-    end
-
-    if params[:tag_id]
-      tag = Tag.find params[:tag_id]
-      @videos = @videos.where( :tag => tag )
-    end
-
-    if params[:site_id]
-      @site = Site.find params[:site_id]
-      @videos = @site.videos
-    end
+    @videos = Video.unscoped.where( is_trash: false,
+      :user_profile => @current_profile
+    ).order_by( :created_at => :desc )
 
     if params[:q]
       @videos = @videos.where({ :name => /#{params[:q]}/i })
     end
 
-    @videos = @videos.page( params[:videos_page] ).per( 10 )
+    @videos = @videos.page( params[:videos_page] ).per( 9 )
 
     respond_to do |format|
       format.html do
@@ -106,20 +76,30 @@ class IshManager::VideosController < IshManager::ApplicationController
   def new
     @video = Video.new
     authorize! :new, @video
-
-    @tags_list = Tag.unscoped.or( { :is_public => true }, { :user_id => current_user.id } ).list
-    @cities_list = City.list
   end
 
   def update
     @video = Video.unscoped.find params[:id]
     authorize! :update, @video
 
+    old_shared_profile_ids = @video.shared_profile_ids
+    if params[:video][:shared_profiles].present?
+      params[:video][:shared_profiles].delete('')
+    end
+    params[:video][:shared_profile_ids] = params[:video][:shared_profiles]
+    params[:video].delete :shared_profiles
+
     @video.update params[:video].permit!
     if @video.save
-      @video.site.touch if @video.site
+
+      # if params[:video][:shared_profile_ids].present?
+      #   new_shared_profiles = Ish::UserProfile.find( params[:video][:shared_profile_ids]
+      #     ).select { |p| !old_shared_profile_ids.include?( p.id ) }
+      #   ::IshManager::ApplicationMailer.shared_video( new_shared_profiles, @video ).deliver
+      # end
+
       flash[:notice] = 'Success.'
-      redirect_to videos_path
+      redirect_to video_path(@video)
     else
       flash[:alert] = "No luck: #{@video.errors.messages}"
       render :edit

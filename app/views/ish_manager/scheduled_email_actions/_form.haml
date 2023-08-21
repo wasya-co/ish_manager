@@ -1,0 +1,24 @@
+
+- sch_a = scheduled_email_action
+- url = sch_a.new_record? ? scheduled_email_actions_path : scheduled_email_action_path(sch_a.id)
+
+.scheduled-email-actions--form
+  = form_for scheduled_email_action, url: url, as: :sch do |f|
+    .header
+      %h5.title Schedule an email action
+
+    .flex-row
+      = f.label :lead
+      = f.select :lead_id, options_for_select(@leads_list, selected: sch_a[:lead_id]||params[:lead_id] ), {}, class: 'select2'
+    .flex-row
+      %label State
+      = f.select :state, options_for_select(::Office::ScheduledEmailAction::STATES, selected: sch_a.state )
+    .flex-row
+      = f.label :email_action
+      = f.select :email_action, options_for_select( @email_actions_list, selected: sch_a[:email_action_id] ), {}, class: 'select2'
+    .flex-row
+      = f.label :perform_at
+      = f.text_field :perform_at, value: sch_a.new_record? ? Time.now : sch_a.perform_at
+
+    .actions
+      = submit_tag 'Schedule'

@@ -4,6 +4,7 @@
 
 - newsitems = newsitems.page( params[:newsitems_page] ).per( 10 )
 
+
 .manager-newsitems--index
   = paginate newsitems, :param_name => :newsitems_page, :views_prefix => 'ish_manager'
   - newsitems.each do |n|

@@ -1,16 +1,16 @@
 class IshManager::GalleriesController < IshManager::ApplicationController
 
   before_action :set_lists
-  before_action :set_gallery, only: %w|destroy edit j_show show update|
+  before_action :set_gallery, only: %w| destroy edit j_show show update update_ordering |
 
-  # alphabetized! : )
+  # Alphabetized! : )
 
   def create
     params[:gallery][:shared_profiles] ||= []
     params[:gallery][:shared_profiles].delete('')
     params[:gallery][:shared_profiles] = Ish::UserProfile.find params[:gallery][:shared_profiles]
     @gallery = Gallery.new params[:gallery].permit!
-    @gallery.user_profile = current_user.profile
+    @gallery.user_profile = @current_profile
     authorize! :create, @gallery
 
     if @gallery.save
@@ -19,7 +19,7 @@ class IshManager::GalleriesController < IshManager::ApplicationController
       redirect_to edit_gallery_path(@gallery)
     else
       puts! @gallery.errors.messages
-      flash[:alert] = "Cannot create the gallery: #{@gallery.errors.full_messages}"
+      flash[:alert] = "Cannot create the gallery: #{@gallery.errors.full_messages.join(', ')}"
       render :action => 'new'
     end
   end
@@ -38,15 +38,18 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def index
     authorize! :index, Gallery
-    @galleries = Gallery.unscoped.where(
-      # :is_done.in => [false, nil],
-      # :is_trash.in => [false, nil],
-      # :user_profile => current_user.profile
+    @page_title = 'Galleries'
+    @galleries = Gallery.unscoped.where( ## This must be so for role `guy`. _vp_ 2022-10-03
+      :is_done.in => [false, nil],
+      :is_trash.in => [false, nil],
+      :user_profile => @current_profile,
     ).order_by( :created_at => :desc )
+
     if params[:q]
       @galleries = @galleries.where({ :name => /#{params[:q]}/i })
       # @galleries.selector.delete('is_done')
     end
+
     @galleries = @galleries.page( params[:galleries_page] ).per( 10 )
     render params[:render_type]
   end
@@ -68,12 +71,14 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def new
     @gallery = Gallery.new
+    @page_title = 'New Gallery'
     authorize! :new, @gallery
   end
 
   def shared_with_me
     authorize! :index, Gallery
-    @galleries = current_user.profile.shared_galleries.unscoped.where( :is_trash => false
+    @page_title = 'Galleries Shared With Me'
+    @galleries = @current_profile.shared_galleries.unscoped.where( :is_trash => false
       ).order_by( :created_at => :desc
       ).page( params[:shared_galleries_page] ).per( 10 )
     render params[:render_type]
@@ -81,24 +86,37 @@ class IshManager::GalleriesController < IshManager::ApplicationController
 
   def show
     authorize! :show, @gallery
-    @photos = @gallery.photos.unscoped.where({ :is_trash => false })
-    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true })
+    @photos = @gallery.photos.unscoped.where({ :is_trash => false }).order_by( ordering: :asc )
+    @deleted_photos = @gallery.photos.unscoped.where({ :is_trash => true }).order_by( ordering: :asc )
+  end
+
+  def update_ordering
+    authorize! :update, @gallery
+    out = []
+    params[:gallery][:sorted_photo_ids].each_with_index do |id, idx|
+      out.push Photo.find( id ).update_attribute( :ordering, idx )
+    end
+    flash[:notice] = "Outcomes: #{out}."
+    redirect_to action: 'show', id: @gallery.id
   end
 
   def update
-    old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
     authorize! :update, @gallery
 
-    params[:gallery][:tag_ids].delete('') if params[:gallery][:tag_ids]
-
-    params[:gallery][:shared_profiles].delete('')
+    old_shared_profile_ids = @gallery.shared_profiles.map(&:id)
+    if params[:gallery][:shared_profiles].present?
+      params[:gallery][:shared_profiles].delete('')
+    end
     params[:gallery][:shared_profile_ids] = params[:gallery][:shared_profiles]
     params[:gallery].delete :shared_profiles
 
-    if @gallery.update_attributes( params[:gallery].permit! )
-      new_shared_profiles = Ish::UserProfile.find( params[:gallery][:shared_profile_ids]
-        ).select { |p| !old_shared_profile_ids.include?( p.id ) }
-      ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
+    flag = @gallery.update_attributes( params[:gallery].permit! )
+    if flag
+      if params[:gallery][:shared_profile_ids].present?
+        new_shared_profiles = Ish::UserProfile.find( params[:gallery][:shared_profile_ids]
+          ).select { |p| !old_shared_profile_ids.include?( p.id ) }
+        ::IshManager::ApplicationMailer.shared_galleries( new_shared_profiles, @gallery ).deliver
+      end
       flash[:notice] = 'Success.'
       redirect_to edit_gallery_path(@gallery)
     else
@@ -108,6 +126,9 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     end
   end
 
+  ##
+  ## private
+  ##
   private
 
   def set_gallery
@@ -116,6 +137,8 @@ class IshManager::GalleriesController < IshManager::ApplicationController
     rescue
       @gallery = Gallery.unscoped.find params[:id]
     end
+    @page_title = "#{@gallery.name} Gallery"
+    @page_description = @gallery.subhead
   end
 
 end

@@ -1,16 +1,33 @@
 
 .email-contexts-show
+  .header
+    %h2.title Email Context
 
-  %ul
-    %li <b>To:</b> #{@email_ctx.to_email}
-    %li <b>Subject:</b> #{@email_ctx.subject}
-    %li <b>Template:</b> #{@email_ctx.email_template.slug}
-    - if @email_ctx.sent_at
-      %li <b>Sent at:</b> #{@email_ctx.sent_at.strftime('%Y-%m-%d %l:%M%P')}
+  .row
+    .col-md-4
+      %ul
+        %li <b>From:</b> #{@ctx.from_email}
+        %li <b>To Lead:</b> #{link_to @ctx.lead.email, lead_path(@ctx.lead)}
+        %li <b>Subject:</b> #{@ctx.subject}
+
+    .col-md-4
+      %ul
+        %li <b>Template:</b> #{link_to @ctx.email_template.slug, email_template_path(@ctx.email_template), target: :_blank }
+        %li <b>Layout:</b> #{@ctx.email_template.layout}
+
+    .col-md-4
+      %ul
+        %li <b>Send at:</b> #{@ctx.send_at&.strftime('%Y-%m-%d %l:%M%P')}
+        %li <b>Sent at:</b> #{@ctx.sent_at&.strftime('%Y-%m-%d %l:%M%P')}
+        %li
+          = button_to 'Send', send_email_context_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
+          = link_to '[~]', edit_email_context_path(@ctx)
+
+  .max-width
+    - if @ctx.sent_at
+      = raw @ctx.rendered_str
+      -# = @ctx.tmpl
+
     - else
-      %li= button_to 'Send', email_context_send_path(@email_ctx)
-
-  - if @email_ctx.sent_at
-    =raw @email_ctx.rendered_str
-  - else
-    %iframe{ src: email_context_iframe_path(@email_ctx), width: '100%', height: '100%' }
+      -# = link_to 'i-src', email_context_iframe_path(@ctx), target: :_blank
+      %iframe{ src: email_context_iframe_path(@ctx), width: '100%', height: '100%' }

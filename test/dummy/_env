@@ -1,0 +1,8 @@
+
+export MONGODB_HOSTNAME
+export MONGODB_USERNAME
+export MONGODB_PASSWORD
+
+export AWS_KEY_ID
+export AWS_KEY_SECRET
+

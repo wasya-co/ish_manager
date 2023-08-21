@@ -48,6 +48,15 @@
         .field
           = f.label :y
           = f.text_field :y
+        .field
+          = f.label :z
+          = f.text_field :z
+        .field
+          = f.label :castShadow
+          = f.check_box :castShadow
+        .field
+          = f.label :receiveShadow
+          = f.check_box :receiveShadow
       .col-sm-3
         .field
           = f.label :title_image
@@ -60,20 +69,10 @@
       = f.label :url, "URL (if any)"
       = f.text_field :url
     .row
-      .col-sm-3 &nbsp;
-      .col-sm-5
-        .field
-          = f.label :description
-          = f.text_area :description
-    .row
       .col-sm-4
         .field
           = f.label :item_type
           = f.select :item_type, options_for_select( ::Gameui::Marker::ITEM_TYPES, selected: @marker.item_type )
-      .col-sm-4
-        .field
-          = f.label :ordering
-          = f.text_field :ordering
       .col-sm-4
         .field
           = f.check_box :is_active

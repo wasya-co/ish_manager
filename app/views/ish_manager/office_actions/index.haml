@@ -1,0 +1,38 @@
+
+.office-actions-index.padded
+
+  .header
+    %h2.title
+      Office Actions
+      = link_to '[+]', new_office_action_path
+
+  %table.bordered
+    %tr
+      %th= check_box_tag 'abba'
+      %th
+      %th state
+      %th slug
+      %th perform at
+      %th exe
+      %th next actions
+    - @office_actions.each do |oact|
+      %tr
+        %td= check_box_tag 'abba'
+        %td= link_to '[~]', edit_office_action_path( oact )
+        %td= oact.state
+        %td
+          -# = link_to oact.slug, office_action_path( oact )
+          = oact.slug
+          .em.small= oact.descr
+        %td= oact.perform_at
+        %td= oact.action_exe
+        %td
+          %ul
+            - oact.ties.map do |next_a|
+              %li
+                .a= next_a.next_at_exe
+                .a
+                  - if next_a.next_office_action.slug == oact.slug
+                    (same)
+                  = next_a.next_office_action.slug
+

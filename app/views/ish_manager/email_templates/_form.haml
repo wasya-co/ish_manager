@@ -1,11 +1,42 @@
 
-- url = %w| index new create |.include?( params[:action] ) ? email_templates_path : email_template_path(email_template.id)
+- url = email_template.new_record? ? email_templates_path : email_template_path(email_template.id)
 
 .email-templates--form
   = form_for email_template, url: url do |f|
-    %h3 New Email Template
+    .row
+      .col-md-4
+        .field
+          = f.label :slug
+          = f.text_field :slug
+      .col-md-4
+        .flex-row
+          = f.label :layout
+          = f.select :layout, options_for_select(Ish::EmailTemplate::LAYOUTS, selected: email_template.layout), {}, class: 'select2'
+      .col-md-4
+        .field
+          = f.label "From"
+          = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_template.from_email)
+    .field.field-subject
+      = f.label :subject
+      = f.text_field :subject
     .field
-      = f.label :slug
-      = f.text_field :slug
+      = f.label :preview_str
+      = f.text_field :preview_str
+
+
+    .tab-labels
+      %a.label-raw{ href: "javascript: void(0)", data: { ref: '.tab-raw' } } Raw
+      %a.label-preview.active{ href: "javascript: void(0)", data: { ref: '.tab-preview' } } Preview
+      .label-save-preview= f.submit 'Save & Preview'
+    .tabs
+      .tab-raw
+        = f.text_area :body
+      .tab-preview
+        - if email_template.persisted?
+          -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
+          %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
+
+
     .actions
-      = f.submit 'Submit'
+      = f.submit 'Save'
+

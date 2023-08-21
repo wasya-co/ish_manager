@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" >
 <head>
@@ -877,7 +878,7 @@ h4 {
                       <tbody>
                         <tr>
                           <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0; text-align:center;">
-                            <!-- <img align="center" alt="wasya-co-logo" src="*|BRAND:LOGO|*" width="196"
+                            <!-- <img align="center" alt="piousbox-logo" src="*|BRAND:LOGO|*" width="196"
                               style="max-width:196px; padding-bottom: 0; display: inline !important; vertical-align: bottom;"
                               class="mcnImage"> -->
                               - p i o u s b o x -
@@ -907,7 +908,9 @@ h4 {
                     <![endif]-->
 
                             <div style="border: 2px solid #999; border-radius: 4px; padding: 1em; margin-bottom: 1em;">
-                              <%== @email_ctx.body %>
+                              <!-- herehere -->
+                              <%== ERB.new(@tmpl.body).result((@ctx||@tmpl).get_binding) %>
+
                             </div>
 
                     <!--[if mso]>
@@ -950,8 +953,7 @@ h4 {
                               Software Engineering Lead<br>
                               <a href="mailto:victor@piousbox.com"
                                 target="_blank">victor@piousbox.com</a>&nbsp;|&nbsp;<a
-                                data-saferedirecturl="https://www.google.com/url?q=https://calendly.com/piousbox/30min&source=gmail&ust=1653766299300000&usg=AOvVaw0gLMR8wlOT5TujsCLyf2B9"
-                                href="https://calendly.com/piousbox/30min" target="_blank">Book a chat</a></span>
+                                href="https://wasya.co/w/c2" target="_blank">Book a chat</a></span>
                           </td>
                         </tr>
                       </tbody>
@@ -968,7 +970,7 @@ h4 {
                         <tr>
                           <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:9px; padding-right:18px;">
 
-                            <%= render 'ish_manager/email_templates/social' %>
+                            <%= render 'ish_manager/email_templates/piousbox_social' %>
 
                           </td>
                         </tr>

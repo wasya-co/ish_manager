@@ -1,0 +1,22 @@
+
+.iro-watches-index.padded
+  .header
+    .title Iro Watches
+
+  - @watches.each do |watch|
+    = render 'form', :watch => watch
+
+  %hr
+  %h5 New
+  = render 'form', :watch => Iro::OptionWatch.new
+
+  %hr
+  .header
+    .title Get chains
+
+  - @option_get_chains.each do |item|
+    = link_to item.ticker, iro_max_pain_path({ ticker: item.ticker, date: (Time.now.end_of_week - 2.days).strftime('%Y-%m-%d') })
+  %hr
+  %h5 New
+  = render 'ish_manager/iro_option_gets/form', :item => Iro::OptionGet.new
+

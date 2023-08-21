@@ -1,59 +1,143 @@
 
 
 .application--main-header-admin.main-header{ class: "#{ENV['RAILS_ENV']} #{ENV['RAILS_ENV'][0...3]=="dev" ? "development" : ''}" }
+  %i.fa.fa-compress.collapse-expand#collapseHeaderMain
+    Piousbox Suite
   .container
-    %i.fa.fa-compress.collapse-expand#collapseHeaderIsh
-    .content
-      %ul
-        %li{ :class => params[:controller] == 'ish_manager/maps'          ? 'active' : '' }
-          = link_to 'Maps', maps_path
-          .inline-search
-            = form_tag maps_path, method: :get do
-              = text_field_tag :q
-          = link_to '[+]', new_map_path
 
-        %li{ :class => params[:controller] == 'ish_manager/galleries'     ? 'active' : '' }
-          = render 'ish_manager/galleries/menu'
-        %li{ :class => params[:controller] == 'ish_manager/reports'       ? 'active' : '' }
+    %i.fa.fa-compress.collapse-expand#collapseHeaderPiCMS
+      PiousboxCMS
+    .a
+      %ul
+        %li
+          = render 'ish_manager/galleries/menu', count: Gallery.all.count
+        %li
           = link_to 'Reports',   reports_path
           .inline-search
             = form_tag reports_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_report_path
-        %li{ :class => params[:controller] == 'ish_manager/videos'        ? 'active' : '' }
-          = link_to 'Videos',    videos_path
+        %li
+          = link_to "Videos (#{Video.all.length})", videos_path
           .inline-search
             = form_tag videos_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_video_path
-        %li{ :class => params[:controller] == 'ish_manager/tags'          ? 'active' : '' }
-          = link_to 'Tags',      tags_path
+        %li= link_to 'Categories & Tags', categories_path
       %ul
-        %li{ class: params[:controller] == 'ish_manager/newsitems' ? 'active' : '' }= link_to '+Newsitem', new_newsitem_path
-        -# %li{ :class => params[:controller] == 'ish_manager/stock_watches' ? 'active' : '' }= link_to 'Stock Watches (old m3)', stock_watches_path
-        -# %li= link_to 'Stock Watches', '/iron_warbler/stock_watches'
-        %li{ :class => params[:controller] == 'ish_manager/users' ? 'active' : '' }= link_to 'Users',  users_path
-        %li{ :class => params[:controller] == 'ish_manager/user_profiles' ? 'active' : '' }= link_to 'Ish::UserProfiles',  user_profiles_path
+        %li= link_to '+Newsitem', new_newsitem_path
         %li
-          = link_to "Ish::ImageAsset's", image_assets_path
+          = link_to 'Profiles',  user_profiles_path
+          .inline-search
+            = form_tag user_profiles_path, method: :get do
+              = text_field_tag :q
+
+        %li
+          = link_to "Locations (#{Location.all.length})", maps_path
+          .inline-search
+            = form_tag maps_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_map_path
+
+        %li
+          = link_to 'Events', events_path
+          .inline-search
+            = form_tag events_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_event_path
     .c
+
     %i.fa.fa-compress.collapse-expand#collapseHeaderOffice
-    .namespace
-      %ul
-        %li= link_to 'Leads', leads_path
-        %li
-          = link_to 'Meetings', meetings_path
-          = link_to '[+]', new_meeting_path
+      PiousboxCRM
+    .a
       %ul
         %li
-          = link_to 'Email Templates', email_templates_path
+
+          = link_to "#{WpTag::INBOX} (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})", email_conversations_in_path(WpTag::INBOX), class: 'chip'
+          = link_to '[+]', new_email_context_path
         %li
-          = link_to 'Email Contexts', email_contexts_path
+          = link_to "Tmpls (#{Ish::EmailTemplate.all.count})", email_templates_path
+          = link_to '[+]', new_email_template_path
         %li
-          = link_to 'Email Campaigns', email_campaigns_path
+          = link_to "Companies (#{Leadset.kept.length})", leadsets_path
+          .inline-search
+            = form_tag leadsets_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_leadset_path
+
+
         %li
-          = link_to 'Sent Emails', sent_emails_path
+          = link_to "EActions (#{Office::EmailAction.count})", email_actions_path
+          = link_to '[+]', new_email_action_path
+      %ul
         %li
-          = button_to 'Test Email', email_test_path, { form_class: 'inline-block' }
-  %hr
+          = link_to "Filters (#{Office::EmailFilter.active.length})", email_filters_path
+          = link_to '[+]', new_email_filter_path
+        %li
+          = link_to "Ctxs (#{Ctx.notsent.length})", email_contexts_path({ sent: false })
+          = link_to '[+]', new_email_context_path
+          %br
+          = link_to 'summary', email_contexts_summary_path( format: :html )
+          = link_to '[csv]', email_contexts_summary_path( format: :csv )
+
+        %li
+          = link_to "Leads (#{Lead.kept.length})", leads_path
+          .inline-search
+            = form_tag leads_path, method: :get do
+              = text_field_tag :q
+          = link_to '[+]', new_lead_path
+        %li
+          = link_to "Schs (#{Sch.active.length})", scheduled_email_actions_path
+          = link_to '[+]', new_scheduled_email_action_path
+
+      %ul
+        %li &nbsp;
+        %li &nbsp;
+        %li
+          = link_to "Campaigns (#{Ish::EmailCampaign.count})", email_campaigns_path
+          = link_to '[+]', new_email_campaign_path
+        %li
+          = link_to "OActions (#{Office::Action.count})", office_actions_path
+          = link_to '[+]', new_office_action_path
+
+      %ul
+        %li
+          = link_to 'Products & Prices', products_path
+        %li
+          = link_to 'Customers & Subscriptions', subscriptions_path
+
+    .c
+
+    %i.fa.fa-compress.collapse-expand#collapseHeaderWco
+      Wasya Co Rb
+    .a
+      %ul
+        %li
+          = link_to 'ApplianceTmpl\'s', appliance_tmpls_path
+        %li
+          = link_to 'Appliance\'s', appliances_path
+        %li
+          = link_to 'Serverhost\'s', serverhosts_path
+    .c
+
+
+
+    %i.fa.fa-compress.collapse-expand#collapseHeaderIro
+      Iro Wor
+    .a
+      %ul
+
+        %li
+          = link_to 'Watches', iro_watches_path
+        %li
+          = link_to 'Plots', 'http://localhost:3000/iron_warbler/NOPE-1', target: '_blank'
+        %li
+          = link_to 'Purses', iro_purses_path
+          - Iro::Purse.all.map do |p|
+            = "[#{p.id}"
+            = link_to "show", iro_purse_path(p)
+            = link_to "gui", iro_purse_path({ id: p.id, kind: 'show_gameui' })
+            = "]"
+          = link_to '[+]', new_iro_purse_path
+    .c
 

@@ -1,0 +1,490 @@
+
+.iro-positions--form {
+  border: 1px dashed blue;
+  border-radius: 0.5em;
+  padding: 0.5em;
+
+  .field {
+    display: flex;
+  }
+}
+
+.iro-purses--form {
+  textarea {
+    min-width: 500px;
+    min-height: 500px;
+  }
+}
+
+.iro-purses-show,
+.iro-purses-show-gameui,
+.iro-purses-show-gameui-1,
+._ {
+  font-size: 14px;
+
+  table {
+    margin-top: 50px;
+
+    .id {
+      width: 20px;
+    }
+    .strategy {
+      width: 30px;
+    }
+
+    thead {
+      // border: 1px solid blue;
+
+      position: relative;
+      height: 1.5em;
+
+
+      .price {
+        background: cyan;
+      }
+      .to-close {
+        background: #333;
+        color: white;
+      }
+
+      td {
+        // border: 1px solid red;
+        position: relative;
+
+
+        > div {
+          // border: 1px solid green;
+
+          transform: translate(-0.5em, -50%) rotate(-45deg);
+          transform-origin: 0% 50%;
+          position: absolute;
+          width: 100px;
+          top: 1em;
+          left: 50%;
+          z-index: 0;
+        }
+      }
+    }
+
+
+    td {
+      padding: 0 .5em;
+    }
+
+    tbody {
+      .begin-delta {
+        min-width: 20px;
+      }
+      .must-roll,
+      .next-symbol {
+        text-align: center;
+      }
+
+      .must-roll,
+      .should-roll,
+      .next-symbol {
+        background: #eee;
+      }
+
+      .net,
+      .netp {
+        font-weight: bold;
+        text-align: right;
+      }
+
+      .should-roll > .aC {
+        display: flex;
+        justify-content: space-between;
+        min-width: 75px;
+      }
+    }
+  }
+
+
+  .q {
+    font-weight: bold;
+  }
+
+}
+.iro-strategies {
+  display: flex;
+  flex-wrap: wrap;
+}
+.iro-strategies-edit,
+.iro-strategies-new {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.iro-strategies--form {
+  border: 1px solid blue;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin-right: .5em;
+
+  .field {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.iro-position-statuses-selector form {
+  display: flex;
+  margin: 1em 0 0 0;
+
+  .field {
+    border: 1px solid gray;
+    border-radius: .5em;
+    padding: 0 1em;
+    margin-right: 1em;
+
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+
+
+
+
+
+
+/*
+ * GameUI in Purse
+ * 2023-04-06 _vp_ Continue
+**/
+.iro-purses-show-gameui .gameuiW {
+  border: 1px solid #ff9966;
+  border-radius: 1em;
+
+  position: relative;
+
+  width: 1200px;
+  height: 200px;
+
+  margin-bottom: 10px;
+
+  z-index: 0;
+
+  .gameui {
+
+    border-left: 1px dashed black;
+
+    position: absolute;
+
+    height: 100%;
+    left: 50%;
+    width: 600px;
+
+    .gameuiC { /* 1/2 of the ground */
+      // border: 2px solid #ff9900;
+
+      background-color: brown;
+
+      position: absolute;
+
+      right: 0;
+      left: 0;
+      bottom: 0;
+      height: 10px;
+
+      &::before {
+        content: "24";
+        color: white;
+        position: absolute;
+        left: -200px;
+        width: 200px;
+        height: 2px;
+        background: white;
+      }
+      &::after {
+        content: "22";
+        color: white;
+        position: absolute;
+        left: 200px;
+        width: 200px;
+        height: 2px;
+        background: white;
+      }
+    }
+
+    .elephantW {
+      border: 2px solid black;
+      position: absolute;
+      bottom: 0;
+      // left: ?? ; /* data: cc strike */
+    }
+
+    .elephant {
+      // border: 2px solid yellow;
+
+      background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04103931/200x125-elephant-1rmTiny.png');
+      width: 200px;
+      height: 125px;
+
+      position: absolute;
+
+      left: -100px;
+      padding-left: 100px;
+      bottom: 0;
+
+      &::after { /* arrow-up */
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: calc( 50% - 25px );
+
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+
+        border-bottom: 25px solid red;
+      }
+
+      .elephantC {
+        // border: 10px solid black;
+
+
+        position: absolute;
+        color: #333;
+        background: #ddd;
+        display: inline-block;
+        z-index: 2;
+
+        .q {
+          border: 2px solid #eee;
+          color: #fff;
+          background: #ccc;
+          padding: 0.4em;
+          border-radius: 50%;
+
+          position: absolute;
+          left: 50px;
+          top: -25px;
+        }
+      }
+    }
+
+
+    .groundedW {
+      position: absolute;
+
+      right: -250px;
+      bottom: 0;
+
+      .grounded {
+        border: 2px solid pink;
+        background: rgba(255,255,255, 0.75);
+        border-radius: 50%;
+
+        width: 100px;
+        height: 100px;
+
+        background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04105933/200x200-spearman-rmTiny.png');
+        background-size: cover;
+
+        .groundedStart {
+          // border: 2px solid white;
+          position: absolute;
+          background: #999;
+          bottom: 50px;
+          top: 11px;
+          left: 50%;
+          right: -40px;
+
+          z-index: -1;
+        }
+
+        .groundedCurrent {
+          position: absolute;
+          background: red;
+          bottom: 45px;
+          top: 52px;
+          left: 50%;
+          right: -30px;
+        }
+      }
+    }
+
+    .riderCurrent {
+      background: #339933;
+      left: 0;
+    }
+
+    .riderCurrent,
+    .riderCurrent2,
+    ._ {
+      position: absolute;
+      bottom: 7px;
+      top: -7px;
+    }
+    .riderCurrent2 {
+      display: none;
+      lefts: 0;
+      background: #993333;
+    }
+    .riderStart {
+      // border: 2px solid #cc33ff;
+      border-right: 2px solid #cc33ff;
+
+      position: absolute;
+      background: #999;
+      // background: red;
+      bottom: 50px;
+      height: 35px;
+      // right: 50px;
+      // right: 0;
+      bottom: 50px;
+      // width: 176px;
+      // left: 0;
+
+      z-index: -1;
+    }
+
+    .riderStart2 {
+      // border: 2px solid #30033f;
+
+      position: absolute;
+      background: #999;
+      // background: red;
+      bottom: 50px;
+      height: 35px;
+      // right: 50px;
+      right: left;
+      bottom: 50px;
+      // width: 176px;
+      // left: 0;
+
+      z-index: -1;
+    }
+
+    .riderW {
+      // border: 2px solid yellow;
+
+      position: absolute;
+
+      left: 0;
+      top: 20px;
+
+      .rider {
+        // border: 2px solid orange;
+
+        // background: rgba(255,255,255, 0.5);
+        border-radius: 50%;
+
+        background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04105933/200x200-spearman-rmTiny.png');
+        background-size: cover;
+
+        position: absolute;
+        width: 100px;
+        left: -50px;
+        height: 100px;
+        bottom: 0;
+        padding-left: 50px;
+        padding-top: 50px;
+
+
+
+        .riderC {
+          border: 6px solid white;
+          border-radius: 6px;
+
+          position: absolute;
+          left: calc( 50% - 6px );
+          bottom: calc( 50% - 6px );
+
+        }
+      }
+
+      .riderF {
+        background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/05142539/200x200-spearman-rmFTiny.png');
+      }
+
+    }
+
+    .windW {
+      border: 2px solid blue;
+
+      position: absolute;
+      // left: 232px; /* Data: current underlying strike */
+      bottom: 0;
+
+
+      &::before { /* arrow-up */
+        border-bottom: 25px solid yellow;
+
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: -25px;
+        z-index: 1;
+
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+      }
+
+      .wind {
+        // border: 2px solid green;
+
+        display: flex;
+        flex-direction: column-reverse;
+
+        .c-u-s {
+          position: relative;
+          z-index: 2;
+
+          background: yellow;
+          // color: white;
+          display: inline-block
+        }
+
+        .windC {
+          // border: 1px solid red;
+
+          position: absolute;
+          bottom: 0;
+          left: 0;
+
+          background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04104623/200x200-windTiny.png');
+          background-position: bottom center;
+          margin-left: -25px;
+
+          opacity: 0.5;
+
+          width: 200px;
+          height: 200px;
+        }
+      }
+    }
+  }
+}
+.next-position {
+  .elephant {
+    border: 1px solid white; /* 4.5% more */
+    border-radius: 50% 50% 0 0;
+    // background-size: 120%;
+
+    background-image: url('https://d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2023/04/04103931/200x125-elephant-1rmTiny.png');
+    width: 200px;
+    height: 125px;
+
+    padding-left: 100px;
+
+    position: absolute;
+    left: -100px;
+    bottom: 0;
+
+    z-index: 1;
+  }
+  .elephantLoss {
+    border: 1px solid red;
+    border-radius: 50% 50% 0 0;
+    width: 200px;
+    height: 125px;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+}

@@ -1,0 +1,33 @@
+
+- url = campaign.new_record? ? email_campaigns_path : email_campaign_path(campaign)
+
+.email-campaigns--form
+  = form_for campaign, as: :campaign, url: url do |f|
+    .field
+      = f.label :slug
+      = f.text_field :slug
+
+    -# .field
+    -#   = f.label :send_at
+    -#   = f.text_field :send_at
+
+    .field.field-template
+      = f.label "Template"
+      = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || campaign.email_template_id ), {}, { class: 'select2' }
+      - if campaign.email_template_id
+        = link_to 'view', email_template_path( campaign.email_template_id ), target: :_blank, class: [ 'action-view' ]
+        = link_to '~', edit_email_template_path( campaign.email_template_id ), target: :_blank, class: [ 'action-view' ]
+        layout: #{campaign.tmpl.layout}
+
+    .field
+      = f.label "From"
+      = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: campaign.from_email), {}, class: 'select2'
+
+    .actions
+      = f.submit 'Submit'
+
+      -# = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || campaign.email_template_id ), {}, { class: 'select2' }
+      -# - if campaign.email_template_id
+      -#   = link_to 'view', email_template_path( campaign.email_template_id ), target: :_blank, class: [ 'action-view' ]
+      -#   = link_to '~', edit_email_template_path( campaign.email_template_id ), target: :_blank, class: [ 'action-view' ]
+      -#   layout: #{campaign.tmpl.layout}

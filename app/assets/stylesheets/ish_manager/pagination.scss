@@ -1,54 +1,47 @@
 
-
-.pagination li {
-  display: inline-block;
-  border-radius: 2px;
-  text-align: center;
-  vertical-align: top;
-  height: 30px;
+.pagination a,
+.pagination span.current,
+.pagination span.gap {
+  float: left;
+  padding: 0 14px;
+  line-height: 38px;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #DDD;
+  border-left-width: 0;
 }
 
-.pagination li a {
-  color: #444;
-  display: inline-block;
-  font-size: 1.2rem;
-  padding: 0 10px;
-  line-height: 30px;
-}
+.pagination {
+  border-left: 1px solid #ddd;
 
-.pagination li.active a {
-  color: #fff;
-}
-
-.pagination li.active {
-  background-color: #ee6e73;
-}
-
-.pagination li.disabled a {
-  cursor: default;
-  color: #999;
-}
-
-.pagination li i {
-  font-size: 2rem;
-}
-
-.pagination li.pages ul li {
-  display: inline-block;
-  float: none;
-}
-
-@media only screen and (max-width: 992px) {
-  .pagination {
-    width: 100%;
+  li.active a {
+    background-color: #ee6e73;
+    color: white;
   }
-  .pagination li.prev,
-  .pagination li.next {
-    width: 10%;
+  .first{
+      padding : 0;
+      float: none;
+      border: none;
   }
-  .pagination li.pages {
-    width: 80%;
-    overflow: hidden;
-    white-space: nowrap;
+  .prev {
+      padding : 0;
+      float: none;
+      border: none;
+  }
+  .page{
+      padding : 0;
+      float: none;
+      border: none;
+  }
+  .next{
+      padding : 0;
+      float: none;
+      border: none;
+  }
+  .last{
+      padding : 0;
+      float: none;
+      border: none;
   }
 }
+

@@ -1,0 +1,7 @@
+
+.categories-show.max-width
+  .header
+    %h2.title Category/Tag `#{@category.slug}`
+
+  = render 'ish_manager/leads/index', leads: @leads, email_contexts: {}, search_path: category_path(@category)
+

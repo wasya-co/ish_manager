@@ -3,24 +3,82 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
 
   before_action :set_lists
 
-  def index
-    authorize! :index, Ish::Invoice
-    @invoices = Ish::Invoice.all.includes( :payments )
-  end
-
-  def new
+  def create_pdf
+    @invoice = Ish::Invoice.new
     authorize! :new, @invoice
+
+    pdf = Prawn::Document.new
+    pdf.text "Job Summary."
+
+    filename = "a-summary.pdf"
+    path = Rails.root.join 'tmp', filename
+    pdf.render_file path
+    data = File.read path
+    File.delete(path) if File.exist?(path)
+
+    send_data( data, { :filename => filename,
+      :disposition => params[:disposition] ? params[:disposition] : :attachment,
+      :type => 'application/pdf'
+    })
   end
 
+  ## #create_stripe()
   def create
     @invoice = Ish::Invoice.new params[:invoice].permit!
     authorize! :create, @invoice
+
+    stripe_invoice = Stripe::Invoice.create({
+      customer:          @invoice.leadset.customer_id,
+      collection_method: 'send_invoice',
+      days_until_due:    0,
+      # collection_method: 'charge_automatically',
+      pending_invoice_items_behavior: 'exclude',
+    })
+    params[:invoice][:items].each do |item|
+      stripe_price = Wco::Product.find( item ).price_id
+      invoice_item = Stripe::InvoiceItem.create({
+        customer: @invoice.leadset.customer_id,
+        price:    stripe_price,
+        invoice:  stripe_invoice.id,
+      })
+    end
+    Stripe::Invoice.send_invoice(stripe_invoice[:id])
+    @invoice.update_attributes({ invoice_id: stripe_invoice[:id] })
+
     if @invoice.save
-      flash[:notice] = "created invoice"
+      flash[:notice] = "Created the invoice."
+      redirect_to action: :show, id: @invoice.id
     else
       flash[:alert] = "Cannot create invoice: #{@invoice.errors.messages}"
+      render :new
     end
-    redirect_to :action => 'index'
+  end
+
+  def index
+    authorize! :index, Ish::Invoice
+    @invoices = Ish::Invoice.all
+    if params[:leadset_id]
+      @invoices = @invoices.where( leadset_id: params[:leadset_id] )
+    end
+    @invoices = @invoices.includes( :payments )
+  end
+
+  def new_pdf
+    authorize! :new, @invoice
+    @leadset = Leadset.find params[:leadset_id]
+    @products_list = Wco::Product.list
+  end
+
+  def new_stripe
+    authorize! :new, @invoice
+    @leadset = Leadset.find params[:leadset_id]
+    @products_list = Wco::Product.list
+  end
+
+  def show
+    @invoice = Ish::Invoice.find params[:id]
+    authorize! :show, @invoice
+    @stripe_invoice = Stripe::Invoice.retrieve @invoice.invoice_id
   end
 
   def update

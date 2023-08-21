@@ -9,6 +9,16 @@ describe IshManager::VideosController, :type => :controller do
     @video = create :video
   end
 
+  it '#create' do
+    name = 'a-uniq-name'
+    Video.where( name: name ).length.should eql 0
+    v = build :video, name: name
+    v.youtube_id.should eql nil
+
+    post :create, params: { video: v.attributes }
+    Video.where( name: name ).length.should eql 1
+  end
+
   it '#destroy, and the deleted video is accessible' do
     v = create :video
     delete :destroy, params: { id: v.id }

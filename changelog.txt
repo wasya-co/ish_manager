@@ -1,32 +1,4 @@
 
-0.1.1 - rollback to no so many controllers, for api compatibility
-0.1.2 - putting all the controllers back in.
-0.1.3 - manager_controller and such cannot be
-        no heavy images in assets
-0.1.4 - assets should render
-        photo upload to galleries
-0.1.5 - be able to create a gallery
-        hella rspec setup
-        be able to delete photo in a gallery...
-        be able to add photo to a non-pub g
-        better responsive
-0.1.6 - specs pass in test/dummy
-0.1.7 - lets work on appearances a little. materialize.
-0.1.8 - I want devise to be able to email me forgotten password
-0.1.9 - stock_watch stuff
-0.1.10 - let's share galleries with bondar
-master - 20200208 - adding map, marker management
-0.1.16 - stock watches are back in, and test/dummy is aleady the host!
-         ruby 2.7.5
-0.2.0 - 2022-01-26 Video has description and better UI
-0.3.0 - 2022-01-29 warbler learns to alert on options
-0.4.0 - 2022-02-01 warbler can place options orders?
-        2022-02-27 - cc's please
-        2022-03-12 - import/export of maps
-0.5.0 - 2022-04-30 - wiring in active admin for leads
-                     activeadmin wont work, but leads wiring is in progress
-        2022-05-03 - meetings (notifications), and unsubscribes half-scaffold
-0.5.1 - UNUSED
-0.5.2 - 2022-08-10 - fixing bugs and minor styling
-0.6.0 - 2022-08-23 - Lets merge everything, votable, bugfixing
-1.0.0 - 2022-09-29 - lets reintroduce email templates, marketing_ror_1 specifically.
+2.1.0 - 2023-03-14 - lotsa changes. email inbox in m3.
+        2023-03-30 - continue with nice changes
+

@@ -1,0 +1,14 @@
+
+.appliance-tmpls-index.max-width
+  %h5 Appliance Templates
+  %hr
+
+  %ul
+    - @appliance_tmpls.each do |i|
+      %li
+        %ul
+          %li <b>Kind:</b> #{i.kind}
+          %li <b>Image:</b> #{i.image}
+
+  %hr
+  = render 'form', :appliance_tmpl => @new_appliance_tmpl

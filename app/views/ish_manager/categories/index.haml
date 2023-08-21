@@ -1,0 +1,15 @@
+
+.categories-index.max-width
+  .row
+    .col-md-6
+      %h1 Categories
+      = render 'ish_manager/categories/subtree', subtree: @categories_flat, config: { parent_id: nil, parent_ids: @categories_flat.map { |c| c[5] }.uniq }
+
+    .col-md-6
+      %h1 Tags
+      %ul
+        - @tags.each do |tag|
+          %li
+            = tag[:taxonomy]
+            \::
+            = link_to tag[:name], category_path( tag[:id] )

@@ -1,0 +1,36 @@
+
+.container.subscriptions-index.padded
+  .row
+
+    .col-md-6
+      %h5 Stripe Customers
+      %ul
+        - @stripe_customers.each do |customer|
+          %li
+            %ul
+              %li <b>Email:</b> #{customer.email}
+              %li <b>customer_id:</b> #{customer.id}
+              %li
+                <b>Subscriptions:</b>
+                %ul
+                  - @stripe_subscriptions.each do |sub|
+                    - if sub.customer == customer.id
+                      %li= sub.items.data[0].plan.product
+
+    .col-md-6
+      %h5
+        Stripe Subscriptions
+        = link_to '[+]', new_subscription_path
+      %ul
+        - @stripe_subscriptions.each do |sub|
+          %li
+            %ul
+              %li plan: $#{sub[:plan][:amount].to_f/100}/#{sub[:plan][:interval]}
+              %li product: #{sub[:plan][:product]}
+              %li customer: #{sub[:customer]}
+              -# %li= @customers.inspect
+              - if @customers[sub[:customer]] && @customers[sub[:customer]][:leadsets]
+                %li leadsets: #{ @customers[sub[:customer]][:leadsets]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
+              - if @customers[sub[:customer]] && @customers[sub[:customer]][:profiles]
+                %li profiles: #{ @customers[sub[:customer]][:profiles]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
+

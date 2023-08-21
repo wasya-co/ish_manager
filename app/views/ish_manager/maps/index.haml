@@ -2,10 +2,11 @@
 -# ish_manager / maps / index.haml
 -#
 
-.maps-index
-  %h1
-    Maps (#{@maps.length})
-    = link_to '[+]', new_map_path
+.maps-index.padded
+  .header
+    %h1.title
+      Maps (#{@maps.length})
+      = link_to '[+]', new_map_path
 
   .red-border
     = form_tag import_map_path, :multipart => true do
@@ -15,11 +16,12 @@
         = check_box_tag :delete_existing
       = submit_tag 'Import Map'
 
-  - @maps.each do |map|
-    = render 'index_item', map: map
+  .collapse-expand#collapseExpandMapsIndex Maps
+  .a
+    - @maps.each do |map|
+      = render 'index_item', map: map
 
-
-  %h1 All Maps (#{@all_maps.length})
+  .collapse-expand#collapseExpandMapsIndex2 All Maps (#{@all_maps.length})
   %ul
     - @all_maps.each do |m|
       %li

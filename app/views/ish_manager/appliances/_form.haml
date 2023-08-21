@@ -1,0 +1,15 @@
+
+- url = appliance.new_record? ? appliances_path : appliance_path( appliance )
+
+.appliances--form
+  = form_for appliance, url: url, as: :appliance do |f|
+    .field
+      = f.label :name
+      = f.text_field :name
+
+    .field
+      = f.label :serverhost
+      = f.select :serverhost, options_for_select( @these_serverhosts_list, selected: appliance.serverhost ), {}, class: :select2
+
+    .actions
+      = f.submit 'Submit'

@@ -1,9 +1,8 @@
 
 %i.fa.fa-compress.collapse-expand#debug
+  Debug
 .application--debug
   %ul.browser-default
     %li= params.inspect
-    %li= "Cached?: #{Rails.application.config.action_controller.perform_caching}"
-    %li Cache key: #{@cache_key.inspect}
-    %li Layout: #{current_layout}
+    %li Cached? #{Rails.application.config.action_controller.perform_caching} :: Cache key: #{@cache_key.inspect}
     %li= "Env: #{Rails.env}"

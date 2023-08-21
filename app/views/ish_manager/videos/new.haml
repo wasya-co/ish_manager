@@ -1,5 +1,6 @@
 
-.row
-  .large-12.columns
-    %h2= t('videos.new')
-    = render 'form', :video => @video
+.videos-new.max-width
+  .header
+    %h3.title New Video
+
+  = render 'form', :video => @video

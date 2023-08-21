@@ -1,0 +1,14 @@
+
+.email-campaigns-index.max-width
+  .header
+    .title
+      Email Campaigns (#{@campaigns.length})
+      = link_to '[+]', new_email_campaign_path
+
+  %ul
+    - @campaigns.each do |c|
+      %li
+        = link_to c.slug, email_campaign_path(c)
+        (#{c.leads.length})
+        = link_to '[~]', edit_email_campaign_path(c)
+

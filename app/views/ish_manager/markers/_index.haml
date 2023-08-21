@@ -1,18 +1,21 @@
 
-.markers--index
+
+.markers--index.row
   - markers.each do |marker|
-    .Card
-      - if marker.title_image
-        = image_tag marker.title_image.image.url(:thumb)
-      - else
-        = image_missing_tag
-      .flex-row
-        .a= marker.destination&.name
-        .a= button_to '~', edit_marker_path(marker), method: :get
-        .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
-      .flex-row
-        .a= link_to '[api]', api_marker_path(marker)
-        .a= link_to '[this map]', edit_map_path(marker.destination.slug)
-    .hide
-      %ul.bullets
-        %li <b>item_type:</b> #{marker.item_type}
+    .col-sm-3
+      .Card
+        - if marker.title_image
+          = image_tag marker.title_image.image.url(:thumb)
+        - else
+          = image_missing_tag
+        .flex-row
+          %div{ class: marker.is_active ? 'is_active' : 'not_is_active' } #{marker.name}
+          - if marker.destination
+            .a <b>=></b> #{marker.destination&.name}
+        .flex-row
+          %div{ class: marker.is_3d ? 'is_3d' : 'not_is_3d' } [3d]
+          .a= button_to '~', edit_marker_path(marker), method: :get
+          .a= button_to 'x', marker_path(marker), method: :delete, data: { confirm: 'Are you sure?' }
+        .flex-row
+          .a= link_to '[api]', api_marker_path(marker)
+          .a= link_to '[show]', edit_map_path(marker.destination) if marker.destination

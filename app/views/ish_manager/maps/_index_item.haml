@@ -2,6 +2,7 @@
 .item{ style: "display: flex; flex-direction: column;" }
   = render 'map_meta_row', map: map
   - if map.childs.length > 0
+    .collapse-expand{ id: map.id.to_s } <e>
     %ul{ style: "margin-left: 5em;" }
       - map.childs.each do |m|
         %li

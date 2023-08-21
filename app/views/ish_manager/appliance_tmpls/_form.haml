@@ -1,0 +1,14 @@
+
+- url = appliance_tmpl.new_record? ? appliance_tmpls_path : appliance_tmpls_path( appliance_tmpl )
+
+.appliance-tmpls--form
+  = form_for appliance_tmpl, as: :appliance, url: url do |f|
+    .input-field
+      = f.label :kind
+      = f.text_field :kind
+    .input-field
+      = f.label :image
+      = f.text_field :image
+
+    .actions
+      = f.submit 'Submit'

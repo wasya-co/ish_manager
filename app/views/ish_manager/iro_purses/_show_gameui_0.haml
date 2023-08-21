@@ -1,0 +1,62 @@
+
+.iro-purses-show-gameui.padded
+  = render 'header'
+
+
+  %h5.collapse-expand#gameuiPositions
+    Gameui Positions (#{@positions.length})
+    = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
+  .gameui-positions
+    - @positions.each_with_index do |p, idx|
+      - if idx > 0 && p[:expires_on] != @positions[idx-1][:expires_on]
+        %hr
+
+      -# something like, $23 Apr-14
+      .gameuiW.show-amounts{ data: { cc: { strike: p.strike, startPrice: p.opened_price, currentPrice: p.current_price, cus: p.strategy.current_underlying_strike } } }
+        .gameui
+          .gameuiC
+            = link_to '[roll]', roll_iro_position_path(p)
+
+            .elephantW
+              .elephant
+                .elephantC
+
+                  .amount
+
+                  .q= p.quantity
+
+                  .riderW
+                    .rider
+                      .riderC
+
+                  .riderStart
+                    .amount
+                    .riderCurrent
+                      .amount
+
+                  .riderStart2
+                    .amount
+                    .riderCurrent2
+                      .amount
+
+
+                .sunflowerW
+                  .sunflower
+                    .sunflowerC
+
+                      .days-left= (p.expires_on.to_date - Time.now.to_date).to_i
+
+            .windW
+              .wind
+                .c-u-s= pp_currency p.strategy.current_underlying_strike
+                .windC
+
+
+            .spearW
+              .spear
+                .spearC
+                  .spearStart
+                    .spearCurrent
+  .c
+
+  = render 'show'

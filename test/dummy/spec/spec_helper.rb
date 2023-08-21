@@ -39,16 +39,12 @@ end
 ## Cannot be alphabetized!
 ##
 def do_setup
-  DatabaseCleaner.clean
-  setup_users
 
-  # C
-  City.unscoped.destroy_all
-  @city = FactoryBot.create :city
+  setup_users
 
   # R
   Report.unscoped.destroy_all
-  @report = FactoryBot.create :report
+  @report = create :report
 
   ## M
   @map = create :map
@@ -56,40 +52,25 @@ def do_setup
   @map.save
 
   # P
-  ::Gameui::PremiumPurchase.unscoped.destroy_all
-  @purchase = FactoryBot.create :purchase, item: @report, user_profile: @profile
-
-  # S
-  Site.unscoped.destroy_all
-  @site = FactoryBot.create :site
-
-  # T
-  Tag.unscoped.destroy_all
-  @tag = FactoryBot.create :tag
+  ::Ish::Payment.unscoped.destroy_all
+  @purchase = create :purchase, item: @report, profile: @guy_profile
 
 end
 
-def setup_reports
-  Report.all.destroy
-  @report = FactoryBot.create :report
-end
-
-def setup_tags
-  Report.all.destroy
-  @report = FactoryBot.create( :report, :name => rand(1000), :slug => rand(1000) )
-
-  Tag.all.destroy
-  @tag = FactoryBot.create :tag
-  @tag.reports << @report
-  @tag.save
-end
 
 def setup_users
-  @admin = create_admin
+  DatabaseCleaner.clean
+
+  @admin = create :user, email: 'piousbox@gmail.com'
+  @admin_profile = create(:profile, email: @admin.email, role_name: 'admin')
   sign_in @admin, scope: :user
 
-  @user = create(:user, role_name: 'guy')
-  @profile = @user.profile
+  @guy = create(:user)
+  @guy_profile = create(:profile, email: @guy.email, role_name: 'guy')
 end
 
 Paperclip.options[:log] = false
+
+class Iro::Purse < ActiveRecord::Base
+  self.table_name = 'iro_purses'
+end

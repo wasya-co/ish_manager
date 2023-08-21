@@ -1,22 +1,29 @@
 
-development_production: &dev2
-  clients:
-    default:
-      database: ish_production
-      hosts:
-        - 127.0.0.1
-dev2: *dev2
-
 development:
   clients:
     default:
-      database: ish_development
+      database: ish_manager_development
       hosts:
-        - 127.0.0.1
+        - <%= ENV['MONGODB_HOSTNAME'] %>
+      options:
+        user: <%= ENV['MONGODB_USERNAME'] %>
+        password: <%= ENV['MONGODB_PASSWORD'] %>
+        auth_source: admin
 
 test:
   clients:
     default:
-      database: ish_test
+      database: ish_manager_test
+      hosts:
+        - <%= ENV['MONGODB_HOSTNAME'] %>
+      options:
+        user: <%= ENV['MONGODB_USERNAME'] %>
+        password: <%= ENV['MONGODB_PASSWORD'] %>
+        auth_source: admin
+
+test_local:
+  clients:
+    default:
+      database: ish_manager_test
       hosts:
         - 127.0.0.1

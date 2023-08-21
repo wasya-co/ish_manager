@@ -1,0 +1,27 @@
+
+.appliances-index {
+  .items {
+
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: 0;
+    padding: 0;
+
+    > * {
+      margin-right: 10px;
+      margin-bottom: 10px;
+
+      width: 300px;
+      max-width: 300px;
+
+      display: inline-block;
+      border: 1px solid blue;
+      border-radius: 5px;
+      background: #ccf;
+
+    }
+  }
+}
+
+

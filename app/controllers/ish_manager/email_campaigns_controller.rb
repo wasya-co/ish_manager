@@ -1,24 +1,13 @@
 
+##
+## Campaigns send individual contexts to leads.
+##
 class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
 
-  def index
-    authorize! :index, Ish::Campaign
-    @campaigns = Ish::Campaign.where( :profile => current_user.profile, :is_trash => false )
-    if params[:is_done]
-      @campaigns = @campaigns.where( :is_done => true )
-    else
-      @campaigns = @campaigns.where( :is_done => false )
-    end
-  end
-
-  def new
-    @new_campaign = Ish::Campaign.new
-    authorize! :new, @new_campaign
-  end
+  before_action :set_lists
 
   def create
-    @campaign = Ish::Campaign.new params[:campaign].permit!
-    @campaign.profile = current_user.profile
+    @campaign = Ish::EmailCampaign.new params[:campaign].permit!
     authorize! :create, @campaign
     if @campaign.save
       flash[:notice] = "created campaign"
@@ -28,18 +17,39 @@ class ::IshManager::EmailCampaignsController < IshManager::ApplicationController
     redirect_to :action => 'index'
   end
 
-  def show
-    authorize! :redirect, IshManager::Ability
-    redirect_to :action => :edit, :id => params[:id]
+  def do_send
+    @campaign = Ish::EmailCampaign.find params[:id]
+    authorize! :send, @campaign
+    @campaign.do_send
   end
 
   def edit
-    @campaign = Ish::Campaign.find params[:id]
+    @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :edit, @campaign
   end
 
+  def index
+    authorize! :index, Ish::EmailCampaign
+    @campaigns = Ish::EmailCampaign.all
+  end
+
+  def new
+    @campaign = Ish::EmailCampaign.new
+    authorize! :new, @campaign
+  end
+
+  def show
+    @campaign = Ish::EmailCampaign.find params[:id]
+    authorize! :show, @campaign
+    @leads = @campaign.leads
+    if params[:q].present?
+      @leads = @leads.where(" email LIKE ? ", "%#{params[:q]}%" )
+    end
+    @leads = @leads.page( params[:leads_page ] ).per( current_profile.per_page )
+  end
+
   def update
-    @campaign = Ish::Campaign.find params[:id]
+    @campaign = Ish::EmailCampaign.find params[:id]
     authorize! :update, @campaign
     if @campaign.update_attributes params[:campaign].permit!
       flash[:notice] = 'Successfully updated campaign.'

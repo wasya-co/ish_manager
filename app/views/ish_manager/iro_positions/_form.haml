@@ -1,0 +1,80 @@
+
+- url = position.new_record? ? iro_positions_path : iro_position_path( position )
+
+.iro-positions--form
+  = form_for position, as: :iro_position, url: url do |f|
+    - if params[:iro_purse_id]
+      = hidden_field_tag 'iro_position[iro_purse_id]', params[:iro_purse_id]
+
+    .actions
+      = f.submit 'Submit'
+
+    .field Position ##{position.id}
+    %hr
+
+    .field
+      = f.label :strategy
+      = f.select :iro_strategy_id, options_for_select( Iro::CoveredCallStrategy.list, selected: position.iro_strategy_id ), {}, class: 'select2'
+    .field
+      = f.label :ticker
+      = f.text_field :ticker
+
+    .field
+      = f.label :strike
+      = f.number_field :strike, step: 0.01
+
+    .field
+      = f.label :expires_on
+      = f.text_field :expires_on
+
+    .field
+      = f.label :quantity
+      = f.number_field :quantity
+
+    .field
+      = f.label :status
+      = f.select :status, options_for_select( Iro::Position.statuses_list, selected: position.status ), {}, class: 'select2'
+
+    .field
+      = f.label :opened_price
+      = f.text_field :opened_price
+    .field
+      = f.label :opened_on
+      = f.text_field :opened_on
+    .field
+      = f.label :opened_delta
+      = f.number_field :opened_delta, step: 0.01
+
+    %hr
+    .field
+      = f.label :reckless_defense_quantity
+      = f.number_field :reckless_defense_quantity
+    .field
+      = f.label :reckless_defense_long_strike
+      = f.number_field :reckless_defense_long_strike, step: 0.5
+    .field
+      = f.label :reckless_defense_long_opened_price
+      = f.number_field :reckless_defense_long_opened_price, step: 0.001
+    .field
+      = f.label :reckless_defense_long_current_price
+      = f.number_field :reckless_defense_long_current_price, step: 0.001
+    .field
+      = f.label :reckless_defense_long_opened_delta
+      = f.number_field :reckless_defense_long_opened_delta, step: 0.001
+
+    .field
+      = f.label :reckless_defense_short_strike
+      = f.number_field :reckless_defense_short_strike, step: 0.5
+    .field
+      = f.label :reckless_defense_short_opened_price
+      = f.number_field :reckless_defense_short_opened_price, step: 0.001
+    .field
+      = f.label :reckless_defense_short_current_price
+      = f.number_field :reckless_defense_short_current_price, step: 0.001
+    .field
+      = f.label :reckless_defense_short_opened_delta
+      = f.number_field :reckless_defense_short_opened_delta, step: 0.001
+
+
+    .actions
+      = f.submit 'Submit'

@@ -10,5 +10,5 @@
   - @user_profiles.each do |profile|
     %li
       = link_to '[~]', edit_user_profile_path(profile)
-      = profile.user&.email
+      = link_to profile.email, user_profile_path(profile)
 

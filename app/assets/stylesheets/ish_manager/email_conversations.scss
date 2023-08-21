@@ -1,0 +1,176 @@
+
+.email-conversations-index,
+.email-conversations-show {
+
+  font-size: 14px;
+
+  margin: 0 1em;
+
+  > .actions {
+    border: 1px solid cyan;
+
+    display: inline;
+
+    > * {
+      display: inline;
+      margin-right: .3em;
+    }
+  }
+
+  .conversations {
+
+    tr:hover {
+      background: #eee;
+    }
+
+    tr {
+      border-bottom: 1px solid yellow;
+      margin-bottom: 0.3em;
+
+      // display: flex;
+
+      .subject {
+        // background: #ccc;
+
+        flex-grow: 1;
+      }
+    }
+
+    tr.state_unread {
+      background: #fffdd2;
+    }
+  }
+
+  // refers to number of messages in a conversation
+  .count {
+    display: inline;
+    width: 30px;
+    text-align: right;
+  }
+
+  .datetime {
+    // background: #999;
+    width: 150px;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header {
+    display: flex;
+    align-items: baseline;
+
+    .label {
+      padding-right: 0.2em;
+    }
+  }
+
+  .leads {
+    .item {
+      display: inline;
+      border: 1px solid green;
+      // background: cyan;
+    }
+  }
+
+  // these are inside a conversation. _vp_ 2023-02-28
+  .messages {
+    // border: 1px solid red;
+
+    padding-left: 0;
+    list-style-type: none;
+
+    .item:first-child {
+      border-top: 1px solid yellow;
+    }
+    .item {
+      border-bottom: 1px solid yellow;
+      margin-bottom: 0.2em;
+
+      // .expand {
+      //   border: 1px solid red;
+      //   max-height: 500px;
+      //   overflow: auto;
+      // }
+
+      iframe {
+        border: 2px solid yellow;
+
+        width: 100%;
+        min-height: 500px;
+        height: 80vh;
+        // display: none;
+      }
+
+      .my-actions {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .preview {
+        // border: 1px solid gold;
+
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .row-1 {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .to-expand {
+        display: none;
+      }
+    }
+  }
+
+  .participants {
+    width: 250px;
+    padding-left: .3em;
+
+    // border: 1px solid #999900;
+    // background: #ffffcc;
+    // border-radius: 5px;
+    // padding: 5px;
+
+    // display: inline;
+
+    ul {
+      display: inline;
+      padding-left: 0;
+      li {
+        display: inline;
+      }
+    }
+  }
+
+  .second-header {
+    a {
+      margin: 0 1em;
+    }
+  }
+
+  .select-all.chip {
+    display: flex;
+    border: 1px solid cyan;
+  }
+
+  .subject {
+    margin: 0 1em;
+    font-weight: bold;
+  }
+
+  .tags {
+    display: flex;
+    flex-direction: column;
+
+    .chip {
+      border: 1px solid cyan;
+    }
+  }
+
+}

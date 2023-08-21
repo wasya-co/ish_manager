@@ -1,0 +1,16 @@
+
+.scheduled-actions--form-mini
+
+  %form
+    .field
+      %label Every
+      = text_field_tag :every_min_days, nil, placeholder: 'min', size: 3, class: 'input-mini'
+      %label -
+      = text_field_tag :every_max_days, nil, placeholder: 'max', size: 3, class: 'input-mini'
+      %label Days
+
+    .field
+      = select_tag :email_template_id, options_for_select( @email_templates_list )
+
+    .action
+      = button_tag 'Schedule'

@@ -2,12 +2,14 @@
 -# ish_manager / maps / show.haml
 -#
 
-.maps-show
+.maps-show.max-width
   = render 'map_meta_row', map: @map
-  %p.addToggle Description
+  %hr
+
+  .collapse-expand#mapDescription Description
   .descr= raw @map.description
 
-  %p.addToggle
+  .collapse-expand#mapPanel
     The Map (#{@map.w}x#{@map.h})
     = link_to 'Map Editor', location_map_editor_path(@map.id)
   .the-map
@@ -20,22 +22,25 @@
         - else
           = image_missing_tag
 
-  = render 'ish_manager/markers/header', markers: @markers, map: @map
+  .collapse-expand#markersIndex
+    = render 'ish_manager/markers/header', markers: @markers, map: @map
   = render 'ish_manager/markers/index', markers: @markers, map: @map
 
-  %p.addToggle= render 'ish_manager/newsitems/header', newsitems: @map.newsitems
+  .collapse-expand#newsitemsIndex
+    = render 'ish_manager/newsitems/header', newsitems: @map.newsitems
   = render 'ish_manager/newsitems/index', newsitems: @map.newsitems
 
-  %p.addToggle Maps (#{@maps.count})
+  .collapse-expand#mapChildrenMaps
+    Child Maps lvl-1 (#{@maps.count})
   .maps-list
     - @maps.each do |m|
       .item
         = link_to m.slug, edit_map_path(m.id)
 
-%hr
-= render 'form'
+  .collapse-expand#mapChildren All Child Maps
+  = render 'index_item', map: @map
 
-= button_to 'Export Subtree', export_map_path(@map.id, format: :json)
+  .collapse-expand#mapEdit Edit this map
+  = render 'form'
 
-= render 'index_item', map: @map
 

@@ -1,15 +1,15 @@
 
-.user-profiles--show
-  %ul
-    %li
-      User profile: #{@user_profile.inspect}
-    %li
-      Purchased Items:
-      %ul
-        - @user_profile.premium_purchases.each do |purchase|
-          %li
-            = purchase.item_type.constantize.find(purchase.item_id).inspect
-            -## this doesn't work b/c an unlocked map has no city.
-            -# = render 'ish_manager/reports/show_mini', report: purchase.item_type.constantize.find(purchase.item_id)
+.user-profiles-show.max-width
+  .header
+    %h2.title Profile #{@profile.email}
 
+  .newsitems
+    .title Newsitems (#{@profile.newsitems.length})
+    - @profile.newsitems.each do |newsitem|
+      = render 'ish_manager/newsitems/show', newsitem: newsitem
 
+  .premium-purchases
+    Payments (purchased items) (#{@profile.payments.length}):
+    - @profile.payments.each do |payment|
+      .Card.item
+        = payment

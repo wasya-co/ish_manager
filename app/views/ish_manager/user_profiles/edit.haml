@@ -1,5 +1,6 @@
 
-%h5 Editing profile of user `#{@profile.user&.email}`
-- if !@profile.user
-  .alert <b>Note:</b> This profile doesn't have an associated user.
-= render 'form', :profile => @profile
+.user-profiles-edit.max-width
+  .header
+    %h2.title Editing profile for: `#{@profile.email}`
+
+  = render 'form', :profile => @profile

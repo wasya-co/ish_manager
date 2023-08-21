@@ -2,22 +2,33 @@
  * Alphabetized : )
 **/
 
+.is_active {
+}
+.not_is_active {
+  color: #ccc;
+}
 
-.flat-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: flex-start;
+.not_is_3d {
+  text-decoration: line-through;
+}
 
-  height: 2.4em;
-  line-height: 3em;
+.maps--map-meta-row {
+  .flat-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
 
-  width: 100%;
-  margin: 1em 0 0 0;
-  padding: 0;
+    // height: 2.4em;
+    line-height: 3em;
 
-  > * {
-    padding-right: 1em;
+    width: 100%;
+    margin: 1em 0 0 0;
+    padding: 0;
+
+    > * {
+      padding-right: 1em;
+    }
   }
 }
 

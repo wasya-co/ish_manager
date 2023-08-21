@@ -1,4 +1,13 @@
 
-%p This view of an email_template has an empty context:
+-# = render 'index'
 
-= render @template.slug
+.email-templates-show
+  .header
+    %h2.title
+      = @email_template.slug
+      = link_to '[~]', edit_email_template_path( @email_template )
+      = link_to 'src', email_template_iframe_path(@email_template.slug), target: :_blank
+      -# = link_to '[preview ^]', '#'
+      -# = link_to '[use]', '#'
+
+  %iframe{ src: email_template_iframe_path(@email_template.slug), width: '100%', height: '100%' }

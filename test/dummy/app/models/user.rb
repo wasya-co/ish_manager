@@ -40,7 +40,6 @@ class User
   # field :locked_at,       type: Time
   include Mongoid::Timestamps
 
-  has_one :profile, :class_name => '::Ish::UserProfile'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -75,4 +74,13 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+
+
+  alias will_save_change_to_email? email_changed?
+
+  def profile
+    ::Ish::UserProfile.where( email: email ).first
+  end
+
 end

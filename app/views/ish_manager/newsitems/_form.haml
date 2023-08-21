@@ -8,12 +8,9 @@
       .field
         = f.label :map
         = f.select :map_id, options_for_select( @maps_list, selected:( newsitem[:map_id] || params[:map_id] ) ), {}, class: 'select2'
-      -# .field
-      -#   = f.label :site
-      -#   = f.select :site_id, options_for_select( @sites_list, :selected => ( newsitem[:site_id] || params[:site_id] ) )
-      -# .field
-      -#   = f.label :city
-      -#   = f.select :city_id, options_for_select( @cities_list, :selected => ( newsitem[:city_id] || params[:city_id] ) )
+      .field
+        = f.label :profile
+        = f.select :profile_id, options_for_select( @profiles_list, selected: newsitem[:profile_id] ), {}, class: 'select2'
     .col-sm-6
       = f.submit :submit
 
@@ -31,7 +28,11 @@
         = f.text_area :subhead
       .field
         = f.label :descr
-        = f.text_area :descr, :class => :tinymce
+        = f.text_area :descr
+        .descr= raw newsitem.descr
+      .field
+        = f.label :iframe_src
+        = f.text_field :iframe_src
 
     .col-sm-6
       .field

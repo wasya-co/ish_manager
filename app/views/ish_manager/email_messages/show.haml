@@ -1,0 +1,31 @@
+
+.email-messages-show
+
+  .main-actions
+    .left
+      = link_to '[<<-]', email_conversations_path
+      = link_to '[<- Conversation]', email_conversation_path( @email_message.email_conversation )
+      Message
+    .right
+      = link_to 'source',   email_message_source_path( @email_message ),   target: :_blank
+      -# = link_to 'stripped', email_message_stripped_path( @email_message ), target: :_blank
+
+  %ul.headers
+    %li
+      <b>From:</b> #{@email_message.from}
+      = render 'ish_manager/email_templates/form_reply_mini'
+      = render 'ish_manager/email_templates/form_schedule_mini'
+    %li <b>To:</b> #{@email_message.to}
+    %li <b>Subj:</b> #{@email_message.subject}
+    %li <b>Date:</b> #{@email_message.date}
+    - if @email_message.ccs.present?
+      %li <b>CC:</b> #{@email_message.ccs}
+    - if @email_message.bccs.present?
+      %li <b>BCC:</b> #{@email_message.bccs}
+
+  %iframe{ src: email_message_iframe_path(@email_message), width: '100%', height: '800px' }
+
+  -# %hr
+  -# = ActionView::Base.full_sanitizer.sanitize( @email_message.part_html )
+
+

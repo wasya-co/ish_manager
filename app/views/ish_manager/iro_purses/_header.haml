@@ -1,0 +1,29 @@
+
+.iro-purses--title
+  .max-width
+    .header
+      %h4.title
+        Purse ##{@purse.id}.
+        #{link_to '[~]', edit_iro_purse_path(@purse)}
+        #{link_to '[show]', iro_purse_path(@purse)}
+        #{link_to '[show_gameui]', iro_purse_path({ id: @purse.id, kind: 'show_gameui' }) }
+        Value: $#{@purse.current_value}
+
+
+    %h5.collapse-expand#iroPurseConfig
+      Config
+    .config
+      = render 'form', iro_purse: @purse
+    .c
+
+  .padded
+    %h5.collapse-expand#iroStrategies
+      Strategies (#{@strategies.length})
+      = link_to '[+]', new_iro_strategy_path({ iro_purse_id: @purse.id })
+    .iro-strategies.items
+      - @strategies.each do |strat|
+        .iro-strategy.item= render 'ish_manager/iro_strategies/form', strategy: strat
+    .c
+
+
+

@@ -1,8 +1,0 @@
-
-- if tags.length > 0
-  .tags--list
-    .inner
-      .title
-        %h3= t('tags.list')
-      - tags.each do |tag|
-        .item= link_to tag['name_'+@locale.to_s], tag_path(tag.slug)

@@ -1,0 +1,118 @@
+
+.iro-purses--show.padded
+
+  %h5.collapse-expand#positions
+    Positions (#{@positions.length})
+    = link_to '[+]', new_iro_position_path({ iro_purse_id: @purse.id })
+  .positions
+    .iro-position-statuses-selector
+      = form_tag( {}, { method: :get } ) do
+        - if !params[:statuses]
+          - params[:statuses] = ::Iro::Position::STATUSES
+        - ::Iro::Position::STATUSES.each do |status|
+          .field
+            %label= status
+            = check_box_tag "statuses[]", status, params[:statuses].include?( status )
+        = submit_tag 'Submit'
+
+    %table.bordered
+      %thead
+        %tr
+          %td
+            .id id
+          %td
+            .strategy Strategy
+          %td
+            .ticker Ticker
+          %td
+            .type Kind/Type
+          %td
+            .strike Strike
+          %td
+            .expires_on ExpiresOn
+          %td
+            .days-left Days Left
+          %td
+            .q Q
+          %td
+            .begin-on Begin On
+          %td
+            .price Price
+          %td
+            .to-open To Open
+          %td
+            .begin-delta #{"\u0394"}
+          %td
+            .to-close Current $ <br />(To Close)
+          %td
+            .net Net
+          %td
+            .netp % Net
+          %td
+            .delta #{"\u0394"}
+          %td
+            .days-at-open Days@Open
+          %td
+            .must-roll Must roll?
+          %td
+            .should-roll Should roll?
+          %td
+            .next-symbol Next Symbol
+          %td
+            .next-delta Next Delta
+          %td
+            .next-outcome Next Outcome
+          %td
+            .status Status
+      %tbody
+        - @positions.each_with_index do |p, idx|
+          - if idx > 0 && @positions[idx-1][:expires_on] != p[:expires_on]
+            %tr
+              %td{ colspan: 30, style: "background: #eee;" }
+                -# %hr
+                &nbsp;
+
+          %tr
+            %td.id
+              = p.id
+              = link_to '[~]', edit_iro_position_path(p)
+            %td.strategy= link_to "##{p.strategy.id} #{p.strategy.slug}", edit_iro_strategy_path(p.strategy)
+            %td= p.ticker
+            %td= p.type == "Iro::CoveredCall" ? "CALL" : "other"
+            %td= p.strike
+            %td= p.expires_on.strftime('%b %d')
+            %td.days-left= (p.expires_on.to_date - Time.now.to_date).to_i
+            %td.q= p.quantity
+            %td.begin-on= pp_date p.opened_on
+            %td.price= p.opened_price
+            %td.to-open
+              - this_to_open = p.opened_price * 100 * p.quantity - 0.66 * p.quantity
+              = pp_amount( this_to_open )
+            %td.begin-delta= sprintf('%.2f', p.opened_delta ) rescue nil
+            %td.to-close
+              = p.current_price
+            %td.net
+              - this_net = ( p.opened_price - p.current_price ) * 100 * p.quantity - 0.65 * 2 * p.quantity
+              = pp_money( this_net )
+            %td.netp
+              = pp_percent( this_net / this_to_open )
+            %td= sprintf('%.2f', p.current_delta ) rescue nil
+            %td= (p.expires_on.to_date - p.opened_on).to_i
+            %td.must-roll= pp_bool p.must_roll?
+            %td.should-roll
+              .a= p.should_rollp
+            %td.next-symbol
+              = p.next_symbol
+            %td.next-delta
+              = p.next_position[:delta]
+            %td.next-outcome
+              = pp_money p.next_outcome
+            %td.status
+              = p.status
+          - if p.next_reasons.length > 1 ## @TODO: this is messy, remove _vp_ 2023-08-05
+            %tr
+              %td{ colspan: 30 }
+                Next Reasons: #{pp_list p.next_reasons}
+
+
+

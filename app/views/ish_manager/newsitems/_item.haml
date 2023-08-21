@@ -26,7 +26,7 @@
         = link_to n.report.name, report_path(n.report.slug)
         = link_to "[~]", edit_report_path(n.report)
       .meta
-        on #{pretty_date n.report.created_at} by #{n.report.username}
+        on #{pretty_date n.report.created_at} by #{n.report.user_profile&.name || '<anonymous>'}
       - unless n.report.photo.blank?
         .thumb= link_to image_tag(n.report.photo.photo.url(:thumb), :alt => ''), report_path( n.report.slug )
       .subhead= n.report.subhead
@@ -36,13 +36,6 @@
       %h3= link_to n.gallery.name, gallery_path(n.gallery.slug, 0)
       .meta
         #{t('newsitems.gallery', :username => n.gallery.username, :date => pretty_date(n.gallery.created_at))}
-        - unless n.gallery.city.blank?
-          = t('cities.in')
-          = link_to n.gallery.city.name, city_path(n.gallery.city.cityname, :lang => :en)
-        - unless n.gallery.tags.blank?
-          = t('tags.in')
-          - n.gallery.tags do |tag|
-            = link_to tag, tag_path(tag.slug)
       - unless 0 == n.gallery.photos.length
         .thumbnails
           - n.gallery.photos.where( :is_trash => false )[0...8].each do |photo|

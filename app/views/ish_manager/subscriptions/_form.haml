@@ -1,0 +1,16 @@
+
+- url = subscription.new_record? ? subscriptions_path : subscription_path(subscription)
+
+.subscriptions--form
+  = form_for subscription, as: :subscription, url: url do |f|
+
+    .input-group
+      %label Product (price):
+      = f.select :price_id, options_for_select(@price_ids_list, selected: subscription.price_id), {}, class: :select2
+
+    .input-group
+      %label Customer/Leadset
+      = f.select :customer_id, options_for_select(@customer_ids_list, selected: subscription.customer_id), {}, class: :select2
+
+    .actions
+      = f.submit 'Submit'

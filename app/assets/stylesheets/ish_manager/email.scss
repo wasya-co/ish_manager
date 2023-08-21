@@ -1,0 +1,72 @@
+
+.center-headers,
+.email-actions-edit,
+.email-actions-index,
+.email-actions-new,
+.email-filters-index,
+.email-templates-edit,
+.email-templates-new,
+.email-templates-show,
+.email-contexts-edit,
+.email-contexts-show,
+.emails-ns, // emails namespace
+.iro-purses-my,
+.leads-edit,
+.leads--index,
+.leads-index,
+.leads-show,
+.leadsets-show,
+.scheduled-email-actions--form,
+.scheduled-emails-index {
+  .header {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+th.ctxs,
+td.ctxs {
+  text-align: center;
+}
+.email-actions--form {
+  .select2-container {
+    flex-grow: 1;
+  }
+}
+
+.form-mini {
+
+  display: inline-block;
+
+  // display: flex;
+  // flex-direction: column;
+
+  // max-width: 400px; // @TODO: where is this used?!
+
+  margin-left: 20px;
+
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 5px;
+  background: #eee;
+
+  * {
+    display: inline;
+  }
+
+  .header {
+    display: block;
+  }
+}
+
+.scheduled-emails-index {
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Card {
+      margin: 0 10px 10px 0;
+      padding: 10px;
+    }
+  }
+}

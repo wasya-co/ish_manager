@@ -1,42 +1,45 @@
 
-- url = lead.persisted? ? lead_path( lead.id ) : leads_path
+- url = lead.new_record? ? leads_path : lead_path( lead.id )
 
-= form_for lead, :as => :lead, :url => url do |f|
-  .input-field
+= form_for lead, html: { multipart: true }, as: :lead, url: url do |f|
+
+  .field
+    = f.label :name
+    = f.text_field :name
+
+  .field
     = f.label :email
     = f.text_field :email
-    
-  .input-field
-    = f.label :job_url
-    = f.text_field :job_url
-  .input-field
-    = f.label :company_url
-    = f.text_field :company_url
-  .input-field
-    = f.label :yelp_url
-    = f.text_field :yelp_url
-    
-  .input-field
-    = f.label :company
-    = f.text_field :company
-  .input-field
-    = f.label :tag
-    = f.text_field :tag
-  .input-field
-    = f.label :location
-    = f.text_field :location
-  .input-field
-    = f.label :description
-    = f.text_area :description
-  .input-field
+
+  .field
+    = f.label :phone
+    = f.text_field :phone
+
+  .field
     = f.label :address
-    = f.text_area :address
+    = f.text_field :address
+
   .field
-    = f.check_box :is_done
-    = f.label :is_done
+    = f.label "Leadset (company)"
+    = f.select :m3_leadset_id, options_for_select(@leadsets_list, selected: lead.m3_leadset_id), { include_blank: true }, { class: :select2 }
+
   .field
-    = f.check_box :is_trash
-    = f.label :is_trash
-  .actions{ :style => "margin-top: 1em;" }
+    %label Rating
+    = f.number_field :rating
+
+  .field
+    = f.label :comment
+    = f.text_area :comment, class: :tinymce
+
+  .field
+    = f.label "Tags"
+    = lead.wp_tags.inspect
+    = f.select :lead_tags, options_for_select(@tags_list, selected: lead.wp_tags.map(&:term_id) ), {}, { class: :select2, multiple: true }
+
+  .field
+    = f.label :photo
+    = f.file_field :photo
+
+  .actions
     = f.submit
-  
+

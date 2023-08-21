@@ -24,14 +24,14 @@ describe IshManager::UserProfilesController, :type => :controller do
 
   describe '#edit' do
     it 'renders' do
-      get :edit, :params => { :id => @profile.id }
+      get :edit, :params => { :id => @admin_profile.id }
       response.should be_successful
     end
   end
 
   describe '#show' do
     it 'renders with premium purchase - report' do
-      get :show, params: { id: @profile.id }
+      get :show, params: { id: @admin_profile.id }
       response.should be_successful
     end
   end

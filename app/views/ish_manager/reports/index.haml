@@ -1,36 +1,29 @@
 
 -# ish_manager / reports / index
 
-- if @site
-  = render 'ish_manager/sites/header', :site => @site
+.reports-index.max-width
+  %h3
+    Reports (#{@reports.length})
+    = link_to image_new, new_report_path
 
-.row
-  .large-12.columns
-    %h3
-      Reports (#{@reports.length})
-      = link_to image_new, new_report_path
+  = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
 
-    = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
+  - @reports.each do |report|
+    .card
+      .card-content
+        = link_to '[~]', edit_report_path( report )
+        .float-left= button_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
+        - if report.is_public
+          %i.material-icons visibility
+        - else
+          %i.material-icons visibility_off
+        = link_to report.name, report_path( report )
+        %br
+        .gray
+          = pp_date report.created_at
+          slug: #{report.slug}
+        - if report.photo
+          = image_tag report.photo.photo.url :thumb
 
-    - @reports.each do |report|
-      .card
-        .card-content
-          = link_to '[~]', edit_report_path( report )
-          .float-left= button_to '[x]', report_path( report ), :method => :delete, :data => { :confirm => 'Are you sure?' }
-          - if report.is_public
-            %i.material-icons visibility
-          - else
-            %i.material-icons visibility_off
-          = link_to report.name, report_path( report )
-          %br
-          .gray
-            - if report.site
-              Site <b>#{report.site.domain}/#{report.site.lang}</b>
-            - if report.city
-              City <b>#{report.city.name}</b>
-            = pp_date report.created_at
-          - if report.photo
-            = image_tag report.photo.photo.url :thumb
-
-    = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
+  = paginate @reports, :param_name => :reports_page, :views_prefix => 'ish_manager'
 

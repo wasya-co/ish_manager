@@ -1,0 +1,9 @@
+
+-# padded b/c eval(next_time_at) is long
+
+.email-actions-new.padded
+  .header
+    %h2.title
+      New Email Action
+
+  = render 'form', email_action: @new_email_action
