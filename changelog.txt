@@ -1,4 +1,5 @@
 
 2.1.0 - 2023-03-14 - lotsa changes. email inbox in m3.
         2023-03-30 - continue with nice changes
+2.2.0 - 2023-08-25 - groking max_pain of iro wor
 

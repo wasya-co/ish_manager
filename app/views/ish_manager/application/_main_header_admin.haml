@@ -126,6 +126,10 @@
       Iro Wor
     .a
       %ul
+        -# %li
+        -#   = form_tag iro_watches_path, method: :get do
+        -#     -# = select_get :ticker, options_for_select( @option_watches_list )
+        -#     = link_to '[+]', new_iro_watch_path
 
         %li
           = link_to 'Watches', iro_watches_path

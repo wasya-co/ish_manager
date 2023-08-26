@@ -92,6 +92,7 @@ class IshManager::ApplicationController < ActionController::Base
     @locations_list       = ::Gameui::Map.list
     @maps_list            = ::Gameui::Map.list # @TODO: missing nonpublic!
     @office_actions_list  = [[nil,nil]] + Office::Action.all.map { |a| [ a.slug, a.id ] }
+    @option_watches_list  = [nil] + Iro::OptionWatch.where({ kind: Iro::OptionWatch::KIND_GET_CHAINS }).order_by({ ticket: :desc }).map( &:ticker )
     @profiles_list        = Ish::UserProfile.list
     @reports_list         = Report.all.list
     @tags_list            = [[nil,nil]] + WpTag.all.map { |t| [ t.name, t.id ] }

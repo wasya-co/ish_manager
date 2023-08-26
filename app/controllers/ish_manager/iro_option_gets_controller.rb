@@ -17,34 +17,32 @@ class ::IshManager::IroOptionGetsController < IshManager::ApplicationController
   end
 
   def max_pain
-    @ticker = params[:ticker]
-    @date = params[:date].to_time.to_i
-
-    ## 1689364800000
-    ##  Fri, 14 Jul 2023 15:00:00.000000000 CDT -05:00
-
     authorize! :max_pain, Iro::Iro
+    @ticker = params[:ticker]
 
     @expirationDate = ( params[:date].to_date + 15.hours ).to_time.to_i * 1000 # '1689364800000'
     # expirationDate = '1689969600000'
     # expirationDate = '1690574400000'
     @all_items = {}
 
-    calls_sql = "select distinct symbol, strikePrice, putCall, openInterest
+    calls_sql = " select distinct putCall, symbol, strikePrice, openInterest, max(created_at)
       from iro_option_price_items
       where expirationDate = #{@expirationDate} and putCall = 'CALL' and ticker = '#{@ticker}'
-      group by symbol, strikePrice, putCall
-      order by putCall, strikePrice, created_at desc;"
+      group by putCall, symbol, strikePrice, openInterest
+      order by strikePrice, max(created_at) desc; "
     @calls_items = []
     @calls_array = ActiveRecord::Base.connection.execute(calls_sql)
     calls_subtotal = 0
     @calls_array.each do |_item|
+      # puts! _item, 'item'
       item = {
-        symbol: _item[0],
-        strikePrice: _item[1],
-        putCall: _item[2],
-        oi: _item[3],
+        putCall:     _item[0],
+        symbol:      _item[1],
+        strikePrice: _item[2],
+        oi:          _item[3],
+        created_at:  _item[4],
       }
+      # puts! item, 'item'
       item[:subtotal] = item[:strikePrice] * 100 * item[:oi]
       calls_subtotal = calls_subtotal + item[:subtotal]
       item[:total] = calls_subtotal
@@ -60,27 +58,27 @@ class ::IshManager::IroOptionGetsController < IshManager::ApplicationController
       @all_items[item[:strikePrice]][:subtotal] = @all_items[item[:strikePrice]][:subtotal] + calls_subtotal
     end
 
-    puts_sql = "select distinct symbol, strikePrice, putCall, openInterest
-      from iro_option_price_items
-      where expirationDate = #{@expirationDate} and putCall = 'PUT' and ticker = '#{@ticker}'
-      group by symbol, strikePrice, putCall
-      order by putCall, strikePrice, created_at desc;"
+    puts_sql = "select putCall, symbol, strikePrice, openInterest, created_at
+    from iro_option_price_items
+    where expirationDate = #{@expirationDate} and putCall = 'PUT' and ticker = '#{@ticker}'
+    group by putCall, symbol, strikePrice, openInterest, created_at
+    order by putCall, strikePrice, created_at desc;"
     @puts_items = []
     @puts_array = ActiveRecord::Base.connection.execute(puts_sql)
     puts_subtotal = 0
     @puts_array.each do |_item|
       item = {
-        symbol: _item[0],
-        strikePrice: _item[1],
-        putCall: _item[2],
-        oi: _item[3],
+        putCall:     _item[0],
+        symbol:      _item[1],
+        strikePrice: _item[2],
+        oi:          _item[3],
+        created_at:  _item[4],
       }
       item[:subtotal] = item[:strikePrice] * 100 * item[:oi]
       puts_subtotal = puts_subtotal + item[:subtotal]
       item[:total] = puts_subtotal
       puts! item, 'item'
       @puts_items.push( item )
-
       @all_items[item[:strikePrice]] ||= {
         subtotal: 0,
         strikePrice: item[:strikePrice],
