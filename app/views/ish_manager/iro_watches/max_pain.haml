@@ -3,21 +3,17 @@
   .header
     %h2.title max pain for #{@ticker} on #{params[:date]}
 
-  -# = @all_items.inspect
-
+  - flag = false
   %ul
-    - flag = false
-    - @calls_items.each do |_t|
-      - item = @all_items[_t[:strikePrice]]
-      - if !flag && item[:puts_subtotal] < item[:calls_subtotal]
-        %hr
-        - flag = true
+    - @all_items.each do |strike_price, item|
+      - item.delete( :strike_price )
       %li
-        -# = item.inspect
-        = item[:strikePrice]
-        %ul
-          %li calls oi: #{item[:calls_oi]}
-          %li Call pain: #{number_to_currency item[:calls_subtotal], precision: 0}
-          %li puts oi: #{item[:puts_oi]}
-          %li Put pain: #{number_to_currency item[:puts_subtotal], precision: 0}
+        - if item[:call_max_pain] > item[:put_max_pain] && !flag
+          - flag = true
+          %hr
+
+        <b>#{strike_price}</b>
+        = item.inspect
+
+  -#         %li Call pain: #{number_to_currency item[:calls_subtotal], precision: 0}
 
