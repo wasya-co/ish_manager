@@ -17,15 +17,19 @@ class ::IshManager::IroOptionGetsController < IshManager::ApplicationController
   end
 
 
-#   select t1.putCall, t1.symbol, t1.strikePrice, t1.openInterest, t1.created_at
-#   from iro_option_price_items t1
-#   join (
-#     select symbol, max(created_at) as c1
-# from iro_option_price_items
-# where expirationDate = 1694808000000 and ticker = 'GME'
-# group by symbol ) as t2
-#   on t1.symbol = t2.symbol and t1.created_at = t2.c1
-#   order by t1.strikePrice, t1.created_at desc;
+=begin
+
+  select t1.putCall, t1.symbol, t1.strikePrice, t1.openInterest, t1.created_at
+  from iro_option_price_items t1
+  join (
+    select symbol, max(created_at) as c1
+from iro_option_price_items
+where expirationDate = 1694808000000 and ticker = 'GME'
+group by symbol ) as t2
+  on t1.symbol = t2.symbol and t1.created_at = t2.c1
+  order by t1.strikePrice, t1.created_at desc;
+
+=end
 
 
   ##
@@ -41,11 +45,16 @@ class ::IshManager::IroOptionGetsController < IshManager::ApplicationController
     # puts! @expirationDate, '@expirationDate'
     @all_items      = {}
 
-    sql = " select distinct putCall, symbol, strikePrice, openInterest, max(created_at)
-      from iro_option_price_items
-      where expirationDate = #{@expirationDate} and ticker = '#{@ticker}'
-      group by putCall, symbol, strikePrice
-      order by strikePrice, max(created_at) desc; "
+    sql = "   select t1.putCall, t1.symbol, t1.strikePrice, t1.openInterest, t1.created_at
+    from iro_option_price_items t1
+    join (
+      select symbol, max(created_at) as c1
+  from iro_option_price_items
+  where expirationDate = #{@expirationDate} and ticker = '#{@ticker}'
+  group by symbol ) as t2
+    on t1.symbol = t2.symbol and t1.created_at = t2.c1
+    order by t1.strikePrice, t1.created_at desc;
+   "
 
     results_array   = ActiveRecord::Base.connection.execute(sql)
     results_array.each do |_item|
