@@ -25,9 +25,10 @@ IshManager::Engine.routes.draw do
 
   get 'image_assets', to: 'image_assets#index', as: :image_assets
 
-  post 'invoices/create-pdf', to: 'invoices#create_pdf', as: :create_invoice_pdf
-  get 'invoices/new_pdf',    to: 'invoices#new_pdf',    as: :new_invoice_pdf
-  get 'invoices/new_stripe', to: 'invoices#new_stripe', as: :new_invoice_stripe
+  post 'invoices/create-pdf',    to: 'invoices#create_pdf',    as: :create_invoice_pdf
+  post 'invoices/create-stripe', to: 'invoices#create_stripe', as: :create_invoice_stripe
+  get  'invoices/new_pdf',       to: 'invoices#new_pdf',       as: :new_invoice_pdf
+  get  'invoices/new_stripe',    to: 'invoices#new_stripe',    as: :new_invoice_stripe
   resources :invoices
 
   get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep
@@ -37,8 +38,8 @@ IshManager::Engine.routes.draw do
   resources :iro_option_gets
 
   patch 'iro_purses/:id/show', to: 'iro_purses#update'
-  get 'iro_purses/:id/edit', to: 'iro_purses#edit', as: :edit_iro_purse
-  get 'iro_purses/:id/:kind', to: 'iro_purses#show', as: :iro_purse, defaults: { kind: 'show' } # kind: show_gameui
+  get 'iro_purses/:id/edit',   to: 'iro_purses#edit', as: :edit_iro_purse
+  get 'iro_purses/:id/:kind',  to: 'iro_purses#show', as: :iro_purse, defaults: { kind: 'show' } # kind: show_gameui
   resources :iro_purses
 
   resources :iro_strategies

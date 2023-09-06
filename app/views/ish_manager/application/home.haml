@@ -16,6 +16,14 @@
       = submit_tag 'search'
 
   .bordered-card
+    = form_tag "https://wiki.wasya.co/index.php", method: :get, target: :_blank do
+      %p Search wiki.wasya.co:
+      = text_field_tag "search"
+      = submit_tag 'search'
+
+
+
+  .bordered-card
     %h5.center.text-center USD to COP
     #root{ width: 500, height: 300 }
     %script{src: "/recharts-example-out.js", type: "module"}

@@ -22,8 +22,7 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
     })
   end
 
-  ## #create_stripe()
-  def create
+  def create_stripe
     @invoice = Ish::Invoice.new params[:invoice].permit!
     authorize! :create, @invoice
 
@@ -35,11 +34,12 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
       pending_invoice_items_behavior: 'exclude',
     })
     params[:invoice][:items].each do |item|
-      stripe_price = Wco::Product.find( item ).price_id
+      stripe_price = Wco::Product.find( item[:product_id] ).price_id
       invoice_item = Stripe::InvoiceItem.create({
         customer: @invoice.leadset.customer_id,
         price:    stripe_price,
         invoice:  stripe_invoice.id,
+        quantity: item[:quantity],
       })
     end
     Stripe::Invoice.send_invoice(stripe_invoice[:id])
@@ -71,7 +71,7 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
 
   def new_stripe
     authorize! :new, @invoice
-    @leadset = Leadset.find params[:leadset_id]
+    @leadset       = Leadset.find params[:leadset_id]
     @products_list = Wco::Product.list
   end
 

@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: e18642ab2e618278f75a48cbac482d0029cb4dcb
+  revision: 9919db4fa3e724a1c394eb7b24f857db4214fa81
   branch: 2.2.0
   specs:
-    ish_models (0.0.33.265)
+    ish_models (0.0.33.266)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.460)
+    ish_manager (0.1.8.461)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -98,7 +98,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.816.0)
+    aws-partitions (1.818.0)
     aws-sdk-core (3.181.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -134,8 +134,8 @@ GEM
     erubi (1.12.0)
     execjs (2.8.1)
     ffi (1.11.3)
-    globalid (1.1.0)
-      activesupport (>= 5.0)
+    globalid (1.2.1)
+      activesupport (>= 6.1)
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
@@ -173,7 +173,7 @@ GEM
     mime-types-data (3.2023.0808)
     mini_mime (1.1.5)
     mini_portile2 (2.8.4)
-    minitest (5.19.0)
+    minitest (5.20.0)
     mongo (2.19.1)
       bson (>= 4.14.1, < 5.0.0)
     mongoid (7.3.5)
@@ -240,7 +240,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
     rake (13.0.6)
-    redis-client (0.16.0)
+    redis-client (0.17.0)
       connection_pool
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -251,7 +251,7 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.11.0)
-    sprockets (4.2.0)
+    sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
     sprockets-rails (3.4.2)
