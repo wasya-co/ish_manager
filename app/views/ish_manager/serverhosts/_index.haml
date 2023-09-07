@@ -1,7 +1,6 @@
 
 .serverhosts--index
   %h5 Serverhosts (#{serverhosts.length})
-  %hr
 
   %ul.items
     - serverhosts.each do |i|
@@ -18,4 +17,4 @@
           %li.nginx_root <b>nginx_root:</b> #{i.nginx_root}
           %li.appliances
             = render 'ish_manager/appliances/index', appliances: i.appliances
-
+%hr

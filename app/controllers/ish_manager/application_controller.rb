@@ -50,6 +50,26 @@ class IshManager::ApplicationController < ActionController::Base
     JWT.encode(payload, Rails.application.secrets.secret_key_base.to_s)
   end
 
+  def flash_alert what
+    flash[:alert] ||= []
+    if String == what.class
+      str = what
+    else
+      str = "Cannot create/update #{what.class.name}: #{what.errors.full_messages.join(', ')} ."
+    end
+    flash[:alert] << str
+  end
+
+  def flash_notice what
+    flash[:notice] ||= []
+    if String == what.class
+      str = what
+    else
+      str = "Created/updated #{what.class.name} ."
+    end
+    flash[:notice] << str
+  end
+
   def my_truthy? which
     ["1", "t", "T", "true"].include?( which )
   end

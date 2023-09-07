@@ -1,4 +1,8 @@
 
 .subscriptions-show.max-width
   %h5 Subscription
+  %ul
+    %li
+      <b>Leadset:</b>
+      = link_to @subscription.leadset.company_url, leadset_path( @subscription.leadset )
   = @subscription.inspect

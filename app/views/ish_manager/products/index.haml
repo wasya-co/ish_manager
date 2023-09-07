@@ -1,7 +1,12 @@
 
 .products-index.max-width
 
-  %h5
+  .a
+    %h5 New Product:
+    = render 'ish_manager/products/form', product: Wco::Product.new
+  %hr
+
+  %h5.collapse-expand#stripeProducts
     Stripe Products (#{@stripe_products.length}):
     -# = link_to '[+]', new_product_path
   %ol
@@ -10,24 +15,23 @@
         = link_to '[~]', edit_product_path( product.id )
         .inline-block= button_to '[x]', product_path( product.id ), :method => :delete, :data => { :confirm => 'Are you sure?' }
         %span.gray= product.id
-        = product.name
+        - if product[:wco_product]
+          = link_to product.name, product_path( product )
+        - else
+          = product.name
         %ul
           - product[:prices].each do |price_id, price|
             %li
               %span.gray= price.id
-              $#{price[:unit_amount].to_f/100}/#{(price[:recurring]||{})[:interval]||'onetime'}
-              -# = price.inspect
-
+              - price_str = "$#{ price[:unit_amount].to_f/100 }/#{ (price[:recurring]||{})[:interval]||'onetime' }"
+              - if @wco_prices_hash[price.id]
+                = link_to price_str, price_path( @wco_prices_hash[price.id] )
+              - else
+                = price_str
   %hr
 
-  %h5 New Product:
-  = render 'ish_manager/products/form', product: Wco::Product.new
+  %h5.collapse-expand#wcoProducts
+    Wco::Products (#{@wco_products.length}):
+  = render 'index_table', products: @wco_products
+  -# = render 'index_list', products: @wco_products
 
-  %hr
-  %h5 Wco::Product's (#{@products.length})
-  %ul
-    - @products.each do |product|
-      %li
-        = link_to '[~]', edit_product_path( product )
-        #{product.name} // $#{product.price_cents.to_f/100}/#{product.interval.presence || 'onetime'}
-        [ #{product.product_id}, #{product.price_id} ]

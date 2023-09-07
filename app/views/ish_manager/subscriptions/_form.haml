@@ -9,8 +9,16 @@
       = f.select :price_id, options_for_select(@price_ids_list, selected: subscription.price_id), {}, class: :select2
 
     .input-group
+      %label Quantity:
+      = f.number_field :quantity
+
+    .input-group
       %label Customer/Leadset
-      = f.select :customer_id, options_for_select(@customer_ids_list, selected: subscription.customer_id), {}, class: :select2
+      = f.select :customer_id, options_for_select(@customer_ids_list, selected: params[:customer_id] || subscription.customer_id), {}, class: :select2
+
+    .input-group
+      %label Create a stripe subscription?
+      = check_box_tag :is_stripe
 
     .actions
-      = f.submit 'Submit'
+      = f.submit 'Submit', data: { confirm: 'Are you sure?' }

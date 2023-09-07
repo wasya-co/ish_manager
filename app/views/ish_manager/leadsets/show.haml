@@ -15,8 +15,13 @@
         (#{@leadset.invoices.length})
       = link_to '[+stripe]', new_invoice_stripe_path({ leadset_id: @leadset.id })
       = link_to '[+pdf]', new_invoice_pdf_path({ leadset_id: @leadset.id })
+    %li
+      Subscriptions (#{@leadset.subscriptions.length})
+      = link_to '[+wco]', new_wco_subscription_path({ customer_id: @leadset.customer_id })
 
+  %h5.collapse-expand#leads Leads
   = render 'ish_manager/leads/index', leads: @employees
+  %hr
 
   .row
     .col-md-6
@@ -24,3 +29,20 @@
 
     .col-md-6
       = render 'ish_manager/appliances/index', appliances: @leadset.appliances
+
+  .row
+    .col-md-6
+      &nbsp;
+    .col-md-6
+      %h5 Subscriptions
+      %table
+        %thead
+          %tr
+            %th Name
+            %th Price
+        - @leadset.subscriptions.each do |i|
+          %tr
+            %td= i.product.name
+            %td= i.price
+      %hr
+

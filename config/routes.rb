@@ -122,12 +122,16 @@ IshManager::Engine.routes.draw do
 
   resources :photos
   resources :payments
+  resources :prices
   resources :products
 
   resources :reports
 
   resources :serverhosts
   resources :scheduled_email_actions
+
+  get 'subscriptions/new_stripe', to: 'subscriptions#new_stripe', as: :new_stripe_subscription
+  get 'subscriptions/new_wco',    to: 'subscriptions#new_wco',    as: :new_wco_subscription
   resources :subscriptions
 
   resources :user_profiles do

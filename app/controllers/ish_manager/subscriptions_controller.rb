@@ -5,34 +5,43 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
 
   ## Alphabetized : )
 
+  ##
+  ## A stripe subscription is currently single-item only.
+  ##
   def create
     @subscription = Wco::Subscription.new params[:subscription].permit!
     authorize! :create, @subscription
 
-    payment_methods = Stripe::Customer.list_payment_methods( params[:subscription][:customer_id] ).data
-    # puts! payment_methods, 'payment_methods'
+    @subscription.leadset_id = Leadset.where({ customer_id: params[:subscription][:customer_id] }).first&.id
+    @subscription.price   = Wco::Price.find_by price_id: params[:subscription][:price_id]
+    @subscription.product = @subscription.price.product
 
-    params = {
-      customer: params[:subscription][:customer_id],
-      default_payment_method: payment_methods[0][:id],
-      items: [
-        { price: params[:subscription][:price_id] },
-      ],
-    }
-    puts! params, 'params'
-    @stripe_subscription = Stripe::Subscription.create( params )
-    # puts! @stripe_subscription, '@stripe_subscription'
+    if params[:is_stripe]
+      payment_methods = Stripe::Customer.list_payment_methods( params[:subscription][:customer_id] ).data
+      params = {
+        customer: params[:subscription][:customer_id],
+        default_payment_method: payment_methods[0][:id],
+        items: [
+          { price:    params[:subscription][:price_id],
+            quantity: params[:subscription][:quantity],
+          },
+        ],
+      }
+      @stripe_subscription = Stripe::Subscription.create( params )
+      flash_notice @stripe_subscription
+    end
 
 
     flag = @subscription.save
     if flag
-      flash[:notice] = 'Created the subscription.'
+      flash_notice @subscription
       redirect_to action: :show, id: @subscription.id
     else
-      flash[:alert] = "Cannot create the subscription: #{@subscription.errors.full_messages.join(', ')}."
-      render action: :new
+      flash_alert @subscription
+      redirect_to action: :new
     end
   end
+
 
   def index
     authorize! :index, Wco::Subscription
@@ -40,7 +49,7 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
     @stripe_customers     = Stripe::Customer.list().data
     @stripe_subscriptions = Stripe::Subscription.list().data
 
-    @customers     = {}
+    @customers     = {} ## still stripe customers
     customer_ids   = @stripe_customers.map &:id
     @leadsets      = Leadset.where( :customer_id.in => customer_ids )
     @leadsets.each do |i|
@@ -54,11 +63,23 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
       @customers[i[:customer_id]][:profiles] ||= []
       @customers[i[:customer_id]][:profiles].push( i )
     end
-
     # puts! @customers, '@customers'
+
+    @wco_subscriptions = Wco::Subscription.all
+
   end
 
   def new
+    @subscription = Wco::Subscription.new
+    authorize! :new, @subscription
+  end
+
+  def new_stripe
+    @subscription = Wco::Subscription.new
+    authorize! :new, @subscription
+  end
+
+  def new_wco
     @subscription = Wco::Subscription.new
     authorize! :new, @subscription
   end
@@ -75,11 +96,19 @@ class IshManager::SubscriptionsController < IshManager::ApplicationController
 
   def set_lists
     super
-    @products_list     = Wco::Product.list
-    leadsets = Leadset.where( "customer_id IS NOT NULL" ).map { |i| [ "leadset // #{i.company_url}", i.customer_id ] }
-    profiles = ::Ish::UserProfile.where( :customer_id.ne => nil ).map { |i| [ "profile ++ #{i.email}", i.customer_id ] }
+    @products_list = Wco::Product.list
+    leadsets = Leadset.where( "customer_id IS NOT NULL"         ).map { |i| [ "leadset // #{i.company_url} (#{i.email})", i.customer_id ] }
+    profiles = ::Ish::UserProfile.where( :customer_id.ne => nil ).map { |i| [ "profile // #{i.email}", i.customer_id ] }
     @customer_ids_list = leadsets + profiles
-    @price_ids_list    = Wco::Product.all.map { |i| [ i.name, i.price_id ] }
+    @price_ids_list = Wco::Product.all.includes( :prices ).map do |i|
+      price    = i.prices[0]
+      if price&.price_id
+        puts! price.interval, 'price.interval'
+        [ "#{i.name} // $#{price.amount_cents.to_f/100}/#{price.interval||'onetime'}", price.price_id ]
+      else
+        [ "#{i.name} - no price!!!", nil ]
+      end
+    end
   end
 
 end

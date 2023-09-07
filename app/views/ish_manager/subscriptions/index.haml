@@ -1,7 +1,7 @@
 
 .container.subscriptions-index.padded
+  %p.collapse-expand#rowStripe Stripe
   .row
-
     .col-md-6
       %h5 Stripe Customers
       %ul
@@ -16,11 +16,10 @@
                   - @stripe_subscriptions.each do |sub|
                     - if sub.customer == customer.id
                       %li= sub.items.data[0].plan.product
-
     .col-md-6
       %h5
         Stripe Subscriptions
-        = link_to '[+]', new_subscription_path
+        = link_to '[+]', new_stripe_subscription_path
       %ul
         - @stripe_subscriptions.each do |sub|
           %li
@@ -33,4 +32,17 @@
                 %li leadsets: #{ @customers[sub[:customer]][:leadsets]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
               - if @customers[sub[:customer]] && @customers[sub[:customer]][:profiles]
                 %li profiles: #{ @customers[sub[:customer]][:profiles]&.map { |i| "#{i[:id]} - #{i[:email]}" } }
+  %hr
+
+  %p.collapse-expand#rowWco WasyaCo
+  .row
+    .col-md-6
+      Customers (leadsets)
+    .col-md-6
+      %h5
+        Subscriptions
+        = link_to '[+]', new_wco_subscription_path
+      %ul
+        - @wco_subscriptions.each do |item|
+          %li= item.inspect
 
