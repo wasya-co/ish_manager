@@ -29,6 +29,11 @@
         = link_to '[+stripe]', new_invoice_stripe_path({ leadset_id: @leadset.id })
         = link_to '[+pdf]', new_invoice_pdf_path({ leadset_id: @leadset.id })
       = render 'ish_manager/invoices/index_list', invoices: @invoices
+
+      = form_tag create_monthly_invoice_for_leadset_path({ leadset_id: @leadset.id }) do
+        %label Create invoice for month
+        = text_field_tag 'month_on'
+        = submit_tag 'Submit', data: { confirm: 'Are you sure?' }
       %hr
 
     .col-md-6
