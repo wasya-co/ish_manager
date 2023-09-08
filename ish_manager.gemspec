@@ -6,7 +6,7 @@ require "ish_manager/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "ish_manager"
-  s.version     = '0.1.8.461'
+  s.version     = '0.1.8.462'
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
   s.homepage    = "http://wasya.co"
@@ -32,5 +32,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'uglifier'
   s.add_runtime_dependency 'business_time', '~> 0.13.0'
   s.add_runtime_dependency 'prawn', '~> 2.4.0'
+  s.add_runtime_dependency 'prawn-table', '~> 0.2.1'
 
 end

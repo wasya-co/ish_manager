@@ -1,31 +1,3 @@
 
 .invoices-index.max-width
-
-
-  %h5
-    Invoices
-    -# = link_to '[+]', new_invoice_path
-
-  -# .row
-  -#   .col.s12.col.m6.col-md-offset-3
-  -#     = render 'form', :invoice => @new_invoice
-  %hr
-
-  %table.bordered.data-table
-    %thead
-      %tr
-        %th
-        %th Email
-        %th Number
-        %th Amount
-        %th Amount Paid
-        %th Created At
-    %tbody
-      - @invoices.each do |i|
-        %tr
-          %td= link_to "View", invoice_path( i )
-          %td= i.email
-          %td= i.number
-          %td= i.amount_cents
-          %td= i.paid_amount_cents
-          %td= i.created_at.to_s[0..10]
+  = render 'index_table', invoices: @invoices

@@ -1,14 +1,66 @@
+require 'prawn'
 
 class ::IshManager::InvoicesController < IshManager::ApplicationController
 
   before_action :set_lists
 
+  ##
+  ## Prawn/pdf unit of measure is 1/72" .
+  ##
   def create_pdf
     @invoice = Ish::Invoice.new
     authorize! :new, @invoice
 
+    tree_img_url = "https://wasya.co/wp-content/uploads/2023/09/tree-1.jpg"
+    tree_img_url = "#{Rails.root.join('public')}/tree-1.jpg"
+    wasya_co_logo_url = "#{Rails.root.join('public')}/259x66-WasyaCo-logo.png"
+
+    ## canvas width: 612, height: 792
     pdf = Prawn::Document.new
-    pdf.text "Job Summary."
+
+    pdf.canvas do
+      pdf.image tree_img_url, at: [ 0, 792 ], width: 612
+
+      pdf.fill_color 'ffffff'
+      # pdf.stroke_color '000000'
+      pdf.transparent( 0.75 ) do
+        pdf.fill_rectangle [0, 792], 612, 792
+      end
+      pdf.fill_color '000000'
+
+      pdf.image wasya_co_logo_url, at: [252, 720], width: 108 ## 1.5"
+
+      pdf.bounding_box( [0.75*72, 9.5*72], width: 3.25*72, height: 0.75*72 ) do
+        pdf.stroke_bounds
+      end
+
+      pdf.bounding_box( [4.5*72, 9.5*72], width: 3.25*72, height: 0.75*72 ) do
+        pdf.stroke_bounds
+      end
+
+      pdf.bounding_box( [0.75*72, 8.5*72], width: 3.25*72, height: 0.75*72 ) do
+        pdf.stroke_bounds
+      end
+
+      pdf.bounding_box( [4.5*72, 8.5*72], width: 3.25*72, height: 0.75*72 ) do
+        pdf.stroke_bounds
+      end
+
+      pdf.make_table([ ['one'],
+                       ['two'],
+      ])
+
+      pdf.text_box "Thank you!", at: [ 3.25*72, 1.25*72 ], width: 2*72, height: 1*72, align: :center
+    end
+
+
+
+    # pdf.text "hello, world?", align: :center
+
+
+
+
+
 
     filename = "a-summary.pdf"
     path = Rails.root.join 'tmp', filename

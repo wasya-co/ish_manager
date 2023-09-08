@@ -57,7 +57,9 @@ class ::IshManager::LeadsetsController < IshManager::ApplicationController
       @email_contexts[lead.email] = lead.email_contexts
     end
 
-    @employees = @leadset.employees.page( params[:leads_page] ).per( current_profile.per_page )
+    @employees     = @leadset.employees.page( params[:leads_page] ).per( current_profile.per_page )
+    @subscriptions = @leadset.subscriptions
+    @invoices      = @leadset.invoices
   end
 
   def update
