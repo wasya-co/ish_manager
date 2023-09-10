@@ -25,6 +25,7 @@ IshManager::Engine.routes.draw do
 
   get 'image_assets', to: 'image_assets#index', as: :image_assets
 
+  post 'invoices/send/:id', to: 'invoices#email_send', as: :send_invoice
   post 'invoices/create-monthly-for/:leadset_id', to: 'invoices#create_monthly_pdf', as: :create_monthly_invoice_for_leadset
   post 'invoices/create-pdf',    to: 'invoices#create_pdf',    as: :create_invoice_pdf
   post 'invoices/create-stripe', to: 'invoices#create_stripe', as: :create_invoice_stripe

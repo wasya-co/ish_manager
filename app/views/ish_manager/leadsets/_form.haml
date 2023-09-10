@@ -6,18 +6,23 @@
   .input-field
     = f.label :company_url
     = f.text_field :company_url
+
   .input-field
     = f.label :name
     = f.text_field :name
+
   .input-field
     = f.label :email
     = f.text_field :email
-  -# .input-field
-  -#   = f.label :tag
-  -#   = f.text_field :tag
-  -# .input-field
-  -#   %label Stripe customer_id
-  -#   = f.text_field :customer_id
+
+  .input-field
+    = f.label :next_invoice_number
+    = f.text_field :next_invoice_number
+
+  .input-field
+    %label Stripe customer_id
+    = f.text_field :customer_id
+
   .actions
     = f.submit
 

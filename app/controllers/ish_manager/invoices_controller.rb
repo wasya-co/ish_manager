@@ -6,115 +6,50 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
   before_action :set_lists
 
   def create_monthly_pdf
+    month_on = DateTime.strptime(params[:month_on], '%Y-%m-%d').strftime('%Y-%m-01')
     @leadset = Leadset.find params[:leadset_id]
     authorize! :create_monthly_invoice_pdf, @leadset
 
-    @invoice = Ish::Invoice.where({ leadset_id: @leadset.id, month_on: params[:month_on] }).first
-    if @invoice
+    @invoice = Ish::Invoice.where({ leadset_id: @leadset.id, month_on: month_on }).first
+    if @invoice && !params[:replace]
       flash_alert "Already created this invoice."
       redirect_to controller: :leadsets, action: :show, id: @leadset.id
       return
     end
 
-    @invoice = Ish::Invoice.create({ leadset_id: @leadset.id, month_on: params[:month_on] })
-
-    @pdf = @invoice.generate_monthly_invoice params[:month_on]
-    filename = "invoice-#{@invoice.number}.pdf"
-    path = Rails.root.join 'tmp', filename
-    @pdf.render_file path
-    data = File.read path
-    File.delete(path) if File.exist?(path)
-
-    send_data( data, { :filename => filename,
-      :disposition => params[:disposition] ? params[:disposition] : :attachment,
-      :type => 'application/pdf'
-    })
-  end
-
-
-  ## @TODO: obsolete, remove
-  ##
-  def create_pdf
-    @invoice = Ish::Invoice.new
-    authorize! :new, @invoice
-
-    tree_img_url = "#{Rails.root.join('public')}/tree-1.jpg"
-    wasya_co_logo_url = "#{Rails.root.join('public')}/259x66-WasyaCo-logo.png"
-
-    pdf = Prawn::Document.new
-
-    pdf.canvas do
-      pdf.image tree_img_url, at: [ 0, 792 ], width: 612
-
-      pdf.fill_color 'ffffff'
-      pdf.transparent( 0.75 ) do
-        pdf.fill_rectangle [0, 792], 612, 792
-      end
-      pdf.fill_color '000000'
-
-      pdf.image wasya_co_logo_url, at: [252, 720], width: 108 ## 1.5"
-
-      pdf.bounding_box( [0.75*72, 9.25*72], width: 3.25*72, height: 0.75*72 ) do
-        pdf.text "From:"
-        pdf.text "Wasya Co"
-        pdf.text "(415) 948-0368"
-      end
-
-      pdf.bounding_box( [4.5*72, 9.25*72], width: 3.25*72, height: 0.75*72 ) do
-        pdf.text "Stats:"
-        pdf.text "Date: #{ '2023-09-07' }"
-        pdf.text "Invoice # #{ '111' }"
-      end
-
-      pdf.bounding_box( [0.75*72, 8.25*72], width: 3.25*72, height: 0.75*72 ) do
-        pdf.text "To:"
-        pdf.text "Creen Enterprise"
-      end
-
-      pdf.bounding_box( [4.5*72, 8.25*72], width: 3.25*72, height: 0.75*72 ) do
-        pdf.text "Notes:"
-        pdf.text "Support & various, for the month of August '23."
-      end
-
-      pdf.move_down 20
-
-      pdf.table([
-        [ 'Description', 'Type', 'Hours', 'Subtotal' ],
-        [ 'Part 2/2', 'indep. proj.', '-', '$3,501' ],
-      ], {
-        position: :center,
-        width: 7.5*72,
-        cell_style: {
-          inline_format: true,
-          borders: [ :bottom ]
-        },
-      } )
-
-      pdf.table([
-        [ 'Total' ],
-        [ '$3,501' ],
-      ], {
-        position: 7*72,
-        width: 1*72,
-        cell_style: {
-          inline_format: true,
-          borders: [ :bottom ]
-        },
-      } )
-
-      pdf.text_box "Thank you!", at: [ 3.25*72, 1.25*72 ], width: 2*72, height: 1*72, align: :center
+    if !@invoice
+      @invoice = Ish::Invoice.create({
+        leadset_id: @leadset.id,
+        month_on:   month_on,
+        number:     @leadset.next_invoice_number,
+      })
+      @leadset.update_attributes({ next_invoice_number: @leadset.next_invoice_number + 1 })
     end
 
-    filename = "a-summary.pdf"
-    path = Rails.root.join 'tmp', filename
-    pdf.render_file path
+    @pdf = @invoice.generate_monthly_invoice
+    path = Rails.root.join 'tmp', @invoice.filename
+    @pdf.render_file path
     data = File.read path
-    File.delete(path) if File.exist?(path)
 
-    send_data( data, { :filename => filename,
-      :disposition => params[:disposition] ? params[:disposition] : :attachment,
-      :type => 'application/pdf'
-    })
+    asset = ::Gameui::Asset3d.new invoice: @invoice
+    f = File.new( path )
+    asset.object = f
+    f.close
+    @invoice.asset = asset
+    if asset.save
+      flash_notice "Saved the asset."
+    end
+    if @invoice.save
+      flash_notice "Saved the invoice."
+    end
+
+    File.delete(path) if File.exist?(path)
+    redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
+
+    # send_data( data, { :filename => @invoice.filename,
+    #   :disposition => params[:disposition] ? params[:disposition] : :attachment,
+    #   :type => 'application/pdf'
+    # })
   end
 
   def create_stripe
@@ -168,6 +103,15 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
     authorize! :new, @invoice
     @leadset       = Leadset.find params[:leadset_id]
     @products_list = Wco::Product.list
+  end
+
+  def email_send
+    @invoice = Ish::Invoice.find params[:id]
+    authorize! :send_email, @invoice
+    out = ::IshManager::LeadsetMailer.monthly_invoice( @invoice.id )
+    Rails.env.production? ? out.deliver_later : out.deliver_now
+    flash_notice "Scheduled to send an email."
+    redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
   end
 
   def show

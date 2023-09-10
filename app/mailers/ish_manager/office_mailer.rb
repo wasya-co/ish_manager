@@ -1,6 +1,6 @@
 
 class IshManager::OfficeMailer < IshManager::ApplicationMailer
-  default from: 'WasyaCo Consulting & Software Development <hello@wasya.co>'
+  default from: 'WasyaCo Consulting & Software Development <no-reply@mail.wasyaco.com>'
 
   ## 2023-04-02 _vp_ Continue.
   def send_context_email ctx_id

@@ -31,9 +31,11 @@
       = render 'ish_manager/invoices/index_list', invoices: @invoices
 
       = form_tag create_monthly_invoice_for_leadset_path({ leadset_id: @leadset.id }) do
-        %label Create invoice for month
+        %label Invoice for month
         = text_field_tag 'month_on'
-        = submit_tag 'Submit', data: { confirm: 'Are you sure?' }
+        %label (x?)
+        = check_box_tag 'replace'
+        = submit_tag '>', data: { confirm: 'Are you sure?' }
       %hr
 
     .col-md-6
