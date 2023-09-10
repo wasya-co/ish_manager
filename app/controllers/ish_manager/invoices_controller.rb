@@ -108,7 +108,7 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
   def email_send
     @invoice = Ish::Invoice.find params[:id]
     authorize! :send_email, @invoice
-    out = ::IshManager::LeadsetMailer.monthly_invoice( @invoice.id )
+    out = ::IshManager::LeadsetMailer.monthly_invoice( @invoice.id.to_s )
     Rails.env.production? ? out.deliver_later : out.deliver_now
     flash_notice "Scheduled to send an email."
     redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
