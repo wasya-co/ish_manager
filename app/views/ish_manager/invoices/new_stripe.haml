@@ -22,10 +22,13 @@
           -# - else
           -#   = f.select :email, options_for_select([[nil,nil]] + @leadset.employees.map { |i| [ i.email, i.email ] } )
 
-        .input-field
+        .input-row
           %label item
-          = select_tag 'invoice[items][][product_id]', options_for_select( @products_list )
-        .input-field
+          = select_tag 'invoice[items][][product_id]', options_for_select( @products_list ), class: 'products'
+
+          %label price
+          = select_tag 'invoice[items][][price_id]'
+
           %label quantity
           = number_field_tag 'invoice[items][][quantity]'
 
@@ -37,5 +40,11 @@
         -#   %label Description
         -#   = f.text_area :description
 
-        = f.submit 'Save'
+        .input-field
+          %label Send now?
+          = check_box_tag :do_send
+
+        .actions
+
+          = f.submit 'Create', data: { confirm: 'Are you sure?' }
 

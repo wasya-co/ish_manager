@@ -64,7 +64,8 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
       pending_invoice_items_behavior: 'exclude',
     })
     params[:invoice][:items].each do |item|
-      stripe_price = Wco::Product.find( item[:product_id] ).price_id
+      stripe_price = Wco::Price.find( item[:price_id] ).price_id
+      puts! stripe_price, 'stripe_price'
       invoice_item = Stripe::InvoiceItem.create({
         customer: @invoice.leadset.customer_id,
         price:    stripe_price,
@@ -72,14 +73,18 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
         quantity: item[:quantity],
       })
     end
-    Stripe::Invoice.send_invoice(stripe_invoice[:id])
+    Stripe::Invoice.finalize_invoice( stripe_invoice[:id] )
+    if params[:do_send]
+      Stripe::Invoice.send_invoice(stripe_invoice[:id])
+      flash_notice "Scheduled to send the invoice via stripe."
+    end
     @invoice.update_attributes({ invoice_id: stripe_invoice[:id] })
 
     if @invoice.save
-      flash[:notice] = "Created the invoice."
+      flash_notice "Created the invoice."
       redirect_to action: :show, id: @invoice.id
     else
-      flash[:alert] = "Cannot create invoice: #{@invoice.errors.messages}"
+      flash_alert "Cannot create invoice: #{@invoice.errors.messages}"
       render :new
     end
   end
@@ -112,6 +117,14 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
     Rails.env.production? ? out.deliver_later : out.deliver_now
     flash_notice "Scheduled to send an email."
     redirect_to controller: :leadsets, action: :show, id: @invoice.leadset_id
+  end
+
+  def send_stripe
+    @invoice = Ish::Invoice.find params[:id]
+    authorize! :send_stripe, @invoice
+    Stripe::Invoice.send_invoice( @invoice.invoice_id )
+    flash_notice "Scheduled to send the invoice."
+    redirect_to action: :show, id: @invoice.id
   end
 
   def show

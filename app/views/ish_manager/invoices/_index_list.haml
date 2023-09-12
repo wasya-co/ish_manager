@@ -3,6 +3,7 @@
   %ul
     - invoices.each do |i|
       %li
+        = link_to '[view]', invoice_path( i )
         = i.month_on
         \::
         - if i.asset

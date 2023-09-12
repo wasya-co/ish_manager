@@ -31,6 +31,7 @@ IshManager::Engine.routes.draw do
   post 'invoices/create-stripe', to: 'invoices#create_stripe', as: :create_invoice_stripe
   get  'invoices/new_pdf',       to: 'invoices#new_pdf',       as: :new_invoice_pdf
   get  'invoices/new_stripe',    to: 'invoices#new_stripe',    as: :new_invoice_stripe
+  post 'invoices/:id/send-stripe', to: 'invoices#send_stripe', as: :send_invoice_stripe
   resources :invoices
 
   get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep

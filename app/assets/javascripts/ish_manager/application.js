@@ -13,6 +13,7 @@
 //= require ish_manager/email_conversations
 //= require ish_manager/email_templates
 //= require ish_manager/galleries
+//= require ish_manager/invoices
 //= require ish_manager/iro
 //= require ish_manager/leads
 //
