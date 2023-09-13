@@ -127,8 +127,8 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def new
-    @new_lead = ::Lead.new
-    authorize! :new, @new_lead
+    @lead = ::Lead.new
+    authorize! :new, @lead
   end
 
   def show
