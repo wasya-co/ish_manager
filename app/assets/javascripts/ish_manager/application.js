@@ -161,6 +161,14 @@ $(function () {
     $( $(".n-selected")[0] ).html( $("input[type='checkbox'].i-sel:checked").length )
   })
 
+  // set jwt token
+  let jwt_token = localStorage.getItem('jwt_token')
+  $('.jwt-token').html( jwt_token )
+  $('button.set-jwt-token').click(function () {
+    localStorage.setItem('jwt_token', window.jwt_token)
+    $('button.set-jwt-token').html('set!')
+  })
+
 
 });
 

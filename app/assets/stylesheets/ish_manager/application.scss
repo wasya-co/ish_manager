@@ -529,3 +529,14 @@ textarea.large {
   width: 100px;
 }
 
+div.set-jwt-token {
+  border: 1px solid orange;
+  width: 100%;
+
+  display: flex;
+  overflow: hidden;
+
+  .jwt-token {
+    flex-grow: 1;
+  }
+}

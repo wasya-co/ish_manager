@@ -2,39 +2,50 @@
 .application-home.max-width
   %h5 Welcome home
 
-  .bordered-card
-    = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
-      %p Search CGTrader:
-      = hidden_field_tag "polygons", "lt_5k"
-      = text_field_tag "keywords"
-      = submit_tag 'search'
+  .a
 
-  .bordered-card
-    = form_tag "https://www.youtube.com/results", method: :get, target: :_blank do
-      %p Search Youtube:
-      = text_field_tag "search_query"
-      = submit_tag 'search'
+    .bordered-card
+      = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
+        %p Search CGTrader:
+        = hidden_field_tag "polygons", "lt_5k"
+        = text_field_tag "keywords"
+        = submit_tag 'search'
 
-  .bordered-card
-    = form_tag "https://wiki.wasya.co/index.php", method: :get, target: :_blank do
-      %p Search wiki.wasya.co:
-      = text_field_tag "search"
-      = submit_tag 'search'
+    .bordered-card
+      = form_tag "https://www.youtube.com/results", method: :get, target: :_blank do
+        %p Search Youtube:
+        = text_field_tag "search_query"
+        = submit_tag 'search'
 
-
-
-  .bordered-card
-    %h5.center.text-center USD to COP
-    #root{ width: 500, height: 300 }
-    %script{src: "/recharts-example-out.js", type: "module"}
-    %script{type: "module"}
+    .bordered-card
+      = form_tag "https://wiki.wasya.co/index.php", method: :get, target: :_blank do
+        %p Search wiki.wasya.co:
+        = text_field_tag "search"
+        = submit_tag 'search'
 
 
-      import App from '/recharts-example-out.js';
+    .bordered-card
+      %h5.center KPI's
+      %ul
+        %li= link_to 'WasyaCo Visits', '#'
 
-      const el = document.querySelector('#root')
-      const e = React.createElement;
+    .bordered-card
+      %h5.center KPI sent contexts
+      #kpiSentContexts{ width: 500, height: 300 }
+      %script{type: "module"}
+        import App from '/bundle-kpi-sent-contexts.js';
+        const el = document.querySelector('#kpiSentContexts')
+        const e = React.createElement;
+        const root = ReactDOM.createRoot(el);
+        root.render(e(App));
 
-      const domContainer = document.querySelector('#root');
-      const root = ReactDOM.createRoot(domContainer);
-      root.render(e(App));
+
+    .bordered-card
+      %h5.center.text-center USD to COP
+      #root{ width: 500, height: 300 }
+      %script{type: "module"}
+        import App from '/recharts-example-out.js';
+        const e = React.createElement;
+        const el = document.querySelector('#root');
+        const root = ReactDOM.createRoot(el);
+        root.render(e(App));
