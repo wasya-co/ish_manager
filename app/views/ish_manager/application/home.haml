@@ -1,8 +1,15 @@
 
-.application-home.max-width
-  %h5 Welcome home
+- yesterday  = (Time.now - 1.day    ).strftime('%Y-%m-%d')
+- month_ago  = (Time.now - 28.days  ).strftime('%Y-%m-%d')
+- month2_ago = (Time.now - 56.days  ).strftime('%Y-%m-%d')
+- month4_ago = (Time.now - 112.days ).strftime('%Y-%m-%d')
 
-  .a
+.application-home
+
+  .center
+    %h2 Welcome Home
+
+  .maxwidth.flex-row.justify-content-center
 
     .bordered-card
       = form_tag "https://www.cgtrader.com/free-3d-models", method: :get, target: :_blank do
@@ -23,11 +30,84 @@
         = text_field_tag "search"
         = submit_tag 'search'
 
+  .flex-row.valign-top.justify-content-center
 
     .bordered-card
-      %h5.center KPI's
+      %h5.center Wasya Co KPI's
       %ul
-        %li= link_to 'WasyaCo Visits', '#'
+        %li
+          = link_to 'Visits 1,2 mo', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=2&period=day&date=yesterday#?period=range&date=#{month_ago},#{yesterday}&category=Dashboard_Dashboard&subcategory=1&comparePeriods%5B%5D=range&compareDates%5B%5D=#{month2_ago},#{month_ago}", target: :_blank
+        %li
+          = link_to 'Visits 2,4 mo', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=2&period=day&date=yesterday#?period=range&date=#{month2_ago},#{yesterday}&category=Dashboard_Dashboard&subcategory=1&comparePeriods%5B%5D=range&compareDates%5B%5D=#{month4_ago},#{month2_ago}", target: :_blank
+        %li
+          = link_to 'Google Webmasters', 'https://search.google.com/search-console?utm_source=about-page&resource_id=https://wasya.co/'
+        %li
+          = link_to 'Bing Webmasters', 'https://www.bing.com/webmasters/home?siteUrl=https://wasya.co/'
+        %li
+          = link_to 'Persistent advertisement messages ', '#'
+          %br
+          (CL, maybe reddit?)
+        %li= link_to 'N Sitemap Pages', '#'
+        %li= link_to 'N Email Messages', '#'
+        %li= link_to 'N Email Filters', '#'
+        %li= link_to 'N Email Autoresponds', '#'
+        %li= link_to 'N Email templates', '#'
+        %li= link_to 'N Email campaigns', '#'
+
+        %hr
+
+        %li= link_to 'N mautic form responses', '#'
+
+        %hr
+
+        %li= link_to 'this month revenue', '#'
+        %li= link_to 'possible future revenue', '#'
+
+    .bordered-card
+      %h5.center Piousbox KPI's
+      %ul
+        %li
+          = link_to 'Visits', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=3&period=day&date=yesterday#?period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1&idSite=3"
+        %li
+          = link_to 'Visits 2,4 mo', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=3&period=day&date=yesterday#?period=range&date=#{month2_ago},#{yesterday}&category=Dashboard_Dashboard&subcategory=1&comparePeriods%5B%5D=range&compareDates%5B%5D=#{month4_ago},#{month2_ago}", target: :_blank
+        %li
+          = link_to 'Google Webmasters', 'https://search.google.com/search-console?resource_id=sc-domain%3Apiousbox.com'
+        %li
+          = link_to 'Bing Webmasters', 'https://www.bing.com/webmasters/home?siteUrl=https://piousbox.com'
+        %li= link_to 'N Sitemap Pages', '#'
+
+        %hr
+        %li= link_to 'Gym', '#'
+        %li
+          = link_to 'Aggressive Twice-a-day', '#'
+          = link_to '[~]', '#'
+
+
+    .bordered-card
+      %h5.center Infinite Shelter KPI's
+      %ul
+        %li
+          = link_to 'Visits', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=5&period=day&date=yesterday#?period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1&idSite=3"
+        %li
+          = link_to 'Google Webmasters', 'https://search.google.com/search-console?resource_id=sc-domain%3Ainfiniteshelter.com'
+        %li
+          = link_to 'Bing Webmasters', 'https://www.bing.com/webmasters/home?siteUrl=https://infiniteshelter.com'
+        %li= link_to 'N contributed content', '#'
+
+    .bordered-card
+      %h5.center DemmiTV KPI's
+      %ul
+        %li
+          = link_to 'Visits', "https://analytics.wasya.co/index.php?module=CoreHome&action=index&idSite=5&period=day&date=yesterday#?period=day&date=yesterday&category=Dashboard_Dashboard&subcategory=1&idSite=3"
+        %li
+          = link_to 'Google Webmasters', 'https://search.google.com/search-console?resource_id=sc-domain%3Ainfiniteshelter.com'
+        %li
+          = link_to 'Bing Webmasters', 'https://www.bing.com/webmasters/home?siteUrl=https://infiniteshelter.com'
+        %li= link_to 'N Sitemap Pages', '#'
+
+        %li= link_to 'N contributed content', '#'
+
+  .maxwidth.flex-row.justify-content-center
 
     .bordered-card
       %h5.center KPI sent contexts

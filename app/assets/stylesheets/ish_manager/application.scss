@@ -415,7 +415,8 @@ textarea.large {
   z-index: -1;
 }
 
-.max-width {
+.max-width,
+.maxwidth {
   max-width: 1140px;
   width: 100%;
   margin: auto;
@@ -539,4 +540,10 @@ div.set-jwt-token {
   .jwt-token {
     flex-grow: 1;
   }
+}
+
+/* V */
+
+.valign-top {
+  align-items: flex-start;
 }
