@@ -1,3 +1,6 @@
 
 .email-templates-edit.max-width
+  %h5
+    Edit
+    = link_to @email_template.slug, email_template_path( @email_template )
   = render 'form', email_template: @email_template

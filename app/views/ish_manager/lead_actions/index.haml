@@ -1,0 +1,12 @@
+
+.lead-actions-index.maxwidth
+  %h5 Lead Actions
+
+  %ul
+    - @lead_actions.each do |la|
+      %li
+        %ul
+          - JSON.parse( la.params ).each do |k, v|
+            %li
+              = k
+              = v

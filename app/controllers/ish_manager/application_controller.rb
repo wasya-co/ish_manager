@@ -106,7 +106,6 @@ class IshManager::ApplicationController < ActionController::Base
     @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
     @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     @email_tags_list      = [[nil,nil]] + WpTag.email_tags.map { |t| [ t.name, t.id ] }
-    @galleries_list       = Gallery.all.list
     @leads_list           = Lead.list
     @leadsets_list        = Leadset.list
     @locations_list       = ::Gameui::Map.list
@@ -117,13 +116,12 @@ class IshManager::ApplicationController < ActionController::Base
     @reports_list         = Report.all.list
     @tags_list            = [[nil,nil]] + WpTag.all.map { |t| [ t.name, t.id ] }
     @user_profiles_list   = Ish::UserProfile.list
-    @videos_list          = Video.all.list
+
   end
 
   def set_title
     @page_title = "#{ params[:controller].gsub('ish_manager/', '') } #{params[:action]} #{params[:slug]||params[:id]} ".gsub("  ", " ")
   end
-
 
 end
 

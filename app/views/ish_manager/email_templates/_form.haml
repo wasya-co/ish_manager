@@ -22,6 +22,9 @@
     .field
       = f.label :preview_str
       = f.text_field :preview_str
+    .field
+      = f.label :can_unsubscribe
+      = f.check_box :can_unsubscribe
 
 
     .tab-labels
@@ -36,6 +39,9 @@
           -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
           %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
 
+    .field
+      = f.label :config_exe
+      = f.text_area :config_exe
 
     .actions
       = f.submit 'Save'

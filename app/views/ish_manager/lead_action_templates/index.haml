@@ -1,0 +1,11 @@
+
+.lead-action-templates-index.maxwidth
+  %h5 Lead Action Templates
+
+  %ul
+    - @tmpls.each do |tmpl|
+      %li
+        = link_to "[~ #{tmpl.slug}]", edit_lead_action_template_path( tmpl )
+
+  %hr
+  = render 'form', tmpl: @new_lat

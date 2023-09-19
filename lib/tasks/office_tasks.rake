@@ -53,6 +53,24 @@ namespace :office do
 
       ctxs = ::Ish::EmailContext.scheduled.notsent
       ctxs.map do |ctx|
+
+
+        throw "@TODO: continue iterating here. _vp_ 2023-09-18"
+
+        unsub    = Ish::EmailUnsubscribe.where({ lead_id: ctx.lead_id, template_id: ctx.template_id }).first
+        if unsub
+          template = Ish::EmailTemplate.find( ctx.template_id )
+          puts! "Lead `#{ctx.lead.full_name}` [mailto:#{ctx.lead.email}] has already unsubscribed from template `#{template.slug}` ."
+          email_action_ids = EAction.where({ email_template_id: ctx.template_id }).map(&:id)
+          scheduled_oacts = Sch.active.where({
+            lead_id: ctx.lead_id,
+            :email_action_id.in => email_action_ids,
+          })
+          scheduled_oacts.update_attributes({
+            state: Office::ScheduledEmailAction::STATE_UNSUBSCRIBED,
+          })
+        end
+
         out = IshManager::OfficeMailer.send_context_email( ctx[:id].to_s )
         Rails.env.production? ? out.deliver_later : out.deliver_now
         print '^'

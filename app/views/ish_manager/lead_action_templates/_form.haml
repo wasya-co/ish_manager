@@ -1,0 +1,12 @@
+
+- url = tmpl.new_record? ? lead_action_templates_path : lead_action_template_path( tmpl )
+.lead-action-templates--form
+  = form_for tmpl, url: url, as: :tmpl do |f|
+    .field
+      %label slug
+      = f.text_field :slug
+    .field
+      %label Action exe
+      = f.text_area :action_exe
+    .actions
+      = f.submit 'Submit'

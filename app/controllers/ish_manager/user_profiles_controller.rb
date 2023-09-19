@@ -18,9 +18,9 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
       raise "cannot save profile.user: #{@user.errors.full_messages} profile errors: #{@user_profile.errors.full_messages}"
     end
     if @user_profile.save
-      flash[:notice] = "Created profile"
+      flash_notice "Created profile."
     else
-      flash[:alert] = "Cannot create profile: #{@user_profile.errors.messages}"
+      flash_alert "Cannot create profile: #{@user_profile.errors.messages} ."
     end
     redirect_to :action => :index
   end
@@ -67,9 +67,9 @@ class IshManager::UserProfilesController < IshManager::ApplicationController
     flag = @profile.update_attributes params[:profile].permit!
 
     if flag
-      flash[:notice] = "Updated profile #{@profile.email}"
+      flash_notice "Updated profile #{@profile.email} ."
     else
-      flash[:alert] = "Cannot update profile: #{@profile.errors.full_messages}"
+      flash_alert "Cannot update profile: #{@profile.errors.full_messages} ."
     end
     if params[:redirect_to]
       redirect_to params[:redirect_to]

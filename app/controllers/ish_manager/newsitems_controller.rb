@@ -57,11 +57,6 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
   def edit
     @newsitem = Newsitem.find( params[:id] )
     authorize! :edit, @newsitem
-
-    ## @TODO: what on earth is this?
-    out = Gallery.unscoped.where( :is_trash => false, :user_profile => @current_profile ).order_by( :created_at => :desc )
-    @galleries_list = [['', nil]] + out.map { |item| [ "#{item.created_at.strftime('%Y%m%d')} #{item.name}", item.id ] }
-
   end
 
   def index
@@ -96,6 +91,24 @@ class IshManager::NewsitemsController < IshManager::ApplicationController
     else
       redirect_to edit_newsitem_path(@newsitem)
     end
+
+  end
+
+  ##
+  ## private
+  ##
+  private
+
+  def set_lists
+
+    ## NO SUPER!
+    # super
+
+    # out = Gallery.unscoped.where( :is_trash => false, :user_profile => @current_profile ).order_by( :created_at => :desc )
+    # @galleries_list = [['', nil]] + out.map { |item| [ "#{item.created_at.strftime('%Y%m%d')} #{item.name}", item.id ] }
+
+    @galleries_list       = Gallery.all.list
+    @videos_list          = Video.all.list
 
   end
 

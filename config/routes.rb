@@ -105,6 +105,8 @@ IshManager::Engine.routes.draw do
 
   resources :email_unsubscribes
 
+  ## L
+  resources :lead_actions
   resources :lead_leadsets
 
   get 'leads',      :to => 'leads#index'
@@ -116,12 +118,22 @@ IshManager::Engine.routes.draw do
 
   resources :leadset_tags
 
+  resources :lead_actions
+  resources :lead_action_templates
+
+  ## M
 
   resources :meetings
 
+  ## N
+
   resources :newsitems
 
+  ## O
+
   resources :office_actions
+
+  ## P
 
   resources :photos
   resources :payments

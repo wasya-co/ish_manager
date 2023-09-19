@@ -66,8 +66,6 @@
             = form_tag leadsets_path, method: :get do
               = text_field_tag :q
           = link_to '[+]', new_leadset_path
-
-
         %li
           = link_to "EActions (#{Office::EmailAction.count})", email_actions_path
           = link_to '[+]', new_email_action_path
@@ -93,8 +91,11 @@
           = link_to '[+]', new_scheduled_email_action_path
 
       %ul
-        %li &nbsp;
-        %li &nbsp;
+        %li
+          = link_to 'Lead Actions', lead_actions_path
+        %li
+          = link_to 'Lead Action Templatess', lead_action_templates_path
+          -# = link_to '[+]', new_lead_action_template_path
         %li
           = link_to "Campaigns (#{Ish::EmailCampaign.count})", email_campaigns_path
           = link_to '[+]', new_email_campaign_path

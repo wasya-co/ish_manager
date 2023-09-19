@@ -34,6 +34,20 @@ module IshManager
     #   "/manager/email_contexts/for_lead/#{lead.id.to_s}"
     # end
 
+    ##
+    ## O
+    ##
+
+    def obfuscate link
+      puts! link, 'obfuscate helper'
+      obf = Office::ObfuscatedRedirect.find_or_create_by({ to: link })
+      return Ishapi::Engine.routes.url_helpers.obf_url( obf.id )
+    end
+
+    ##
+    ## P
+    ##
+
     def pp_errors errors
       return errors
     end

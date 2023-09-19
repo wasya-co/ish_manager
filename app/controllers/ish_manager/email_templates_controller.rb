@@ -35,8 +35,8 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
       Ish::EmailTemplate.find_by({ slug: params[:id] })
     authorize! :iframe_src, @email_template
 
-    pox = Lead.find_by({ email: 'poxlovi@gmail.com' })
-    @ctx = Ctx.new({ email_template: @tmpl, lead_id: pox.id })
+    @lead = Lead.find_by({ email: 'poxlovi@gmail.com' })
+    @ctx = Ctx.new({ email_template: @tmpl, lead_id: @lead.id })
 
     @utm_tracking_str = {
       'cid'          => @ctx.lead_id,
@@ -44,6 +44,22 @@ class ::IshManager::EmailTemplatesController < ::IshManager::ApplicationControll
       'utm_medium'   => 'email',
       'utm_source'   => @ctx.tmpl.slug,
     }.map { |k, v| "#{k}=#{v}" }.join("&")
+
+    to = Ishapi::Engine.routes.url_helpers.email_unsubscribes_url({
+      template_id: @ctx.tmpl.id,
+      lead_id:     @lead.id,
+      token:       @lead.unsubscribe_token,
+    })
+    obf = Office::ObfuscatedRedirect.find_or_create_by({ to: to })
+    @unsubscribe_url = Ishapi::Engine.routes.url_helpers.obf_url( obf.id )
+
+    to = Ishapi::Engine.routes.url_helpers.users_dashboard_url({
+      lead_id: @lead.id,
+    })
+    obf = Office::ObfuscatedRedirect.find_or_create_by({ to: to })
+    @update_preferences_url = Ishapi::Engine.routes.url_helpers.obf_url( obf.id )
+
+    eval( @ctx.tmpl.config_exe )
 
     render layout: false
   end
