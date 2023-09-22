@@ -12,7 +12,7 @@
 
     .field
       = f.label "From"
-      = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: ctx.from_email)
+      = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: ctx.from_email)
 
     .field.flex-row
       = f.label "To lead"

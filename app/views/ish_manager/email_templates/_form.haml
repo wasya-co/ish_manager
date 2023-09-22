@@ -15,7 +15,7 @@
       .col-md-4
         .field
           = f.label "From"
-          = f.select :from_email, options_for_select(Ish::EmailContext.from_email_list, selected: email_template.from_email)
+          = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: email_template.from_email)
     .field.field-subject
       = f.label :subject
       = f.text_field :subject
@@ -38,6 +38,10 @@
         - if email_template.persisted?
           -# .descr= render "ish_manager/email_templates/#{email_template.layout}", ctx: Ish::EmailContext.new, tmpl: email_template
           %iframe{ src: email_template_iframe_path(email_template), width: '100%', height: '100%' }
+
+    .field
+      = f.label :config_json
+      = f.text_area :config_json
 
     .field
       = f.label :config_exe

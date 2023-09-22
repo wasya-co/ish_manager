@@ -5,6 +5,7 @@ namespace :office do
   task schs: :environment do
     while true do
 
+      ## Office::ScheduledEmailAction
       Sch.active.where({ :perform_at.lte => Time.now }).each do |sch|
 
         sch.send_and_roll
@@ -24,11 +25,7 @@ namespace :office do
 
       ## send and roll
       Office::Action.active.where({ :perform_at.lte => Time.now }).each do |oact|
-
-        oact.update({
-          perform_at: nil,
-          # state: OAct::STATE_INACTIVE, ## @TODO: remove, they remain active but non-perform.
-        })
+        oact.update({ perform_at: nil })
         eval( oact.action_exe )
         oact.ties.each do |tie|
           next_oact            = tie.next_office_action
@@ -54,21 +51,15 @@ namespace :office do
       ctxs = ::Ish::EmailContext.scheduled.notsent
       ctxs.map do |ctx|
 
-
-        throw "@TODO: continue iterating here. _vp_ 2023-09-18"
-
-        unsub    = Ish::EmailUnsubscribe.where({ lead_id: ctx.lead_id, template_id: ctx.template_id }).first
+        unsub = Ish::EmailUnsubscribe.where({ lead_id: ctx.lead_id, template_id: ctx.template_id }).first
         if unsub
-          template = Ish::EmailTemplate.find( ctx.template_id )
-          puts! "Lead `#{ctx.lead.full_name}` [mailto:#{ctx.lead.email}] has already unsubscribed from template `#{template.slug}` ."
+          Office::AdminMessage.create({ message: "Lead `#{ctx.lead.full_name}` [mailto:#{ctx.lead.email}] has already unsubscribed from template `#{Ish::EmailTemplate.find( ctx.template_id ).slug}` ." })
           email_action_ids = EAction.where({ email_template_id: ctx.template_id }).map(&:id)
-          scheduled_oacts = Sch.active.where({
+          schs = Sch.active.where({
             lead_id: ctx.lead_id,
             :email_action_id.in => email_action_ids,
           })
-          scheduled_oacts.update_attributes({
-            state: Office::ScheduledEmailAction::STATE_UNSUBSCRIBED,
-          })
+          schs.update({ state: Office::ScheduledEmailAction::STATE_UNSUBSCRIBED })
         end
 
         out = IshManager::OfficeMailer.send_context_email( ctx[:id].to_s )
@@ -79,6 +70,7 @@ namespace :office do
       duration = Rails.env.production? ? 120 : 15 # 2 minutes or 15 seconds
       sleep duration
       print '.'
+
     end
   end
 
