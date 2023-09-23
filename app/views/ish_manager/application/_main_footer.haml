@@ -1,5 +1,7 @@
 
 #Config{ data: { jwt_token: @jwt_token } }
+:javascript
+  localStorage.setItem('jwt_token', $("#Config").data('jwt-token') )
 
 .manager--main-footer
   .max-width
@@ -23,10 +25,11 @@
 
         .col-sm-4
           = button_to 'Logout', main_app.destroy_user_session_path, :method => :delete, data: { confirm: 'Are you sure?' }
-          .set-jwt-token
 
-            = button_tag 'Set JWT', class: 'set-jwt-token'
-            .jwt-token
+          -# .set-jwt-token
+          -#   = button_tag 'Set JWT', class: 'set-jwt-token'
+          -#   .jwt-token
+
           = form_for @current_profile, url: profile_path(@current_profile), as: :profile do |f|
             .flex-row
               = f.label :per_page

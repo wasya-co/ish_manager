@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   const jwt_token = $("#Config").data('jwt-token')
-  logg(jwt_token, 'jwt_token')
+  // logg(jwt_token, 'jwt_token')
 
   if ($(".invoices-new").length) {
 
