@@ -23,7 +23,7 @@ gem 'cancancan'
 
 gem 'ishapi',         :github => 'wasya-co/ishapi',       :branch => '1.1.0'
 gem 'ish_models',     :github => 'piousbox/ish_models',   :branch => '2.2.0'
-gem 'ish_manager',    :github => 'piousbox/ish_manager',  :branch => '2.1.0'
+gem 'ish_manager',    :github => 'piousbox/ish_manager',  :branch => '2.2.0'
 
 group :test, :test_local, :development do
   gem 'byebug'

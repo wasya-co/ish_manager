@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/wasya-co/ish_models.git
-  revision: 0af536168d3a00a9adff21d5fa751a959d6ebbdf
+  revision: 043b4f1af17bac6b52fff2de162b42a5cb3d875f
   branch: 2.2.0
   specs:
-    ish_models (0.0.33.272)
+    ish_models (0.0.33.275)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -11,13 +11,16 @@ GIT
       mongoid-autoinc (~> 6.0)
       mongoid-paperclip
       mongoid_paranoia
+      net-scp (~> 4.0.0)
       net-ssh (~> 7.1.0)
+      prawn (~> 2.4.0)
+      prawn-table (~> 0.2.1)
       rails (~> 6.1.0)
 
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.470)
+    ish_manager (0.1.8.471)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -99,7 +102,7 @@ GEM
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.826.0)
+    aws-partitions (1.827.0)
     aws-sdk-core (3.183.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -196,6 +199,8 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.4.0)
       net-protocol
     net-ssh (7.1.0)

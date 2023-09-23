@@ -1,10 +1,10 @@
 
 class IshManager::OfficeMailer < IshManager::ApplicationMailer
-  default from: 'WasyaCo Mailer <no-reply@wco.com.de>'
 
   ## 2023-04-02 _vp_ Continue.
   def send_context_email ctx_id
-    @ctx = Ctx.find ctx_id
+    @ctx  = Ctx.find ctx_id
+    @lead = Lead.find @ctx.lead_id
 
     @utm_tracking_str = {
       'cid'          => @ctx.lead_id,
@@ -16,10 +16,23 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     @domain         = Rails.application.config.action_mailer.default_url_options[:host]
     @origin         = "https://#{Rails.application.config.action_mailer.default_url_options[:host]}"
 
-    renderer = ActionController::Base.new
+    @unsubscribe_url = Ishapi::Engine.routes.url_helpers.email_unsubscribes_url({
+      host: 'text-host-3',
+      template_id: @ctx.tmpl.id,
+      lead_id:     @lead.id,
+      token:       @lead.unsubscribe_token,
+    })
+    # renderer = Tmp6Ctl.new
+    # renderer = IshManager::ApplicationController.new
+    # renderer.send( :include, ::IshManager::ApplicationHelper )
+    # renderer.send( :request, { host: 'test-host' } )
+    renderer = IshManager::ApplicationMailer.new
+
+
     renderer.instance_variable_set( :@ctx,              @ctx )
     renderer.instance_variable_set( :@lead,             @ctx.lead )
     renderer.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
+    renderer.instance_variable_set( :@unsubscribe_url,  @unsubscribe_url )
 
     eval( @ctx.tmpl.config_exe )
 

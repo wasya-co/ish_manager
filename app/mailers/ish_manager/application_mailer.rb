@@ -2,6 +2,8 @@
 module IshManager
   class ApplicationMailer < ActionMailer::Base
     default from: 'WasyaCo Consulting <no-reply@wco.com.de>'
+    helper(IshManager::ApplicationHelper)
+
     layout 'mailer'
 
     def shared_galleries profiles, gallery

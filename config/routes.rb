@@ -87,14 +87,15 @@ IshManager::Engine.routes.draw do
   get 'email_conversations',                   to: 'email_conversations#index'
   get 'email_conversations/in/:slug',          to: 'email_conversations#index',         as: :email_conversations_in
   get 'email_conversations/notin/:not_slug',   to: 'email_conversations#index',         as: :email_conversations_notin
-  get 'email_conversations/show/:id',          to: 'email_conversations#show', as: :email_conversation
+  get 'email_conversations/show/:id',          to: 'email_conversations#show',          as: :email_conversation
 
-  get 'email_contexts/summary', to: 'email_contexts#summary', as: :email_contexts_summary
-  get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index', as: :email_contexts_for_lead
-  get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src', as: :email_context_iframe
+  get 'email_contexts/summary', to: 'email_contexts#summary',                           as: :email_contexts_summary
+  get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index',            as: :email_contexts_for_lead
+  get  'email_contexts/iframe_src/:id',          to: 'email_contexts#iframe_src',       as: :email_context_iframe
   get  'email_contexts/new_with_template/:template_slug', to: 'email_contexts#new'
-  post 'email_contexts/send/:id',                to: 'email_contexts#do_send',    as: :send_email_context
-  get  'email_contexts',                         to: 'email_contexts#index',      as: :email_contexts
+  post 'email_contexts/send_schedule/:id',       to: 'email_contexts#send_schedule',    as: :send_schedule_email_context
+  post 'email_contexts/send_immediate/:id',      to: 'email_contexts#send_immediate',   as: :send_immediate_email_context
+  get  'email_contexts',                         to: 'email_contexts#index',            as: :email_contexts
   resources :email_contexts
 
   get    'email_templates/iframe_src/:id', to: 'email_templates#iframe_src', as: :email_template_iframe

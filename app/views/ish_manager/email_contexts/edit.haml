@@ -1,5 +1,7 @@
 
 .email-contexts-edit.max-width
   .header
-    %h2.title Edit email Context
+    %h2.title
+      Edit email Context
+      = link_to "[view]", email_context_path( @ctx )
   = render 'ish_manager/email_contexts/form', ctx: @ctx, tmpl: @tmpl

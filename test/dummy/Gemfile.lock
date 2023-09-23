@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 897b2e6821188021d2861c62af36d57e421be069
-  branch: 2.1.0
+  revision: 7dfac116c4251662ec0d3760692f94359312aa7e
+  branch: 2.2.0
   specs:
-    ish_manager (0.1.8.439)
+    ish_manager (0.1.8.470)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -16,16 +16,18 @@ GIT
       kaminari-mongoid (~> 1.0)
       mongoid-autoinc (~> 6.0)
       mongoid-paperclip
+      prawn (~> 2.4.0)
+      prawn-table (~> 0.2.1)
       rails (~> 6.1.0)
       sidekiq (~> 7.0.0)
       uglifier
 
 GIT
   remote: https://github.com/piousbox/ish_models.git
-  revision: a826f0f42a1d495c12255d7aaa9128b408c3ff88
+  revision: 33a4121ab4e161e1e80451369a453c3f65f2191c
   branch: 2.2.0
   specs:
-    ish_models (0.0.33.247)
+    ish_models (0.0.33.274)
       aws-sdk-s3
       devise (> 0)
       kaminari-mongoid (~> 1.0.1)
@@ -33,14 +35,18 @@ GIT
       mongoid-autoinc (~> 6.0)
       mongoid-paperclip
       mongoid_paranoia
+      net-scp (~> 4.0.0)
+      net-ssh (~> 7.1.0)
+      prawn (~> 2.4.0)
+      prawn-table (~> 0.2.1)
       rails (~> 6.1.0)
 
 GIT
   remote: https://github.com/wasya-co/ishapi.git
-  revision: afde4f7d6d9396d7b525212bb63f6d4b6fc74954
+  revision: 5b3f7b917bcd630ba4615ec984d68e3ddb00d1b0
   branch: 1.1.0
   specs:
-    ishapi (0.1.8.270)
+    ishapi (0.1.8.285)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise
@@ -157,7 +163,7 @@ GEM
       xpath (~> 3.2)
     climate_control (0.2.0)
     concurrent-ruby (1.2.2)
-    connection_pool (2.4.0)
+    connection_pool (2.4.1)
     crass (1.0.6)
     database_cleaner-core (2.0.1)
     database_cleaner-mongoid (2.0.1)
@@ -178,7 +184,7 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
-    execjs (2.8.1)
+    execjs (2.9.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -246,7 +252,7 @@ GEM
     kaminari-mongoid (1.0.2)
       kaminari-core (~> 1.0)
       mongoid
-    koala (3.4.0)
+    koala (3.5.0)
       addressable
       faraday
       faraday-multipart
@@ -300,14 +306,23 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
+    net-ssh (7.1.0)
     nio4r (2.5.8)
     nokogiri (1.14.2)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.4)
+    pdf-core (0.9.0)
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
+    prawn-table (0.2.2)
+      prawn (>= 1.3.0, < 3.0.0)
     public_suffix (5.0.1)
     racc (1.6.2)
     rack (2.2.6.4)
@@ -353,7 +368,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
     rake (13.0.6)
-    redis-client (0.14.0)
+    redis-client (0.17.0)
       connection_pool
     regexp_parser (2.7.0)
     reline (0.3.3)
@@ -361,7 +376,7 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.5)
+    rexml (3.2.6)
     rspec-core (3.12.1)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.2)
@@ -382,12 +397,12 @@ GEM
     ruby2_keywords (0.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sidekiq (7.0.7)
+    sidekiq (7.0.9)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.11.0)
-    signet (0.17.0)
+    signet (0.18.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
       jwt (>= 1.5, < 3.0)
@@ -399,13 +414,14 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stripe (8.4.0)
+    stripe (9.3.0)
     temple (0.10.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.1.0)
     timeout (0.3.2)
+    ttfunk (1.7.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)

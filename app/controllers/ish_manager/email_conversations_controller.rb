@@ -17,9 +17,11 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     if params[:slug]
       @email_conversations = @email_conversations.in_emailtag( params[:slug] )
     end
+
     if params[:not_slug]
-      @email_conversations = @email_conversations.not_in_emailtag(params[:not_slug])
+      @email_conversations = @email_conversations.not_in_emailtag( params[:not_slug] )
     end
+
     @email_conversations = @email_conversations.order_by( latest_at: :desc
       ).page( params[:conv_page]
       ).per( per_page )

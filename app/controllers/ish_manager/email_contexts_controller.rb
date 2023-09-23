@@ -38,17 +38,6 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     redirect_to action: :index
   end
 
-  def do_send
-    @ctx = ::Ish::EmailContext.find params[:id]
-    authorize! :do_send, @ctx
-
-    flash[:notice] = 'Scheduled a single send - v2'
-    @ctx.send_at = Time.now
-    @ctx.save
-
-    redirect_to action: 'index'
-  end
-
   def edit
     @ctx = ::Ish::EmailContext.find params[:id]
     authorize! :edit, @ctx
@@ -91,6 +80,28 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       attrs = @tmpl.attributes.slice( :subject, :body, :from_email )
     end
     @ctx = ::Ish::EmailContext.new({ email_template: @tmpl }.merge(attrs))
+  end
+
+  def send_immediate
+    @ctx = ::Ish::EmailContext.find params[:id]
+    authorize! :do_send, @ctx
+    flash[:notice] = 'Sent immediately.'
+
+    out = IshManager::OfficeMailer.send_context_email( @ctx[:id].to_s )
+    Rails.env.production? ? out.deliver_later : out.deliver_now
+
+    redirect_to action: 'index'
+  end
+
+  def send_schedule
+    @ctx = ::Ish::EmailContext.find params[:id]
+    authorize! :do_send, @ctx
+
+    flash[:notice] = 'Scheduled a single send - v2'
+    @ctx.send_at = Time.now
+    @ctx.save
+
+    redirect_to action: 'index'
   end
 
   def show

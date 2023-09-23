@@ -4,23 +4,22 @@
     %h2.title Email Context
 
   .row
-    .col-md-4
+    .col-md-6
       %ul
+        %li <b>Template:</b> #{link_to @ctx.email_template.slug, email_template_path(@ctx.email_template), target: :_blank }
+        %li <b>Layout:</b> #{@ctx.email_template.layout}
+        %hr
         %li <b>From:</b> #{@ctx.from_email}
         %li <b>To Lead:</b> #{link_to @ctx.lead.email, lead_path(@ctx.lead)}
         %li <b>Subject:</b> #{@ctx.subject}
 
-    .col-md-4
-      %ul
-        %li <b>Template:</b> #{link_to @ctx.email_template.slug, email_template_path(@ctx.email_template), target: :_blank }
-        %li <b>Layout:</b> #{@ctx.email_template.layout}
 
-    .col-md-4
+    .col-md-6
       %ul
         %li <b>Send at:</b> #{@ctx.send_at&.strftime('%Y-%m-%d %l:%M%P')}
         %li <b>Sent at:</b> #{@ctx.sent_at&.strftime('%Y-%m-%d %l:%M%P')}
         %li
-          = button_to 'Send', send_email_context_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
+          = button_to 'Send', send_immediate_email_context_path(@ctx), form_class: 'inline', :data => { :confirm => 'Are you sure?' }
           = link_to '[~]', edit_email_context_path(@ctx)
 
   .max-width
