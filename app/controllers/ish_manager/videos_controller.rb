@@ -40,9 +40,10 @@ class IshManager::VideosController < IshManager::ApplicationController
 
   def index
     authorize! :index, Video.new
-    @videos = Video.unscoped.where( is_trash: false,
-      :user_profile => @current_profile
-    ).order_by( :created_at => :desc )
+    @videos = Video.unscoped.where({
+      is_trash: false,
+      # :user_profile => @current_profile
+    }).order_by( :created_at => :desc )
 
     if params[:q]
       @videos = @videos.where({ :name => /#{params[:q]}/i })
