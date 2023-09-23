@@ -1,7 +1,7 @@
 
 class ::IshManager::EmailConversationsController < IshManager::ApplicationController
 
-  before_action :set_lists
+  before_action :set_lists, except: [ :index ]
 
   def index
     authorize! :email_conversations_index, IshManager::Ability
@@ -23,6 +23,7 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     end
 
     @email_conversations = @email_conversations.order_by( latest_at: :desc
+      ).includes( :email_messages # , :lead_ties
       ).page( params[:conv_page]
       ).per( per_page )
   end

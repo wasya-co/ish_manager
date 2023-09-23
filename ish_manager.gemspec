@@ -6,7 +6,7 @@ require "ish_manager/version"
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "ish_manager"
-  s.version     = '0.1.8.474'
+  s.version     = '0.1.8.475'
   s.authors     = ["piousbox"]
   s.email       = ["piousbox@gmail.com"]
   s.homepage    = "http://wasya.co"

@@ -34,14 +34,14 @@
   %br
   = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
 
-  %table.conversations
+  %table.conversations.bordered
     %tr
       %th
         .chip.select-all
           = check_box_tag :select_all
           .n-selected -
       %th Msgs
-      %th Leads
+      %th From emails
       %th Subject
       %th Datetime
       %th Tags
@@ -51,10 +51,11 @@
         .item
           %td= check_box_tag 'email_conversation_ids[]', conv.id.to_s, nil, { class: 'i-sel' }
           %td.count
-            (#{conv.email_messages.count})
+            (#{conv.email_messages.length})
 
           %td.leads
-            = conv.leads.map { |lead| lead.email }.join(", ")
+            -# &lt;leads>
+            = conv.from_emails.join(", ")
 
           %td.subject
             = link_to conv.subject, email_conversation_path( conv )
@@ -65,9 +66,10 @@
 
           %td
             .tags
-              - conv.tags.each do |tag|
-                .chip
-                  = tag.name
+              &lt;tags>
+              -# - conv.tags.each do |tag|
+              -#   .chip
+              -#     = tag.name
 
   %br
   = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
