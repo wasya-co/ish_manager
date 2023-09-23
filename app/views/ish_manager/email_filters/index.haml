@@ -5,19 +5,21 @@
       Email Filters (#{@email_filters.length})
       = link_to '[+]', new_email_filter_path
 
-  %table.bordered
-    %tr
-      %th &nbsp;
-      %th &nbsp;
-      %th From Regex
-      %th From Exact
-      %th Subject Regex
-      %th Subject Exact
-      %th Body Exact
-      %th Kind
-      %th Email Action
-      %th Email Template
-      %th Email Tag
+  -# %input#dataTableSearch
+  %table.bordered.data-table
+    %thead
+      %tr
+        %th &nbsp;
+        %th &nbsp;
+        %th From Regex
+        %th From Exact
+        %th Subject Regex
+        %th Subject Exact
+        %th Body Exact
+        %th Kind
+        %th Email Action
+        %th Email Template
+        %th Email Tag
     - @email_filters.each do |ef|
 
       %tr
@@ -25,8 +27,10 @@
         %td
           = link_to '[~]', edit_email_filter_path(ef)
           .inline-block= button_to '[x]', email_filter_path(ef), method: :delete, data: { confirm: 'Are you sure?' }
-        %td= ef.from_regex
-        %td= ef.from_exact
+        %td
+          `#{ef.from_regex}`
+        %td
+          `#{ef.from_exact}`
         %td= ef.subject_regex
         %td= ef.subject_exact
         %td= ef.body_exact

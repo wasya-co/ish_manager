@@ -127,8 +127,12 @@ $(function () {
       lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
       lengthChange: true,
     }
-    $('#dataTable').DataTable(_props)
-    $('.data-table').DataTable(_props)
+    // $('#dataTable').DataTable(_props)
+    var dataTable = $('.data-table').DataTable(_props)
+
+    $('#dataTableSearch').on( 'keyup', function () {
+      dataTable.search( this.value ).draw();
+  } );
   }
 
   if ('function' === typeof $('body').datepicker) {
