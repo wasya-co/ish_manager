@@ -34,17 +34,18 @@
   %br
   = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager
 
-  %table.conversations.bordered
-    %tr
-      %th
-        .chip.select-all
-          = check_box_tag :select_all
-          .n-selected -
-      %th Msgs
-      %th From emails
-      %th Subject
-      %th Datetime
-      %th Tags
+  %table.conversations.bordered.data-table
+    %thead
+      %tr
+        %th
+          .chip.select-all
+            = check_box_tag :select_all
+            .n-selected -
+        %th Msgs
+        %th From emails
+        %th Subject
+        %th Datetime
+        %th Tags
 
     - @email_conversations.each do |conv|
       %tr{ class: [ conv.state ] }
