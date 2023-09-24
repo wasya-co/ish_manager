@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/piousbox/ish_manager.git
-  revision: 2818ff7cf3e5aaf3c7aa26ca2c98784f62572758
+  revision: 0c1b8437ddceb8a763d87a6096c0544d1fc0d9eb
   branch: 2.2.0
   specs:
-    ish_manager (0.1.8.478)
+    ish_manager (0.1.8.479)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
@@ -43,10 +43,10 @@ GIT
 
 GIT
   remote: https://github.com/wasya-co/ishapi.git
-  revision: d7e851f2835e9e15706e73c529d31e59dbfaaac9
+  revision: 92700120604235d2120f09a8ed3dc0e258da73ac
   branch: 1.1.0
   specs:
-    ishapi (0.1.8.288)
+    ishapi (0.1.8.290)
       aws-sdk-s3
       cancancan (~> 3.2)
       devise

@@ -123,9 +123,10 @@ $(function () {
 
   if ('function' === typeof $('body').DataTable) {
     const _props = {
-      pageLength: -1,
-      lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
+      dom: 'lpftrip',
       lengthChange: true,
+      lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
+      pageLength: -1,
     }
     // $('#dataTable').DataTable(_props)
     var dataTable = $('.data-table').DataTable(_props)
