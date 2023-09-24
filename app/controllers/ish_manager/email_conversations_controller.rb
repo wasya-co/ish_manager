@@ -7,11 +7,10 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     authorize! :email_conversations_index, IshManager::Ability
     @email_conversations = ::Office::EmailConversation.all
 
+    per_page = current_profile.per_page
     # if current_profile.per_page > 100
     #   flash_notice "Cannot display more than 100 conversations per page."
     #   per_page = 100
-    # else
-    #   per_page = current_profile.per_page
     # end
 
     if params[:slug]
