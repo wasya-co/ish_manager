@@ -51,6 +51,12 @@
 
 .email-contexts-index {
 
+  .send_at,
+  .sent_at {
+    min-width: 200px;
+    font-size: 0.9em;
+  }
+
   > .header {
     display: flex;
     justify-content: center;

@@ -18,9 +18,11 @@
 
         .col-sm-4
           %ul
-            %li \~__^
-            %li= @version
-            %li= Time.now.in_time_zone.to_s
+            %li ~__^ &nbsp; &nbsp; v#{@version}
+            -# %li= Time.now.in_time_zone.to_s
+            %li
+              = pp_date Time.now
+              = pp_time Time.now
             -# <pre>#{@changelog}</pre>
 
         .col-sm-4

@@ -61,9 +61,10 @@
           %td.subject
             = link_to conv.subject, email_conversation_path( conv )
 
-          %td.datetime
-            .date= conv.latest_at.strftime('%Y-%m-%d')
-            .time= conv.latest_at.strftime('%l:%M%P')
+          %td
+            .datetime
+              .date= pp_date conv.latest_at
+              .time= pp_time conv.latest_at
 
           %td
             .tags

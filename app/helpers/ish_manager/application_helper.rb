@@ -71,11 +71,15 @@ module IshManager
       date&.strftime('%Y-%m-%d')
     end
     def pp_date a; pretty_date a; end
+
     def pp_datetime date
       date&.strftime('%Y-%m-%d %l:%M%P %z')
     end
+
     def pp_time date
-      date&.strftime('%l:%M%P %z')
+      return nil if !date
+      # return date.strftime('%l:%M%P %z')
+      return date.in_time_zone( Rails.application.config.time_zone ).strftime('%l:%M%P')
     end
 
     def pp_amount a

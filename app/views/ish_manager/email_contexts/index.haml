@@ -47,10 +47,12 @@
               = link_to email_context_path(ctx) do
                 = ctx.subject ? ctx.subject : "t| #{ctx.tmpl.subject}"
             %td= ctx.email_template.slug
-            %td.send_at
-              .a= pp_date ctx.send_at
-              .a= pp_time ctx.send_at
-            %td= pp_date ctx.sent_at
+            %td.send_at.padded
+              .datetime
+                .date= pp_date ctx.send_at
+                .time= pp_time ctx.send_at
+            %td
+              .datetime.padded= pp_date ctx.sent_at
 
 
     = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager

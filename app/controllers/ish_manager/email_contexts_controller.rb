@@ -56,7 +56,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
 
   def index
     authorize! :index, ::Ish::EmailContext
-    @ctxs = ::Ish::EmailContext.all.page( params[:ctxs_page] ).per( current_profile.per_page )
+    @ctxs = ::Ish::EmailContext.all.order_by( sent_at: :desc, send_at: :desc
+      ).page( params[:ctxs_page]
+      ).per( current_profile.per_page )
 
     if params[:lead_id]
       @lead = Lead.find params[:lead_id]
