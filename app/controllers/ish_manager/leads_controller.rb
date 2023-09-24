@@ -132,11 +132,12 @@ class ::IshManager::LeadsController < IshManager::ApplicationController
   end
 
   def show
-    @lead = Lead.find params[:id]
+    @lead      = Lead.find params[:id]
     authorize! :show, @lead
-    @schs = Sch.where( lead_id: @lead.id )
-    @ctxs = Ctx.where( lead_id: @lead.id )
-    @msgs = Msg.where( from: @lead.email )
+    @schs      = Sch.where( lead_id: @lead.id )
+    @ctxs      = Ctx.where( lead_id: @lead.id )
+    @convs     = Conv.find( Office::EmailConversationLead.where( lead_id: @lead.id ).map( &:email_conversation_id ) )
+    @msgs      = Msg.where( from: @lead.email )
     @galleries = @lead.galleries.page( params[:galleries_page] ).per( current_profile.per_page )
     @videos    = @lead.videos.page( params[:videos_page]       ).per( current_profile.per_page )
   end
