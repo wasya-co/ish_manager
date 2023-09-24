@@ -1,7 +1,7 @@
 
 .galleries--menu
 
-  = link_to "Galleries (#{count})", galleries_path
+  = link_to "Galleries (#{Gallery.all.length})", galleries_path
 
   .inline-search
     = form_tag galleries_path, method: :get do

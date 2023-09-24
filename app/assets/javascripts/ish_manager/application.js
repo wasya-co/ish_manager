@@ -123,7 +123,7 @@ $(function () {
 
   if ('function' === typeof $('body').DataTable) {
     const _props = {
-      pageLength: 10,
+      pageLength: -1,
       lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
       lengthChange: true,
     }
