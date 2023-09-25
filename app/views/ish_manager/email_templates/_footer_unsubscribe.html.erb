@@ -14,8 +14,8 @@
         201 W 5th St 11th Floor, Austin, TX 78701<br><br>
 
         Want to change how you receive these emails? You can
-        <%= link_to 'update your preferences', '#' %> or
-        <%= link_to 'unsubscribe from this list', @unsubscribe_url %>.<br><br>
+        <% # link_to( 'update your preferences', obfuscate( user_dashboard_url ) ) + ' or ' %>
+        <%= link_to 'unsubscribe from this list', obfuscate( @unsubscribe_url ) %>.<br><br>
 
       </td>
 

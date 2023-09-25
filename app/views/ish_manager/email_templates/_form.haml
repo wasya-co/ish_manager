@@ -15,7 +15,7 @@
       .col-md-4
         .field
           = f.label "From"
-          = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: email_template.from_email)
+          = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: email_template.from_email), {}, class: 'select2'
     .field.field-subject
       = f.label :subject
       = f.text_field :subject
@@ -43,9 +43,9 @@
       = f.label :config_json
       = f.text_area :config_json
 
-    .field
-      = f.label :config_exe
-      = f.text_area :config_exe
+    -# .field
+    -#   = f.label :config_exe
+    -#   = f.text_area :config_exe
 
     .actions
       = f.submit 'Save'

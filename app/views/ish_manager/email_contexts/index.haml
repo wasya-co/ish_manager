@@ -19,7 +19,7 @@
   .W0
     = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager
 
-    %table.bordered
+    %table.bordered.data-table
       %thead
         %tr
           %th.actions
@@ -29,11 +29,12 @@
           %th.template Template
           %th.send_at Send at
           %th.sent_at Sent at
+          %th.unsubscribed_at Unsubscribed at
       %tbody
         - @ctxs.each do |ctx|
           %tr
             %td.actions.padded
-              - if ctx.sent_at
+              - if ctx.sent_at || ctx.unsubscribed_at
                 \--
               - else
                 = link_to '[~]',    edit_email_context_path(ctx)
@@ -53,6 +54,8 @@
                 .time= pp_time ctx.send_at
             %td
               .datetime.padded= pp_date ctx.sent_at
+            %td
+              .datetime.padded= pp_date ctx.unsubscribed_at
 
 
     = render 'paginate', resource: @ctxs, param_name: :ctxs_page, views_prefix: :ish_manager

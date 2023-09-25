@@ -43,7 +43,7 @@ module IshManager
     #   return Ishapi::Engine.routes.url_helpers.obf_url( obf.id )
     # end
     def obfuscate link
-      # puts! link, 'obfuscate helper'
+      puts! link, 'obfuscate helper' if DEBUG
       obf = Office::ObfuscatedRedirect.find_or_create_by({ to: link })
       return Ishapi::Engine.routes.url_helpers.obf_url( obf.id )
     end

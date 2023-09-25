@@ -2,9 +2,11 @@
 class IshManager::OfficeMailer < IshManager::ApplicationMailer
 
   ## 2023-04-02 _vp_ Continue.
+  ## 2023-09-24 _vp_ Continue : )
   def send_context_email ctx_id
-    @ctx  = Ctx.find ctx_id
-    @lead = Lead.find @ctx.lead_id
+    @ctx         = Ctx.find ctx_id
+    @lead        = Lead.find @ctx.lead_id
+    @tmpl_config = OpenStruct.new JSON.parse( @ctx.tmpl[:config_json] )
 
     @utm_tracking_str = {
       'cid'          => @ctx.lead_id,
@@ -13,11 +15,9 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
       'utm_source'   => @ctx.tmpl.slug,
     }.map { |k, v| "#{k}=#{v}" }.join("&")
 
-    @domain         = Rails.application.config.action_mailer.default_url_options[:host]
-    @origin         = "https://#{Rails.application.config.action_mailer.default_url_options[:host]}"
+    # @origin         = "https://#{Rails.application.config.action_mailer.default_url_options[:host]}"
 
     @unsubscribe_url = Ishapi::Engine.routes.url_helpers.email_unsubscribes_url({
-      host: 'text-host-3',
       template_id: @ctx.tmpl.id,
       lead_id:     @lead.id,
       token:       @lead.unsubscribe_token,
@@ -28,13 +28,13 @@ class IshManager::OfficeMailer < IshManager::ApplicationMailer
     # renderer.send( :request, { host: 'test-host' } )
     renderer = IshManager::ApplicationMailer.new
 
-
     renderer.instance_variable_set( :@ctx,              @ctx )
     renderer.instance_variable_set( :@lead,             @ctx.lead )
     renderer.instance_variable_set( :@utm_tracking_str, @utm_tracking_str )
     renderer.instance_variable_set( :@unsubscribe_url,  @unsubscribe_url )
+    renderer.instance_variable_set( :@tmpl_config,      @tmpl_config )
 
-    eval( @ctx.tmpl.config_exe )
+    # eval( @ctx.tmpl.config_exe )
 
     if 'plain' == @ctx.tmpl.layout
       rendered_str = ERB.new( @ctx.body ).result( @ctx.get_binding )

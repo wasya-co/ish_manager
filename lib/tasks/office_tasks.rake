@@ -10,12 +10,13 @@ namespace :office do
 
         sch.send_and_roll
 
-        print '+'
+        print '.'
       end
 
-      # sleep 1.minute
-      sleep 10.seconds
-      print '.'
+      duration = Rails.env.production? ? 120 : 15 # 2 minutes or 15 seconds
+      sleep duration
+      print '^'
+
     end
   end
 
@@ -51,25 +52,30 @@ namespace :office do
       ctxs = ::Ish::EmailContext.scheduled.notsent
       ctxs.map do |ctx|
 
-        unsub = Ish::EmailUnsubscribe.where({ lead_id: ctx.lead_id, template_id: ctx.template_id }).first
+        unsub = Ish::EmailUnsubscribe.where({ lead_id: ctx.lead_id, template_id: ctx.email_template_id }).first
         if unsub
-          Office::AdminMessage.create({ message: "Lead `#{ctx.lead.full_name}` [mailto:#{ctx.lead.email}] has already unsubscribed from template `#{Ish::EmailTemplate.find( ctx.template_id ).slug}` ." })
-          email_action_ids = EAction.where({ email_template_id: ctx.template_id }).map(&:id)
+          puts! 'This user is unsubscribed; the context cannot be sent.' if DEBUG
+          Office::AdminMessage.create({ message: "Lead `#{ctx.lead.full_name}` [mailto:#{ctx.lead.email}] has already unsubscribed from template `#{Ish::EmailTemplate.find( ctx.email_template_id ).slug}` ." })
+          email_action_ids = EAct.where({ email_template_id: ctx.email_template_id }).map(&:id)
           schs = Sch.active.where({
             lead_id: ctx.lead_id,
             :email_action_id.in => email_action_ids,
           })
           schs.update({ state: Office::ScheduledEmailAction::STATE_UNSUBSCRIBED })
+          ctx.update({
+            unsubscribed_at: Time.now.to_s,
+          })
+        else
+          out = IshManager::OfficeMailer.send_context_email( ctx[:id].to_s )
+          Rails.env.production? ? out.deliver_later : out.deliver_now
         end
 
-        out = IshManager::OfficeMailer.send_context_email( ctx[:id].to_s )
-        Rails.env.production? ? out.deliver_later : out.deliver_now
-        print '^'
+        print '.'
       end
 
       duration = Rails.env.production? ? 120 : 15 # 2 minutes or 15 seconds
       sleep duration
-      print '.'
+      print '^'
 
     end
   end

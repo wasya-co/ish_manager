@@ -25,6 +25,7 @@
         .field
           %label Next Email Actions
           .eg rand(1..5).business_days.from_now.to_date + rand(8..16).hours + rand(1..59).minutes
+          .eg This is not an interval! But you can do Time.now + 30.seconds
           %br
 
           = f.fields_for :ties do |next_f|

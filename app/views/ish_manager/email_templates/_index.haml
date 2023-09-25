@@ -6,13 +6,14 @@
     = link_to '[+]', new_email_template_path
 
   = paginate @templates, :param_name => :templates_page, :views_prefix => 'ish_manager'
-  .email-templates-index.max-width
-    %table.bordered
-      %tr
-        %th
-        %th Slug
-        %th Created
-        %th Updated
+  .email-templates-index.maxwidth
+    %table.bordered.data-table
+      %thead
+        %tr
+          %th &nbsp;
+          %th Slug
+          %th Created
+          %th Updated
 
       - @templates.each do |tmpl|
         %tr

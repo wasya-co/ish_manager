@@ -47,9 +47,10 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
     @ctx = @email_context = Ish::EmailContext.find params[:id]
     authorize! :iframe_src, @ctx
 
-    @tmpl = @email_template = @ctx.email_template
-    @lead = @ctx.lead
-    @body = @ctx.body
+    @tmpl        = @email_template = @ctx.email_template
+    @tmpl_config = OpenStruct.new JSON.parse( @ctx.tmpl[:config_json] )
+    @lead        = @ctx.lead
+    @body        = @ctx.body
 
     render layout: false
   end
@@ -65,9 +66,9 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
       @ctxs = @ctxs.where( lead_id: @lead.id )
     else
       if my_truthy? params[:sent]
-        @ctxs = @ctxs.where( :sent_at.ne => nil )
+        @ctxs = @ctxs.or({ :sent_at.ne => nil }, { :unsubscribed_at.ne => nil })
       else
-        @ctxs = @ctxs.where( sent_at: nil )
+        @ctxs = @ctxs.where( sent_at: nil, unsubscribed_at: nil )
       end
     end
   end
@@ -87,7 +88,7 @@ class ::IshManager::EmailContextsController < ::IshManager::ApplicationControlle
   def send_immediate
     @ctx = ::Ish::EmailContext.find params[:id]
     authorize! :do_send, @ctx
-    flash[:notice] = 'Sent immediately.'
+    flash_notice 'Sent immediately.'
 
     out = IshManager::OfficeMailer.send_context_email( @ctx[:id].to_s )
     Rails.env.production? ? out.deliver_later : out.deliver_now
