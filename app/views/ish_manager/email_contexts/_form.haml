@@ -10,9 +10,9 @@
         = link_to '~', edit_email_template_path( ctx.email_template_id ), target: :_blank, class: [ 'action-view' ]
         layout: #{ctx.tmpl.layout}
 
-    .field
+    .field.flex-row
       = f.label "From"
-      = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: ctx.from_email)
+      = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: ctx.from_email), {}, { class: 'select2' }
 
     .field.flex-row
       = f.label "To lead"
