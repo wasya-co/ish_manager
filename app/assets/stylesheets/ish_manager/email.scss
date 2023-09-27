@@ -38,16 +38,11 @@ td.ctxs {
 
   display: inline-block;
 
-  // display: flex;
-  // flex-direction: column;
-
-  // max-width: 400px; // @TODO: where is this used?!
-
-  margin-left: 20px;
-
   border: 1px solid #666;
   border-radius: 5px;
+
   padding: 5px;
+
   background: #eee;
 
   * {

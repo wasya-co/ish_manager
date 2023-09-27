@@ -1,77 +1,79 @@
 
 .email-conversations-show
 
-  .header.max-width
-    -# %i.material-icons mail
+  .padded
 
-    = link_to '[<<-]', email_conversations_path
+    .header
+      = link_to '[<<-]', email_conversations_path
+      %i.material-icons mail
 
-    .subject #{@email_conversation.subject}
-    (#{@email_conversation.email_messages.all.count})
+      .subject #{@email_conversation.subject}
+      (#{@email_conversation.email_messages.all.count})
 
-  .tags.max-width
-    Tags (#{@email_conversation.tags.length}):
-    = @email_conversation.wp_term_ids
-    = @email_conversation.tags.map(&:name).join(", ")
+    .tags-list
+      %b Tags (#{@email_conversation.tags.length}):
+      -# = @email_conversation.wp_term_ids
+      - @email_conversation.tags.each do |tag|
+        .chip= link_to "[#{tag.term_id}] #{tag.name}", category_path( tag )
 
-  .leads.max-width
-    Leads (#{@email_conversation.leads.length}):
-    - @email_conversation.leads.each do |lead|
-      .item
-        = link_to "#{lead.id} #{lead.email}", lead_path(lead)
-        \(ctxs:
-        = link_to email_contexts_for_lead_path( lead ) do
-          = lead.email_contexts.count
-          %i.fa.fa-envelope
-        .relative.inline-block
-          %i.fa.fa-plus.expand-next
-          .expand-hide= render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank })
-        \)
-        .relative.inline-block
-          %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
-          .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+    .leads-list
+      %b Leads (#{@email_conversation.leads.length}):
+      - @email_conversation.leads.each do |lead|
+        .item
+          = link_to "#{lead.id} #{lead.email}", lead_path(lead)
+          \(ctxs:
+          = link_to email_contexts_for_lead_path( lead ) do
+            = lead.email_contexts.count
+            %i.fa.fa-envelope
+          .relative.inline-block
+            %i.fa.fa-plus.expand-next
+            .expand-hide= render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank })
+          \)
+          .relative.inline-block
+            %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
+            .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
 
-  .messages.max-width
-    - @email_messages.each do |msg|
-      - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
+    .messages-list
+      - @email_messages.each do |msg|
+        - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
 
-      .item.msg-container{ data: { msg: { id: msg.id } } }
-        .row-1
-          .gray
-            %ul
-              %li
-                = msg.id
-                <b>To:</b> #{msg.to}
-                <b>From:</b> #{lead.email}
+        .item.msg-container{ data: { msg: { id: msg.id } } }
+          .row-1
+            .gray
+              <b>From:</b> #{lead.email}
+              <b>To:</b> #{msg.to}
+              = msg.id
+              <b>object_key:</b> #{msg.object_key}
 
 
-          .datetime
-            .date= msg.date&.strftime('%Y-%m-%d')
-            .time= msg.date&.strftime('%l:%M%P')
+            .datetime
+              .date= msg.date&.strftime('%Y-%m-%d')
+              .time= msg.date&.strftime('%l:%M%P')
 
-        .row-2
-          .flexy
-            = link_to "Expand w/img", ishapi.email_message_path(msg, jwt_token: @jwt_token, load_images: true ), target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
-            \- or -
-            = link_to "Expand",       ishapi.email_message_path(msg, jwt_token: @jwt_token ),                    target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
-            = msg.preview_str
+          .row-2
+            .flexy
+              = link_to "Expand w/img", ishapi.email_message_path(msg, jwt_token: @jwt_token, load_images: true ), target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
+              \- or -
+              = link_to "Expand",       ishapi.email_message_path(msg, jwt_token: @jwt_token ),                    target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
+              = msg.preview_str
 
-          .to-expand
+            .ml-200.to-expand
 
-            - if msg.attachments.present?
-              .attachments
-                - msg.attachments.map do |att|
-                  .item
-                    %h5= att.photo.original_filename
-                    = image_tag att.photo.url(:original)
+              - if msg.attachments.present?
+                .attachments
+                  - msg.attachments.map do |att|
+                    .item
+                      %h5= att.photo.original_filename
+                      = image_tag att.photo.url(:original)
 
-            %iframe{ name: msg.message_id }
+              %iframe{ name: msg.message_id }
 
-            = render 'ish_manager/email_contexts/form_reply', lead: lead
-            .bordered-card
-              = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
-            -# = button_to 'Reply'
-            -# = button_to 'Reply All'
-            -# = button_to 'New Template'
-            -# = button_to 'Schedule Reply'
-            -# = render 'ish_manager/email_templates/form_schedule_mini'
+              = render 'ish_manager/email_contexts/form_reply', lead: lead
+              .collapse-expand.wco-collapse Reply
+              .bordered.mt-3.wco-collapsed
+                = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
+              -# = button_to 'Reply'
+              -# = button_to 'Reply All'
+              -# = button_to 'New Template'
+              -# = button_to 'Schedule Reply'
+              -# = render 'ish_manager/email_templates/form_schedule_mini'

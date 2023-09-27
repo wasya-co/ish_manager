@@ -3,3 +3,26 @@ form.tags--form-mini {
   display: flex;
 }
 
+/*
+ * used in
+ *   .email-conversations-index
+ *   .email-conversations-show
+**/
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+
+  // border: 1px dashed var(--m3-dol-text-color);
+  // border-radius: 5px;
+  // padding: 0.5em;
+
+  margin: 0.5em 0;
+
+  .label,
+  b {
+    margin-right: 0.5em;
+  }
+}
+
+

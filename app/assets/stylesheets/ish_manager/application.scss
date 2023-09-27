@@ -4,6 +4,7 @@
  *= require ish_manager/vendor/jquery-ui
  * require ish_manager/vendor/summernote-bs4.min
  *
+ *= require ish_manager/variables
  *= require_self
  *= require ish_manager/appliances
  *= require ish_manager/email_contexts
@@ -93,12 +94,11 @@ ul:not(.browser-default).bullets, {
   width: 100vwh;
   overflow-x: auto;
 }
-.application-home {
-  .bordered-card {
-    display: inline-block;
-    // max-width: 400px;
-  }
-}
+// .application-home {
+//   .bordered-card {
+//     display: inline-block;
+//   }
+// }
 
 
 /* B */
@@ -118,6 +118,12 @@ ul:not(.browser-default).bullets, {
   padding: 1em;
 }
 
+div.bordered {
+  border: 1px solid black;
+  border-radius: 0.5em;
+
+  padding: 0.5em;
+}
 table.bordered {
   tbody {
     td {
@@ -126,13 +132,13 @@ table.bordered {
   }
 }
 
-.bordered-card {
-  border: 1px solid grey;
-  padding: .5em;
-  border-radius: 8px;
-  margin-bottom: .5em;
-  padding: 0.5em;
-}
+// .bordered-card {
+//   border: 1px solid grey;
+//   padding: .5em;
+//   border-radius: 8px;
+//   margin-bottom: .5em;
+//   padding: 0.5em;
+// }
 
 .btn {
   border: 1px solid red;
@@ -224,12 +230,11 @@ table.bordered {
 .collapse-expand::after {
   content: " [<]";
 }
-.collapsed::after {
+.wco-collapse::after {
   content: " [>]";
 }
-.expand-next + form {
-  // border: 1px solid red !important;
-  // display: none !important;
+.wco-collapsed {
+  display: none;
 }
 
 /* D */
@@ -450,7 +455,15 @@ textarea.large {
   display: inline;
 }
 
-
+.ml-100 {
+  margin-left: 100px;
+}
+.ml-200 {
+  margin-left: 200px;
+}
+.ml-300 {
+  margin-left: 300px;
+}
 
 /* N */
 
