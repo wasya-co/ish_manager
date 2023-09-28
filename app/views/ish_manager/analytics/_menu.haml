@@ -5,14 +5,22 @@
     %li= link_to 'Test', analytics_test_path
 
   = form_tag( analytics_test_path, method: :get ) do
+
     .field
       %label Domain
       = select_tag :idSite, options_for_select(@sites_list, selected: params[:idSite]), class: :select2
+
     .field
       %label prev_interval
       = select_tag :prev_interval, options_for_select( @prev_intervals, selected: params[:prev_interval] )
+      %label date_from
+      = text_field_tag :date_from, params[:date_from]
+      %label date_to
+      = text_field_tag :date_to, params[:date_to]
+
     .field
       %label method
       = select_tag :method, options_for_select( @methods_list, selected: params[:method] )
+
     .actions
       = submit_tag 'Submit'
