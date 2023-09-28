@@ -1,17 +1,19 @@
 
 .unsubscribes-index.maxwidth
+  %h5 Unsubscribes
 
   %table.bordered.data-table
     %thead
       %tr
-        %td Email
+        %td Lead
         %td Date
         %td campaign_id
         %td template_id
 
+
     - @unsubscribes.each do |i|
       %tr
-        %td= i.email
+        %td= @leads_h[i.lead_id]
         %td= i.unsubscribed_at
         %td= i.campaign
         %td= i.template
