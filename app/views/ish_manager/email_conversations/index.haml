@@ -45,7 +45,6 @@
         %th From emails
         %th Subject
         %th Datetime
-        %th Tags
 
     - @email_conversations.each do |conv|
       %tr{ class: [ conv.state ] }
@@ -66,12 +65,6 @@
               .date= pp_date conv.latest_at
               .time= pp_time conv.latest_at
 
-          %td
-            .tags
-              &lt;tags>
-              -# - conv.tags.each do |tag|
-              -#   .chip
-              -#     = tag.name
 
   %br
   = render 'paginate',  resource: @email_conversations, param_name: :conv_page, views_prefix: :ish_manager

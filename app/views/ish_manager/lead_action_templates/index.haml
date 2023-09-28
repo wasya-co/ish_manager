@@ -2,10 +2,7 @@
 .lead-action-templates-index.maxwidth
   %h5 Lead Action Templates
 
-  %ul
-    - @tmpls.each do |tmpl|
-      %li
-        = link_to "[~ #{tmpl.slug}]", edit_lead_action_template_path( tmpl )
+  = render 'ish_manager/lead_action_templates/list'
 
   %hr
   = render 'form', tmpl: @new_lat

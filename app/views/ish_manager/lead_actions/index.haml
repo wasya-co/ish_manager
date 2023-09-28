@@ -1,12 +1,29 @@
 
 .lead-actions-index.maxwidth
-  %h5 Lead Actions
+
+  %h5.collapse-expand#lats
+    Lead Action Templates
+    = link_to '[+]', new_lead_action_template_path
+
+  = render 'ish_manager/lead_action_templates/list'
+
+  %hr
+
+  %h5.collapse-expand#las
+    Lead Actions
+    = link_to '[+]', new_lead_action_path
 
   %ul
     - @lead_actions.each do |la|
       %li
+        = link_to '[~]', edit_lead_action_path( la )
         %ul
-          - JSON.parse( la.params ).each do |k, v|
-            %li
-              = k
-              = v
+          - %w| tmpl lead |.each do |k|
+            %li <b>#{k}:</b> #{la.send( k )}
+          %li
+            <b>params:</b>
+            %ul
+              - JSON.parse( la.params ).each do |k, v|
+                %li
+                  = k
+                  = v

@@ -150,6 +150,11 @@ IshManager::Engine.routes.draw do
   get 'subscriptions/new_wco',    to: 'subscriptions#new_wco',    as: :new_wco_subscription
   resources :subscriptions
 
+  ##
+  ## U
+  ##
+  resources :unsubscribes
+
   resources :user_profiles do
     resources :newsitems
   end
@@ -157,6 +162,9 @@ IshManager::Engine.routes.draw do
     # resources :newsitems
   end
 
+  ##
+  ## V
+  ##
   resources :videos
 
 end

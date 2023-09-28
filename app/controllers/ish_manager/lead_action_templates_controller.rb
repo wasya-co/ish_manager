@@ -1,6 +1,7 @@
 
 class IshManager::LeadActionTemplatesController < IshManager::ApplicationController
 
+
   def create
     authorize! :create, Office::LeadActionTemplate
     @tmpl = ::Office::LeadActionTemplate.new params[:tmpl].permit!
@@ -21,6 +22,11 @@ class IshManager::LeadActionTemplatesController < IshManager::ApplicationControl
     authorize! :index, Office::LeadActionTemplate
     @tmpls = ::Office::LeadActionTemplate.all
     @new_lat = ::Office::LeadActionTemplate.new
+  end
+
+  def new
+    authorize! :new, Office::LeadActionTemplate
+    @tmpl = ::Office::LeadActionTemplate.new
   end
 
 end

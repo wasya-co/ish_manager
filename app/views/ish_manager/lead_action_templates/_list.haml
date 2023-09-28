@@ -1,0 +1,12 @@
+
+.lead-action-templates--list
+  .flex-row
+    - @lead_action_templates.each do |lat|
+      .card
+        .flex-row
+          = link_to '[~]', edit_lead_action_template_path( lat )
+          = lat.slug
+        %ul
+          -# - %w| slug kind |
+          - %w| config_json action_exe |.each do |k|
+            %li <b>#{k}:</b> #{lat[k]}
