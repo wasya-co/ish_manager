@@ -1,7 +1,12 @@
 
 IshManager::Engine.routes.draw do
 
+  ##
+  ## A
+  ##
   root :to => 'application#home'
+
+  get 'analytics/test', to: 'analytics#test'
 
   get 'application/tinymce', to: 'application#tinymce'
 

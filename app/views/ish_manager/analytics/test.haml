@@ -1,0 +1,10 @@
+
+.analytics-test.maxwidth
+
+  %ul
+    - @reports.each do |email, paths|
+      %li
+        <b>#{email}:</b>
+        %ul
+          - paths.each do |p|
+            %li= p
