@@ -42,6 +42,11 @@
   .thumbnails {
     .item {
       border: 1px solid blue;
+      display: flex;
+
+      > * {
+        margin-right: .5em;
+      }
     }
   }
 

@@ -1,5 +1,9 @@
 
 .analytics-test.maxwidth
+  %h5 Analytics Test
+
+  = render 'ish_manager/analytics/menu'
+  %hr
 
   %ul
     - @reports.each do |email, paths|
