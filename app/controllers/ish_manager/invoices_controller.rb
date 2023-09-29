@@ -27,7 +27,7 @@ class ::IshManager::InvoicesController < IshManager::ApplicationController
     end
 
     @pdf = @invoice.generate_monthly_invoice
-    path = Rails.root.join 'tmp', @invoice.filename
+    path = "/tmp/#{@invoice.filename}"
     @pdf.render_file path
     data = File.read path
 
