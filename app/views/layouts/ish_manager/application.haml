@@ -47,6 +47,7 @@
 
     = render :partial => "ish_manager/application/main_header_#{@current_profile.role_name}"
     = render 'alerts_notices' if notice || alert
+    %span.absolute.collapse-expand#mainW
     = yield
     = render 'ish_manager/application/main_footer'
     = render 'analytics' if Rails.env.production?

@@ -1,5 +1,5 @@
 
-.leadsets-show.max-width
+.leadsets-show.padded
   .header
     %h2.title
       Leadset `#{@leadset.name}`
@@ -31,12 +31,14 @@
 
       = render 'ish_manager/invoices/index_list', invoices: @invoices
 
+      %p Next invoice number: #{@leadset.next_invoice_number}
+
       = form_tag create_monthly_invoice_for_leadset_path({ leadset_id: @leadset.id }) do
-        %label Invoice for month
-        = text_field_tag 'month_on'
-        %label (x?)
+        %label Create invoice for month
+        = text_field_tag 'month_on', nil, placeholder: 'YYYY-MM-DD'
+        %label (replace ?)
         = check_box_tag 'replace'
-        = submit_tag '>', data: { confirm: 'Are you sure?' }
+        = submit_tag 'Go >', data: { confirm: 'Are you sure?' }
       %hr
 
     .col-md-6

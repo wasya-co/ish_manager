@@ -2,7 +2,6 @@
 .appliances--index
   %h5 Appliances (#{appliances.length})
   - if appliances.present?
-    %hr
     %ul.items
       - appliances.each do |i|
         %li
@@ -18,5 +17,4 @@
               - else
                 <no-serverhost>
             %li.host <b>host:</b> #{i.host}
-%hr
 
