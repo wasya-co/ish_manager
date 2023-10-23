@@ -20,7 +20,7 @@
       .row
         - galleries.each do |g|
           .col-sm-12.col-md-6
-            .bordered-card
+            .Card
               %h5
                 = link_to '[~]', edit_gallery_path( g )
                 = link_to g.name, gallery_path(g.slug)
