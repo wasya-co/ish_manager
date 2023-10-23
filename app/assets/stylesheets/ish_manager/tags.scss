@@ -1,4 +1,20 @@
 
+
+.tags {
+  // background: #eee;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  max-width: 400px;
+}
+
+.tags-add {
+  position: relative;
+  vertical-align: top;
+}
+
+
 form.tags--form-mini {
   display: flex;
 }
@@ -24,5 +40,4 @@ form.tags--form-mini {
     margin-right: 0.5em;
   }
 }
-
 

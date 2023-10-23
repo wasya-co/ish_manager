@@ -56,70 +56,6 @@
     }
   }
 
-  .leads-list {
-    margin: 1em 0;
-
-    .item {
-      display: inline;
-
-      border: 1px solid green;
-      border-radius: 0.5em;
-      padding: 0.5em;
-
-      margin-right: 0.5em;
-
-    }
-  }
-
-  /* these are inside a conversation. _vp_ 2023-02-28 */
-  .messages-list {
-    // border: 1px solid red;
-
-    padding-left: 0;
-    list-style-type: none;
-
-    .item:first-child {
-      border-top: 1px solid var(--m3-dol-accent-color);
-    }
-    .item {
-      border-bottom: 1px solid var(--m3-dol-accent-color);
-      margin-bottom: 0.2em;
-
-      padding: 0.5em 0;
-
-      iframe {
-        // border: 2px solid yellow;
-
-        width: 100%;
-        min-height: 500px;
-        height: 75vh;
-      }
-
-      .my-actions {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .preview {
-        // border: 1px solid gold;
-
-        display: inline-block;
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-
-      .row-1 {
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .to-expand {
-        display: none;
-      }
-    }
-  }
 
   .participants {
     width: 250px;
@@ -155,6 +91,10 @@
   .subject {
     margin: 0 1em;
     font-weight: bold;
+
+    &:before {
+      content: "Subj: ";
+    }
   }
 
 

@@ -5,6 +5,7 @@
  * require ish_manager/vendor/summernote-bs4.min
  *
  *= require ish_manager/variables
+ *= require ish_manager/utils_bootstrap
  *= require_self
  *= require ish_manager/appliances
  *= require ish_manager/email_contexts
@@ -15,7 +16,8 @@
  *= require ish_manager/galleries
  *= require ish_manager/iro
  *= require ish_manager/iro1
- *= require ish_manager/leads_leadsets
+ *= require ish_manager/leads
+ *= require ish_manager/leadsets
  *= require ish_manager/leadsets
  *= require ish_manager/maps
  *= require ish_manager/markers
@@ -168,6 +170,14 @@ table.bordered {
 }
 
 .chip {
+  display: inline;
+
+  border: 1px solid #eee;
+  border-radius: 0.5em;
+  padding: 0.1em .3em;
+  background: #fff;
+}
+.chip {
   // border: 1px solid black;
   border-radius: 1em 0 0 1em;
 
@@ -268,6 +278,12 @@ table.dataTable {
 }
 
 
+
+.doc {
+  max-width: 555px;
+}
+
+/* E */
 
 .expand-hide {
   display: none;
@@ -423,6 +439,12 @@ textarea.large {
   background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192822/weather-bg-development.png');
 }
 
+#mainW {
+  // border: 1px solid red;
+  margin-top: -20px;
+  font-size: .8em;
+}
+
 .manager--main-footer {
   background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
   border-top: 2px solid red;
@@ -533,6 +555,9 @@ textarea.large {
   width: 100px;
   height: 100px;
 }
+
+
+
 
 /* U */
 

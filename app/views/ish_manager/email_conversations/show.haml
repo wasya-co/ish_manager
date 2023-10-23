@@ -1,79 +1,82 @@
 
-.email-conversations-show
+.email-conversations-show.padded
+  .row
+    .col-sm-12.col-md-8
 
-  .padded
+      .email-messages-list
+        - @email_messages.each do |msg|
+          - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
 
-    .header
-      = link_to '[<<-]', email_conversations_path
-      %i.material-icons mail
-
-      .subject #{@email_conversation.subject}
-      (#{@email_conversation.email_messages.all.count})
-
-    .tags-list
-      %b Tags (#{@email_conversation.tags.length}):
-      -# = @email_conversation.wp_term_ids
-      - @email_conversation.tags.each do |tag|
-        .chip= link_to "[#{tag.term_id}] #{tag.name}", category_path( tag )
-
-    .leads-list
-      %b Leads (#{@email_conversation.leads.length}):
-      - @email_conversation.leads.each do |lead|
-        .item
-          = link_to "#{lead.id} #{lead.email}", lead_path(lead)
-          \(ctxs:
-          = link_to email_contexts_for_lead_path( lead ) do
-            = lead.email_contexts.count
-            %i.fa.fa-envelope
-          .relative.inline-block
-            %i.fa.fa-plus.expand-next
-            .expand-hide= render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank })
-          \)
-          .relative.inline-block
-            %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
-            .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
-
-    .messages-list
-      - @email_messages.each do |msg|
-        - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
-
-        .item.msg-container{ data: { msg: { id: msg.id } } }
-          .row-1
-            .gray
-              <b>From:</b> #{lead.email}
-              <b>To:</b> #{msg.to}
-              = msg.id
-              <b>object_key:</b> #{msg.object_key}
+          .item.msg-container{ data: { msg: { id: msg.id } } }
+            .gray.row
+              .col-md-6
+                .a <b>From:</b> #{lead.email}
+                .a <b>To:</b> #{msg.to}
+              .col-md-6
+                .a <b>msg.id:</b> #{msg.id}
+                .a <b>object_key:</b> #{msg.object_key}
 
 
-            .datetime
-              .date= msg.date&.strftime('%Y-%m-%d')
-              .time= msg.date&.strftime('%l:%M%P')
+              .position-absolute.top-0.right-0.datetime
+                .date= msg.date&.strftime('%Y-%m-%d') || 'none'
+                .time= msg.date&.strftime('%l:%M%P') || 'none'
 
-          .row-2
-            .flexy
-              = link_to "Expand w/img", ishapi.email_message_path(msg, jwt_token: @jwt_token, load_images: true ), target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
-              \- or -
-              = link_to "Expand",       ishapi.email_message_path(msg, jwt_token: @jwt_token ),                    target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
-              = msg.preview_str
+            .row-2
+              .flexy
+                = link_to "Expand w/img", ishapi.email_message_path(msg, jwt_token: @jwt_token, load_images: true ), target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
+                \- or -
+                = link_to "Expand",       ishapi.email_message_path(msg, jwt_token: @jwt_token ),                    target: msg.message_id, class: 'preview-btn', data: { msg: { id: msg.id.to_s } }
+                = msg.preview_str
 
-            .ml-200.to-expand
+              .ml-200.to-expand
 
-              - if msg.attachments.present?
-                .attachments
-                  - msg.attachments.map do |att|
-                    .item
-                      %h5= att.photo.original_filename
-                      = image_tag att.photo.url(:original)
+                - if msg.attachments.present?
+                  .attachments
+                    - msg.attachments.map do |att|
+                      .item
+                        %h5= att.photo.original_filename
+                        = image_tag att.photo.url(:original)
 
-              %iframe{ name: msg.message_id }
+                %iframe{ name: msg.message_id }
 
-              = render 'ish_manager/email_contexts/form_reply', lead: lead
-              .collapse-expand.wco-collapse Reply
-              .bordered.mt-3.wco-collapsed
-                = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
-              -# = button_to 'Reply'
-              -# = button_to 'Reply All'
-              -# = button_to 'New Template'
-              -# = button_to 'Schedule Reply'
-              -# = render 'ish_manager/email_templates/form_schedule_mini'
+                = render 'ish_manager/email_contexts/form_reply', lead: lead
+                .collapse-expand.wco-collapse Reply
+                .bordered.mt-3.wco-collapsed
+                  = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
+                -# = button_to 'Reply'
+                -# = button_to 'Reply All'
+                -# = button_to 'New Template'
+                -# = button_to 'Schedule Reply'
+                -# = render 'ish_manager/email_templates/form_schedule_mini'
+
+    .col-sm-12.col-md-4
+
+      .header
+        = link_to '[<<-]', email_conversations_path
+        %i.material-icons mail
+
+        .subject #{@email_conversation.subject}
+        (#{@email_conversation.email_messages.all.count})
+
+      .tags-list
+        %b Tags (#{@email_conversation.tags.length}):
+        -# = @email_conversation.wp_term_ids
+        - @email_conversation.tags.each do |tag|
+          .chip= link_to "[#{tag.term_id}] #{tag.name}", category_path( tag )
+
+      .leads-list
+        %b Leads (#{@email_conversation.leads.length}):
+        - @email_conversation.leads.each do |lead|
+          .item
+            = link_to "#{lead.id} #{lead.email}", lead_path(lead)
+            \(ctxs:
+            = link_to email_contexts_for_lead_path( lead ) do
+              = lead.email_contexts.count
+              %i.fa.fa-envelope
+            .relative.inline-block
+              %i.fa.fa-plus.expand-next
+              .expand-hide= render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank })
+            \)
+            .relative.inline-block
+              %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
+              .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })

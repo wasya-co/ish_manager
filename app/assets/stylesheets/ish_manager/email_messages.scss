@@ -1,4 +1,55 @@
 
+.email-messages-list {
+  // border: 1px solid red;
+
+  padding-left: 0;
+  list-style-type: none;
+
+  .item:first-child {
+    border-top: 1px solid var(--m3-dol-accent-color);
+  }
+  .item {
+    border-bottom: 1px solid var(--m3-dol-accent-color);
+    margin-bottom: 0.2em;
+
+    padding: 0.5em 0;
+
+    position: relative;
+
+    iframe {
+      // border: 2px solid yellow;
+
+      width: 100%;
+      min-height: 500px;
+      height: 75vh;
+    }
+
+    .my-actions {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview {
+      // border: 1px solid gold;
+
+      display: inline-block;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .row-1 {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .to-expand {
+      display: none;
+    }
+  }
+}
+
 .email-messages-show {
 
   .main-actions {
