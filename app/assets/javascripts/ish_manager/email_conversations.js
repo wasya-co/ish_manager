@@ -18,6 +18,8 @@ $(document).ready(() => {
   })
 
   $(".archive-btn").click(function(e) {
+    if ( !confirm('Are you sure?') ) { return; }
+
     const jwt_token = $("#Config").data('jwt-token')
     const action_path = $(this).data('url')
     const out = []
@@ -46,6 +48,8 @@ $(document).ready(() => {
   })
 
   $(".delete-btn").click(function(e) {
+    if ( !confirm('Are you sure?') ) { return; }
+
     const jwt_token = $("#Config").data('jwt-token')
     const action_path = $(this).data('url')
     const out = []
