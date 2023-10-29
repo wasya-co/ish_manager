@@ -3,20 +3,25 @@
 
   .second-header
     %i.material-icons mail
-    = link_to email_conversations_in_path(WpTag::INBOX) do
-      Inbox (#{Office::EmailConversation.in_emailtag(WpTag::INBOX).length})
-    = link_to email_conversations_notin_path(WpTag::INBOX) do
-      Not Inbox (#{Office::EmailConversation.not_in_emailtag(WpTag::INBOX).length})
-
-    = link_to email_conversations_in_path(WpTag::TRASH) do
-      Trash (#{Office::EmailConversation.in_emailtag(WpTag::TRASH).length})
-    = link_to email_conversations_notin_path(WpTag::TRASH) do
-      Not Trash (#{Office::EmailConversation.not_in_emailtag(WpTag::TRASH).length})
 
     - if params[:slug]
       slug: #{params[:slug]}
     - if params[:not_slug]
       not slug: #{params[:not_slug]}
+
+    - @emailtags.each do |emailtag|
+      .bordered.inline-block
+        = link_to email_conversations_in_path(emailtag.slug) do
+          #{emailtag.name} (#{Office::EmailConversation.in_emailtag(emailtag.slug).length})
+        = link_to email_conversations_notin_path(emailtag.slug) do
+          Not #{emailtag.name} (#{Office::EmailConversation.not_in_emailtag(emailtag.slug).length})
+
+
+    .bordered.inline-block
+      = form_for @new_tag, url: :create_email_tag, as: :tag do |f|
+        %label New Tag:
+        = f.text_field :name
+        = f.submit '>'
 
   .actions
 
@@ -29,6 +34,17 @@
     %a.btn.reload-btn{ href: "javascript: location.reload()" }
       %i.material-icons refresh
       refresh
+
+    .bordered.inline-block
+      = select_tag :emailtag, options_for_select(@emailtags_list)
+      %a.btn.add-tag-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/addtag" } }
+        %i.material-icons add
+        Addtag
+      %a.btn.remove-tag-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/rmtag" } }
+        %i.material-icons remove
+        Rmtag
+
+
 
   %br
   %br

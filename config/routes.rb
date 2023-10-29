@@ -15,6 +15,7 @@ IshManager::Engine.routes.draw do
   resources :appliance_tmpls
 
   # get 'categories', to: 'categories#index'
+  post '/categories/create-email-tag', to: 'categories#create_email_tag', as: :create_email_tag
   resources :categories
 
   resources 'events'

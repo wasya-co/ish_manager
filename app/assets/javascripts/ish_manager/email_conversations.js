@@ -47,6 +47,72 @@ $(document).ready(() => {
 
   })
 
+  $(".add-tag-btn").click(function(e) {
+    if ( !confirm('Are you sure?') ) { return; }
+
+    const jwt_token = $("#Config").data('jwt-token')
+    const action_path = $(this).data('url')
+    const emailtag = $("select[name='emailtag']").val()
+    const out = []
+
+    $( $("input[type='checkbox'].i-sel:checked") ).each( idx => {
+      let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
+      out.push(val)
+    })
+
+    $.ajax({
+      url: action_path,
+      type: 'POST',
+      data: {
+        ids: out,
+        jwt_token: jwt_token,
+        emailtag: emailtag,
+
+      },
+      success: e => {
+        logg((e||{}).responseText, 'Ok')
+        location.reload()
+      },
+      error: e => {
+        logg((e||{}).responseText, 'Err')
+      },
+    })
+
+  })
+
+  $(".remove-tag-btn").click(function(e) {
+    if ( !confirm('Are you sure?') ) { return; }
+
+    const jwt_token = $("#Config").data('jwt-token')
+    const action_path = $(this).data('url')
+    const emailtag = $("select[name='emailtag']").val()
+    const out = []
+
+    $( $("input[type='checkbox'].i-sel:checked") ).each( idx => {
+      let val = $($("input[type='checkbox'].i-sel:checked")[idx]).val()
+      out.push(val)
+    })
+
+    $.ajax({
+      url: action_path,
+      type: 'POST',
+      data: {
+        ids: out,
+        jwt_token: jwt_token,
+        emailtag: emailtag,
+
+      },
+      success: e => {
+        logg((e||{}).responseText, 'Ok')
+        location.reload()
+      },
+      error: e => {
+        logg((e||{}).responseText, 'Err')
+      },
+    })
+
+  })
+
   $(".delete-btn").click(function(e) {
     if ( !confirm('Are you sure?') ) { return; }
 

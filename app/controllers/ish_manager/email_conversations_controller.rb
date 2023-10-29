@@ -7,6 +7,10 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
     authorize! :email_conversations_index, IshManager::Ability
     @email_conversations = ::Office::EmailConversation.all
 
+    @new_tag = WpTag.new
+    @emailtags = WpTag.emailtags
+    @emailtags_list = [[nil,nil]] + WpTag.emailtags.map { |p| [ p.name, p.slug ] }
+
     per_page = current_profile.per_page
     # if current_profile.per_page > 100
     #   flash_notice "Cannot display more than 100 conversations per page."

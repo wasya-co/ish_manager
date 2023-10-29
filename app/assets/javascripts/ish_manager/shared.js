@@ -10,8 +10,8 @@
  * label becomes the name of the object (stripped to [0-9a-zA-Z\-_] chars). If you're logging a function, you can execute it.
  * If you log more than one thing, they can interact, allowing you to validate control flow.
  * * the logger can be turned off by making this function simply return.
- */
- function logg (a, b="", c=null) {
+**/
+function logg (a, b="", c=null) {
   c = "string" === typeof c ? c : b.replace(/\W/g, "");
   if (c.length > 0) {
     window[c] = a;

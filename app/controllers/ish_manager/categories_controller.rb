@@ -22,5 +22,12 @@ class ::IshManager::CategoriesController < IshManager::ApplicationController
     @leads = @leads.page( params[:leads_page] ).per( current_profile.per_page )
   end
 
+  def create_email_tag
+    @tag = WpTag.emailtag( params[:tag][:name] )
+    authorize! :create, @tag
+    @tag.persisted? ? flash_notice('persisted') : flash_alert('cannot save tag')
+    redirect_to request.referrer ? request.referrer : email_conversations_path
+  end
+
 end
 
