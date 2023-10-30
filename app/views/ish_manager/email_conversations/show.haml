@@ -11,7 +11,8 @@
             .gray.row
               .col-md-6
                 .a <b>From:</b> #{lead.email}
-                .a <b>To:</b> #{msg.to}
+                .a <b>to's:</b> #{msg.tos&.join(", ")}
+                .a <b>cc's:</b> #{msg.ccs&.join(", ")}
               .col-md-6
                 .a <b>msg.id:</b> #{msg.id}
                 .a <b>object_key:</b> #{msg.object_key}
