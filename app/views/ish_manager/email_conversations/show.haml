@@ -7,6 +7,13 @@
         - @email_messages.each do |msg|
           - lead = msg.lead || Lead.new(email: 'NO LEAD!', id: 'no lead')
 
+          - if msg.to
+            - new_from_email = Ish::EmailTemplate::FROM_EMAILS.select { |p| p.include?( msg.to ) }
+          - if new_from_email.blank?
+            - new_from_email = Ish::EmailTemplate::DEFAULT_FROM_EMAIL
+
+          - all_ccs = (msg.tos||[]) + (msg.ccs||[]) + (msg.froms||[])
+
           .item.msg-container{ data: { msg: { id: msg.id } } }
             .gray.row
               .col-md-6
@@ -41,9 +48,18 @@
                 %iframe{ name: msg.message_id }
 
                 = render 'ish_manager/email_contexts/form_reply', lead: lead
+
                 .collapse-expand.wco-collapse Reply
                 .bordered.mt-3.wco-collapsed
-                  = render 'ish_manager/email_contexts/form', ctx: Ctx.new({ lead_id: lead.id, email_template: Tmpl.blank_template, from_email: msg.to, subject: msg.subject, body: (msg.part_html||msg.part_txt) }), lead: lead
+                  - new_ctx = Ctx.new({ email_template: Tmpl.blank_template })
+                  - new_ctx[:lead_id] = lead.id
+                  - new_ctx[:from_email] = new_from_email
+                  - new_ctx[:subject] = msg.subject
+                  - new_ctx[:body] = Ish::EmailTemplate::SIGNATURE + (msg.part_html||msg.part_txt||'')
+                  - new_ctx[:cc] = all_ccs.join(', ')
+                  = render 'ish_manager/email_contexts/form', ctx: new_ctx
+
+
                 -# = button_to 'Reply'
                 -# = button_to 'Reply All'
                 -# = button_to 'New Template'
@@ -81,3 +97,9 @@
             .relative.inline-block
               %i.fa.fa-clock-o.expand-next{ style: "color: red;" }
               .expand-hide= render 'ish_manager/scheduled_email_actions/form', scheduled_email_action: Sch.new({ lead_id: lead.id })
+
+      .actions.email-conversation-actions
+        = form_tag Ishapi::Engine.routes.url_helpers.email_conversations_path, method: :delete do
+          = hidden_field_tag :jwt_token, @jwt_token
+          = hidden_field_tag 'ids[]', @email_conversation.id
+          = submit_tag 'Delete', data: { confirm: 'Are you sure?' }

@@ -1,4 +1,6 @@
 
+-# = ctx.inspect
+
 .email-contexts--form
   - url = ctx.new_record? ? email_contexts_path : email_context_path(ctx)
   = form_for ctx, as: :ctx, url: url do |f|
@@ -11,16 +13,25 @@
         layout: #{ctx.tmpl.layout}
 
     .field.flex-row
-      = f.label "From"
+      %label From
       = f.select :from_email, options_for_select(Ish::EmailTemplate.from_email_list, selected: ctx.from_email), {}, { class: 'select2' }
 
     .field.flex-row
-      = f.label "To lead"
+      %label To lead
       = f.select :lead_id, options_for_select( @leads_list, selected: ctx.lead_id ), {}, { class: 'select2' }
+
+    .field.flex-row
+      %label cc
+      = f.text_field :cc, class: 'w-100'
+
+    -## unused b/c ccs is an array, i'm dealing with strings only here.
+    -# .field.flex-row
+    -#   %label cc's
+    -#   = f.text_field :ccs
 
     .field.field-subject
       = f.label :subject
-      = f.text_field :subject
+      = f.text_field :subject, class: 'w-100'
 
 
 
@@ -30,7 +41,7 @@
       .label-save-preview= f.submit 'Save & Preview'
     .tabs
       .tab-raw
-        = f.text_area :body
+        = f.text_area :body, class: 'tinymce'
       .tab-preview
         - if ctx.new_record?
           New record...
