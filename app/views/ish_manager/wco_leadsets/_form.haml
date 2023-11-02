@@ -4,6 +4,9 @@
     .field
       %label name
       = f.text_field :name
+    .field
+      %label domains, space-separated
+      = f.text_field :domains
 
     .actions
       = f.submit 'Submit'

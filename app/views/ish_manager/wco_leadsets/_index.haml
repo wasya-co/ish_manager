@@ -1,0 +1,11 @@
+
+.wco-leadsets--index
+  - leadsets.each do |leadset|
+    .Card
+      = link_to leadset.name, wco_leadset_path( leadset )
+      = link_to '[~]', edit_wco_leadset_path( leadset )
+      %ul.item
+        %li <b>Next Serverhost:</b> #{link_to leadset.next_serverhost.ssh_host, serverhost_path( leadset.next_serverhost ) }
+        %li <b>Domains:</b> #{leadset.domains}
+
+

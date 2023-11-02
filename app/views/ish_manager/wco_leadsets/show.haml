@@ -1,6 +1,8 @@
 
 .wco-leadsets-show.maxwidth
-  %h5 Wco::Leadset `#{@wco_leadset.name}`
+  %h5
+    = link_to '<-', wco_leadsets_path
+    Wco::Leadset `#{@wco_leadset.name}`
+  = render 'index', leadsets: [ @wco_leadset ]
 
-  %ul
-    %li <b>Next Serverhost:</b> #{link_to @wco_leadset.next_serverhost.ssh_host, serverhost_path( @wco_leadset.next_serverhost ) }
+

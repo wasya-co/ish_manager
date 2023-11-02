@@ -2,9 +2,5 @@
 .wco-leadsets-index.maxwidth
   %h5 Wco::Leadset's
 
-  %ul
-    - @wco_leadsets.each do |leadset|
-      %li
-        = link_to leadset.name, wco_leadset_path( leadset )
-        = link_to '[~]', edit_wco_leadset_path( leadset )
+  = render 'index', leadsets: @wco_leadsets
 
