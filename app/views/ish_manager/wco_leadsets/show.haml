@@ -1,0 +1,6 @@
+
+.wco-leadsets-show.maxwidth
+  %h5 Wco::Leadset `#{@wco_leadset.name}`
+
+  %ul
+    %li <b>Next Serverhost:</b> #{link_to @wco_leadset.next_serverhost.ssh_host, serverhost_path( @wco_leadset.next_serverhost ) }

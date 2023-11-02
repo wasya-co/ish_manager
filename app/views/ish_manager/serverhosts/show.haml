@@ -1,0 +1,6 @@
+
+.serverhosts-edit.max-width
+  %h5
+    = link_to '<-', serverhosts_path
+    Show serverhost `#{@serverhost.name}` #{link_to '[~]', edit_serverhost_path( @serverhost )}
+  = render 'form', serverhost: @serverhost

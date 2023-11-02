@@ -5,9 +5,10 @@
     .field
       = f.label :name
       = f.text_field :name
+
     .field
-      = f.label :leadset_id
-      = f.number_field :leadset_id
+      %label Wco::Leadset
+      = f.select :wco_leadset, options_for_select( @wco_leadsets_list, selected: serverhost.wco_leadset_id ), class: [ :select2 ]
     .field
       = f.label :next_port
       = f.number_field :next_port
@@ -15,15 +16,15 @@
     .field
       = f.label :ssh_host
       = f.text_field :ssh_host
-    .field
-      = f.label :ssh_username
-      = f.text_field :ssh_username
-    .field
-      = f.label :ssh_key
-      = f.text_field :ssh_key
-    .field
-      = f.label :nginx_root
-      = f.text_field :nginx_root
+    -# .field
+    -#   = f.label :ssh_username
+    -#   = f.text_field :ssh_username
+    -# .field
+    -#   = f.label :ssh_key
+    -#   = f.text_field :ssh_key
+    -# .field
+    -#   = f.label :nginx_root
+    -#   = f.text_field :nginx_root
 
     .actions
       = f.submit 'Submit'

@@ -1,7 +1,7 @@
 
 class ::IshManager::ServerhostsController < IshManager::ApplicationController
 
-  # before_action :set_lists
+  before_action :set_lists
 
   def create
     @serverhost = Wco::Serverhost.new params[:serverhost].permit!
@@ -28,6 +28,11 @@ class ::IshManager::ServerhostsController < IshManager::ApplicationController
     @new_serverhost = Wco::Serverhost.new
   end
 
+  def show
+    @serverhost = Wco::Serverhost.find params[:id]
+    authorize! :show, @serverhost
+  end
+
   def update
     @serverhost = Wco::Serverhost.find params[:id]
     authorize! :update, @serverhost
@@ -48,13 +53,16 @@ class ::IshManager::ServerhostsController < IshManager::ApplicationController
   ##
   private
 
-  # def set_lists
-  #   super
-  #   @new_serverhost = Wco::Serverhost.new
-  #   puts! @new_serverhost.class, 'ze'
-  #   puts! @new_serverhost, '@new_serverhost'
-  #   @new_serverhost.name = 'some name'
-  # end
+  def set_lists
+    # super
+
+    # @new_serverhost = Wco::Serverhost.new
+    # puts! @new_serverhost.class, 'ze'
+    # puts! @new_serverhost, '@new_serverhost'
+    # @new_serverhost.name = 'some name'
+
+    @wco_leadsets_list = [[nil,nil]] + Wco::Leadset.all.map { |i| [ i.name, i.id ] }
+  end
 
 end
 

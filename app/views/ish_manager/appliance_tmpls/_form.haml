@@ -3,13 +3,19 @@
 
 .appliance-tmpls--form
   = form_for appliance_tmpl, as: :appliance, url: url do |f|
-    .input-field
+    .field
       = f.label :kind
       = f.text_field :kind
-    .input-field
+    .field
+      = f.label :version
+      = f.text_field :version
+    .field
+      = f.label :descr
+      = f.text_area :descr
+    .field
       = f.label :image
       = f.text_field :image, class: 'w-100'
-    .input-field
+    .field
       %label volume_zip
       = f.text_field :volume_zip, class: 'w-100'
 

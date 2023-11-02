@@ -174,4 +174,6 @@ IshManager::Engine.routes.draw do
   ##
   resources :videos
 
+  resources :wco_leadsets
+
 end

@@ -1,0 +1,9 @@
+
+.wco-leadsets--form
+  = form_for wco_leadset do |f|
+    .field
+      %label name
+      = f.text_field :name
+
+    .actions
+      = f.submit 'Submit'

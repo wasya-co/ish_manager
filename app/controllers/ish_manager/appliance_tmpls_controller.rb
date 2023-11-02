@@ -13,7 +13,7 @@ class ::IshManager::ApplianceTmplsController < IshManager::ApplicationController
       redirect_to action: :index
     else
       flash[:alert] = "Cannot create appliance tmplate: #{@appliance_tmpl.errors.full_messages.join(', ')}."
-      render action: :index
+      redirect_to action: :index
     end
   end
 
