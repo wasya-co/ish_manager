@@ -17,9 +17,26 @@ class ::IshManager::ApplianceTmplsController < IshManager::ApplicationController
     end
   end
 
+  def edit
+    @appliance_tmpl = Wco::ApplianceTmpl.find params[:id]
+    authorize! :edit, @appliance_tmpl
+  end
+
   def index
     authorize! :index, Wco::ApplianceTmpl
     @appliance_tmpls = Wco::ApplianceTmpl.all
+  end
+
+  def update
+    @appliance_tmpl = Wco::ApplianceTmpl.find params[:id]
+    authorize! :update, @appliance_tmpl
+    flag = @appliance_tmpl.update params[:appliance].permit!
+    if flag
+      flash_notice 'success'
+    else
+      flash_alert "Cannot update appliance template: #{@appliance_tmpl.errors.full_messages.join(', ')}."
+    end
+    redirect_to action: :index
   end
 
   ##

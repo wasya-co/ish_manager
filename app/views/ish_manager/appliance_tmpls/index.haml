@@ -6,9 +6,12 @@
   %ul
     - @appliance_tmpls.each do |i|
       %li
+        %span.gray= i.id.to_s
+        = link_to '[~]', edit_appliance_tmpl_path( i )
         %ul
-          %li <b>Kind:</b> #{i.kind}
-          %li <b>Image:</b> #{i.image}
+          - i.attributes.each do |k, v|
+            - next if %| _id created_at updated_at |.include? k
+            %li <b>#{k}:</b> #{v}
 
   %hr
   = render 'form', :appliance_tmpl => @new_appliance_tmpl

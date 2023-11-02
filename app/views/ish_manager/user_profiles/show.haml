@@ -1,7 +1,9 @@
 
 .user-profiles-show.max-width
   .header
-    %h2.title Profile #{@profile.email}
+    %h2.title Profile `#{@profile.email}`
+  %ul
+    %li <b>Leadset:</b> #{link_to @profile.leadset.name, leadset_path(@profile.leadset)}
 
   .newsitems
     .title Newsitems (#{@profile.newsitems.length})

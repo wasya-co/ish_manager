@@ -1,5 +1,5 @@
 
-- url = appliance_tmpl.new_record? ? appliance_tmpls_path : appliance_tmpls_path( appliance_tmpl )
+- url = appliance_tmpl.new_record? ? appliance_tmpls_path : appliance_tmpl_path( appliance_tmpl )
 
 .appliance-tmpls--form
   = form_for appliance_tmpl, as: :appliance, url: url do |f|
@@ -8,7 +8,10 @@
       = f.text_field :kind
     .input-field
       = f.label :image
-      = f.text_field :image
+      = f.text_field :image, class: 'w-100'
+    .input-field
+      %label volume_zip
+      = f.text_field :volume_zip, class: 'w-100'
 
     .actions
       = f.submit 'Submit'
