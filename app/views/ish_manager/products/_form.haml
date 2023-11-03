@@ -8,21 +8,23 @@
       %label Name
       = text_field_tag 'product[name]'
 
-    .form-field
-      %label Price in cents
-      = text_field_tag 'price[amount_cents]'
-
-    .form-field
-      %label Recurring?
-      = select_tag 'price[interval]', options_for_select(Wco::Price::INTERVALS)
+    -# .form-field
+    -#   %label Price in cents
+    -#   = text_field_tag 'price[amount_cents]'
 
     -# .form-field
-    -#   %label Stripe product_id
-    -#   = f.text_field :product_id
+    -#   %label Recurring?
+    -#   = select_tag 'price[interval]', options_for_select(Wco::Price::INTERVALS)
+
+    .form-field
+      %label Stripe product_id
+      -# = f.text_field :product_id
+      = product.product_id
 
     -# .form-field
     -#   %label Stripe price_id
-    -#   = f.text_field :price_id
+    -#   -# = f.text_field :price_id
+    -#   = product.price_id
 
     .actions
       = f.submit 'Submit'

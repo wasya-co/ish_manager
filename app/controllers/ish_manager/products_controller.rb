@@ -5,14 +5,11 @@ class IshManager::ProductsController < IshManager::ApplicationController
 
   # Alphabetized : )
 
+
+
   def create
     @product = Wco::Product.new params[:product].permit( :name )
-    @price   = Wco::Price.new params[:price].permit( :amount_cents, :interval )
     authorize! :create, @product
-
-    if !params[:price][:interval].present?
-      @price.interval = nil
-    end
 
     stripe_product = Stripe::Product.create({ name: @product.name })
     # puts! stripe_product, 'stripe_product'
@@ -24,26 +21,6 @@ class IshManager::ProductsController < IshManager::ApplicationController
     else
       flash_alert "Cannot create wco product: #{@product.errors.full_messages.join(', ')}."
     end
-
-    price_hash = {
-      product:     stripe_product.id,
-      unit_amount: @price.amount_cents,
-      currency:    'usd',
-    }
-    if @price.interval.present?
-      price_hash[:recurring] = { interval: @price.interval }
-    end
-    stripe_price = Stripe::Price.create( price_hash )
-    # puts! stripe_price, 'stripe_price'
-    flash_notice 'Created stripe price.'
-    @price.product = @product
-    @price.price_id = stripe_price[:id]
-    if @price.save
-      flash_notice @price
-    else
-      flash_alert @price
-    end
-
     redirect_to action: :index
   end
 

@@ -20,6 +20,9 @@
         - else
           = product.name
         %ul
+          %li
+            New price:
+            = render 'ish_manager/prices/form', price: Wco::Price.new({ product: product[:wco_product] })
           - product[:prices].each do |price_id, price|
             %li
               %span.gray= price.id

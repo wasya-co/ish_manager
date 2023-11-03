@@ -23,8 +23,8 @@
           -#   = f.select :email, options_for_select([[nil,nil]] + @leadset.employees.map { |i| [ i.email, i.email ] } )
 
         .input-row
-          %label item
-          = select_tag 'invoice[items][][product_id]', options_for_select( @products_list ), class: 'products'
+          %label item (product)
+          = select_tag 'invoice[items][][product_id]', options_for_select( @products_list ), class: 'products select2'
 
           %label price
           = select_tag 'invoice[items][][price_id]'
