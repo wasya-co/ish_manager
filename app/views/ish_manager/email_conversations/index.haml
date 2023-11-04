@@ -37,6 +37,8 @@
 
     .bordered.inline-block
       = select_tag :emailtag, options_for_select(@emailtags_list)
+      = check_box_tag :is_move
+      %label move?
       %a.btn.add-tag-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/addtag" } }
         %i.material-icons add
         Addtag

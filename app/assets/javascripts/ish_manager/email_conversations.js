@@ -60,15 +60,18 @@ $(document).ready(() => {
       out.push(val)
     })
 
+    let data = {
+      ids: out,
+      jwt_token: jwt_token,
+      emailtag: emailtag,
+    }
+    if ($("#is_move").prop('checked')) {
+      data.is_move = true
+    }
     $.ajax({
       url: action_path,
       type: 'POST',
-      data: {
-        ids: out,
-        jwt_token: jwt_token,
-        emailtag: emailtag,
-
-      },
+      data: data,
       success: e => {
         logg((e||{}).responseText, 'Ok')
         location.reload()

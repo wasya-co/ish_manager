@@ -20,7 +20,7 @@ GIT
 PATH
   remote: .
   specs:
-    ish_manager (0.1.8.504)
+    ish_manager (0.1.8.505)
       aws-sdk-s3
       business_time (~> 0.13.0)
       cancancan (~> 3.2)
