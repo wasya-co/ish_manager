@@ -2,36 +2,39 @@
 - url = email_filter.new_record? ? email_filters_path : email_filter_path( email_filter )
 .email-filters--from
   = form_for email_filter, url: url, as: :email_filter do |f|
-    .field
-      %label From Regex
-      = f.text_field :from_regex
-    .field
-      %label From Exact
-      = f.text_field :from_exact
-    .field
-      %label Subject Regex
-      = f.text_field :subject_regex
-    .field
-      %label Subject Exact
-      = f.text_field :subject_exact
-    -# .field
-    -#   %label Body Regex
-    -#   = f.text_field :body_regex
-    .field
-      %label Body Exact
-      = f.text_field :body_exact
-    %hr
-    .field
-      %label Kind
-      = f.select :kind, options_for_select( ::Office::EmailFilter::KINDS, selected: email_filter.kind )
-    .field
-      %label Template
-      = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_filter.email_template_id ), {}, { class: 'select2' }
-    .field
-      = f.label :email_action
-      = f.select :email_action, options_for_select( @email_actions_list, selected: email_filter.email_action_id ), {}, class: 'select2'
-    .field
-      = f.label :wp_term_id
-      = f.select :wp_term_id, options_for_select( @email_tags_list, selected: email_filter.wp_term_id ), {}, class: 'select2'
-    .actions
-      = f.submit
+    .row.maxwidth
+      .col-md-6
+        .field
+          %label From Regex
+          = f.text_field :from_regex
+        .field
+          %label From Exact
+          = f.text_field :from_exact
+        .field
+          %label Subject Regex
+          = f.text_field :subject_regex
+        .field
+          %label Subject Exact
+          = f.text_field :subject_exact
+        -# .field
+        -#   %label Body Regex
+        -#   = f.text_field :body_regex
+        .field
+          %label Body Exact
+          = f.text_field :body_exact
+      .col-md-6
+
+        .field
+          %label Kind
+          = f.select :kind, options_for_select( ::Office::EmailFilter::KINDS, selected: email_filter.kind )
+        .field
+          %label Template
+          = f.select :email_template_id, options_for_select(@email_templates_list, selected: params[:email_template_id] || email_filter.email_template_id ), {}, { class: 'select2' }
+        .field
+          = f.label :email_action
+          = f.select :email_action, options_for_select( @email_actions_list, selected: email_filter.email_action_id ), {}, class: 'select2'
+        .field
+          = f.label :wp_term_id
+          = f.select :wp_term_id, options_for_select( @email_tags_list, selected: email_filter.wp_term_id ), {}, class: 'select2'
+        .actions
+          = f.submit

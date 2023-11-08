@@ -25,6 +25,14 @@ class ::IshManager::EmailConversationsController < IshManager::ApplicationContro
       @email_conversations = @email_conversations.not_in_emailtag( params[:not_slug] )
     end
 
+    if params[:subject].present?
+      @email_conversations = @email_conversations.where({ subject: /.*#{params[:subject]}.*/i })
+    end
+
+    if params[:from_email].present?
+      @email_conversations = @email_conversations.where({ from_emails: /.*#{params[:from_email]}.*/i })
+    end
+
     @email_conversations = @email_conversations.order_by( latest_at: :desc
       ).includes( :email_messages # , :lead_ties
       ).page( params[:conv_page]

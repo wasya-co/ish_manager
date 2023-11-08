@@ -79,6 +79,8 @@ IshManager::Engine.routes.draw do
   post :email_actions, to: 'email_actions#update'
   resources :email_actions
 
+  get 'email_attachments/:id', to: 'email_attachments#show', as: :email_attachment
+
   post 'email_campaigns/:id/send', to: 'email_campaigns#do_send', as: :send_email_campaign
   resources :email_campaigns
 
@@ -91,10 +93,12 @@ IshManager::Engine.routes.draw do
   get 'email_messages/stripped/:id', to: 'email_messages#show_stripped', as: :email_message_stripped
   resources :email_messages
 
-  get 'email_conversations',                   to: 'email_conversations#index'
-  get 'email_conversations/in/:slug',          to: 'email_conversations#index',         as: :email_conversations_in
-  get 'email_conversations/notin/:not_slug',   to: 'email_conversations#index',         as: :email_conversations_notin
-  get 'email_conversations/show/:id',          to: 'email_conversations#show',          as: :email_conversation
+  # post 'email_conversations/search',          to: 'email_conversations#index', as: :search_email_convos
+  post 'email_conversations',                 to: 'email_conversations#index'
+  get  'email_conversations',                 to: 'email_conversations#index'
+  get  'email_conversations/in/:slug',        to: 'email_conversations#index', as: :email_conversations_in
+  get  'email_conversations/notin/:not_slug', to: 'email_conversations#index', as: :email_conversations_notin
+  get  'email_conversations/show/:id',        to: 'email_conversations#show',  as: :email_conversation
 
   get 'email_contexts/summary', to: 'email_contexts#summary',                           as: :email_contexts_summary
   get  'email_contexts/for_lead/:lead_id',       to: 'email_contexts#index',            as: :email_contexts_for_lead

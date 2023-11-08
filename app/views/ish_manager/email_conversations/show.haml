@@ -20,9 +20,15 @@
                 .a <b>From:</b> #{lead.email}
                 .a <b>to's:</b> #{msg.tos&.join(", ")}
                 .a <b>cc's:</b> #{msg.ccs&.join(", ")}
+
               .col-md-6
                 .a <b>msg.id:</b> #{msg.id}
                 .a <b>object_key:</b> #{msg.object_key}
+                .a
+                  <b>N attachments:</b> #{msg.attachments.length}
+                  <b>N email_attachments:</b>
+                  - msg.email_attachments.each_with_index do |attachment, idx|
+                    .a= link_to "Download #{attachment.filename} #{idx}", email_attachment_path( attachment )
 
 
               .position-absolute.top-0.right-0.datetime

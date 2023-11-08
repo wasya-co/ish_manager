@@ -101,7 +101,7 @@ class IshManager::ApplicationController < ActionController::Base
     @blank_template       = Tmpl.new
 
     @email_campaigns_list = [[nil,nil]] + Ish::EmailCampaign.all.map { |c| [ c.slug, c.id ] }
-    @email_actions_list   = [[nil,nil]] + Office::EmailAction.all.map { |a| [ a.slug, a.id ] }
+    @email_actions_list   = EAct.list
     @email_templates_list = [[nil,nil]] + Ish::EmailTemplate.all.map { |t| [ t.slug, t.id ] }
     @email_tags_list      = [[nil,nil]] + WpTag.email_tags.map { |t| [ t.name, t.id ] }
     @leads_list           = Lead.list

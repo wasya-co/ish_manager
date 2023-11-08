@@ -5,6 +5,13 @@
       Email Filters (#{@email_filters.length})
       = link_to '[+]', new_email_filter_path
 
+
+  .maxwidth
+    %hr
+    %h5.title.collapse-expand#newEmailFilter New Email Filter
+    = render 'form', email_filter: @email_filter
+  %hr
+
   -# %input#dataTableSearch
   %table.bordered.data-table
     %thead

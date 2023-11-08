@@ -5,6 +5,14 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
 
   ## Alphabetized : )
 
+  def destroy
+    @act = @email_action = Office::EmailAction.find( params[:id] )
+    authorize! :delete, @act
+    @act.update_attributes({ deleted_at: Time.now })
+    flash_notice 'Probably success'
+    redirect_to action: :index
+  end
+
   def edit
     @act = @email_action = Office::EmailAction.find( params[:id] )
     @act.ties.push Office::EmailActionTie.new( next_email_action_id: nil )
@@ -12,7 +20,7 @@ class ::IshManager::EmailActionsController < IshManager::ApplicationController
   end
 
   def index
-    @email_actions = Office::EmailAction.all
+    @email_actions = Office::EmailAction.where({ :deleted_at => nil })
 
     authorize! :index, @new_email_action
   end

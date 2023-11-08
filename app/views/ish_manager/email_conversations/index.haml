@@ -22,7 +22,18 @@
         %label New Tag:
         = f.text_field :name
         = f.submit '>'
-
+  .search.Card
+    .inline-block
+      = form_tag email_conversations_path do
+        %label Search from_email
+        = text_field_tag :from_email, params[:from_email]
+        -# = submit_tag '>'
+        -# .inline-block
+        -#   = form_tag email_conversations_path do
+        %label by subject
+        = text_field_tag :subject, params[:subject]
+        = submit_tag '>'
+  .c
   .actions
 
     %a.btn.archive-btn{ href: "javascript: void(0)", data: { url: "/api/email_conversations/rmtag/#{WpTag::INBOX}" } }

@@ -3,7 +3,7 @@
 
   .header
     %h2.title
-      Email Actions
+      Email Actions (#{@email_actions.length})
       = link_to '[+]', new_email_action_path
 
   %table.bordered
@@ -15,7 +15,11 @@
     - @email_actions.each do |eact|
       %tr
         %td= check_box_tag 'abba'
-        %td= link_to '[~]', edit_email_action_path( eact )
+        %td.flex-row
+
+          = link_to '[~]', edit_email_action_path( eact )
+          = button_to '[x]', email_action_path( eact ), data: { confirm: 'Are you sure?' }, method: :delete
+
         %td
           -# = link_to eact.slug, email_action_path( eact )
           = eact.slug

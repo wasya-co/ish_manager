@@ -35,6 +35,7 @@ class ::IshManager::EmailFiltersController < ::IshManager::ApplicationController
 
   def index
     authorize! :index, Office::EmailFilter.new
+    @email_filter = Office::EmailFilter.new
     @email_filters = Office::EmailFilter.active
   end
 
