@@ -25,10 +25,16 @@
                 .a <b>msg.id:</b> #{msg.id}
                 .a <b>object_key:</b> #{msg.object_key}
                 .a
-                  <b>N attachments:</b> #{msg.attachments.length}
+                  <b>N photos:</b> #{msg.attachments.length}
+                .a
                   <b>N email_attachments:</b>
                   - msg.email_attachments.each_with_index do |attachment, idx|
-                    .a= link_to "Download #{attachment.filename} #{idx}", email_attachment_path( attachment )
+                    - if attachment.filename
+                      .a= link_to attachment.filename, email_attachment_path( attachment )
+                    - else
+                      .a
+                        = link_to '[view]', email_attachment_path( attachment )
+                        "#{attachment.content_type.split(';')[0]} #{attachment.filename} #{idx}"
 
 
               .position-absolute.top-0.right-0.datetime
