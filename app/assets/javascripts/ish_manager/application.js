@@ -60,14 +60,25 @@ $(function () {
     return confirm($(this).attr('data-confirm'));
   });
 
-  // if ($(".tinymce").length > 0) {
-  //   tinymce.init({
-  //     mode: "specific_textareas",
-  //     editor_selector: 'tinymce',
-  //     plugins: 'link'
-  //   });
-  // }
-  $(".tinymce").summernote()
+  /*
+   * text editor
+  **/
+  if ($(".tinymce").length > 0) {
+    // tinymce.init({
+    //   mode: "specific_textareas",
+    //   editor_selector: 'tinymce',
+    //   plugins: 'link'
+    // });
+
+    $(".tinymce").summernote()
+
+    // var quill = new Quill('.tinymce', {
+    //   theme: 'snow',
+    //   toolbar: '.toolbar',
+    // });
+  }
+
+
 
   $(".caret").each(function(idx) {
     $($(".caret")[idx]).html('')

@@ -1,7 +1,7 @@
 
 .email-conversations-index
 
-  .second-header
+  .subheader
     %i.material-icons mail
 
     - if params[:slug]
@@ -22,6 +22,13 @@
         %label New Tag:
         = f.text_field :name
         = f.submit '>'
+
+    .bordered.inline-block
+      = form_tag email_messages_path do
+        %label Process Object Key:
+        = text_field_tag 'msg[object_key]'
+        = submit_tag '>'
+
   .search.Card
     .inline-block
       = form_tag email_conversations_path do

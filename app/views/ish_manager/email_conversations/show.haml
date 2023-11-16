@@ -67,8 +67,9 @@
                   - new_ctx[:lead_id] = lead.id
                   - new_ctx[:from_email] = new_from_email
                   - new_ctx[:subject] = msg.subject
-                  - new_ctx[:body] = Ish::EmailTemplate::SIGNATURE + (msg.part_html||msg.part_txt||'')
+                  - new_ctx[:body] = Ish::EmailTemplate::SIGNATURE + ActionView::Base.full_sanitizer.sanitize( msg.part_html )
                   - new_ctx[:cc] = all_ccs.join(', ')
+
                   = render 'ish_manager/email_contexts/form', ctx: new_ctx
 
 

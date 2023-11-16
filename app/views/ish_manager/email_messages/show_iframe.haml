@@ -1,6 +1,2 @@
 
-.email-messages-show-iframe
-
-  .body
-    = raw @email_message.part_html
-
+= render 'ish_manager/email_messages/show_iframe', email_message: @email_message
