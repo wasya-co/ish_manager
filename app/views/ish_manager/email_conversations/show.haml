@@ -12,7 +12,7 @@
           - if new_from_email.blank?
             - new_from_email = Ish::EmailTemplate::DEFAULT_FROM_EMAIL
 
-          - all_ccs = (msg.tos||[]) + (msg.ccs||[]) + (msg.froms||[])
+          - all_ccs = [] + (msg.tos||[]) + (msg.ccs||[]) + (msg.froms||[])
 
           .item.msg-container{ data: { msg: { id: msg.id } } }
             .gray.row
