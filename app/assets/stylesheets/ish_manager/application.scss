@@ -249,6 +249,11 @@ table.dataTable {
   box-sizing: border-box;
   background: white;
 
+  thread {
+    th {
+      padding: 8px 10px;
+    }
+  }
 }
 
 .datetime {

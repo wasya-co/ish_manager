@@ -39,10 +39,10 @@
     }
   }
 
-  // refers to number of messages in a conversation
+  /* refers to number of messages in a conversation */
   .count {
-    display: inline;
-    width: 30px;
+    // display: inline;
+    // width: 30px;
     text-align: right;
   }
 
@@ -83,17 +83,20 @@
     }
   }
 
-  .select-all.chip {
+  .select-all {
+    // border: 1px solid red;
+
     display: flex;
-    border: 1px solid cyan;
+
+    padding: 8px 10px;
   }
 
   .subject {
     margin: 0 1em;
-    font-weight: bold;
+    text-overflow: ellipsis;
 
-    &:before {
-      content: "Subj: ";
+    a {
+      font-weight: bold;
     }
   }
 

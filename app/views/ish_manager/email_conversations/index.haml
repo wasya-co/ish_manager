@@ -73,11 +73,11 @@
   %table.conversations.bordered.data-table
     %thead
       %tr
-        %th
-          .chip.select-all
-            = check_box_tag :select_all
-            .n-selected -
-        %th Msgs
+        %th.select-all.nosort
+          = check_box_tag :select_all
+          .n-selected -
+        %th.nosort
+          -#  N Msgs
         %th From emails
         %th Subject
         %th Datetime
@@ -95,6 +95,7 @@
 
           %td.subject
             = link_to conv.subject, email_conversation_path( conv )
+            = conv.preview
 
           %td
             .datetime

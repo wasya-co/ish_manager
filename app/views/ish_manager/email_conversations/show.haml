@@ -12,8 +12,6 @@
           - if new_from_email.blank?
             - new_from_email = Ish::EmailTemplate::DEFAULT_FROM_EMAIL
 
-          - all_ccs = [] + (msg.tos||[]) + (msg.ccs||[]) + (msg.froms||[])
-
           .item.msg-container{ data: { msg: { id: msg.id } } }
             .gray.row
               .col-md-6
@@ -31,10 +29,10 @@
                   - msg.email_attachments.each_with_index do |attachment, idx|
                     - if attachment.filename
                       .a= link_to attachment.filename, email_attachment_path( attachment )
-                    - else
-                      .a
-                        = link_to '[view]', email_attachment_path( attachment )
-                        "#{attachment.content_type.split(';')[0]} #{attachment.filename} #{idx}"
+                    -# - else
+                    -#   .a
+                    -#     = link_to '[view]', email_attachment_path( attachment )
+                    -#     "#{attachment.content_type.split(';')[0]} #{attachment.filename} #{idx}"
 
 
               .position-absolute.top-0.right-0.datetime
@@ -67,8 +65,8 @@
                   - new_ctx[:lead_id] = lead.id
                   - new_ctx[:from_email] = new_from_email
                   - new_ctx[:subject] = msg.subject
-                  - new_ctx[:body] = Ish::EmailTemplate::SIGNATURE + ActionView::Base.full_sanitizer.sanitize( msg.part_html )
-                  - new_ctx[:cc] = all_ccs.join(', ')
+                  - new_ctx[:body] = Ish::EmailTemplate::SIGNATURE + msg.body_sanitized
+                  - new_ctx[:cc] = msg.all_ccs.join(', ')
 
                   = render 'ish_manager/email_contexts/form', ctx: new_ctx
 

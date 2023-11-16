@@ -144,13 +144,13 @@ $(function () {
       lengthChange: true,
       lengthMenu: [[10, 25, 100, -1], [10, 25, 100, 'All']],
       pageLength: -1,
+      aoColumnDefs: [ {
+        bSortable: false,
+        aTargets: [ "nosort" ],
+      } ],
+      order: [ 4, 'desc' ],
     }
-    // $('#dataTable').DataTable(_props)
-    var dataTable = $('.data-table').DataTable(_props)
-
-    $('#dataTableSearch').on( 'keyup', function () {
-      dataTable.search( this.value ).draw();
-  } );
+    $('.data-table').DataTable(_props)
   }
 
   if ('function' === typeof $('body').datepicker) {
