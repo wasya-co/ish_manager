@@ -33,6 +33,10 @@
                     -#   .a
                     -#     = link_to '[view]', email_attachment_path( attachment )
                     -#     "#{attachment.content_type.split(';')[0]} #{attachment.filename} #{idx}"
+                .a
+                  <b>N asset3d s:</b>
+                  - msg.asset3ds.each do |asset|
+                    .a= link_to asset.object_file_name, asset.object.url
 
 
               .position-absolute.top-0.right-0.datetime
