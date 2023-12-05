@@ -14,12 +14,11 @@
  *= require ish_manager/email_templates
  *= require ish_manager/email
  *= require ish_manager/galleries
- *= require ish_manager/iro
- *= require ish_manager/iro1
  *= require ish_manager/leads
  *= require ish_manager/leadsets
  *= require ish_manager/leadsets
  *= require ish_manager/maps
+ *= require ish_manager/main_header
  *= require ish_manager/markers
  *= require ish_manager/office
  *= require ish_manager/pagination
@@ -387,50 +386,6 @@ textarea.large {
 
 /* M */
 
-
-.main-header {
-  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192823/weather-bg.png');
-  border-bottom: 2px solid red;
-  margin-bottom: 1em;
-
-  a:not(.chip),
-  span.label {
-    background: white;
-    padding: .2em;
-  }
-
-  hr {
-    margin-top: 0;
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-
-    li {
-      margin: 0 10px 10px 0;
-      display: inline-block;
-      min-width: 220px;
-
-      > div { /* for example .galleries--menu */
-        display: inline-block;
-      }
-    }
-  }
-
-
-}
-@media only screen and (max-width: 400px) {
-  .main-header ul li {
-    min-width: 45vw;
-  }
-}
-
-.main-header.development {
-  background: url('//d15g8hc4183yn4.cloudfront.net/wp-content/uploads/2022/10/05192822/weather-bg-development.png');
-}
 
 #mainW {
   // border: 1px solid red;
