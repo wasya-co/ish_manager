@@ -14,7 +14,9 @@ class IshManager::LeadsetMailer < IshManager::ApplicationMailer
     IO.copy_stream( download, path )
     attachments[@invoice.filename] = File.read( path )
 
-    mail( to:      @leadset.email,
+    mail( from:    'victor@wasya.co',
+          to:      @leadset.email,
+          cc:      'poxlovi@gmail.com',
           subject: "WasyaCo invoice for #{@invoice.month_on.strftime('%B')}",
         )
   end

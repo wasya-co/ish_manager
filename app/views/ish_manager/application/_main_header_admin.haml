@@ -127,27 +127,23 @@
           = link_to '[+]', new_wco_subscription_path
         %li
           = link_to 'Wco::Leadset\'s', wco_leadsets_path
-
-
     .c
 
-
-
-    -# %i.fa.fa-compress.collapse-expand#collapseHeaderIro Iro Wor
-    -# .a
-    -#   %ul
-    -#     %li
-    -#       = link_to 'Alerts', iro_alerts_path
-    -#       = link_to 'Watchers', iro_watchers_path
-    -#     %li
-    -#       = link_to 'Plots', 'http://localhost:3000/iron_warbler/NOPE-1', target: '_blank'
-    -#     %li
-    -#       = link_to 'Purses', iro_purses_path
-    -#       - Iro::Purse.all.map do |p|
-    -#         = "[#{p.id}"
-    -#         = link_to "show", iro_purse_path(p)
-    -#         = link_to "gui", iro_purse_path({ id: p.id, kind: 'show_gameui' })
-    -#         = "]"
-    -#       = link_to '[+]', new_iro_purse_path
-    -# .c
+    %i.fa.fa-compress.collapse-expand#collapseHeaderIro Iro Wor
+    .a
+      %ul
+        %li
+          = link_to 'Alerts', iro_alerts_path
+          -# = link_to 'Watches', iro_watches_path
+        %li
+          = link_to 'Plots', 'http://localhost:3000/iron_warbler/NOPE-1', target: '_blank'
+        %li
+          = link_to 'Purses', iro_purses_path
+          - Iro::Purse.all.map do |p|
+            = "[#{p.id}"
+            = link_to "show", iro_purse_path(p)
+            = link_to "gui", iro_purse_path({ id: p.id, kind: 'show_gameui' })
+            = "]"
+          = link_to '[+]', new_iro_purse_path
+    .c
 

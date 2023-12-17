@@ -1,0 +1,30 @@
+
+- url = alert.new_record? ? iro_alerts_path : iro_alert_path( alert )
+.iro-alerts--form
+  - if !alert.new_record?
+    = button_to '[x]', iro_alert_path( alert ), method: :delete, data: { confirm: 'Are you sure?' }
+  = form_for alert, url: url, as: :iro_alert do |f|
+    .flex-row
+      .form-group.w-100px
+        - if alert.new_record?
+          %h5 New
+        - else
+          = f.select :state, options_for_select( Iro::Alert.states_list, selected: alert.state )
+      .form-group
+        -# = f.label :action
+        = f.select :action, options_for_select( Iro::Alert.actions_list, :selected => alert.action )
+      .form-group
+        -# = f.label :profile
+        = f.select :profile, options_for_select( Ish::UserProfile.list, selected: alert.profile_id ), {}, class: 'select2'
+      .form-group
+        %label.control-label When
+        = f.select :kind, options_for_select( Iro::Alert.kinds_list, selected: alert.kind )
+        = f.text_field :ticker, :placeholder => 'ticker'
+      .form-group
+        %label.control-label is
+        = f.select :direction, options_for_select( Iro::Alert.directions_list, selected: alert.direction )
+      .form-group
+        %label.control-label $
+        = f.number_field :mark, :step => 0.01, :placeholder => "0.01"
+      .form-group
+        = f.submit ">", :class => %w(btn blue)

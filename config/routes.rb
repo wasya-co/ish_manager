@@ -42,6 +42,18 @@ IshManager::Engine.routes.draw do
   resources :invoices
 
 
+  resources :iro_alerts
+  get 'iro_positins/roll_prep/:id', to: 'iro_purses#roll_prep', as: :iro_roll_prep
+  resources :iro_positions
+  get 'iro/max_pain/:ticker/on/:date', to: 'iro_option_gets#max_pain', as: :max_pain
+  resources :iro_option_gets
+  patch 'iro_purses/:id/show', to: 'iro_purses#update'
+  get 'iro_purses/:id/edit',   to: 'iro_purses#edit', as: :edit_iro_purse
+  get 'iro_purses/:id/:kind',  to: 'iro_purses#show', as: :iro_purse, defaults: { kind: 'show' } # kind: show_gameui
+  resources :iro_purses
+  resources :iro_strategies
+  resources :iro_watches
+
 
 
 
